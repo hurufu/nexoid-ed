@@ -17,7 +17,7 @@ NOT_DEP      := clean asm pp
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 .PHONY: all clean asm pp run index
-all: $(EXECUTABLE)
+all: $(EXECUTABLE) index
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 run: $(EXECUTABLE)
@@ -31,6 +31,9 @@ clean:
 
 $(EXECUTABLE): $(OBJECTS)
 	$(LINK.o) -o $@ $^
+
+# Workaround
+main.d: main.c | $(DRAKON_HFILES)
 
 .PRECIOUS: %.c %.h
 %.c %.h: %.drn

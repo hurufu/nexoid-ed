@@ -12,8 +12,10 @@ OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
 
 CSCOPE_REF   := cscope.out
+CSCOPE       := cscope
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),clang-format,@true)
 RM           := $(if $(VERBOSE),rm -v,rm)
+OBJCOPY      := objcopy
 
 NOT_DEP      := clean asm pp
 
@@ -28,13 +30,15 @@ index: $(CSCOPE_REF)
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
-	cscope -f$@ -b $^
-clean: F := $(wildcard $(EXECUTABLE) $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.d)
+	$(CSCOPE) -f$@ -b $^
+clean: F := $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.d)
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 
-$(EXECUTABLE): $(OBJECTS)
+$(EXECUTABLE).fat: $(OBJECTS)
 	$(LINK.o) -o $@ $^
+$(EXECUTABLE): $(EXECUTABLE).fat
+	$(OBJCOPY) --strip-unneeded --add-gnu-debuglink=$(<D)/$< $< $@
 
 # Workaround
 main.d: main.c | $(DRAKON_HFILES)

@@ -14,7 +14,6 @@ DEPENDS      := $(SOURCES:.c=.d)
 CSCOPE_REF   := cscope.out
 
 NOT_DEP      := clean asm pp
-include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 .PHONY: all clean asm pp run index
 all: $(EXECUTABLE) index
@@ -23,6 +22,9 @@ pp: $(SOURCES:.c=.i)
 run: $(EXECUTABLE)
 	./$<
 index: $(CSCOPE_REF)
+
+include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
+
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	cscope -f$@ -b $^
 clean: F := $(wildcard $(EXECUTABLE) $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.d)

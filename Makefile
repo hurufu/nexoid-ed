@@ -1,4 +1,5 @@
 EXECUTABLE   := main
+CFLAGS       := -Wall -Wextra
 
 DRAKON_FILES := $(wildcard *.drn)
 DRAKON_PATH  := /cygdrive/c/opt/drakon_editor1.31

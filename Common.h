@@ -9,6 +9,7 @@ enum FunctionResult {
   , FUNRES_REFERENCE_ENTRY
   , FUNRES_ACCEPT
   , FUNRES_NOT_FOUND
+  , FUNRES_NOT_SUPPORTED
 };
 
 enum TransactionResult {
@@ -44,3 +45,12 @@ struct SearchLogCriteria {
     }* selectedService;
     enum TransactionResult tRes;
 };
+
+struct small_string {
+    char hex[sizeof(int)];
+};
+
+const char* FunctionResult_tostring(enum FunctionResult f);
+const char* TransactionResult_tostring(enum TransactionResult);
+struct small_string TerminalSettings_tostring(union TerminalSetings);
+struct small_string ServiceStartEvent_tostring(union ServiceStartEvent);

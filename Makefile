@@ -4,6 +4,7 @@ DRAKON_FILES := PaymentCompletion.drn
 DRAKON_PATH  := /cygdrive/c/opt/drakon_editor1.31
 DRAKON_GEN   := $(DRAKON_PATH)/drakon_gen.tcl
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
+DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
 SOURCES      := main.c $(DRAKON_CFILES)
 OBJECTS      := $(SOURCES:.c=.o)
@@ -18,7 +19,7 @@ asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 run: $(EXECUTABLE)
 	./$<
-clean: F := $(wildcard $(EXECUTABLE) $(DRAKON_CFILES) *.o *.s *.i *.d)
+clean: F := $(wildcard $(EXECUTABLE) $(DRAKON_CFILES) $(DRAKON_HFILES) *.o *.s *.i *.d)
 clean:
 	-$(if $(strip $F),rm -v -- $F,)
 

@@ -12,6 +12,7 @@ OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
 
 CSCOPE_REF   := cscope.out
+CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),clang-format,@true)
 
 NOT_DEP      := clean asm pp
 
@@ -40,6 +41,7 @@ main.d: main.c | $(DRAKON_HFILES)
 .PRECIOUS: %.c %.h
 %.c %.h: %.drn
 	$(DRAKON_GEN) -in $< -ext c
+	$(CLANG_FORMAT) -i $*.c $*.h
 %.d: %.c
 	$(CC) -MM -MF $@ $(CFLAGS) -o $@ $<
 %.s: %.c

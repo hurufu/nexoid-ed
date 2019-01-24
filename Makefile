@@ -1,6 +1,6 @@
 EXECUTABLE   := main
 
-DRAKON_FILES := PaymentCompletion.drn
+DRAKON_FILES := $(wildcard *.drn)
 DRAKON_PATH  := /cygdrive/c/opt/drakon_editor1.31
 DRAKON_GEN   := $(DRAKON_PATH)/drakon_gen.tcl
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
@@ -13,6 +13,7 @@ DEPENDS      := $(SOURCES:.c=.d)
 
 CSCOPE_REF   := cscope.out
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),clang-format,@true)
+RM           := $(if $(VERBOSE),rm -v,rm)
 
 NOT_DEP      := clean asm pp
 
@@ -30,7 +31,7 @@ $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	cscope -f$@ -b $^
 clean: F := $(wildcard $(EXECUTABLE) $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.d)
 clean:
-	-$(if $(strip $F),rm -v -- $F,)
+	-$(if $(strip $F),$(RM) -- $F,)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(LINK.o) -o $@ $^

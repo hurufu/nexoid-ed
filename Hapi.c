@@ -2,6 +2,6 @@
 #include <stdio.h>
 
 enum HapResult HAPI_searchTransaction(void) {
-    printf("%s is not implemented\n", __func__);
-    return HAP_NOK;
+    printf("%s mock\n", __func__);
+    return HAP_OK;
 }

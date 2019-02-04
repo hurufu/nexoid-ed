@@ -1,5 +1,5 @@
 EXECUTABLE   := main
-CFLAGS       := -Wall -Wextra
+CFLAGS       := -Wall -Wextra -ggdb3
 
 DRAKON_FILES := $(wildcard *.drn)
 DRAKON_PATH  := /cygdrive/c/opt/drakon_editor1.31
@@ -48,6 +48,7 @@ main.d: main.c | $(DRAKON_HFILES)
 %.c %.h: %.drn
 	$(DRAKON_GEN) -in $< -ext c
 	$(CLANG_FORMAT) -i $*.c $*.h
+	chmod a-w $*.c $*.h
 %.d: %.c
 	$(CC) -MM -MF $@ $(CFLAGS) -o $@ $<
 %.s: %.c

@@ -20,6 +20,7 @@ TransactionResult_tostring(const enum TransactionResult t) {
     switch (t) {
         case TRANRES_NOT_SUPPORTED: return "TRANRES_NOT_SUPPORTED";
         case TRANRES_ABORTED: return "TRANRES_ABORTED";
+        case TRANRES_APPROVED: return "TRANRES_APPROVED";
     }
     return NULL;
 }
@@ -32,11 +33,11 @@ byte_tostring(const unsigned char b) {
 }
 
 struct small_string
-TerminalSettings_tostring(const union TerminalSetings t) {
+TerminalSettings_tostring(const union TerminalSettings t) {
     return byte_tostring(t.raw[0]);
 }
 
 struct small_string
-ServiceStartEvent_tostring(const union ServiceStartEvent s) {
+ServiceStartEvent_tostring(const union ServiceStartEvents s) {
     return byte_tostring(s.raw[0]);
 }

@@ -108,3 +108,4 @@ const char* FunctionResult_tostring(enum FunctionResult f);
 const char* TransactionResult_tostring(enum TransactionResult);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
+void ctd_print(const struct Ctd*);

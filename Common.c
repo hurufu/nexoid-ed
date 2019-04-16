@@ -31,6 +31,14 @@ TransactionResult_tostring(const enum TransactionResult t) {
     return NULL;
 }
 
+const char*
+NokReason_tostring(const enum NokReason n) {
+    switch (n) {
+        case N_NOT_IMPLEMENTED: return "N_NOT_IMPLEMENTED";
+    }
+    return NULL;
+}
+
 static struct small_string
 byte_tostring(const unsigned char b) {
     struct small_string ret;
@@ -46,4 +54,14 @@ TerminalSettings_tostring(const union TerminalSettings t) {
 struct small_string
 ServiceStartEvent_tostring(const union ServiceStartEvents s) {
     return byte_tostring(s.raw[0]);
+}
+
+void ctd_print(const struct Ctd* const ctd) {
+    printf("CTD: "
+           "{ Result: %s"
+           ", NokReason: %s"
+           " }\n",
+        TransactionResult_tostring(ctd->Result),
+        NokReason_tostring(ctd->NokReason)
+    );
 }

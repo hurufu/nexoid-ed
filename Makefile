@@ -1,5 +1,7 @@
 EXECUTABLE   := main
-CFLAGS       := -std=c11 -O3 -Wall -Wextra -ggdb3
+OL           := 3
+DL           := gdb3
+CFLAGS       := -std=c11 -O$(OL) -Wall -Wextra -g$(DL)
 
 DRAKON_FILES := $(wildcard *.drn)
 DRAKON_PATH  := /cygdrive/c/opt/Drakon\ Editor/1.31

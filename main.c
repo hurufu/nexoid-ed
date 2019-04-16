@@ -15,6 +15,8 @@ static struct Ctd s_ctd = {
 int main() {
     tg_ctd = &s_ctd;
     Card_Validity_Check();
+    ctd_print(tg_ctd);
+    tg_ctd = NULL;
 
     return 0;
 }

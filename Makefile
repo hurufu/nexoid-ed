@@ -1,8 +1,8 @@
 EXECUTABLE   := main
-CFLAGS       := -Wall -Wextra -ggdb3
+CFLAGS       := -std=c11 -O3 -Wall -Wextra -ggdb3
 
 DRAKON_FILES := $(wildcard *.drn)
-DRAKON_PATH  := /cygdrive/c/opt/drakon_editor1.31
+DRAKON_PATH  := /cygdrive/c/opt/Drakon\ Editor/1.31
 DRAKON_GEN   := $(DRAKON_PATH)/drakon_gen.tcl
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
@@ -15,7 +15,7 @@ DEPENDS      := $(SOURCES:.c=.d)
 CSCOPE_REF   := cscope.out
 CSCOPE       := cscope
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),clang-format,@true)
-RM           := $(if $(VERBOSE),rm -v,rm)
+RM           := $(if $(VERBOSE),rm -vf,rm -f)
 OBJCOPY      := objcopy
 
 NOT_DEP      := clean asm pp
@@ -46,7 +46,7 @@ main.d: main.c | $(DRAKON_HFILES)
 
 .PRECIOUS: %.c %.h
 %.c %.h: %.drn
-	$(DRAKON_GEN) -in $< -ext c
+	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h
 	chmod a-w $*.c $*.h
 %.d: %.c
@@ -55,3 +55,6 @@ main.d: main.c | $(DRAKON_HFILES)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -S -o $@ $<
 %.i: %.c
 	$(CC) $(CPPFLAGS) -E -o $@ $<
+
+.syntastic_c_config: Makefile
+	echo $(CFLAGS) | tr ' ' '\n' > $@

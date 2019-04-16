@@ -2,15 +2,20 @@
 #include "utils.h"
 #include <stdio.h>
 
+_Thread_local struct Ctd* tg_ctd;
+
 const char*
 FunctionResult_tostring(const enum FunctionResult f) {
     switch (f) {
-        case FUNRES_NOK: return "FUNRES_NOK";
-        case FUNRES_OK: return "FUNRES_OK";
-        case FUNRES_REFERENCE_ENTRY: return "FUNRES_REFERENCE_ENTRY";
-        case FUNRES_ACCEPT: return "FUNRES_ACCEPT";
-        case FUNRES_NOT_FOUND: return "FUNRES_NOT_FOUND";
-        case FUNRES_NOT_SUPPORTED: return "FUNRES_NOT_SUPPORTED";
+        case R_END_APPLICATION: return "R_END_APPLICATION";
+        case R_TAP_AGAIN: return "R_TAP_AGAIN";
+        case R_NOK: return "F_NOK";
+        case R_OK: return "F_OK";
+        case R_REFERENCE_ENTRY: return "F_REFERENCE_ENTRY";
+        case R_ACCEPT: return "F_ACCEPT";
+        case R_NOT_FOUND: return "F_NOT_FOUND";
+        case R_NOT_SUPPORTED: return "F_NOT_SUPPORTED";
+        case R_NON_EMV: return "R_NON_EMV";
     }
     return NULL;
 }
@@ -18,9 +23,10 @@ FunctionResult_tostring(const enum FunctionResult f) {
 const char*
 TransactionResult_tostring(const enum TransactionResult t) {
     switch (t) {
-        case TRANRES_NOT_SUPPORTED: return "TRANRES_NOT_SUPPORTED";
-        case TRANRES_ABORTED: return "TRANRES_ABORTED";
-        case TRANRES_APPROVED: return "TRANRES_APPROVED";
+        case T_NONE: return "T_NONE";
+        case T_NOT_SUPPORTED: return "T_NOT_SUPPORTED";
+        case T_ABORTED: return "T_ABORTED";
+        case T_APPROVED: return "T_APPROVED";
     }
     return NULL;
 }

@@ -2,7 +2,7 @@
 #include "utils.h"
 #include <stdio.h>
 
-_Thread_local struct Ctd* tg_ctd;
+struct Ctd* tg_ctd;
 
 const char*
 FunctionResult_tostring(const enum FunctionResult f) {
@@ -61,7 +61,7 @@ void ctd_print(const struct Ctd* const ctd) {
            "{ Result: %s"
            ", NokReason: %s"
            " }\n",
-        TransactionResult_tostring(ctd->Result),
+        FunctionResult_tostring(ctd->Result),
         NokReason_tostring(ctd->NokReason)
     );
 }

@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
 enum FunctionResult {
     R_OK
@@ -20,6 +21,7 @@ enum ServiceId {
   , S_PAYMENT = 0x01
   , S_REFUND = 0x02
   , S_CARD_VALIDITY_CHECK = 0x12
+  , S_NO_SHOW = 0x13
 } __attribute__((__packed__));
 
 enum NokReason {
@@ -54,7 +56,7 @@ struct Out {
 };
 
 union TerminalSettings {
-    unsigned char raw[1];
+    unsigned char raw[5];
     struct {
         unsigned char : 7;
         unsigned char retrievePreauth : 1;
@@ -62,10 +64,23 @@ union TerminalSettings {
 };
 
 union ServiceStartEvents {
-    unsigned char raw[1];
+    uint8_t raw[1];
     struct {
-        unsigned char : 7;
-        unsigned char referenceEntry : 1;
+        uint8_t cardInserted : 1;
+        uint8_t cardSwiped : 1;
+        uint8_t amountEntry : 1;
+        uint8_t manualEntry : 1;
+        uint8_t referenceEntry : 1;
+        uint8_t accept : 1;
+        uint8_t cardholderDetect : 1;
+        uint8_t /* RFU */ : 1;
+    };
+};
+
+union ServiceSettings {
+    uint8_t raw[2];
+    struct {
+        uint8_t isContactChipPrioritized : 1;
     };
 };
 
@@ -83,26 +98,30 @@ struct small_string {
     char hex[sizeof(int)];
 };
 
+struct Amount {
+    unsigned char bcd[6];
+};
+
 struct Ctd {
-    const unsigned char (* const CvcDefaultAmount)[6];
+    const struct Amount* const CvcDefaultAmount;
     const int KernelId;
-    const enum Outcome Outcome;
-    const struct Out Out;
-    const unsigned char (* TransactionAmount)[6];
+    enum Outcome Outcome;
+    struct Out Out;
+    struct Amount TransactionAmount;
     enum TransactionResult TransactionResult;
-    const enum TransactionType TransactionType;
+    enum TransactionType TransactionType;
 
     enum FunctionResult Result;
 
     enum NokReason NokReason;
-    const unsigned char* const ServiceSettings;
-    const unsigned char* const ServiceStartEvents;
+    const union ServiceSettings ServiceSettings;
+    const union ServiceStartEvents ServiceStartEvents;
     bool TransactionAmountEntered;
 
     const enum ServiceId SelectedService;
 };
 
-extern _Thread_local struct Ctd* tg_ctd;
+extern struct Ctd* tg_ctd;
 
 const char* FunctionResult_tostring(enum FunctionResult f);
 const char* TransactionResult_tostring(enum TransactionResult);

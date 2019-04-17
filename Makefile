@@ -32,7 +32,8 @@ pp: $(SOURCES:.c=.i)
 run: $(EXECUTABLE)
 	./$<
 index: $(CSCOPE_REF)
-update: $(DRAKON_SQL)
+update: $(DRAKON_FILES)
+	sqlite3 -batch $< '.dump' >$(DRAKON_SQL)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
@@ -62,9 +63,6 @@ main.d: main.c | $(DRAKON_HFILES)
 	$(CC) $(CPPFLAGS) -E -o $@ $<
 %.drn: %.sql
 	sqlite3 -batch $@ <$<
-	chmod a-x $@
-%.sql: %.drn
-	sqlite3 -batch $< '.dump' >$@
 	chmod a-x $@
 
 .syntastic_c_config: Makefile

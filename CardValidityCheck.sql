@@ -34,7 +34,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,'',replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>','\n',char(10)));
+INSERT INTO state VALUES(1,17,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -159,15 +159,15 @@ INSERT INTO items VALUES(524,7,'horizontal','',0,170,500,430,0,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(525,17,'beginend','Card_Validity_Check',0,270,320,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(526,17,'beginend','End',0,4770,640,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(527,17,'vertical','',0,270,320,0,850,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(528,17,'vertical','',0,710,390,0,780,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(528,17,'vertical','',0,700,390,0,780,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(529,17,'vertical','',0,4770,390,0,250,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(530,17,'horizontal','',0,270,390,4500,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(531,17,'arrow','',0,110,390,160,780,4410,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(532,17,'branch','(A) Pre-Processing',0,270,440,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(533,17,'address',replace('(B) Tech\nSelection','\n',char(10)),0,270,1090,110,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(534,17,'branch',replace('(B) Tech\nSelection','\n',char(10)),0,710,450,110,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(534,17,'branch',replace('(B) Tech\nSelection','\n',char(10)),0,700,450,110,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(535,17,'branch','(I) Completion',0,4770,440,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(536,17,'address',replace('(G) Non EMV\nchip based\nprocessing','\n',char(10)),0,710,1090,110,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(536,17,'address',replace('(G) Non EMV\nchip based\nprocessing','\n',char(10)),0,700,1090,110,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(537,17,'horizontal','',0,270,320,270,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(538,17,'action','public',0,560,320,50,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(539,17,'branch',replace('(C) App Profile\nselection','\n',char(10)),0,1310,450,110,40,60,0,NULL,'',NULL,'');
@@ -183,7 +183,7 @@ INSERT INTO items VALUES(548,17,'insertion','Pre_Processing();',0,270,900,110,20
 INSERT INTO items VALUES(549,17,'if','tg_ctd->Result == R_OK',0,270,980,110,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(550,17,'vertical','',0,460,980,0,190,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(551,17,'address','(H) FAIL',0,460,1100,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(552,17,'insertion','Technology_Selection();',0,710,800,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(552,17,'insertion','Technology_Selection();',0,700,800,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(553,17,'insertion','Profile_Selection();',0,1310,650,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(554,17,'select','tg_ctd->Result',0,1310,740,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(555,17,'horizontal','',0,1310,780,660,0,0,0,NULL,'',NULL,'');
@@ -196,9 +196,9 @@ INSERT INTO items VALUES(561,17,'case','',0,1970,820,70,20,60,0,NULL,'',NULL,'')
 INSERT INTO items VALUES(562,17,'address',replace('(C) App Profile\nselection','\n',char(10)),0,1060,1090,70,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(563,17,'address','(H) FAIL',0,910,1100,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(564,17,'vertical','',0,1970,780,0,390,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(565,17,'select','tg_ctd->Result',0,710,880,110,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(566,17,'horizontal','',0,710,930,350,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(567,17,'case','R_NON_EMV',0,710,970,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(565,17,'select','tg_ctd->Result',0,700,880,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(566,17,'horizontal','',0,700,930,360,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(567,17,'case','R_NON_EMV',0,700,970,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(568,17,'case','R_NOK',0,910,970,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(569,17,'case','',0,1060,970,70,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(570,17,'vertical','',0,910,930,0,240,0,0,NULL,'',NULL,'');

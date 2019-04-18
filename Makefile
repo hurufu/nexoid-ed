@@ -3,7 +3,7 @@ OL           := 3
 DL           := gdb3
 CFLAGS       := -std=c11 -O$(OL) -Wall -Wextra -g$(DL)
 
-DRAKON_SQL   := $(wildcard *.sql)
+DRAKON_SQL   := CardValidityCheck.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
 DRAKON_PATH  := /cygdrive/c/opt/Drakon\ Editor/1.31
 DRAKON_GEN   := $(DRAKON_PATH)/drakon_gen.tcl
@@ -39,7 +39,7 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -f$@ -b $^
-clean: F := $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) $(DRAKON_FILES) *.o *.s *.i *.d)
+clean: F := $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) $(DRAKON_FILES) *.o *.s *.i *.d *.csv)
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 
@@ -67,3 +67,8 @@ main.d: main.c | $(DRAKON_HFILES)
 
 .syntastic_c_config: Makefile
 	echo $(CFLAGS) | tr ' ' '\n' > $@
+
+.PHONY: csv
+csv: $(DRAKON_FILES:.drn=.csv)
+%.csv: %.drn SelectItemMsg.sql
+	sqlite3 -batch -csv $< <SelectItemMsg.sql >$@

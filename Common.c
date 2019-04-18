@@ -67,7 +67,3 @@ void ctd_print(const struct Ctd* const ctd) {
         NokReason_tostring(ctd->NokReason)
     );
 }
-
-bool isIssuerCountryExcludedForDcc(void) {
-    return false;
-}

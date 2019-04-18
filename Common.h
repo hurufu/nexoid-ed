@@ -158,4 +158,7 @@ const char* TransactionResult_tostring(enum TransactionResult);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
 void ctd_print(const struct Ctd*);
-bool isIssuerCountryExcludedForDcc(void);
+
+static inline bool isIssuerCountryExcludedForDcc(void) {
+    return false;
+}

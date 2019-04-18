@@ -16,6 +16,8 @@ FunctionResult_tostring(const enum FunctionResult f) {
         case R_NOT_FOUND: return "F_NOT_FOUND";
         case R_NOT_SUPPORTED: return "F_NOT_SUPPORTED";
         case R_NON_EMV: return "R_NON_EMV";
+        case R_MATCH: return "R_MATCH";
+        case R_NO_MATCH: return "R_NO_MATCH";
     }
     return NULL;
 }
@@ -64,4 +66,8 @@ void ctd_print(const struct Ctd* const ctd) {
         FunctionResult_tostring(ctd->Result),
         NokReason_tostring(ctd->NokReason)
     );
+}
+
+bool isIssuerCountryExcludedForDcc(void) {
+    return false;
 }

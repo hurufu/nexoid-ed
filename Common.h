@@ -14,6 +14,8 @@ enum FunctionResult {
   , R_ACCEPT
   , R_NOT_FOUND
   , R_NOT_SUPPORTED
+  , R_MATCH
+  , R_NO_MATCH
 };
 
 enum ServiceId {
@@ -84,6 +86,13 @@ union ServiceSettings {
     };
 };
 
+union ApplicationProfileSettings {
+    uint8_t raw[0];
+    struct {
+        uint8_t isDccAcceptorModeAllowed : 1;
+    };
+};
+
 struct SearchLogCriteria {
     bool closed;
     char* referenceData;
@@ -102,6 +111,18 @@ struct Amount {
     unsigned char bcd[6];
 };
 
+union Country {
+    uint16_t Code;
+    char Str[3];
+};
+
+union Currency {
+    struct {
+        uint32_t Code : 3 * 8;
+    };
+    char Str[4];
+};
+
 struct Ctd {
     const struct Amount* const CvcDefaultAmount;
     const int KernelId;
@@ -114,11 +135,20 @@ struct Ctd {
     enum FunctionResult Result;
 
     enum NokReason NokReason;
+    bool TransactionAmountEntered;
+    const enum ServiceId SelectedService;
+    union Currency TransactionCurrency;
+
+    // CONF
     const union ServiceSettings ServiceSettings;
     const union ServiceStartEvents ServiceStartEvents;
-    bool TransactionAmountEntered;
+    const union ApplicationProfileSettings ApplicationProfileSettings;
+    const union Currency* ApplicationCurrency;
+    const union Country* IssuerCountry;
 
-    const enum ServiceId SelectedService;
+    // DCC
+    bool isDccEligible;
+    bool DccPerformedOnce;
 };
 
 extern struct Ctd* tg_ctd;
@@ -128,3 +158,4 @@ const char* TransactionResult_tostring(enum TransactionResult);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
 void ctd_print(const struct Ctd*);
+bool isIssuerCountryExcludedForDcc(void);

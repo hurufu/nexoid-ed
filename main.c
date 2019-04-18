@@ -1,6 +1,7 @@
 #include "CardValidityCheck.h"
 #include "Common.h"
 #include <stdio.h>
+#include <string.h>
 
 static struct Ctd s_ctd = {
     .CvcDefaultAmount = &(const struct Amount){ .bcd = { 0x00, 0x00, 0x00, 0x00, 0x11, 0x00 } },
@@ -23,6 +24,7 @@ int main() {
     Card_Validity_Check();
     ctd_print(tg_ctd);
     tg_ctd = NULL;
+    memset(&s_ctd, 0, sizeof(s_ctd));
 
     return 0;
 }

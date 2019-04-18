@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','100 290','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1461 296','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','0 0','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','0 0','',75.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','0 -214','',75.0);
@@ -28,13 +28,15 @@ INSERT INTO diagrams VALUES(27,'Kernel_Processing','0 0','',75.0);
 INSERT INTO diagrams VALUES(28,'Outcome_Processing','0 0','',75.0);
 INSERT INTO diagrams VALUES(29,'Pre_Processing','-180 -125','',75.0);
 INSERT INTO diagrams VALUES(30,'Technology_Selection','0 0','',75.0);
+INSERT INTO diagrams VALUES(31,'Dcc_Processing','-168 -60','',75.0);
+INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-45 -40','',75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>','\n',char(10)));
+INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -259,6 +261,51 @@ INSERT INTO items VALUES(851,30,'address','branch 2',0,170,550,50,30,60,0,NULL,'
 INSERT INTO items VALUES(852,30,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(853,30,'branch','branch 3',0,660,170,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(854,30,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(855,31,'beginend','Dcc_Processing',0,170,60,70,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(856,31,'beginend','End',0,170,730,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(857,31,'vertical','',0,170,80,0,650,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(858,31,'shelf','true',0,170,140,170,40,40,0,NULL,'',NULL,'tg_ctd->DccPerformedOnce');
+INSERT INTO items VALUES(859,31,'insertion','Transaction_Dcc_Eligibility();',0,170,250,170,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(860,31,'if','tg_ctd->isDccEligible',0,170,320,170,20,50,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(861,31,'vertical','',0,390,320,0,360,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(862,31,'horizontal','',0,170,680,220,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(863,31,'output','HAP_Online_Request_to_Dcc_Provider();',0,170,410,170,40,40,0,NULL,'',NULL,'HAP');
+INSERT INTO items VALUES(864,31,'if','tg_ctd->isDccEligible',0,170,500,170,20,50,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(865,31,'output','SCAP_Cardholder_Confirmation();',0,170,610,170,40,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(866,32,'beginend','Transaction_Dcc_Eligibility',0,170,60,120,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(867,32,'beginend','End',0,1600,340,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(868,32,'vertical','',0,170,80,0,710,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(869,32,'vertical','',0,960,120,0,670,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(870,32,'vertical','',0,1390,120,0,670,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(871,32,'horizontal','',0,170,120,1430,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(872,32,'arrow','',0,-50,120,220,670,1440,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(873,32,'branch','Start',0,170,170,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(874,32,'address','End',0,170,730,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(875,32,'branch',replace('Request BIN List\nfor DCC checcking','\n',char(10)),0,960,180,80,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(876,32,'branch','Eligible',0,1390,170,100,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(877,32,'address','Eligible',0,960,730,80,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(878,32,'if',replace('tg_ctd->ApplicationProfileSettings\n	.isDccAcceptorModeAllowed','\n',char(10)),0,170,250,170,30,420,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(879,32,'vertical','',0,760,250,0,540,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(880,32,'address','End',0,760,730,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(881,32,'if','tg_ctd->ApplicationCurrency',0,170,330,170,20,180,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(882,32,'vertical','',0,520,330,0,460,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(883,32,'if',replace('tg_ctd->ApplicationCurrency->Code\n	==\ntg_ctd->TransactionCurrency.Code','\n',char(10)),0,520,390,170,30,70,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(884,32,'address',replace('Request BIN List\nfor DCC checcking','\n',char(10)),0,520,720,170,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(885,32,'if','tg_ctd->IssuerCountry',0,170,470,170,20,180,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(886,32,'if','isIssuerCountryExcludedForDcc()',0,170,550,170,20,180,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(887,32,'branch','End',0,1600,170,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(888,32,'address','End',0,1390,730,100,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(889,32,'vertical','',0,1600,120,0,230,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(890,32,'shelf','true',0,1390,270,100,40,40,0,NULL,'',NULL,'tg_ctd->isDccEligible');
+INSERT INTO items VALUES(891,32,'commentin',replace('Matching PAN in\nBIN List is not\nsupported','\n',char(10)),0,960,270,80,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(892,32,'select','tg_ctd->Result',0,960,540,80,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(893,32,'horizontal','',0,960,580,180,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(894,32,'case','R_NO_MATCH',0,960,620,80,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(895,32,'case','',0,1140,620,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(896,32,'vertical','',0,1140,580,0,210,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(897,32,'address','End',0,1140,730,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(898,18,'insertion','Dcc_Processing();',0,2220,570,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(899,18,'commentout','Non Standard',0,2430,560,60,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -297,6 +344,8 @@ INSERT INTO tree_nodes VALUES(44,34,'item','',30);
 INSERT INTO tree_nodes VALUES(45,0,'folder','08 Kernel E Processing',NULL);
 INSERT INTO tree_nodes VALUES(46,0,'folder','09 Kernel M Processing',NULL);
 INSERT INTO tree_nodes VALUES(47,0,'folder','11 Supporting Functions',NULL);
+INSERT INTO tree_nodes VALUES(48,30,'item','',31);
+INSERT INTO tree_nodes VALUES(49,30,'item','',32);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

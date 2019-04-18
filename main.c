@@ -11,10 +11,14 @@ static struct Ctd s_ctd = {
     .TransactionAmount = { .bcd = { 0x00, 0x00, 0x00, 0x00, 0x05, 0x00 } },
     .TransactionResult = T_NONE,
     .TransactionType = TT_UNKNOWN,
+    .TransactionCurrency = { .Str = "PLN" },
     .Result = R_NOK,
     .NokReason = N_NOT_IMPLEMENTED,
     .ServiceSettings = { .isContactChipPrioritized = 1 },
     .ServiceStartEvents = { .cardInserted = 1 },
+    .ApplicationProfileSettings = { .isDccAcceptorModeAllowed = 1 },
+    .ApplicationCurrency = &(union Currency){ .Str = "EUR" },
+    .IssuerCountry = &(union Country){ .Str = "pl" },
     .TransactionAmountEntered = false,
     .SelectedService = S_CARD_VALIDITY_CHECK
 };

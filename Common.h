@@ -147,7 +147,7 @@ struct Ctd {
     const union Country* IssuerCountry;
 
     // DCC
-    bool isDccEligible;
+    volatile bool isDccEligible;
     bool DccPerformedOnce;
 };
 

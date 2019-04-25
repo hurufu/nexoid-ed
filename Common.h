@@ -1,5 +1,6 @@
 #pragma once
 
+#include "utils.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -112,14 +113,17 @@ struct Amount {
 };
 
 union Country {
-    uint16_t Code;
+    enum {
+        Country_pl = MULTICHAR('p','l')
+    } Code;
     char Str[3];
 };
 
 union Currency {
-    struct {
-        uint32_t Code : 3 * 8;
-    };
+    enum {
+        Currency_EUR = MULTICHAR('E','U','R'),
+        Currency_PLN = MULTICHAR('P','L','N')
+    } Code;
     char Str[4];
 };
 

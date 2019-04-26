@@ -18,6 +18,7 @@ FunctionResult_tostring(const enum FunctionResult f) {
         case R_NON_EMV: return "R_NON_EMV";
         case R_MATCH: return "R_MATCH";
         case R_NO_MATCH: return "R_NO_MATCH";
+        case R_DONE: return "R_DONE";
     }
     return NULL;
 }
@@ -37,6 +38,9 @@ const char*
 NokReason_tostring(const enum NokReason n) {
     switch (n) {
         case N_NOT_IMPLEMENTED: return "N_NOT_IMPLEMENTED";
+        case N_ORIGINAL_TRX_NOT_FOUND: return "N_ORIGINAL_TRX_NOT_FOUND";
+        case N_TECHNNICAL_ERROR: return "N_TECHNNICAL_ERROR";
+        case N_MISSING_DATA: return "N_MISSING_DATA";
     }
     return NULL;
 }

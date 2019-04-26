@@ -17,6 +17,7 @@ enum FunctionResult {
   , R_NOT_SUPPORTED
   , R_MATCH
   , R_NO_MATCH
+  , R_DONE
 };
 
 enum ServiceId {
@@ -29,6 +30,9 @@ enum ServiceId {
 
 enum NokReason {
     N_NOT_IMPLEMENTED
+  , N_ORIGINAL_TRX_NOT_FOUND
+  , N_TECHNNICAL_ERROR
+  , N_MISSING_DATA
 };
 
 enum Outcome {
@@ -142,6 +146,7 @@ struct Ctd {
     bool TransactionAmountEntered;
     const enum ServiceId SelectedService;
     union Currency TransactionCurrency;
+    unsigned char (* PAN)[11];
 
     // CONF
     const union ServiceSettings ServiceSettings;
@@ -149,6 +154,7 @@ struct Ctd {
     const union ApplicationProfileSettings ApplicationProfileSettings;
     const union Currency* ApplicationCurrency;
     const union Country* IssuerCountry;
+    const union TerminalSettings TerminalSettings;
 
     // DCC
     volatile bool isDccEligible;

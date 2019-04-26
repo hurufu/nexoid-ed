@@ -15,7 +15,7 @@ void SearchReservationsByRefData(void) {
 
 void OnlineApprovalRequest(void) {
     puts(__func__);
-    tg_ctd->Result = R_NOK;
+    tg_ctd->Result = R_UNABLE_TO_GO_ONLINE;
 }
 
 void SearchReservationsByPan(void) {
@@ -30,7 +30,7 @@ void SCAP_Cardholder_Confirmation(void) {
 
 void SCAP_Search_Transaction_Result_List(void) {
     puts(__func__);
-    tg_ctd->Result = R_NOK;
+    tg_ctd->Result = R_DONE;
 }
 
 void SCAP_NoOriginalTransaction(void) {
@@ -40,7 +40,7 @@ void SCAP_NoOriginalTransaction(void) {
 
 void CopyDataFromSearchResultToCtd(void) {
     puts(__func__);
-    tg_ctd->Result = R_NOK;
+    tg_ctd->Result = R_OK;
 }
 
 void UpdatePreAuthAmountConfirmation(void) {
@@ -50,7 +50,7 @@ void UpdatePreAuthAmountConfirmation(void) {
 
 void UpdatePreAuthAmountEntry(void) {
     puts(__func__);
-    tg_ctd->Result = R_NOK;
+    tg_ctd->Result = R_DONE;
 }
 
 void SetUpdatePreAuthTotalAmount(void) {

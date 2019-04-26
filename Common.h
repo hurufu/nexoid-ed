@@ -18,6 +18,8 @@ enum FunctionResult {
   , R_MATCH
   , R_NO_MATCH
   , R_DONE
+  , R_ONLINE
+  , R_UNABLE_TO_GO_ONLINE
 };
 
 enum ServiceId {
@@ -53,6 +55,7 @@ enum TransactionResult {
   , T_ABORTED
   , T_NOT_SUPPORTED
   , T_APPROVED
+  , T_DECLINED
 };
 
 enum TransactionType {
@@ -140,6 +143,10 @@ union Currency {
     char Str[4];
 };
 
+struct AuthorisationResponseCode {
+    uint8_t v[2];
+};
+
 struct Ctd {
     const struct Amount* const CvcDefaultAmount;
     const int KernelId;
@@ -156,6 +163,7 @@ struct Ctd {
     const enum ServiceId SelectedService;
     union Currency TransactionCurrency;
     unsigned char (* PAN)[11];
+    struct AuthorisationResponseCode AuthorisationResponseCode;
 
     // CONF
     const union ServiceSettings ServiceSettings;

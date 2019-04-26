@@ -19,6 +19,8 @@ FunctionResult_tostring(const enum FunctionResult f) {
         case R_MATCH: return "R_MATCH";
         case R_NO_MATCH: return "R_NO_MATCH";
         case R_DONE: return "R_DONE";
+        case R_ONLINE: return "R_ONLINE";
+        case R_UNABLE_TO_GO_ONLINE: return "R_UNABLE_TO_GO_ONLINE";
     }
     return NULL;
 }
@@ -30,6 +32,7 @@ TransactionResult_tostring(const enum TransactionResult t) {
         case T_NOT_SUPPORTED: return "T_NOT_SUPPORTED";
         case T_ABORTED: return "T_ABORTED";
         case T_APPROVED: return "T_APPROVED";
+        case T_DECLINED: return "T_DECLINED";
     }
     return NULL;
 }

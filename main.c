@@ -15,17 +15,18 @@ static struct Ctd s_ctd = {
     .Result = R_NOK,
     .NokReason = N_NOT_IMPLEMENTED,
     .ServiceSettings = { .isContactChipPrioritized = 1 },
-    .ServiceStartEvents = { .cardInserted = 1 },
+    .ServiceStartEvents = { .referenceEntry = 1 },
+    .TerminalSettings = { .retrievePreauth = 1 },
     .ApplicationProfileSettings = { .isDccAcceptorModeAllowed = 1 },
     .ApplicationCurrency = &(union Currency){ .Str = "EUR" },
     .IssuerCountry = &(union Country){ .Str = "pl" },
     .TransactionAmountEntered = false,
-    .SelectedService = S_CARD_VALIDITY_CHECK
+    .SelectedService = S_UPDATE_PRE_AUTH
 };
 
 int main() {
     tg_ctd = &s_ctd;
-    Card_Validity_Check();
+    Update_Pre_Authorisation();
     ctd_print(tg_ctd);
     tg_ctd = NULL;
     memset(&s_ctd, 0, sizeof(s_ctd));

@@ -10,6 +10,7 @@ WARNINGS     := all extra
 
 # Project config ##############################################################
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
+CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 
 DRAKON_SQL   := CardValidityCheck.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
@@ -18,7 +19,7 @@ DRAKON_GEN   := $(DRAKON_PATH)/drakon_gen.tcl
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
-SOURCES      := $(sort $(wildcard *.c) $(DRAKON_CFILES))
+SOURCES      := $(sort $(if $(filter trace,$(MAKECMDGOALS)),$(wildcard *.c),$(filter-out instrumentation.c,$(wildcard *.c))) $(DRAKON_CFILES))
 HEADERS      := $(sort $(wildcard *.h) $(DRAKON_HFILES))
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
@@ -52,7 +53,7 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -f$@ -b $^
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.d *.csv)
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.d *.csv trace.log)
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config)
@@ -91,3 +92,9 @@ csv: $(DRAKON_FILES:.drn=.csv)
 .PHONY: ddd
 ddd: $(EXECUTABLE)
 	$(DDD) $<
+
+.PHONY: trace
+trace: trace.log
+	addr2line -spfe $(EXECUTABLE) <$< | paste $< -
+trace.log: $(EXECUTABLE)
+	./$<

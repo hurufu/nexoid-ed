@@ -38,7 +38,7 @@ void SCAP_NoOriginalTransaction(void) {
     tg_ctd->Result = R_NOK;
 }
 
-void CopyDataFromSearchResultToCtd(void) {
+void Log_Entry_Data_Retrieval(void) {
     puts(__func__);
     tg_ctd->Result = R_OK;
 }

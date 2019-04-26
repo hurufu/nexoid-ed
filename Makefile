@@ -21,7 +21,8 @@ CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),clang-format,@true)
 RM           := $(if $(VERBOSE),rm -vf,rm -f)
 OBJCOPY      := objcopy
 
-NOT_DEP      := clean asm pp
+# Targets that do not need *.d dependencies for source files
+NOT_DEP      := clean asm pp wipe
 
 .PRECIOUS: %.drn
 
@@ -39,9 +40,11 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -f$@ -b $^
-clean: F := $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) $(DRAKON_FILES) *.o *.s *.i *.d *.csv)
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.d *.csv)
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
+wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config)
+wipe: clean
 
 $(EXECUTABLE).fat: $(OBJECTS)
 	$(LINK.o) -o $@ $^

@@ -7,7 +7,7 @@ void HAP_Online_Request_to_Dcc_Provider(void) {
     puts(__func__);
 }
 
-void SearchReservationsByRes(void) {
+void SearchReservationsByRefData(void) {
     puts(__func__);
     tg_ctd->Result = R_NOT_FOUND;
 }

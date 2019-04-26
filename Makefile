@@ -31,6 +31,7 @@ CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)
 OBJCOPY      := objcopy $(if $(VERBOSE),-v,)
 SQLITE3      := $(call assert_cmd,sqlite3)
+DDD          := $(call assert_cmd,ddd)
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update
@@ -86,3 +87,7 @@ main.d: main.c | $(DRAKON_HFILES)
 csv: $(DRAKON_FILES:.drn=.csv)
 %.csv: %.drn SelectItemMsg.sql
 	$(SQLITE3) -batch -csv $< <SelectItemMsg.sql >$@
+
+.PHONY: ddd
+ddd: $(EXECUTABLE)
+	$(DDD) $<

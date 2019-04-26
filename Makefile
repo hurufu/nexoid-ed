@@ -31,6 +31,7 @@ CSCOPE       := $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)
 OBJCOPY      := objcopy $(if $(VERBOSE),-v,)
+ADDR2LINE    := addr2line
 SQLITE3      := $(call assert_cmd,sqlite3)
 DDD          := $(call assert_cmd,ddd)
 
@@ -95,6 +96,6 @@ ddd: $(EXECUTABLE)
 
 .PHONY: trace
 trace: trace.log
-	addr2line -spfe $(EXECUTABLE) <$< | paste $< -
+	$(ADDR2LINE) -spf -e $(EXECUTABLE) <$< | paste $< -
 trace.log: $(EXECUTABLE)
 	./$<

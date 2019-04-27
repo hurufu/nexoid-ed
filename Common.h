@@ -179,8 +179,6 @@ struct Ctd {
     enum TransactionResult TransactionResult;
     enum TransactionType TransactionType;
 
-    enum FunctionResult Result;
-
     enum NokReason NokReason;
     bool TransactionAmountEntered;
     const enum ServiceId SelectedService;

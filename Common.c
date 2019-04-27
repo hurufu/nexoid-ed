@@ -74,7 +74,7 @@ void ctd_print(const struct Ctd* const ctd) {
            "{ Result: %s"
            ", NokReason: %s"
            " }\n",
-        FunctionResult_tostring(ctd->Result),
+        FunctionResult_tostring(g_Result),
         NokReason_tostring(ctd->NokReason)
     );
 }

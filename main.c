@@ -12,7 +12,6 @@ static struct Ctd s_ctd = {
     .TransactionResult = T_NONE,
     .TransactionType = TT_UNKNOWN,
     .TransactionCurrency = { .Str = "PLN" },
-    .Result = R_NOK,
     .NokReason = N_NOT_IMPLEMENTED,
     .ServiceSettings = { .isContactChipPrioritized = 1 },
     .ServiceStartEvents = { .referenceEntry = 1 },

@@ -61,3 +61,11 @@ void SetUpdatePreAuthTotalAmount(void) {
 void Wait_For_Event(void) {
     puts(__func__);
 }
+
+void OutputAmountError(void) {
+    puts(__func__);
+}
+
+void OutputTransactionAmount(void) {
+    puts(__func__);
+}

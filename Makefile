@@ -103,3 +103,7 @@ trace: trace.log
 	$(ADDR2LINE) -spf -e $(EXECUTABLE) <$< | paste $< -
 trace.log: $(EXECUTABLE)
 	./$<
+
+.PHONY: print-%
+print-%:
+	@:$(info $($*))

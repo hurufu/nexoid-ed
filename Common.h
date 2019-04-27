@@ -20,6 +20,8 @@ enum FunctionResult {
   , R_DONE
   , R_ONLINE
   , R_UNABLE_TO_GO_ONLINE
+  , R_START_CONDITIONS_SATISFIED
+  , R_REINITIALISE
 };
 
 enum ServiceId {
@@ -60,6 +62,26 @@ enum TransactionResult {
 
 enum TransactionType {
     TT_UNKNOWN
+};
+
+enum IdleEvent {                  // Service Start Event?
+    E_LANGUAGE_SELECTION          // No
+  , E_CHOICE_OF_APPLICATION       // No
+  , E_SERVICE_SELECTION           // No
+  , E_ACQUIRER_PRESELECTION       // No
+  , E_CARDHOLDER_DETECTION        // Yes
+  , E_AMOUNT_ENTRY                // Yes
+  , E_CARD_INSERTED               // Yes
+  , E_CARD_SWIPED                 // Yes
+  , E_MANUAL_ENTRY                // Yes
+  , E_REFERENCE_ENTRY             // Yes
+  , E_ACCEPT                      // Yes
+  , E_ATTENDANT_FORCED_ONLINE     // No
+  , E_ADDITIONAL_TRANSACTION_DATA // No
+  , E_CARD_REMOVAL                // No
+  , E_CANCEL                      // No
+
+  , E_MAX                         // N/A
 };
 
 struct Out {
@@ -124,8 +146,9 @@ struct small_string {
     char hex[sizeof(int)];
 };
 
-struct Amount {
+union Amount {
     unsigned char bcd[6];
+    int64_t i;
 };
 
 union Country {
@@ -148,11 +171,11 @@ struct AuthorisationResponseCode {
 };
 
 struct Ctd {
-    const struct Amount* const CvcDefaultAmount;
+    const union Amount* const CvcDefaultAmount;
     const int KernelId;
     enum Outcome Outcome;
     struct Out Out;
-    struct Amount TransactionAmount;
+    union Amount TransactionAmount;
     enum TransactionResult TransactionResult;
     enum TransactionType TransactionType;
 
@@ -164,10 +187,11 @@ struct Ctd {
     union Currency TransactionCurrency;
     unsigned char (* PAN)[11];
     struct AuthorisationResponseCode AuthorisationResponseCode;
+    bool AttendantForcedTransactionOnline;
+    union ServiceStartEvents ServiceStartEvents;
 
     // CONF
     const union ServiceSettings ServiceSettings;
-    const union ServiceStartEvents ServiceStartEvents;
     const union ApplicationProfileSettings ApplicationProfileSettings;
     const union Currency* ApplicationCurrency;
     const union Country* IssuerCountry;
@@ -179,6 +203,8 @@ struct Ctd {
 };
 
 extern struct Ctd* tg_ctd;
+extern enum FunctionResult g_Result;
+extern bool g_Event[E_MAX];
 
 const char* FunctionResult_tostring(enum FunctionResult f);
 const char* TransactionResult_tostring(enum TransactionResult);

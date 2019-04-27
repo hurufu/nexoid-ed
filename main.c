@@ -4,7 +4,7 @@
 #include <string.h>
 
 static struct Ctd s_ctd = {
-    .CvcDefaultAmount = &(const struct Amount){ .bcd = { 0x00, 0x00, 0x00, 0x00, 0x11, 0x00 } },
+    .CvcDefaultAmount = &(const union Amount){ .bcd = { 0x00, 0x00, 0x00, 0x00, 0x11, 0x00 } },
     .KernelId = 0xC1,
     .Outcome = O_ONLINE_REQUEST,
     .Out = { .Start = NONE },

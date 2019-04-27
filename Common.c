@@ -3,6 +3,8 @@
 #include <stdio.h>
 
 struct Ctd* tg_ctd;
+enum FunctionResult g_Result = R_OK;
+bool g_Event[E_MAX];
 
 const char*
 FunctionResult_tostring(const enum FunctionResult f) {
@@ -21,6 +23,8 @@ FunctionResult_tostring(const enum FunctionResult f) {
         case R_DONE: return "R_DONE";
         case R_ONLINE: return "R_ONLINE";
         case R_UNABLE_TO_GO_ONLINE: return "R_UNABLE_TO_GO_ONLINE";
+        case R_START_CONDITIONS_SATISFIED: return "R_START_CONDITIONS_SATISFIED";
+        case R_REINITIALISE: return "R_REINITIALISE";
     }
     return NULL;
 }

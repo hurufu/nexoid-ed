@@ -57,3 +57,7 @@ void SetUpdatePreAuthTotalAmount(void) {
     puts(__func__);
     tg_ctd->Result = R_NOK;
 }
+
+void Wait_For_Event(void) {
+    puts(__func__);
+}

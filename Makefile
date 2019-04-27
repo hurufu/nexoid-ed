@@ -34,6 +34,10 @@ OBJCOPY      := objcopy $(if $(VERBOSE),-v,)
 ADDR2LINE    := addr2line
 SQLITE3      := $(call assert_cmd,sqlite3)
 DDD          := $(call assert_cmd,ddd)
+ifdef USE_CCACHE
+CCACHE       := $(call assert_cmd,ccache)
+endif
+CC           := $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update

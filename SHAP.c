@@ -103,6 +103,6 @@ void DeactivateAllInterfaces(void) {
 
 void Enable_Allowed_Interfaces(void) {
     puts(__func__);
-    g_Result = R_OK;
+    g_Result = R_DONE;
 }
 

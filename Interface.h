@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Common.h"
+
 // HAP
 void HAP_Online_Request_to_Dcc_Provider(void);
 void OnlineApprovalRequest(void);
@@ -15,7 +17,16 @@ void SCAP_NoOriginalTransaction(void);
 void UpdatePreAuthAmountConfirmation(void);
 void UpdatePreAuthAmountEntry(void);
 void SetUpdatePreAuthTotalAmount(void);
-void Wait_For_Event(void);
+
+enum Wait_For_Event {
+    Wait_For_Event_OK = R_OK,
+    Wait_For_Event_NOK = R_NOK
+} Wait_For_Event(
+        bool (* Event)[E_MAX],
+        char (* ReferenceData)[35 + 1],
+        enum ServiceId* const SelectedService)
+    __attribute__((nonnull(1), warn_unused_result));
+
 void OutputAmountError(void);
 void OutputTransactionAmount(void);
 void Authorise_Service(void);

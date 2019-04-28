@@ -65,20 +65,24 @@ void SetUpdatePreAuthTotalAmount(void) {
     g_Result = R_NOK;
 }
 
-void Wait_For_Event(void) {
+enum Wait_For_Event Wait_For_Event(bool (* const Event)[E_MAX],
+                                   char (* const ReferenceData)[35 + 1],
+                                   enum ServiceId* const SelectedService
+                                  ) {
     static bool oneTime = false;
     puts(__func__);
 
     if (!oneTime) {
         oneTime = true;
-        g_Ctd.Event[E_SERVICE_SELECTION] = true;
-        g_Ctd.SelectedService = S_UPDATE_PRE_AUTH;
+        (*Event)[E_SERVICE_SELECTION + 100] = true;
+        *SelectedService = S_UPDATE_PRE_AUTH;
 
-        g_Ctd.Event[E_REFERENCE_ENTRY] = true;
-        snprintf(g_Ctd.ReferenceData, sizeof(g_Ctd.ReferenceData), "%d", 624523454);
+        (*Event)[E_REFERENCE_ENTRY] = true;
+        snprintf(*ReferenceData, sizeof(*ReferenceData), "%d", 624523454);
     } else {
         exit(0);
     }
+    return Wait_For_Event_OK;
 }
 
 void OutputAmountError(void) {

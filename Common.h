@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 enum FunctionResult {
-    R_OK
+    R_OK = 239
   , R_NOK
   , R_NON_EMV
   , R_TAP_AGAIN
@@ -22,6 +22,8 @@ enum FunctionResult {
   , R_UNABLE_TO_GO_ONLINE
   , R_START_CONDITIONS_SATISFIED
   , R_REINITIALISE
+
+  , R_MAX
 };
 
 enum ServiceId {
@@ -44,31 +46,37 @@ enum ServiceId {
 } __attribute__((__packed__));
 
 enum NokReason {
-    N_NOT_IMPLEMENTED
+    N_NOT_IMPLEMENTED = R_MAX + 2364
   , N_ORIGINAL_TRX_NOT_FOUND
   , N_TECHNNICAL_ERROR
   , N_MISSING_DATA
   , N_NO_PERMISSION
+
+  , N_MAX
 };
 
 enum Outcome {
-    O_ONLINE_REQUEST
+    O_ONLINE_REQUEST = N_MAX + 9745
+
+  , O_MAX
 };
 
 enum TransactionResult {
-    T_NONE
+    T_NONE = O_MAX + 8273
   , T_ABORTED
   , T_NOT_SUPPORTED
   , T_APPROVED
   , T_DECLINED
+
+  , T_MAX
 };
 
 enum TransactionType {
     TT_UNKNOWN
-};
+} __attribute__((packed));
 
 enum IdleEvent {                  // Service Start Event?
-    E_LANGUAGE_SELECTION          // No
+    E_LANGUAGE_SELECTION = 0      // No
   , E_CHOICE_OF_APPLICATION       // No
   , E_SERVICE_SELECTION           // No
   , E_ACQUIRER_PRESELECTION       // No
@@ -88,7 +96,7 @@ enum IdleEvent {                  // Service Start Event?
 };
 
 enum TerminalErrorReason {
-    TE_NONE
+    TE_NONE = T_MAX + 2423
   , TE_HARDWARE_ERROR
   , TE_MEMORY_FAILURE
   , TE_CONFIGURATION_ERROR
@@ -103,7 +111,7 @@ enum TerminalErrorReason {
 
 struct Out {
     enum Start {
-        NONE,
+        NONE = T_MAX + 2398,
         A,
         B,
         C,

@@ -64,6 +64,12 @@ void SetUpdatePreAuthTotalAmount(void) {
 }
 
 void Wait_For_Event(void) {
+    g_Ctd.Event[E_SERVICE_SELECTION] = true;
+    g_Ctd.SelectedService = S_UPDATE_PRE_AUTH;
+
+    g_Ctd.Event[E_REFERENCE_ENTRY] = true;
+    snprintf(g_Ctd.ReferenceData, sizeof(g_Ctd.ReferenceData), "%d", 624523454);
+
     puts(__func__);
 }
 

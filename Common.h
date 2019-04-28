@@ -87,6 +87,20 @@ enum IdleEvent {                  // Service Start Event?
   , E_MAX                         // N/A
 };
 
+enum TerminalErrorReason {
+    TE_NONE
+  , TE_HARDWARE_ERROR
+  , TE_MEMORY_FAILURE
+  , TE_CONFIGURATION_ERROR
+  , TE_CRYPTOGRAPHIC_KEYS_MISSING
+  , TE_LOG_LIMIT_EXCEEDED
+  , TE_COMMUNICATION_ERROR
+  , TE_UNSPECIFIED
+  , TE_NEXO_FAST_FAILURE
+  , TE_INTERACTION_ERROR
+  , TE_OVERSPEND
+};
+
 struct Out {
     enum Start {
         NONE,
@@ -188,6 +202,7 @@ struct CurrentTransactionData {
     union Currency TransactionCurrency;
     struct AuthorisationResponseCode AuthorisationResponseCode;
     bool AttendantForcedTransactionOnline;
+    char ReferenceData[35 + 1];
 
     // Card data
     const union Country* IssuerCountry;
@@ -201,6 +216,8 @@ struct CurrentTransactionData {
     bool SecurityPermission;
     union Country SelectedLanguage;
     bool Event[E_MAX];
+    enum TerminalErrorReason TerminalErrorReason;
+    bool TerminalErrorIndicator;
 };
 
 struct NexoConfiguration {

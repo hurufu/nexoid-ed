@@ -2,7 +2,7 @@
 #include "utils.h"
 #include <stdio.h>
 
-struct Ctd* tg_ctd;
+struct CurrentTransactionData* tg_ctd;
 enum FunctionResult g_Result = R_OK;
 bool g_Event[E_MAX];
 
@@ -48,6 +48,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_ORIGINAL_TRX_NOT_FOUND: return "N_ORIGINAL_TRX_NOT_FOUND";
         case N_TECHNNICAL_ERROR: return "N_TECHNNICAL_ERROR";
         case N_MISSING_DATA: return "N_MISSING_DATA";
+        case N_NO_PERMISSION: return "N_NO_PERMISSION";
     }
     return NULL;
 }
@@ -69,7 +70,7 @@ ServiceStartEvent_tostring(const union ServiceStartEvents s) {
     return byte_tostring(s.raw[0]);
 }
 
-void ctd_print(const struct Ctd* const ctd) {
+void ctd_print(const struct CurrentTransactionData* const ctd) {
     printf("CTD: "
            "{ Result: %s"
            ", NokReason: %s"

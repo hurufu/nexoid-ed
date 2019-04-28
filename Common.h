@@ -39,6 +39,8 @@ enum ServiceId {
   , S_CARDHOLDER_DETECTION = 0x11
   , S_CARD_VALIDITY_CHECK = 0x12
   , S_NO_SHOW = 0x13
+
+  , S_MAX
 } __attribute__((__packed__));
 
 enum NokReason {
@@ -46,6 +48,7 @@ enum NokReason {
   , N_ORIGINAL_TRX_NOT_FOUND
   , N_TECHNNICAL_ERROR
   , N_MISSING_DATA
+  , N_NO_PERMISSION
 };
 
 enum Outcome {
@@ -121,7 +124,8 @@ union ServiceStartEvents {
 union ServiceSettings {
     uint8_t raw[2];
     struct {
-        uint8_t isContactChipPrioritized : 1;
+        uint8_t ContactChipPrioritized : 1;
+        uint8_t ServiceProtected : 1;
     };
 };
 
@@ -148,7 +152,7 @@ struct small_string {
 
 union Amount {
     unsigned char bcd[6];
-    int64_t i;
+    int64_t i; // Used for quick zeroing
 };
 
 union Country {
@@ -170,37 +174,61 @@ struct AuthorisationResponseCode {
     uint8_t v[2];
 };
 
-struct Ctd {
-    const union Amount* const CvcDefaultAmount;
+struct CurrentTransactionData {
+    // Transaction
     const int KernelId;
     enum Outcome Outcome;
     struct Out Out;
     union Amount TransactionAmount;
-    enum TransactionResult TransactionResult;
-    enum TransactionType TransactionType;
-
-    enum NokReason NokReason;
     bool TransactionAmountEntered;
-    const enum ServiceId SelectedService;
+    enum TransactionType TransactionType;
+    enum TransactionResult TransactionResult;
+    enum NokReason NokReason;
+    enum ServiceId SelectedService;
     union Currency TransactionCurrency;
-    unsigned char (* PAN)[11];
     struct AuthorisationResponseCode AuthorisationResponseCode;
     bool AttendantForcedTransactionOnline;
-    union ServiceStartEvents ServiceStartEvents;
 
-    // CONF
-    const union ServiceSettings ServiceSettings;
-    const union ApplicationProfileSettings ApplicationProfileSettings;
-    const union Currency* ApplicationCurrency;
+    // Card data
     const union Country* IssuerCountry;
-    const union TerminalSettings TerminalSettings;
+    unsigned char (* PAN)[11];
 
     // DCC
     volatile bool isDccEligible;
     bool DccPerformedOnce;
 };
 
-extern struct Ctd* tg_ctd;
+struct ExecutionContext {
+    bool SecurityPermission;
+    union Country SelectedLanguage;
+};
+
+struct NexoConfiguration {
+    // Terminal configuration
+    uint8_t TerminalType;
+    union TerminalSettings TerminalSettings;
+    enum ServiceId DefaultService;
+
+    // Application configuration
+    union Currency* ApplicationCurrency;
+    union Country CardholderDefaultLanguage;
+
+    // Service configuration
+    union ServiceStartEvents ServiceStartEvents[S_MAX];
+    union ServiceSettings ServiceSettings[S_MAX];
+    union ApplicationProfileSettings ApplicationProfileSettings;
+
+    // CVC
+    union Amount* CvcDefaultAmount;
+
+    // DCC
+    union Amount DccMinimumAllowedAmount;
+};
+
+extern struct CurrentTransactionData g_Ctd;
+extern struct ExecutionContext g_Ctx;
+extern struct NexoConfiguration g_Nexo;
+
 extern enum FunctionResult g_Result;
 extern bool g_Event[E_MAX];
 
@@ -208,7 +236,7 @@ const char* FunctionResult_tostring(enum FunctionResult f);
 const char* TransactionResult_tostring(enum TransactionResult);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
-void ctd_print(const struct Ctd*);
+void ctd_print(const struct CurrentTransactionData*);
 
 static inline bool isIssuerCountryExcludedForDcc(void) {
     return false;

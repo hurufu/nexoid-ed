@@ -43,6 +43,11 @@ void Log_Entry_Data_Retrieval(void) {
     g_Result = R_OK;
 }
 
+void Initialiase_Basic_Data(void) {
+    puts(__func__);
+    g_Result = R_OK;
+}
+
 void UpdatePreAuthAmountConfirmation(void) {
     puts(__func__);
     g_Result = R_NOK;
@@ -69,3 +74,29 @@ void OutputAmountError(void) {
 void OutputTransactionAmount(void) {
     puts(__func__);
 }
+
+void Authorise_Service(void) {
+    puts(__func__);
+    g_Result = R_OK;
+}
+
+void Update_Cardholder_Initial_Message(void) {
+    puts(__func__);
+    g_Result = R_OK;
+}
+
+void Output(int msgId) {
+    printf("%s %d\n", __func__, msgId);
+    g_Result = R_OK;
+}
+
+void DeactivateAllInterfaces(void) {
+    puts(__func__);
+    g_Result = R_OK;
+}
+
+void Enable_Allowed_Interfaces(void) {
+    puts(__func__);
+    g_Result = R_OK;
+}
+

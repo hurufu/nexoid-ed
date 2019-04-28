@@ -6,6 +6,7 @@ extern void OnlineApprovalRequest(void);
 extern void SearchReservationsByRefData(void);
 extern void SearchReservationsByPan(void);
 extern void Log_Entry_Data_Retrieval(void);
+extern void Initialiase_Basic_Data(void);
 
 // SCAP
 extern void SCAP_Cardholder_Confirmation(void);
@@ -17,3 +18,8 @@ extern void SetUpdatePreAuthTotalAmount(void);
 extern void Wait_For_Event(void);
 extern void OutputAmountError(void);
 extern void OutputTransactionAmount(void);
+extern void Authorise_Service(void);
+extern void Update_Cardholder_Initial_Message(void);
+extern void Output(int);
+extern void DeactivateAllInterfaces(void);
+extern void Enable_Allowed_Interfaces(void);

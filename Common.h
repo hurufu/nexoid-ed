@@ -201,6 +201,7 @@ struct CurrentTransactionData {
 struct ExecutionContext {
     bool SecurityPermission;
     union Country SelectedLanguage;
+    bool Event[E_MAX];
 };
 
 struct NexoConfiguration {
@@ -230,7 +231,6 @@ extern struct ExecutionContext g_Ctx;
 extern struct NexoConfiguration g_Nexo;
 
 extern enum FunctionResult g_Result;
-extern bool g_Event[E_MAX];
 
 const char* FunctionResult_tostring(enum FunctionResult f);
 const char* TransactionResult_tostring(enum TransactionResult);

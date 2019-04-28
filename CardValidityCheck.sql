@@ -59,7 +59,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,41,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum FunctionResult g_Result;','\n',char(10)));
+INSERT INTO state VALUES(1,39,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum FunctionResult g_Result;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -798,8 +798,8 @@ INSERT INTO items VALUES(1509,53,'commentin',replace('Proper Financial Applicati
 INSERT INTO items VALUES(1510,39,'if',replace('g_Ctd.SelectedService\n	==\nS_CARDHOLDER_DETECTION','\n',char(10)),0,30,270,130,30,210,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1511,39,'vertical','',0,370,270,0,510,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1513,39,'shelf','g_Nexo.DefaultService',0,700,360,210,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedService');
-INSERT INTO items VALUES(1514,39,'shelf','g_Nexo.CardholderDefaultLanguage',1,700,460,210,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedLanguage');
-INSERT INTO items VALUES(1515,39,'insertion','Initialiase_Basic_Data();',0,700,540,210,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1514,39,'shelf','g_Nexo.CardholderDefaultLanguage',0,700,460,210,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedLanguage');
+INSERT INTO items VALUES(1515,39,'insertion','Initialise_Basic_Data();',0,700,540,210,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1516,54,'beginend','Initialise_Transaction_Database',0,170,60,140,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1517,54,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1518,54,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');

@@ -69,9 +69,11 @@ ServiceStartEvent_tostring(const union ServiceStartEvents s) {
 void ctd_print(const struct CurrentTransactionData* const ctd) {
     printf("CTD: "
            "{ Result: %s"
+           ", TransactionResult: %s"
            ", NokReason: %s"
            " }\n",
         FunctionResult_tostring(g_Result),
+        TransactionResult_tostring(ctd->TransactionResult),
         NokReason_tostring(ctd->NokReason)
     );
 }

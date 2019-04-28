@@ -33,11 +33,11 @@ INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-477 41','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','73 -134','',75.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','1409 94',NULL,75.0);
 INSERT INTO diagrams VALUES(35,'Process_Profile_Parameters','0 0','',75.0);
-INSERT INTO diagrams VALUES(36,'Main','1326 -100','',75.0);
+INSERT INTO diagrams VALUES(36,'Main','1002 -100','',75.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-125 -73',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-185 -64',NULL,75.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(41,'Process_Event','2810 -474',NULL,75.0);
+INSERT INTO diagrams VALUES(41,'Process_Event','2809 -214',NULL,75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','0 0','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -164','',75.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','0 0','',75.0);
@@ -59,7 +59,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,41,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum FunctionResult g_Result;','\n',char(10)));
+INSERT INTO state VALUES(1,40,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum FunctionResult g_Result;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -602,7 +602,7 @@ INSERT INTO items VALUES(1197,36,'if','g_Result == R_OK',0,2110,410,90,20,90,1,N
 INSERT INTO items VALUES(1198,36,'vertical','',0,2290,410,0,270,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1199,36,'address',replace('Default Service\ninitialisation','\n',char(10)),0,2110,620,90,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1200,36,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,2290,620,70,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1201,36,'action','Check_Service_Start_Conditions();',0,1410,490,150,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1201,36,'action','Check_Service_Start_Conditions();',1,1410,490,150,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1202,36,'if',replace('g_Result ==\nR_START_CONDITIONS_SATISFIED','\n',char(10)),0,1410,550,150,30,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1203,36,'vertical','',0,1630,550,0,130,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1204,36,'address','(B) Idle',0,1630,630,50,30,60,0,NULL,NULL,NULL,NULL);
@@ -637,9 +637,9 @@ INSERT INTO items VALUES(1248,40,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL
 INSERT INTO items VALUES(1249,40,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1250,40,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1251,40,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1252,40,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1253,40,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1254,40,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1252,40,'arrow','',0,0,120,170,480,420,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1253,40,'branch','branch 1',0,170,170,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1254,40,'address','branch 2',0,170,550,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1255,40,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1256,40,'branch','branch 3',0,660,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1257,40,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
@@ -961,6 +961,8 @@ INSERT INTO items VALUES(1713,38,'insertion','Update_Pre_Authorisation();',0,90,
 INSERT INTO items VALUES(1714,38,'horizontal','',0,90,530,260,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1715,38,'if','g_Ctd.TerminalErrorIndicator',0,90,660,140,20,350,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1716,38,'shelf','R_OK',0,760,290,50,40,40,0,NULL,'',NULL,'g_Result');
+INSERT INTO items VALUES(1717,40,'shelf','R_START_CONDITIONS_SATISFIED',0,170,400,150,40,40,0,NULL,NULL,NULL,'g_Result');
+INSERT INTO items VALUES(1718,40,'commentin',replace('This function is not implemented\njust succeeds always','\n',char(10)),0,170,260,150,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

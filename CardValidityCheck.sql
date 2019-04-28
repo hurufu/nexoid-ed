@@ -37,7 +37,7 @@ INSERT INTO diagrams VALUES(36,'Main','1002 -100','',75.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-125 -73',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-185 -64',NULL,75.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(41,'Process_Event','2809 -214',NULL,75.0);
+INSERT INTO diagrams VALUES(41,'Process_Event','2808 -486',NULL,75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','0 0','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -164','',75.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','0 0','',75.0);
@@ -59,7 +59,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,40,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum FunctionResult g_Result;','\n',char(10)));
+INSERT INTO state VALUES(1,41,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum FunctionResult g_Result;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -644,16 +644,16 @@ INSERT INTO items VALUES(1255,40,'branch','branch 2',0,420,170,50,30,60,0,NULL,N
 INSERT INTO items VALUES(1256,40,'branch','branch 3',0,660,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1257,40,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1349,41,'beginend','Process_Event',0,110,-280,70,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1350,41,'beginend','End',0,3650,280,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1350,41,'beginend','End',0,3600,280,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1351,41,'vertical','',0,110,-260,0,1200,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1352,41,'vertical','',0,3370,-240,0,1180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1353,41,'vertical','',0,3650,-240,0,510,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1354,41,'horizontal','',0,110,-240,3540,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1353,41,'vertical','',0,3600,-240,0,510,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1354,41,'horizontal','',0,110,-240,3490,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1355,41,'arrow','',0,-80,-240,190,1180,3450,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1356,41,'branch','branch 1',0,110,-190,170,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1357,41,'address','branch 2',0,110,890,170,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1358,41,'branch','Nok',0,3370,-190,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1359,41,'branch','End',0,3650,-190,190,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1359,41,'branch','End',0,3600,-190,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1360,41,'address','End',0,3370,890,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1363,41,'vertical','',0,2560,-240,0,1180,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1364,41,'vertical','',0,3210,-240,0,1180,0,0,NULL,NULL,NULL,NULL);
@@ -935,8 +935,7 @@ INSERT INTO items VALUES(1686,41,'if','g_Result == R_REINITIALISE',0,2010,600,13
 INSERT INTO items VALUES(1687,41,'if','g_Result == R_DONE',0,2010,660,130,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1688,41,'vertical','',0,2160,660,0,280,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1689,41,'address','Nok',0,2160,890,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1691,41,'commentin',replace('Clearing of event table\nis not descibed in the\nspec','\n',char(10)),0,3650,-90,190,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1692,41,'action','memset(g_Ctd.Event, 0, sizeof(g_Ctd.Event));',0,3650,-10,190,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1691,41,'commentin',replace('Clearing of event table\nis not descibed in the\nspec','\n',char(10)),0,3600,-90,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1693,41,'vertical','',0,3070,-240,0,1180,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1694,41,'branch','Ok',0,3070,-190,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1695,41,'shelf','R_OK',0,3070,-10,50,40,40,0,NULL,'',NULL,'g_Result');
@@ -963,6 +962,7 @@ INSERT INTO items VALUES(1715,38,'if','g_Ctd.TerminalErrorIndicator',0,90,660,14
 INSERT INTO items VALUES(1716,38,'shelf','R_OK',0,760,290,50,40,40,0,NULL,'',NULL,'g_Result');
 INSERT INTO items VALUES(1717,40,'shelf','R_START_CONDITIONS_SATISFIED',0,170,400,150,40,40,0,NULL,NULL,NULL,'g_Result');
 INSERT INTO items VALUES(1718,40,'commentin',replace('This function is not implemented\njust succeeds always','\n',char(10)),0,170,260,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1719,41,'action',';',0,3600,10,120,20,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

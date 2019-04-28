@@ -196,9 +196,8 @@ struct CurrentTransactionData {
     // DCC
     volatile bool isDccEligible;
     bool DccPerformedOnce;
-};
 
-struct ExecutionContext {
+    // Service startup
     bool SecurityPermission;
     union Country SelectedLanguage;
     bool Event[E_MAX];
@@ -227,9 +226,7 @@ struct NexoConfiguration {
 };
 
 extern struct CurrentTransactionData g_Ctd;
-extern struct ExecutionContext g_Ctx;
 extern struct NexoConfiguration g_Nexo;
-
 extern enum FunctionResult g_Result;
 
 const char* FunctionResult_tostring(enum FunctionResult f);

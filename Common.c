@@ -2,10 +2,6 @@
 #include "utils.h"
 #include <stdio.h>
 
-struct CurrentTransactionData* tg_ctd;
-enum FunctionResult g_Result = R_OK;
-bool g_Event[E_MAX];
-
 const char*
 FunctionResult_tostring(const enum FunctionResult f) {
     switch (f) {

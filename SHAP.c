@@ -2,6 +2,8 @@
 #include "Common.h"
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 void HAP_Online_Request_to_Dcc_Provider(void) {
     puts(__func__);
@@ -64,13 +66,19 @@ void SetUpdatePreAuthTotalAmount(void) {
 }
 
 void Wait_For_Event(void) {
-    g_Ctd.Event[E_SERVICE_SELECTION] = true;
-    g_Ctd.SelectedService = S_UPDATE_PRE_AUTH;
-
-    g_Ctd.Event[E_REFERENCE_ENTRY] = true;
-    snprintf(g_Ctd.ReferenceData, sizeof(g_Ctd.ReferenceData), "%d", 624523454);
-
+    static bool oneTime = false;
     puts(__func__);
+
+    if (!oneTime) {
+        oneTime = true;
+        g_Ctd.Event[E_SERVICE_SELECTION] = true;
+        g_Ctd.SelectedService = S_UPDATE_PRE_AUTH;
+
+        g_Ctd.Event[E_REFERENCE_ENTRY] = true;
+        snprintf(g_Ctd.ReferenceData, sizeof(g_Ctd.ReferenceData), "%d", 624523454);
+    } else {
+        exit(0);
+    }
 }
 
 void OutputAmountError(void) {

@@ -21,6 +21,7 @@ FunctionResult_tostring(const enum FunctionResult f) {
         case R_UNABLE_TO_GO_ONLINE: return "R_UNABLE_TO_GO_ONLINE";
         case R_START_CONDITIONS_SATISFIED: return "R_START_CONDITIONS_SATISFIED";
         case R_REINITIALISE: return "R_REINITIALISE";
+        case R_MAX: return NULL;
     }
     return NULL;
 }
@@ -33,6 +34,7 @@ TransactionResult_tostring(const enum TransactionResult t) {
         case T_ABORTED: return "T_ABORTED";
         case T_APPROVED: return "T_APPROVED";
         case T_DECLINED: return "T_DECLINED";
+        case T_MAX: return NULL;
     }
     return NULL;
 }
@@ -45,6 +47,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_TECHNNICAL_ERROR: return "N_TECHNNICAL_ERROR";
         case N_MISSING_DATA: return "N_MISSING_DATA";
         case N_NO_PERMISSION: return "N_NO_PERMISSION";
+        case N_MAX: return NULL;
     }
     return NULL;
 }

@@ -549,27 +549,26 @@ INSERT INTO items VALUES(1142,34,'horizontal','',0,1270,860,250,0,0,0,NULL,NULL,
 INSERT INTO items VALUES(1143,34,'output','Log_Entry_Data_Retrieval();',0,1830,570,180,40,40,0,NULL,NULL,NULL,'HAP');
 INSERT INTO items VALUES(1144,34,'horizontal','',0,3980,810,290,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1145,34,'horizontal','',0,3700,930,280,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1146,36,'beginend','Main',0,60,10,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1146,36,'beginend','Main',0,20,10,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1147,36,'beginend','End',0,2820,510,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1148,36,'vertical','',0,60,30,0,800,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1148,36,'vertical','',0,20,30,0,800,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1149,36,'vertical','',0,2650,60,0,770,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1150,36,'vertical','',0,2820,60,0,440,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1151,36,'horizontal','',0,60,60,2760,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1152,36,'arrow','',0,-60,60,120,770,2710,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(1153,36,'branch',replace('Proprietary\nstartup sequence','\n',char(10)),0,60,120,100,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1154,36,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,60,770,100,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1151,36,'horizontal','',0,20,60,2800,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1152,36,'arrow','',0,-140,60,160,770,2790,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(1153,36,'branch',replace('Proprietary\nstartup sequence','\n',char(10)),0,20,120,140,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1154,36,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,20,770,140,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1155,36,'branch',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,2650,120,100,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1156,36,'branch','Terminate',0,2820,110,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1157,36,'address','Terminate',0,2650,780,100,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1158,36,'horizontal','',0,60,10,310,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1158,36,'horizontal','',0,20,10,350,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1159,36,'action','public',0,370,10,50,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1160,36,'if','g_Result == R_OK',0,60,430,100,20,80,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1160,36,'if','g_Result == R_OK',0,20,430,140,20,80,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1161,36,'vertical','',0,240,430,0,400,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1163,36,'vertical','',0,460,60,0,770,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1164,36,'branch',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,460,120,140,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1165,36,'address',replace('Default Service\ninitialisation','\n',char(10)),0,460,770,140,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1166,36,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,240,770,60,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1167,36,'commentin',replace('Proprietary startup\nsequence is absent','\n',char(10)),0,60,360,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1169,36,'if','g_Result == R_OK',0,460,430,140,20,80,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1170,36,'vertical','',0,680,430,0,400,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1171,36,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,680,770,60,40,60,0,NULL,NULL,NULL,NULL);
@@ -966,6 +965,7 @@ INSERT INTO items VALUES(1719,41,'action',';',0,3600,10,120,20,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(1720,36,'if','Result_1 == Wait_For_Event_OK',0,1400,340,170,20,530,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1721,36,'vertical','',0,2100,340,0,490,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1722,36,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,2100,770,70,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1723,36,'insertion','Proprietary_Startup_Sequence();',0,20,360,140,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

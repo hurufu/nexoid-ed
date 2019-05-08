@@ -118,3 +118,7 @@ void Enable_Allowed_Interfaces(void) {
     g_Result = R_DONE;
 }
 
+void Proprietary_Startup_Sequence(void) {
+    puts(__func__);
+    g_Result = R_OK;
+}

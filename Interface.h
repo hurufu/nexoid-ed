@@ -34,3 +34,6 @@ void Update_Cardholder_Initial_Message(void);
 void Output(int);
 void DeactivateAllInterfaces(void);
 void Enable_Allowed_Interfaces(void);
+
+// Proprietary
+void Proprietary_Startup_Sequence(void);

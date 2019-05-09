@@ -14,8 +14,8 @@ CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 
 DRAKON_SQL   := CardValidityCheck.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
-DRAKON_PATH  := /cygdrive/c/opt/Drakon\ Editor/1.31-NEXO
-DRAKON_GEN   := $(DRAKON_PATH)/drakon_gen.tcl
+DRAKON_PATH  ?= /cygdrive/c/opt/Drakon\ Editor/1.31
+DRAKON_GEN   := '$(DRAKON_PATH)/drakon_gen.tcl'
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 

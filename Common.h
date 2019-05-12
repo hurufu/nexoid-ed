@@ -10,7 +10,9 @@
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
 
 enum FunctionResult {
-    R_OK = 239
+    R_UNINITIALISED = 239
+
+  , R_OK
   , R_NOK
   , R_NON_EMV
   , R_TAP_AGAIN

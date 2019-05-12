@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 const char*
-FunctionResult_tostring(const enum FunctionResult f) {
+ProcedureResult_tostring(const enum ProcedureResult f) {
     switch (f) {
         case R_END_APPLICATION: return "R_END_APPLICATION";
         case R_TAP_AGAIN: return "R_TAP_AGAIN";
@@ -75,7 +75,7 @@ void ctd_print(const struct CurrentTransactionData* const ctd) {
            ", TransactionResult: %s"
            ", NokReason: %s"
            " }\n",
-        FunctionResult_tostring(g_Result),
+        ProcedureResult_tostring(g_Result),
         TransactionResult_tostring(ctd->TransactionResult),
         NokReason_tostring(ctd->NokReason)
     );

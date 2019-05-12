@@ -59,7 +59,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,36,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum FunctionResult g_Result;','\n',char(10)));
+INSERT INTO state VALUES(1,36,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;\n\nenum ProcedureResult g_Result;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -967,7 +967,7 @@ INSERT INTO items VALUES(1722,36,'address',replace('(A) Financial\nApplication\n
 INSERT INTO items VALUES(1724,36,'output',replace('result =\nProprietary_Startup_Sequence();','\n',char(10)),0,-60,460,150,50,40,0,NULL,NULL,NULL,'PROPRIETARY');
 INSERT INTO items VALUES(1726,36,'action','return result;',0,3000,260,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1727,36,'insertion',replace('result =\nCheck_Service_Start_Conditions();','\n',char(10)),0,1410,640,150,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1728,36,'shelf','R_UNINITIALISED',0,-60,230,150,40,40,0,NULL,NULL,NULL,'enum FunctionResult result');
+INSERT INTO items VALUES(1728,36,'shelf','R_UNINITIALISED',0,-60,230,150,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

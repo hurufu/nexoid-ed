@@ -9,7 +9,7 @@
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
 
-enum FunctionResult {
+enum ProcedureResult {
     R_UNINITIALISED = 239
 
   , R_OK
@@ -258,9 +258,9 @@ struct NexoConfiguration {
 
 extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
-extern enum FunctionResult g_Result;
+extern enum ProcedureResult g_Result;
 
-const char* FunctionResult_tostring(enum FunctionResult f);
+const char* ProcedureResult_tostring(enum ProcedureResult f);
 const char* TransactionResult_tostring(enum TransactionResult);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);

@@ -143,6 +143,47 @@ Enable_Allowed_Interfaces(void) {
 
 enum ProcedureResult Proprietary_Startup_Sequence(void) {
     puts(__func__);
+    g_Nexo = (struct NexoConfiguration){
+        // Terminal configuration
+        .TerminalType = 0x03,
+        .TerminalSettings = {
+            .retrievePreauth = 0
+        },
+
+        // Application configuration
+        .DefaultService = S_PAYMENT,
+        .ApplicationCurrency = NULL,
+        .CardholderDefaultLanguage = { Country_pl },
+
+        .ServiceStartEvents = {
+            [S_PRE_AUTH] = {
+                .referenceEntry = 1
+            },
+            [S_CARD_VALIDITY_CHECK] = {
+                .cardInserted = 1,
+                .cardSwiped = 1
+            }
+        },
+        .ServiceSettings = {
+            [S_PRE_AUTH] = {
+                .ContactChipPrioritized = 1,
+                .ServiceProtected = 1
+            },
+            [S_CARD_VALIDITY_CHECK] = {
+                .ContactChipPrioritized = 1,
+                .ServiceProtected = 1
+            }
+        },
+        .ApplicationProfileSettings = {
+            .isDccAcceptorModeAllowed = 1
+        },
+
+        // CVC
+        .CvcDefaultAmount = NULL,
+
+        // DCC
+        .DccMinimumAllowedAmount = {{ 0x00, 0x00, 0x00, 0x00, 0x15, 0x00 }}
+    };
     return PR_OK;
 }
 

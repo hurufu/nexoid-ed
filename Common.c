@@ -24,6 +24,7 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_REINITIALISE: return "PR_REINITIALISE";
         case PR_NOT_IMPLEMENTED: return "PR_NOT_IMPLEMENTED";
         case PR_UNINITIALISED: return "PR_UNINITIALISED";
+        case PR_NEW_EVENT: return "PR_NEW_EVENT";
         case PR_MAX:
             break;
     }

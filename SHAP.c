@@ -79,24 +79,25 @@ SetUpdatePreAuthTotalAmount(void) {
     return PR_NOK;
 }
 
-enum Wait_For_Event Wait_For_Event(bool (* const Event)[E_MAX],
+enum ProcedureResult Wait_For_Event(bool (* const Event)[E_MAX],
                                    char (* const ReferenceData)[35 + 1],
                                    enum ServiceId* const SelectedService
                                   ) {
     static bool oneTime = false;
     puts(__func__);
 
-    if (!oneTime) {
-        oneTime = true;
-        (*Event)[E_SERVICE_SELECTION + 100] = true;
-        *SelectedService = S_UPDATE_PRE_AUTH;
-
-        (*Event)[E_REFERENCE_ENTRY] = true;
-        snprintf(*ReferenceData, sizeof(*ReferenceData), "%d", 624523454);
-    } else {
-        exit(0);
+    if (oneTime) {
+        return PR_NOT_IMPLEMENTED;
     }
-    return Wait_For_Event_OK;
+
+    oneTime = true;
+    (*Event)[E_SERVICE_SELECTION + 100] = true;
+    *SelectedService = S_UPDATE_PRE_AUTH;
+
+    (*Event)[E_REFERENCE_ENTRY] = true;
+    snprintf(*ReferenceData, sizeof(*ReferenceData), "%d", 624523454);
+
+    return PR_NEW_EVENT;
 }
 
 enum ProcedureResult

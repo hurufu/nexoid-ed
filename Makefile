@@ -12,7 +12,7 @@ WARNINGS     := all extra
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 
-DRAKON_SQL   := CardValidityCheck.sql
+DRAKON_SQL   := NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
 DRAKON_PATH  ?= /cygdrive/c/opt/Drakon\ Editor/1.31
 DRAKON_GEN   := '$(DRAKON_PATH)/drakon_gen.tcl'

@@ -5,64 +5,76 @@
 #include <string.h>
 #include <stdlib.h>
 
-void HAP_Online_Request_to_Dcc_Provider(void) {
+enum ProcedureResult
+HAP_Online_Request_to_Dcc_Provider(void) {
     puts(__func__);
-    g_Result = R_NOK;
+    return R_NOK;
 }
 
-void SearchReservationsByRefData(void) {
+enum ProcedureResult
+SearchReservationsByRefData(void) {
     puts(__func__);
-    g_Result = R_OK;
+    return R_OK;
 }
 
-void OnlineApprovalRequest(void) {
+enum ProcedureResult
+OnlineApprovalRequest(void) {
     puts(__func__);
-    g_Result = R_UNABLE_TO_GO_ONLINE;
+    return R_UNABLE_TO_GO_ONLINE;
 }
 
-void SearchReservationsByPan(void) {
+enum ProcedureResult
+SearchReservationsByPan(void) {
     puts(__func__);
-    g_Result = R_NOK;
+    return R_NOK;
 }
 
-void SCAP_Cardholder_Confirmation(void) {
+enum ProcedureResult
+SCAP_Cardholder_Confirmation(void) {
     puts(__func__);
-    g_Result = R_NOK;
+    return R_NOK;
 }
 
-void SCAP_Search_Transaction_Result_List(void) {
+enum ProcedureResult
+SCAP_Search_Transaction_Result_List(void) {
     puts(__func__);
-    g_Result = R_DONE;
+    return R_DONE;
 }
 
-void SCAP_NoOriginalTransaction(void) {
+enum ProcedureResult
+SCAP_NoOriginalTransaction(void) {
     puts(__func__);
-    g_Result = R_NOK;
+    return R_NOK;
 }
 
-void Log_Entry_Data_Retrieval(void) {
+enum ProcedureResult
+Log_Entry_Data_Retrieval(void) {
     puts(__func__);
-    g_Result = R_OK;
+    return R_OK;
 }
 
-void Initialiase_Basic_Data(void) {
+enum ProcedureResult
+Initialiase_Basic_Data(void) {
     puts(__func__);
-    g_Result = R_OK;
+    return R_OK;
 }
 
-void UpdatePreAuthAmountConfirmation(void) {
+enum ProcedureResult
+UpdatePreAuthAmountConfirmation(void) {
     puts(__func__);
-    g_Result = R_NOK;
+    return R_NOK;
 }
 
-void UpdatePreAuthAmountEntry(void) {
+enum ProcedureResult
+UpdatePreAuthAmountEntry(void) {
     puts(__func__);
-    g_Result = R_DONE;
+    return R_DONE;
 }
 
-void SetUpdatePreAuthTotalAmount(void) {
+enum ProcedureResult
+SetUpdatePreAuthTotalAmount(void) {
     puts(__func__);
-    g_Result = R_NOK;
+    return R_NOK;
 }
 
 enum Wait_For_Event Wait_For_Event(bool (* const Event)[E_MAX],
@@ -85,40 +97,46 @@ enum Wait_For_Event Wait_For_Event(bool (* const Event)[E_MAX],
     return Wait_For_Event_OK;
 }
 
-void OutputAmountError(void) {
+enum ProcedureResult
+OutputAmountError(void) {
     puts(__func__);
 }
 
-void OutputTransactionAmount(void) {
+enum ProcedureResult
+OutputTransactionAmount(void) {
     puts(__func__);
 }
 
-void Authorise_Service(void) {
+bool Authorise_Service(void) {
     puts(__func__);
-    g_Result = R_OK;
+    return true;
 }
 
-void Update_Cardholder_Initial_Message(void) {
+enum ProcedureResult
+Update_Cardholder_Initial_Message(void) {
     puts(__func__);
-    g_Result = R_OK;
+    return R_OK;
 }
 
-void Output(int msgId) {
+enum ProcedureResult
+Output(int msgId) {
     printf("%s %d\n", __func__, msgId);
-    g_Result = R_OK;
+    return R_OK;
 }
 
-void DeactivateAllInterfaces(void) {
+enum ProcedureResult
+DeactivateAllInterfaces(void) {
     puts(__func__);
-    g_Result = R_OK;
+    return R_OK;
 }
 
-void Enable_Allowed_Interfaces(void) {
+enum ProcedureResult
+Enable_Allowed_Interfaces(void) {
     puts(__func__);
-    g_Result = R_DONE;
+    return R_DONE;
 }
 
-void Proprietary_Startup_Sequence(void) {
+enum ProcedureResult Proprietary_Startup_Sequence(void) {
     puts(__func__);
-    g_Result = R_OK;
+    return R_OK;
 }

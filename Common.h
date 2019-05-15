@@ -11,6 +11,7 @@
 
 enum ProcedureResult {
     R_UNINITIALISED = 239
+  , R_NOT_IMPLEMENTED
 
   , R_OK
   , R_NOK
@@ -258,7 +259,6 @@ struct NexoConfiguration {
 
 extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
-extern enum ProcedureResult g_Result;
 
 const char* ProcedureResult_tostring(enum ProcedureResult f);
 const char* TransactionResult_tostring(enum TransactionResult);

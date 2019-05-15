@@ -3,20 +3,20 @@
 #include "Common.h"
 
 // HAP
-void HAP_Online_Request_to_Dcc_Provider(void);
-void OnlineApprovalRequest(void);
-void SearchReservationsByRefData(void);
-void SearchReservationsByPan(void);
-void Log_Entry_Data_Retrieval(void);
-void Initialiase_Basic_Data(void);
+enum ProcedureResult HAP_Online_Request_to_Dcc_Provider(void);
+enum ProcedureResult OnlineApprovalRequest(void);
+enum ProcedureResult SearchReservationsByRefData(void);
+enum ProcedureResult SearchReservationsByPan(void);
+enum ProcedureResult Log_Entry_Data_Retrieval(void);
+enum ProcedureResult Initialiase_Basic_Data(void);
 
 // SCAP
-void SCAP_Cardholder_Confirmation(void);
-void SCAP_Search_Transaction_Result_List(void);
-void SCAP_NoOriginalTransaction(void);
-void UpdatePreAuthAmountConfirmation(void);
-void UpdatePreAuthAmountEntry(void);
-void SetUpdatePreAuthTotalAmount(void);
+enum ProcedureResult SCAP_Cardholder_Confirmation(void);
+enum ProcedureResult SCAP_Search_Transaction_Result_List(void);
+enum ProcedureResult SCAP_NoOriginalTransaction(void);
+enum ProcedureResult UpdatePreAuthAmountConfirmation(void);
+enum ProcedureResult UpdatePreAuthAmountEntry(void);
+enum ProcedureResult SetUpdatePreAuthTotalAmount(void);
 
 enum Wait_For_Event {
     Wait_For_Event_OK = R_OK,
@@ -27,13 +27,13 @@ enum Wait_For_Event {
         enum ServiceId* const SelectedService)
     __attribute__((nonnull(1), warn_unused_result));
 
-void OutputAmountError(void);
-void OutputTransactionAmount(void);
-void Authorise_Service(void);
-void Update_Cardholder_Initial_Message(void);
-void Output(int);
-void DeactivateAllInterfaces(void);
-void Enable_Allowed_Interfaces(void);
+enum ProcedureResult OutputAmountError(void);
+enum ProcedureResult OutputTransactionAmount(void);
+bool Authorise_Service(void);
+enum ProcedureResult Update_Cardholder_Initial_Message(void);
+enum ProcedureResult Output(int);
+enum ProcedureResult DeactivateAllInterfaces(void);
+enum ProcedureResult Enable_Allowed_Interfaces(void);
 
 // Proprietary
-void Proprietary_Startup_Sequence(void);
+enum ProcedureResult Proprietary_Startup_Sequence(void);

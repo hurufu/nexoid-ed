@@ -438,7 +438,7 @@ static enum ProcedureResult Perform_Service(void) {
     /* item 1913 */
     g_Ctd.TerminalErrorIndicator = true;
     /* item 1905 */
-    result = PR_INTERNAL_ERROR;
+    result = PR_INTERNAL_INCONSISTENCY;
     
     item_1823 :
     return result;
@@ -1149,65 +1149,77 @@ static enum ProcedureResult Upa_Specific_Processing(void) {
 }
 
 static enum ProcedureResult Update_Pre_Authorisation(void) {
+    int _sw10050000_ = 0;
+    int _sw9400000_ = 0;
+    int _sw9290000_ = 0;
+    int _sw19310000_ = 0;
+    int _sw19390000_ = 0;
+    int _sw19480000_ = 0;
+    int _sw10130000_ = 0;
+    int _sw19630000_ = 0;
     int _sw9670000_ = 0;
+    int _sw19700000_ = 0;
     // item 1863
     enum ProcedureResult result = PR_UNINITIALISED;
-    /* item 923 */
-    result =
-    Pre_Processing();
+    /* item 10050000 */
+    _sw10050000_ = Pre_Processing();
     
     // item 10050001
-    if (result == PR_OK) {
-        goto item_927;
+    if (_sw10050000_ == PR_OK) {
+        goto item_9400000;
     } else {
     }
     
     // item 10050002
-    if (result == PR_REFERENCE_ENTRY) {
-        /* item 1022 */
-        result =
-        Upa_Specific_Processing();
+    if (_sw10050000_ == PR_REFERENCE_ENTRY) {
     } else {
-        goto item_990;
+        goto item_10050003;
     }
     
+    item_10130000 :
+    _sw10130000_ = Upa_Specific_Processing();
+    
     // item 10130001
-    if (result == PR_DONE) {
+    if (_sw10130000_ == PR_ONLINE) {
+        /* item 19630000 */
+        _sw19630000_ = Online_Request();
     } else {
         goto item_10130002;
     }
     
-    item_964 :
-    result =
-    Online_Request();
-    
-    // item 998
-    if (PR_OK == result) {
-        /* item 9670000 */
-        _sw9670000_ = g_Ctd.Out.Start;
+    // item 19630001
+    if (_sw19630000_ == PR_OK) {
     } else {
-        goto item_990;
+        goto item_19630002;
     }
+    
+    item_9670000 :
+    _sw9670000_ = g_Ctd.Out.Start;
     
     // item 9670001
     if (_sw9670000_ == NONE) {
-        /* item 974 */
-        result =
-        Check_Online_Performed();
+        /* item 19700000 */
+        _sw19700000_ = Check_Online_Performed();
     } else {
         goto item_9670002;
     }
     
-    // item 975
-    if (PR_OK == result) {
+    // item 19700001
+    if (_sw19700000_ == PR_OK) {
         goto item_991;
     } else {
+    }
+    
+    // item 19700002
+    if (_sw19700000_ == PR_NOK) {
         goto item_990;
+    } else {
+        goto item_1984;
     }
     
     item_9670002 :
     if (_sw9670000_ == B) {
-        goto item_927;
+        goto item_9400000;
     } else {
     }
     
@@ -1217,112 +1229,158 @@ static enum ProcedureResult Update_Pre_Authorisation(void) {
         goto item_9670004;
     }
     
-    item_928 :
-    result =
-    Profile_Selection();
+    item_9290000 :
+    _sw9290000_ = Profile_Selection();
     
     // item 9290001
-    if (result == PR_OK) {
-        /* item 948 */
-        result =
-        Cvc_Check_Amount();
+    if (_sw9290000_ == PR_OK) {
+        goto item_19310000;
     } else {
-        goto item_9290002;
     }
     
-    // item 949
-    if (PR_OK == result) {
-        goto item_953;
-    } else {
-        goto item_990;
-    }
-    
-    item_9290002 :
-    if (result == PR_TAP_AGAIN) {
+    // item 9290002
+    if (_sw9290000_ == PR_TAP_AGAIN) {
     } else {
         goto item_9290003;
     }
     
-    item_927 :
-    result =
-    Technology_Selection();
+    item_9400000 :
+    _sw9400000_ = Technology_Selection();
     
     // item 9400001
-    if (result == PR_NON_EMV) {
+    if (_sw9400000_ == PR_NON_EMV) {
         /* item 993 */
         goto item_990;
     } else {
     }
     
     // item 9400002
-    if (result == PR_NOK) {
+    if (_sw9400000_ == PR_NOK) {
         goto item_990;
     } else {
-        goto item_928;
+        /* item 1956 */
+        goto item_9290000;
     }
     
     item_9290003 :
-    if (result == PR_END_APPLICATION) {
-        goto item_961;
+    if (_sw9290000_ == PR_END_APPLICATION) {
+        goto item_19480000;
     } else {
-        goto item_991;
+    }
+    
+    // item 9290004
+    if (_sw9290000_ == PR_NOK) {
+        goto item_990;
+    } else {
+        goto item_1984;
     }
     
     item_9670004 :
     if (_sw9670000_ == D) {
     } else {
-        goto item_990;
+        goto item_1984;
     }
     
-    item_953 :
-    result =
-    Kernel_Activation();
+    item_19310000 :
+    _sw19310000_ = Kernel_Activation();
     
-    // item 954
-    if (PR_OK == result) {
-        /* item 958 */
-        result =
-        Kernel_Processing();
+    // item 19310001
+    if (_sw19310000_ == PR_OK) {
+        /* item 19390000 */
+        _sw19390000_ = Kernel_Processing();
     } else {
-        goto item_990;
+        goto item_19310002;
     }
     
-    // item 959
-    if (PR_OK == result) {
+    // item 19390001
+    if (_sw19390000_ == PR_OK) {
     } else {
-        goto item_990;
+        goto item_19390002;
     }
     
-    item_961 :
-    result =
-    Outcome_Processing();
+    item_19480000 :
+    _sw19480000_ = Outcome_Processing();
     
-    // item 965
-    if (PR_OK == result) {
+    // item 19480001
+    if (_sw19480000_ == PR_DONE) {
     } else {
-        goto item_990;
+        goto item_19480002;
     }
     
     // item 962
     if (g_Ctd.Outcome == O_ONLINE_REQUEST) {
-        goto item_991;
+        goto item_10130000;
     } else {
-        goto item_964;
+        goto item_9670000;
+    }
+    
+    item_19480002 :
+    if (_sw19480000_ == PR_NOK) {
+        goto item_990;
+    } else {
+        goto item_1984;
+    }
+    
+    item_19390002 :
+    if (_sw19390000_ == PR_NOK) {
+        goto item_990;
+    } else {
+        goto item_1984;
+    }
+    
+    item_19310002 :
+    if (_sw19310000_ == PR_NOK) {
+        goto item_990;
+    } else {
+        goto item_1984;
+    }
+    
+    item_19630002 :
+    if (_sw19630000_ == PR_NOK) {
+        goto item_990;
+    } else {
+        goto item_1984;
     }
     
     item_10130002 :
-    if (result == PR_OK) {
+    if (_sw10130000_ == PR_OK) {
         goto item_991;
     } else {
+    }
+    
+    // item 10130003
+    if (_sw10130000_ == PR_NOK) {
+        goto item_990;
+    } else {
+        goto item_1984;
+    }
+    
+    item_10050003 :
+    if ((_sw10050000_ == PR_ACCEPT) || (_sw10050000_ == PR_NOK)) {
+    } else {
+        goto item_1984;
     }
     
     item_990 :
     g_Ctd.TransactionResult = T_ABORTED;
     
     item_991 :
+    result =
     Transaction_Completion();
-    /* item 1833 */
-    return PR_DONE;
+    
+    // item 1986
+    if (PR_DONE == result) {
+        /* item 1985 */
+        result = PR_DONE;
+        goto item_1833;
+    } else {
+    }
+    
+    item_1984 :
+    result = PR_INTERNAL_INCONSISTENCY;
+    
+    item_1833 :
+    return result;
     
 }
 

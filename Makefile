@@ -61,7 +61,7 @@ $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log)
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
-wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d)
+wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
 wipe: clean
 
 $(EXECUTABLE).fat: $(OBJECTS)

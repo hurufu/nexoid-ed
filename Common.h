@@ -65,6 +65,7 @@ enum NokReason {
   , N_TECHNICAL_ERROR
   , N_MISSING_DATA
   , N_NO_PERMISSION
+  , N_CONFIGURATION_ERROR
 
   , N_MAX
 };
@@ -174,7 +175,20 @@ union ServiceSettings {
     uint8_t raw[2];
     struct {
         uint8_t ContactChipPrioritized : 1;
+        uint8_t msrProcessingModeSupported : 1;
+        uint8_t msrProcessingModeSupportedForCashback : 1;
         uint8_t ServiceProtected : 1;
+        uint8_t manualEntryProcessingModeSupported : 1;
+        uint8_t ctlsProcessingModeSupported : 1;
+        uint8_t automaticAppSelection : 1;
+        uint8_t contactProcessingModeSupported : 1;
+
+        uint8_t deferredPaymentTrxAmountRequired : 1;
+        uint8_t deferredPaymentAdditionalSalesInfo : 1;
+        uint8_t crdhlrConfirmationNotAllowed : 1;
+        uint8_t crdhlrConfirmationRequired : 1;
+        uint8_t preauthTrxAmountRequired : 1;
+        uint8_t /* RFU */ : 3;
     };
 };
 
@@ -277,6 +291,9 @@ struct NexoConfiguration {
 
     // DCC
     union Amount DccMinimumAllowedAmount;
+
+    // Refund
+    union Amount RefundProtectionAmount;
 };
 
 extern struct CurrentTransactionData g_Ctd;

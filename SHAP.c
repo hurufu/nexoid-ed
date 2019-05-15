@@ -106,6 +106,11 @@ OutputAmountError(void) {
     return PR_OK;
 }
 
+enum ProcedureResult Entry(int msgId) {
+    printf("%s %d\n", __func__, msgId);
+    return PR_OK;
+}
+
 enum ProcedureResult
 OutputTransactionAmount(void) {
     puts(__func__);

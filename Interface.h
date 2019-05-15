@@ -29,6 +29,7 @@ enum ProcedureResult OutputTransactionAmount(void);
 bool Authorise_Service(void);
 enum ProcedureResult Update_Cardholder_Initial_Message(void);
 enum ProcedureResult Output(int);
+enum ProcedureResult Entry(int);
 enum ProcedureResult DeactivateAllInterfaces(void);
 enum ProcedureResult Enable_Allowed_Interfaces(void);
 

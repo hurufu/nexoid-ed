@@ -13,6 +13,7 @@ enum ProcedureResult {
     PR_UNINITIALISED = 239
   , PR_NOT_IMPLEMENTED
   , PR_INTERNAL_INCONSISTENCY
+  , PR_REBOOT
 
   , PR_OK
   , PR_NOK

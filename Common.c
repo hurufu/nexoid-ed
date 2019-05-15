@@ -19,7 +19,8 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_DONE: return "PR_DONE";
         case PR_ONLINE: return "PR_ONLINE";
         case PR_UNABLE_TO_GO_ONLINE: return "PR_UNABLE_TO_GO_ONLINE";
-        case PR_START_CONDITIONS_SATISFIED: return "PR_START_CONDITIONS_SATISFIED";
+        case PR_CONDITIONS_SATISFIED: return "PR_CONDITIONS_SATISFIED";
+        case PR_CONDITIONS_NOT_SATISFIED: return "PR_CONDITIONS_NOT_SATISFIED";
         case PR_REINITIALISE: return "PR_REINITIALISE";
         case PR_NOT_IMPLEMENTED: return "PR_NOT_IMPLEMENTED";
         case PR_UNINITIALISED: return "PR_UNINITIALISED";

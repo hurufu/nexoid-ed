@@ -10,73 +10,73 @@
 enum ProcedureResult
 HAP_Online_Request_to_Dcc_Provider(void) {
     puts(__func__);
-    return R_NOK;
+    return PR_NOK;
 }
 
 enum ProcedureResult
 SearchReservationsByRefData(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult
 OnlineApprovalRequest(void) {
     puts(__func__);
-    return R_UNABLE_TO_GO_ONLINE;
+    return PR_UNABLE_TO_GO_ONLINE;
 }
 
 enum ProcedureResult
 SearchReservationsByPan(void) {
     puts(__func__);
-    return R_NOK;
+    return PR_NOK;
 }
 
 enum ProcedureResult
 SCAP_Cardholder_Confirmation(void) {
     puts(__func__);
-    return R_NOK;
+    return PR_NOK;
 }
 
 enum ProcedureResult
 SCAP_Search_Transaction_Result_List(void) {
     puts(__func__);
-    return R_DONE;
+    return PR_DONE;
 }
 
 enum ProcedureResult
 SCAP_NoOriginalTransaction(void) {
     puts(__func__);
-    return R_NOK;
+    return PR_NOK;
 }
 
 enum ProcedureResult
 Log_Entry_Data_Retrieval(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult
 Initialiase_Basic_Data(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult
 UpdatePreAuthAmountConfirmation(void) {
     puts(__func__);
-    return R_NOK;
+    return PR_NOK;
 }
 
 enum ProcedureResult
 UpdatePreAuthAmountEntry(void) {
     puts(__func__);
-    return R_DONE;
+    return PR_DONE;
 }
 
 enum ProcedureResult
 SetUpdatePreAuthTotalAmount(void) {
     puts(__func__);
-    return R_NOK;
+    return PR_NOK;
 }
 
 enum Wait_For_Event Wait_For_Event(bool (* const Event)[E_MAX],
@@ -102,13 +102,13 @@ enum Wait_For_Event Wait_For_Event(bool (* const Event)[E_MAX],
 enum ProcedureResult
 OutputAmountError(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult
 OutputTransactionAmount(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 bool Authorise_Service(void) {
@@ -119,30 +119,30 @@ bool Authorise_Service(void) {
 enum ProcedureResult
 Update_Cardholder_Initial_Message(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult
 Output(int msgId) {
     printf("%s %d\n", __func__, msgId);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult
 DeactivateAllInterfaces(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult
 Enable_Allowed_Interfaces(void) {
     puts(__func__);
-    return R_DONE;
+    return PR_DONE;
 }
 
 enum ProcedureResult Proprietary_Startup_Sequence(void) {
     puts(__func__);
-    return R_OK;
+    return PR_OK;
 }
 
 enum ProcedureResult Diagnostics_Maintenance_Recovery(void) {
@@ -152,5 +152,5 @@ enum ProcedureResult Diagnostics_Maintenance_Recovery(void) {
     } else {
         wait(NULL);
     }
-    return R_NOK;
+    return PR_NOK;
 }

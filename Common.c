@@ -5,25 +5,25 @@
 const char*
 ProcedureResult_tostring(const enum ProcedureResult f) {
     switch (f) {
-        case R_END_APPLICATION: return "R_END_APPLICATION";
-        case R_TAP_AGAIN: return "R_TAP_AGAIN";
-        case R_NOK: return "F_NOK";
-        case R_OK: return "F_OK";
-        case R_REFERENCE_ENTRY: return "F_REFERENCE_ENTRY";
-        case R_ACCEPT: return "F_ACCEPT";
-        case R_NOT_FOUND: return "F_NOT_FOUND";
-        case R_NOT_SUPPORTED: return "F_NOT_SUPPORTED";
-        case R_NON_EMV: return "R_NON_EMV";
-        case R_MATCH: return "R_MATCH";
-        case R_NO_MATCH: return "R_NO_MATCH";
-        case R_DONE: return "R_DONE";
-        case R_ONLINE: return "R_ONLINE";
-        case R_UNABLE_TO_GO_ONLINE: return "R_UNABLE_TO_GO_ONLINE";
-        case R_START_CONDITIONS_SATISFIED: return "R_START_CONDITIONS_SATISFIED";
-        case R_REINITIALISE: return "R_REINITIALISE";
-        case R_NOT_IMPLEMENTED: return "R_NOT_IMPLEMENTED";
-        case R_UNINITIALISED: return "R_UNINITIALISED";
-        case R_MAX:
+        case PR_END_APPLICATION: return "PR_END_APPLICATION";
+        case PR_TAP_AGAIN: return "PR_TAP_AGAIN";
+        case PR_NOK: return "F_NOK";
+        case PR_OK: return "F_OK";
+        case PR_REFERENCE_ENTRY: return "F_REFERENCE_ENTRY";
+        case PR_ACCEPT: return "F_ACCEPT";
+        case PR_NOT_FOUND: return "F_NOT_FOUND";
+        case PR_NOT_SUPPORTED: return "F_NOT_SUPPORTED";
+        case PR_NON_EMV: return "PR_NON_EMV";
+        case PR_MATCH: return "PR_MATCH";
+        case PR_NO_MATCH: return "PR_NO_MATCH";
+        case PR_DONE: return "PR_DONE";
+        case PR_ONLINE: return "PR_ONLINE";
+        case PR_UNABLE_TO_GO_ONLINE: return "PR_UNABLE_TO_GO_ONLINE";
+        case PR_START_CONDITIONS_SATISFIED: return "PR_START_CONDITIONS_SATISFIED";
+        case PR_REINITIALISE: return "PR_REINITIALISE";
+        case PR_NOT_IMPLEMENTED: return "PR_NOT_IMPLEMENTED";
+        case PR_UNINITIALISED: return "PR_UNINITIALISED";
+        case PR_MAX:
             break;
     }
     return NULL;

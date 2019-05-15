@@ -19,8 +19,8 @@ enum ProcedureResult UpdatePreAuthAmountEntry(void);
 enum ProcedureResult SetUpdatePreAuthTotalAmount(void);
 
 enum Wait_For_Event {
-    Wait_For_Event_OK = R_OK,
-    Wait_For_Event_NOK = R_NOK
+    Wait_For_Event_OK = PR_OK,
+    Wait_For_Event_NOK = PR_NOK
 } Wait_For_Event(
         bool (* Event)[E_MAX],
         char (* ReferenceData)[35 + 1],

@@ -10,27 +10,27 @@
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
 
 enum ProcedureResult {
-    R_UNINITIALISED = 239
-  , R_NOT_IMPLEMENTED
+    PR_UNINITIALISED = 239
+  , PR_NOT_IMPLEMENTED
 
-  , R_OK
-  , R_NOK
-  , R_NON_EMV
-  , R_TAP_AGAIN
-  , R_END_APPLICATION
-  , R_REFERENCE_ENTRY
-  , R_ACCEPT
-  , R_NOT_FOUND
-  , R_NOT_SUPPORTED
-  , R_MATCH
-  , R_NO_MATCH
-  , R_DONE
-  , R_ONLINE
-  , R_UNABLE_TO_GO_ONLINE
-  , R_START_CONDITIONS_SATISFIED
-  , R_REINITIALISE
+  , PR_OK
+  , PR_NOK
+  , PR_NON_EMV
+  , PR_TAP_AGAIN
+  , PR_END_APPLICATION
+  , PR_REFERENCE_ENTRY
+  , PR_ACCEPT
+  , PR_NOT_FOUND
+  , PR_NOT_SUPPORTED
+  , PR_MATCH
+  , PR_NO_MATCH
+  , PR_DONE
+  , PR_ONLINE
+  , PR_UNABLE_TO_GO_ONLINE
+  , PR_START_CONDITIONS_SATISFIED
+  , PR_REINITIALISE
 
-  , R_MAX
+  , PR_MAX
 };
 
 enum ServiceId {
@@ -53,7 +53,7 @@ enum ServiceId {
 } __attribute__((__packed__));
 
 enum NokReason {
-    N_NOT_IMPLEMENTED = R_MAX + 2364
+    N_NOT_IMPLEMENTED = PR_MAX + 2364
   , N_ORIGINAL_TRX_NOT_FOUND
   , N_TECHNNICAL_ERROR
   , N_MISSING_DATA

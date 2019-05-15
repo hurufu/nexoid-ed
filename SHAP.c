@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 enum ProcedureResult
 HAP_Online_Request_to_Dcc_Provider(void) {
@@ -141,4 +143,14 @@ Enable_Allowed_Interfaces(void) {
 enum ProcedureResult Proprietary_Startup_Sequence(void) {
     puts(__func__);
     return R_OK;
+}
+
+enum ProcedureResult Diagnostics_Maintenance_Recovery(void) {
+    puts(__func__);
+    if (fork() == 0) {
+        abort();
+    } else {
+        wait(NULL);
+    }
+    return R_NOK;
 }

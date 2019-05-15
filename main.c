@@ -2,10 +2,12 @@
 #include "Common.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int main() {
-    Main();
-    ctd_print(&g_Ctd);
+    const enum ProcedureResult pRes = Main();
+    printf("NEXO Fast Application exited with %s (%d)\n",
+            ProcedureResult_tostring(pRes), pRes);
 
-    return 0;
+    return EXIT_FAILURE;
 }

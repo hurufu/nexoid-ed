@@ -37,3 +37,4 @@ enum ProcedureResult Enable_Allowed_Interfaces(void);
 
 // Proprietary
 enum ProcedureResult Proprietary_Startup_Sequence(void);
+enum ProcedureResult Diagnostics_Maintenance_Recovery(void);

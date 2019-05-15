@@ -83,19 +83,19 @@ enum ProcedureResult Wait_For_Event(bool (* const Event)[E_MAX],
                                    char (* const ReferenceData)[35 + 1],
                                    enum ServiceId* const SelectedService
                                   ) {
-    static bool oneTime = false;
+    static bool terminate = false;
     puts(__func__);
 
-    if (oneTime) {
-        return PR_NOT_IMPLEMENTED;
+    if (terminate) {
+        (*Event)[E_TERMINATION_REQUESTED] = true;
+    } else {
+        (*Event)[E_SERVICE_SELECTION] = true;
+        *SelectedService = S_UPDATE_PRE_AUTH;
+
+        (*Event)[E_REFERENCE_ENTRY] = true;
+        snprintf(*ReferenceData, sizeof(*ReferenceData), "%d", 624523454);
     }
-
-    oneTime = true;
-    (*Event)[E_SERVICE_SELECTION + 100] = true;
-    *SelectedService = S_UPDATE_PRE_AUTH;
-
-    (*Event)[E_REFERENCE_ENTRY] = true;
-    snprintf(*ReferenceData, sizeof(*ReferenceData), "%d", 624523454);
+    terminate = true;
 
     return PR_NEW_EVENT;
 }
@@ -195,4 +195,16 @@ enum ProcedureResult Diagnostics_Maintenance_Recovery(void) {
         wait(NULL);
     }
     return PR_NOK;
+}
+
+void Force_Reboot(void) {
+    puts(__func__);
+}
+
+void Force_Termination(void) {
+    puts(__func__);
+}
+
+void Force_Shutdown(void) {
+    puts(__func__);
 }

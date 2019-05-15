@@ -8,15 +8,15 @@ int run_nexo_fast_application(void) {
     printf("Main procedure of NEXO Fast application returned %d [%s]\n",
             pRes, ProcedureResult_tostring(pRes));
     switch (pRes) {
-        case PR_OK:
-            puts("Ok.");
+        case PR_TERMINATE:
+            puts("Bye.");
             return 0;
         case PR_REBOOT:
             puts("System reboot requested.");
             return 2;
-        case PR_NOK:
-            puts("Fail.");
-            return 1;
+        case PR_SHUTDOWN:
+            puts("System shutdown requested.");
+            return 3;
         default:
             puts("Unexpected error.");
             return 1;

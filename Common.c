@@ -27,6 +27,9 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_NEW_EVENT: return "PR_NEW_EVENT";
         case PR_INTERNAL_INCONSISTENCY: return "PR_INTERNAL_INCONSISTENCY";
         case PR_REBOOT: return "PR_REBOOT";
+        case PR_TERMINATE: return "PR_TERMINATE";
+        case PR_SHUTDOWN: return "PR_SHUTDOWN";
+        case PR_STARTUP_SEQUENCE: return "PR_STARTUP_SEQUENCE";
         case PR_MAX:
             break;
     }

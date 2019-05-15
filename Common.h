@@ -14,6 +14,9 @@ enum ProcedureResult {
   , PR_NOT_IMPLEMENTED
   , PR_INTERNAL_INCONSISTENCY
   , PR_REBOOT
+  , PR_TERMINATE
+  , PR_SHUTDOWN
+  , PR_STARTUP_SEQUENCE
 
   , PR_OK
   , PR_NOK
@@ -86,7 +89,9 @@ enum TransactionType {
     TT_UNKNOWN
 } __attribute__((packed));
 
+// Array is indexed by enum IdleEvent
 enum IdleEvent {                  // Service Start Event?
+    // NEXO
     E_LANGUAGE_SELECTION = 0      // No
   , E_CHOICE_OF_APPLICATION       // No
   , E_SERVICE_SELECTION           // No
@@ -102,6 +107,11 @@ enum IdleEvent {                  // Service Start Event?
   , E_ADDITIONAL_TRANSACTION_DATA // No
   , E_CARD_REMOVAL                // No
   , E_CANCEL                      // No
+
+  // Non Nexo
+  , E_REBOOT_REQUESTED            // No
+  , E_TERMINATION_REQUESTED       // No
+  , E_SHUTDOWN_REQUESTED          // No
 
   , E_MAX                         // N/A
 };
@@ -240,7 +250,9 @@ struct CurrentTransactionData {
     // Service startup
     bool SecurityPermission;
     union Country SelectedLanguage;
-    bool Event[E_MAX];
+    struct EventTable {
+        bool Table[E_MAX];
+    } Event;
     enum TerminalErrorReason TerminalErrorReason;
     bool TerminalErrorIndicator;
 };

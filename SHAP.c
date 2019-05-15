@@ -100,11 +100,13 @@ enum Wait_For_Event Wait_For_Event(bool (* const Event)[E_MAX],
 enum ProcedureResult
 OutputAmountError(void) {
     puts(__func__);
+    return R_OK;
 }
 
 enum ProcedureResult
 OutputTransactionAmount(void) {
     puts(__func__);
+    return R_OK;
 }
 
 bool Authorise_Service(void) {

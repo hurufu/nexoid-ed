@@ -12,6 +12,7 @@
 enum ProcedureResult {
     PR_UNINITIALISED = 239
   , PR_NOT_IMPLEMENTED
+  , PR_INTERNAL_ERROR
 
   , PR_OK
   , PR_NOK
@@ -57,7 +58,7 @@ enum ServiceId {
 enum NokReason {
     N_NOT_IMPLEMENTED = PR_MAX + 2364
   , N_ORIGINAL_TRX_NOT_FOUND
-  , N_TECHNNICAL_ERROR
+  , N_TECHNICAL_ERROR
   , N_MISSING_DATA
   , N_NO_PERMISSION
 
@@ -105,6 +106,7 @@ enum IdleEvent {                  // Service Start Event?
 };
 
 enum TerminalErrorReason {
+  // Specified in NEXO
     TE_NONE = T_MAX + 2423
   , TE_HARDWARE_ERROR
   , TE_MEMORY_FAILURE
@@ -116,11 +118,16 @@ enum TerminalErrorReason {
   , TE_NEXO_FAST_FAILURE
   , TE_INTERACTION_ERROR
   , TE_OVERSPEND
+
+  // Not specified in NEXO
+  , TER_NOT_IMPLEMENTED
+
+  , TER_MAX
 };
 
 struct Out {
     enum Start {
-        NONE = T_MAX + 2398,
+        NONE = TER_MAX + 2398,
         A,
         B,
         C,
@@ -241,9 +248,9 @@ struct NexoConfiguration {
     // Terminal configuration
     uint8_t TerminalType;
     union TerminalSettings TerminalSettings;
-    enum ServiceId DefaultService;
 
     // Application configuration
+    enum ServiceId DefaultService;
     union Currency* ApplicationCurrency;
     union Country CardholderDefaultLanguage;
 

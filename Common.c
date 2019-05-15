@@ -25,6 +25,7 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_NOT_IMPLEMENTED: return "PR_NOT_IMPLEMENTED";
         case PR_UNINITIALISED: return "PR_UNINITIALISED";
         case PR_NEW_EVENT: return "PR_NEW_EVENT";
+        case PR_INTERNAL_ERROR: return "PR_INTERNAL_ERROR";
         case PR_MAX:
             break;
     }
@@ -50,7 +51,7 @@ NokReason_tostring(const enum NokReason n) {
     switch (n) {
         case N_NOT_IMPLEMENTED: return "N_NOT_IMPLEMENTED";
         case N_ORIGINAL_TRX_NOT_FOUND: return "N_ORIGINAL_TRX_NOT_FOUND";
-        case N_TECHNNICAL_ERROR: return "N_TECHNNICAL_ERROR";
+        case N_TECHNICAL_ERROR: return "N_TECHNICAL_ERROR";
         case N_MISSING_DATA: return "N_MISSING_DATA";
         case N_NO_PERMISSION: return "N_NO_PERMISSION";
         case N_MAX:

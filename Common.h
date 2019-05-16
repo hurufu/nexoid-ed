@@ -68,6 +68,7 @@ enum NokReason {
   , N_MISSING_DATA
   , N_NO_PERMISSION
   , N_CONFIGURATION_ERROR
+  , N_AMOUNT_ERROR
 
   , N_MAX
 };
@@ -386,8 +387,12 @@ struct CurrentTransactionData {
     volatile bool isDccEligible;
     bool DccPerformedOnce;
 
+    // Pre-Authorisation
+    bool* Minus;
+
     // Service startup
     bool SecurityPermission;
+    bool AmountDisplayed;
     union Country SelectedLanguage;
     struct EventTable {
         bool Table[E_MAX];

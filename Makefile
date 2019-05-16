@@ -108,7 +108,7 @@ trace.log: $(EXECUTABLE)
 .PHONY: cflow
 cflow: main.cflow
 main.cflow:
-	$(CFLOW) --cpp --no-ansi --omit-symbol-names $(SOURCES) > $@
+	$(CFLOW) --no-ansi --omit-symbol-names $(SOURCES) > $@
 
 .PHONY: cg
 cg: cg.png

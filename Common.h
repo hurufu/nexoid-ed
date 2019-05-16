@@ -171,6 +171,98 @@ union ServiceStartEvents {
     };
 };
 
+union ConfiguredServices {
+    uint8_t raw[2];
+    struct {
+        uint8_t payment : 1;
+        uint8_t refund : 1;
+        uint8_t cancellation : 1;
+        uint8_t preAuthorisation : 1;
+        uint8_t updatePreAuthorisation : 1;
+        uint8_t paymentCompletion : 1;
+        uint8_t cashAdvance : 1;
+        uint8_t deferredPayment : 1;
+
+        uint8_t deferredPaymentCompletion : 1;
+        uint8_t cardholderDetection : 1;
+        uint8_t cardValidityCheck : 1;
+        uint8_t noShow : 1;
+        uint8_t voiceAuthorisation : 1;
+        uint8_t /* RFU */ : 3;
+    };
+};
+
+union TerminalTransactionQualifiers {
+    uint8_t raw[4];
+    union {
+        struct {
+            uint8_t msrModeSupported : 1;
+            uint8_t /* RFU */ : 1;
+            uint8_t emvModeSupported : 1;
+            uint8_t emvContactChipModeSupported : 1;
+            uint8_t offlineOnlyReader : 1;
+            uint8_t onlinePinSupported : 1;
+            uint8_t signatureSupported : 1;
+            uint8_t offlineDataAuthenticationForOnlineAuthSupported : 1;
+
+            uint8_t onlineCryptogramRequired : 1;
+            uint8_t cvmRequired : 1;
+            uint8_t contactChipOfflinePinSupported : 1;
+            uint8_t /* RFU */ : 5;
+
+            uint8_t issuerUpdateProcessingSupported : 1;
+            uint8_t consumerDeviceCvmSupported : 1;
+            uint8_t /* RFU */ : 6;
+
+            uint8_t /* RFU */ : 8;
+        } kernel3;
+
+        struct {
+            uint8_t msrModeSupported : 1;
+            uint8_t /* RFU */ : 1;
+            uint8_t emvModeSupported : 1;
+            uint8_t emvContactChipModeSupported : 1;
+            uint8_t offlineOnlyReader : 1;
+            uint8_t onlinePinSupported : 1;
+            uint8_t signatureSupported : 1;
+            uint8_t /* RFU */ : 1;
+
+            uint8_t onlineCryptogramRequired : 1;
+            uint8_t cvmRequired : 1;
+            uint8_t contactChipOfflinePinSupported : 1;
+            uint8_t /* RFU */ : 5;
+
+            uint8_t issuerUpdateProcessingSupported : 1;
+            uint8_t consumerDeviceCvmSupported : 1;
+            uint8_t /* RFU */ : 1;
+            uint8_t consumerDeviceCvmRequired : 1;
+            uint8_t /* RFU */ : 3;
+
+            uint8_t /* RFU */ : 8;
+        } kernel6;
+
+        struct {
+            uint8_t /* RFU */ : 1;
+            uint8_t fullCtlsTransactionFlowSupported : 1;
+            uint8_t emvModeSupported : 1;
+            uint8_t fullContactTransactionFlowSupported : 1;
+            uint8_t offlineOnlyReader : 1;
+            uint8_t onlinePinSupported : 1;
+            uint8_t signatureSupported : 1;
+            uint8_t /* RFU */ : 1;
+
+            uint8_t onlineCryptogramRequired : 1;
+            uint8_t cvmRequired : 1;
+            uint8_t /* RFU */ : 6;
+
+            uint8_t /* RFU */ : 8;
+
+            uint8_t supprtedFddaV1_0 : 1;
+            uint8_t /* RFU */ : 7;
+        } kernel7;
+    };
+};
+
 union ServiceSettings {
     uint8_t raw[2];
     struct {
@@ -237,6 +329,32 @@ struct AuthorisationResponseCode {
     uint8_t v[2];
 };
 
+struct CombinationsListAndParametersEntry {
+    struct {
+        uint8_t _terminalAid_size : 5;
+    };
+    unsigned char terminalAid[16];
+    unsigned char kernelId;
+    union ConfiguredServices supportingServices;
+    bool* cashbackPresent;
+    union TerminalTransactionQualifiers* terminalTransactionQualifiers;
+    bool* statusCheckSupported;
+    bool* zeroAmountAllowed;
+    union Amount* readerCtlessTransactionLimit;
+    union Amount* readerCtlessFloorLimit;
+    union Amount* readerCvmRequiredLimit;
+    bool* extendedSelectionSupported;
+
+    // Predefined indicators
+    bool* statusCheckRequested;
+    bool* zeroAmount;
+    bool* ctlessApplicationNotAllowed;
+    bool* readeCtlessFloorLimitNotAllowed;
+    bool* readerCvmRequiredLimitExceeded;
+
+    struct CombinationsListAndParametersEntry* next;
+};
+
 struct CurrentTransactionData {
     // Transaction
     const int KernelId;
@@ -269,6 +387,9 @@ struct CurrentTransactionData {
     } Event;
     enum TerminalErrorReason TerminalErrorReason;
     bool TerminalErrorIndicator;
+
+    // Contactless
+    struct CombinationsListAndParametersEntry* CombListWorkingTable;
 };
 
 struct NexoConfiguration {
@@ -294,6 +415,9 @@ struct NexoConfiguration {
 
     // Refund
     union Amount RefundProtectionAmount;
+
+    // Contactless
+    struct CombinationsListAndParametersEntry* CombListsAndParams;
 };
 
 extern struct CurrentTransactionData g_Ctd;

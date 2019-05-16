@@ -15,7 +15,6 @@ CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 DRAKON_SQL   := NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
 DRAKON_PATH  ?= /cygdrive/c/opt/Drakon\ Editor/1.31
-DRAKON_GEN   := '$(DRAKON_PATH)/drakon_gen.tcl'
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
@@ -26,19 +25,24 @@ DEPENDS      := $(SOURCES:.c=.d)
 
 CSCOPE_REF   := cscope.out
 
+TIME_RESULT  := time.yaml
+TIME_ARGS    := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
+
 # Commands ####################################################################
-CSCOPE       := $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
+TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS),)
+CSCOPE       := $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)
-OBJCOPY      := objcopy $(if $(VERBOSE),-v,)
-ADDR2LINE    := addr2line
-SQLITE3      := $(call assert_cmd,sqlite3)
-DDD          := $(call assert_cmd,ddd)
+OBJCOPY      := $(TIME) objcopy $(if $(VERBOSE),-v,)
+ADDR2LINE    := $(TIME) addr2line
+SQLITE3      := $(TIME) $(call assert_cmd,sqlite3)
+DDD          := $(TIME) $(call assert_cmd,ddd)
 ifdef USE_CCACHE
 CCACHE       := $(call assert_cmd,ccache)
 endif
-CC           := $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
-CFLOW        := $(call assert_cmd,cflow)
+CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
+CFLOW        := $(TIME) $(call assert_cmd,cflow)
+DRAKON_GEN   := $(TIME) '$(DRAKON_PATH)/drakon_gen.tcl'
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update
@@ -59,7 +63,7 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -f$@ -b $^
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png)
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)

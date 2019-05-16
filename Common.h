@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
@@ -173,6 +174,7 @@ union ServiceStartEvents {
 
 union ConfiguredServices {
     uint8_t raw[2];
+    uint16_t i;
     struct {
         uint8_t payment : 1;
         uint8_t refund : 1;
@@ -194,6 +196,7 @@ union ConfiguredServices {
 
 union TerminalTransactionQualifiers {
     uint8_t raw[4];
+    uint32_t i;
     union {
         struct {
             uint8_t msrModeSupported : 1;
@@ -331,9 +334,9 @@ struct AuthorisationResponseCode {
 
 struct CombinationsListAndParametersEntry {
     struct {
-        uint8_t _terminalAid_size : 5;
-    };
-    unsigned char terminalAid[16];
+        uint8_t size : 5;
+        unsigned char value[16];
+    } terminalAid;
     unsigned char kernelId;
     union ConfiguredServices supportingServices;
     bool* cashbackPresent;
@@ -370,6 +373,9 @@ struct CurrentTransactionData {
     struct AuthorisationResponseCode AuthorisationResponseCode;
     bool AttendantForcedTransactionOnline;
     char ReferenceData[35 + 1];
+
+    // Cashback
+    union Amount CashbackAmount;
 
     // Card data
     const union Country* IssuerCountry;
@@ -431,4 +437,144 @@ void ctd_print(const struct CurrentTransactionData*);
 
 static inline bool isIssuerCountryExcludedForDcc(void) {
     return false;
+}
+
+static inline union ConfiguredServices
+ServiceId_to_ConfiguredServices(const enum ServiceId s) {
+    union ConfiguredServices ret = { };
+    switch (s) {
+        case S_PAYMENT:
+            ret.payment = 1;
+            break;
+        case S_REFUND:
+            ret.refund = 1;
+            break;
+        case S_CANCELLATION:
+            ret.cancellation = 1;
+            break;
+        case S_PRE_AUTH:
+            ret.preAuthorisation = 1;
+            break;
+        case S_UPDATE_PRE_AUTH:
+            ret.updatePreAuthorisation = 1;
+            break;
+        case S_PAYMENT_COMPLETION:
+            ret.paymentCompletion = 1;
+            break;
+        case S_CASH_ADVANCE:
+            ret.cashAdvance = 1;
+            break;
+        case S_DEFFERED_PAYMENT:
+            ret.deferredPayment = 1;
+            break;
+        case S_DEFFERED_PAYMENT_COMPLETION:
+            ret.deferredPaymentCompletion = 1;
+            break;
+        case S_VOICE_AUTHORISATION:
+            ret.voiceAuthorisation = 1;
+            break;
+        case S_CARDHOLDER_DETECTION:
+            ret.cardholderDetection = 1;
+            break;
+        case S_CARD_VALIDITY_CHECK:
+            ret.cardValidityCheck = 1;
+            break;
+        case S_NO_SHOW:
+            ret.noShow = 1;
+            break;
+        default:
+            break;
+    }
+    return ret;
+}
+
+static inline uint64_t
+Copy_Uint64(const uint64_t i) {
+    if (!i) {
+        return NULL;
+    }
+    uint64_t* const ret = malloc(sizeof(*i));
+    *ret = i;
+    return ret;
+}
+
+static inline uint32_t*
+Copy_Uint32(const uint32_t* const i) {
+    if (!i) {
+        return NULL;
+    }
+    uint32_t* const ret = malloc(sizeof(*i));
+    *ret = *i;
+    return ret;
+}
+
+static inline bool*
+Copy_Bool(const bool* const i) {
+    if (!i) {
+        return NULL;
+    }
+    bool* const ret = malloc(sizeof(*i));
+    *ret = *i;
+    return ret;
+}
+
+static inline union Amount*
+Copy_Amount(const union Amount* i) {
+    if (!i) {
+        return NULL;
+    }
+    return Copy_Uint64(i->i);
+}
+
+Copy_TerminalTransactionQualifiers() {
+}
+
+#define dcopy(Src, ...) dcopy1(Src)
+#define dcopy1(Src) dcopy2(malloc(sizeof(*Src)), (Src))
+#define dcopy2(Dst, Src) \
+    _Generic((Src),\
+        signed char* : dcopy_sc\
+        unsigned char* : dcopy_uc\
+        signed short* : dcopy_ss\
+        unsigned short* : dcopy_us\
+        signed long* : dcopy_sl\
+        unsigned long* : dcopy_ul\
+        signed long long* : dcopy_sll\
+        unsigned long long* : dcopy_ull\
+        float* : dcopy_f\
+        double* : dcopy_d\
+        long double* : dcopy_ld\
+        bool* : dcopy_b\
+        union Amount* : dcopy_Amount\
+        union TerminalTransactionQualifiers* : dcopy_TerminalTransactionQualifiers\
+    )\
+    (Dst, Src)
+
+static inline struct CombinationsListAndParametersEntry*
+Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r) {
+    const struct CombinationsListAndParametersEntry tmp = {
+        .terminalAid = r->terminalAid,
+        .kernelId = r->kernelId,
+        .terminalTransactionQualifiers = dcopy(r->terminalTransactionQualifiers),
+        .statusCheckSupported = dcopy(r->statusCheckSupported),
+        .zeroAmountAllowed = dcopy(r->zeroAmountAllowed),
+        .readerCtlessTransactionLimit = dcopy(r->readerCtlessTransactionLimit),
+        .readerCtlessFloorLimit = dcopy(r->readerCtlessFloorLimit),
+        .readerCvmRequiredLimitExceeded = dcopy(r->readerCvmRequiredLimitExceeded),
+        .extendedSelectionSupported = dcopy(r->extendedSelectionSupported),
+
+        .statusCheckSupported = dcopy(false),
+        .zeroAmount = dcopy(false),
+        .ctlessApplicationNotAllowed = dcopy(false),
+        .readeCtlessFloorLimitNotAllowed = dcopy(false),
+        .readerCvmRequiredLimitExceeded = dcopy(false)
+
+        .next = NULL
+    };
+
+    struct CombinationsListAndParametersEntry* const ret = malloc(sizeof(struct CombinationsListAndParametersEntry));
+    if (ret) {
+        *ret = tmp;
+    }
+    return ret;
 }

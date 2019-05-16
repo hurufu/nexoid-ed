@@ -52,15 +52,16 @@ INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','0 0','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-836 -114',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
-INSERT INTO diagrams VALUES(58,'Pre_Processing','3233 257',NULL,75.0);
-INSERT INTO diagrams VALUES(59,'Pre_Processing_Ctls','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(58,'Pre_Processing','3257 256',NULL,75.0);
+INSERT INTO diagrams VALUES(59,'Pre_Processing_Ctls','0 -140',NULL,75.0);
+INSERT INTO diagrams VALUES(60,'Copy_Combination_Lists','52 89',NULL,75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,59,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,60,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1329,14 +1330,37 @@ INSERT INTO items VALUES(2179,59,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(2180,59,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2181,59,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2182,59,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2183,59,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2184,59,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2183,59,'branch','branch 1',0,170,170,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2184,59,'address','branch 2',0,170,550,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2185,59,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2186,59,'branch','branch 3',0,660,170,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2187,59,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2188,59,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2189,59,'action','returns enum ProcedureResult',0,430,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2190,59,'action','return PR_NOT_IMPLEMENTED;',0,660,410,120,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2191,59,'insertion','Copy_Combination_Lists();',1,170,270,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2192,60,'beginend','Copy_Combination_Lists',0,450,60,100,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2193,60,'beginend','End',0,450,1100,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2194,60,'vertical',NULL,0,450,80,0,1000,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2195,60,'loopstart',replace('struct CombinationsListAndParametersEntry\n* r = g_Nexo.CombListsAndParams, ** w = &g_Ctd.CombListWorkingTable;\nr;\nr = r->next','\n',char(10)),0,450,350,290,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2196,60,'loopend','',0,450,1040,290,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2197,60,'shelf','ServiceId_to_ConfiguredServices(g_Ctd.SelectedService)',0,450,140,290,40,40,0,NULL,'',NULL,'const union ConfiguredServices selectedService');
+INSERT INTO items VALUES(2198,60,'if','selectedService.i == r->supportingServices.i',0,450,430,290,20,450,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2199,60,'vertical','',0,1190,430,0,570,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2200,60,'horizontal','',0,450,1000,740,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2201,60,'shelf','Copy_Combination_Lists_Entry(r)',0,450,840,290,40,40,0,NULL,NULL,NULL,'*w');
+INSERT INTO items VALUES(2202,60,'if','r->cashbackPresent',0,450,490,290,20,30,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2203,60,'vertical','',0,770,490,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2205,60,'if','0 == cashbackAmount',0,770,550,100,20,150,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2208,60,'if','0x00 == *r->cashbackPresent',0,1020,600,130,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2210,60,'if','0x01 == *r->cashbackPresent',0,1020,730,130,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2211,60,'horizontal','',0,770,650,250,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2212,60,'if','0 == cashbackAmount',0,770,690,100,20,150,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(2213,60,'vertical','',0,1020,550,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2214,60,'vertical','',0,1020,690,0,90,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2215,60,'horizontal','',0,450,780,570,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2216,60,'shelf','&((*w)->next)',0,450,940,290,40,40,0,NULL,NULL,NULL,'w');
+INSERT INTO items VALUES(2217,60,'shelf','g_Ctd.CashbackAmount.i',0,450,240,290,40,40,0,NULL,NULL,NULL,'const uint64_t cashbackAmount');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -1403,6 +1427,7 @@ INSERT INTO tree_nodes VALUES(86,83,'item',NULL,56);
 INSERT INTO tree_nodes VALUES(87,70,'item',NULL,57);
 INSERT INTO tree_nodes VALUES(88,34,'item',NULL,58);
 INSERT INTO tree_nodes VALUES(89,34,'item',NULL,59);
+INSERT INTO tree_nodes VALUES(90,34,'item',NULL,60);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

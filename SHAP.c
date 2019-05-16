@@ -80,9 +80,8 @@ SetUpdatePreAuthTotalAmount(void) {
 }
 
 enum ProcedureResult Wait_For_Event(bool (* const Event)[E_MAX],
-                                   char (* const ReferenceData)[35 + 1],
-                                   enum ServiceId* const SelectedService
-                                  ) {
+                                    char (* const ReferenceData)[35 + 1],
+                                    enum ServiceId* const SelectedService) {
     static bool terminate = false;
     puts(__func__);
 

@@ -1,0 +1,30 @@
+NexoConfiguration DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+    CombinationListsAndParameters ::= [PRIVATE 12] SEQUENCE OF CombinationsListsAndParametersEntry
+
+    CombinationsListsAndParametersEntry ::= SEQUENCE {
+        terminalAid [1] OCTET STRING (SIZE(5..16)),
+        kernelId [2] OCTET STRING (SIZE(1)),
+        supportingServices [3] ConfiguredServices,
+        cashbackPresent [4] BOOLEAN OPTIONAL,
+        statusCheckSupport [5] BOOLEAN OPTIONAL,
+        zeroAmountAllowed [6] BOOLEAN OPTIONAL
+    }
+
+    ConfiguredServices ::= BIT STRING {
+        payment (0),
+        refund (1),
+        cancellation (2),
+        preAuthorisation (3),
+        updatePreAuthorisation (4),
+        paymentCompletion (5),
+        cashAdvance (6),
+        deferredPayment (7),
+        deferredPaymentCompletion (8),
+        cardholderDetection (9),
+        cardValidityCheck (10),
+        noShow (11),
+        voidAuthorisation (12)
+    }
+
+END

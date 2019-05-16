@@ -46,7 +46,7 @@ NOT_DEP      := clean asm pp wipe update
 .PRECIOUS: %.drn
 
 .PHONY: all clean asm pp run index update
-all: $(EXECUTABLE) index .syntastic_c_config
+all: $(EXECUTABLE) index .syntastic_c_config cflow
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 run: $(EXECUTABLE)

@@ -5,7 +5,7 @@ assert_cmd = $(if $(shell where $1),$1,$(error "There is no $1 in $$PATH"))
 EXECUTABLE   := main
 OL           := 3
 DL           := gdb3
-STD          := c11
+STD          := gnu11
 WARNINGS     := all extra
 
 # Project config ##############################################################

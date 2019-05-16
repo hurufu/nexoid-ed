@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils.h"
+#include "memutils.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -488,93 +489,26 @@ ServiceId_to_ConfiguredServices(const enum ServiceId s) {
     return ret;
 }
 
-static inline uint64_t
-Copy_Uint64(const uint64_t i) {
-    if (!i) {
-        return NULL;
-    }
-    uint64_t* const ret = malloc(sizeof(*i));
-    *ret = i;
-    return ret;
-}
-
-static inline uint32_t*
-Copy_Uint32(const uint32_t* const i) {
-    if (!i) {
-        return NULL;
-    }
-    uint32_t* const ret = malloc(sizeof(*i));
-    *ret = *i;
-    return ret;
-}
-
-static inline bool*
-Copy_Bool(const bool* const i) {
-    if (!i) {
-        return NULL;
-    }
-    bool* const ret = malloc(sizeof(*i));
-    *ret = *i;
-    return ret;
-}
-
-static inline union Amount*
-Copy_Amount(const union Amount* i) {
-    if (!i) {
-        return NULL;
-    }
-    return Copy_Uint64(i->i);
-}
-
-Copy_TerminalTransactionQualifiers() {
-}
-
-#define dcopy(Src, ...) dcopy1(Src)
-#define dcopy1(Src) dcopy2(malloc(sizeof(*Src)), (Src))
-#define dcopy2(Dst, Src) \
-    _Generic((Src),\
-        signed char* : dcopy_sc\
-        unsigned char* : dcopy_uc\
-        signed short* : dcopy_ss\
-        unsigned short* : dcopy_us\
-        signed long* : dcopy_sl\
-        unsigned long* : dcopy_ul\
-        signed long long* : dcopy_sll\
-        unsigned long long* : dcopy_ull\
-        float* : dcopy_f\
-        double* : dcopy_d\
-        long double* : dcopy_ld\
-        bool* : dcopy_b\
-        union Amount* : dcopy_Amount\
-        union TerminalTransactionQualifiers* : dcopy_TerminalTransactionQualifiers\
-    )\
-    (Dst, Src)
-
 static inline struct CombinationsListAndParametersEntry*
 Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r) {
-    const struct CombinationsListAndParametersEntry tmp = {
+    struct CombinationsListAndParametersEntry tmp = {
         .terminalAid = r->terminalAid,
         .kernelId = r->kernelId,
-        .terminalTransactionQualifiers = dcopy(r->terminalTransactionQualifiers),
-        .statusCheckSupported = dcopy(r->statusCheckSupported),
-        .zeroAmountAllowed = dcopy(r->zeroAmountAllowed),
-        .readerCtlessTransactionLimit = dcopy(r->readerCtlessTransactionLimit),
-        .readerCtlessFloorLimit = dcopy(r->readerCtlessFloorLimit),
-        .readerCvmRequiredLimitExceeded = dcopy(r->readerCvmRequiredLimitExceeded),
-        .extendedSelectionSupported = dcopy(r->extendedSelectionSupported),
+        .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers),
+        .statusCheckSupported = acpptr(r->statusCheckSupported),
+        .zeroAmountAllowed = acpptr(r->zeroAmountAllowed),
+        .readerCtlessTransactionLimit = acpptr(r->readerCtlessTransactionLimit),
+        .readerCtlessFloorLimit = acpptr(r->readerCtlessFloorLimit),
+        .readerCvmRequiredLimit= acpptr(r->readerCvmRequiredLimit),
+        .extendedSelectionSupported = acpptr(r->extendedSelectionSupported),
 
-        .statusCheckSupported = dcopy(false),
-        .zeroAmount = dcopy(false),
-        .ctlessApplicationNotAllowed = dcopy(false),
-        .readeCtlessFloorLimitNotAllowed = dcopy(false),
-        .readerCvmRequiredLimitExceeded = dcopy(false)
+        .statusCheckRequested = acpval(false),
+        .zeroAmount = acpval(false),
+        .ctlessApplicationNotAllowed = acpval(false),
+        .readeCtlessFloorLimitNotAllowed = acpval(false),
+        .readerCvmRequiredLimitExceeded = acpval(false),
 
         .next = NULL
     };
-
-    struct CombinationsListAndParametersEntry* const ret = malloc(sizeof(struct CombinationsListAndParametersEntry));
-    if (ret) {
-        *ret = tmp;
-    }
-    return ret;
+    return acpval(tmp);
 }

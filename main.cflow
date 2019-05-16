@@ -1,0 +1,124 @@
+main() <int () at main.c:26>:
+    puts()
+    run_nexo_fast_application() <int (void) at main.c:6>:
+        Main() <enum ProcedureResult (void) at NexoFast.c:1564>:
+            Proprietary_Startup_Sequence() <enum ProcedureResult (void) at SHAP.c:148>:
+                puts()
+            Financial_Application_Startup() <enum ProcedureResult (void) at NexoFast.c:351>:
+            Default_Service_Initialisation() <enum ProcedureResult (void) at NexoFast.c:297>:
+                DeactivateAllInterfaces() <enum ProcedureResult (void) at SHAP.c:137>:
+                    puts()
+                Output() <enum ProcedureResult (int msgId) at SHAP.c:131>:
+                    printf()
+                Initialise_Basic_Data() <void (void) at NexoFast.c:358>
+                Service_Initialisation() <enum ProcedureResult (void) at NexoFast.c:1021>:
+                    Initialise_Transaction_Database() <void (void) at NexoFast.c:361>
+                    DeactivateAllInterfaces() <enum ProcedureResult (void) at SHAP.c:137>:
+                        puts()
+                    Output() <enum ProcedureResult (int msgId) at SHAP.c:131>:
+                        printf()
+                    Authorise_Service() <bool (void) at SHAP.c:119>:
+                        puts()
+                    Update_Cardholder_Initial_Message() <enum ProcedureResult (void) at SHAP.c:125>:
+                        puts()
+                    Enable_Allowed_Interfaces() <enum ProcedureResult (void) at SHAP.c:143>:
+                        puts()
+            Wait_For_Event() <enum ProcedureResult (bool (*const Event)[E_MAX], char (*const ReferenceData)[35 + 1], enum ServiceId *const SelectedService) at SHAP.c:82>:
+                puts()
+                snprintf()
+            Process_Event() <enum ProcedureResult (void) at NexoFast.c:663>:
+                Process_Language_Selection() <enum ProcedureResult (void) at NexoFast.c:917>:
+                Process_Choice_of_Application() <enum ProcedureResult (void) at NexoFast.c:657>:
+                Process_Service_Selection() <enum ProcedureResult (void) at NexoFast.c:977>:
+                    Service_Initialisation() <enum ProcedureResult (void) at NexoFast.c:1021>:
+                        Initialise_Transaction_Database() <void (void) at NexoFast.c:361>
+                        DeactivateAllInterfaces() <enum ProcedureResult (void) at SHAP.c:137>:
+                            puts()
+                        Output() <enum ProcedureResult (int msgId) at SHAP.c:131>:
+                            printf()
+                        Authorise_Service() <bool (void) at SHAP.c:119>:
+                            puts()
+                        Update_Cardholder_Initial_Message() <enum ProcedureResult (void) at SHAP.c:125>:
+                            puts()
+                        Enable_Allowed_Interfaces() <enum ProcedureResult (void) at SHAP.c:143>:
+                            puts()
+                Process_Acquirer_Preselection() <enum ProcedureResult (void) at NexoFast.c:630>:
+                Process_Amount_Entry() <enum ProcedureResult (void) at NexoFast.c:639>:
+                OutputAmountError() <enum ProcedureResult (void) at SHAP.c:103>:
+                    puts()
+                OutputTransactionAmount() <enum ProcedureResult (void) at SHAP.c:114>:
+                    puts()
+                Process_Card_Inserted() <enum ProcedureResult (void) at NexoFast.c:645>:
+                Process_Card_Swiped() <enum ProcedureResult (void) at NexoFast.c:651>:
+                Process_Manual_Entry() <enum ProcedureResult (void) at NexoFast.c:923>:
+                Process_Reference_Entry() <enum ProcedureResult (void) at NexoFast.c:935>:
+                Process_Accept() <void (void) at NexoFast.c:627>
+                Process_AdditionalTrxData() <void (void) at NexoFast.c:636>
+            Check_Service_Start_Conditions() <enum ProcedureResult (void) at NexoFast.c:248>:
+            Perform_Service() <enum ProcedureResult (void) at NexoFast.c:388>:
+                Update_Pre_Authorisation() <enum ProcedureResult (void) at NexoFast.c:1328>:
+                    Pre_Processing() <enum ProcedureResult (void) at NexoFast.c:450>:
+                        Entry() <enum ProcedureResult (int msgId) at SHAP.c:108>:
+                            printf()
+                        Pre_Processing_Ctls() <enum ProcedureResult (void) at NexoFast.c:621>:
+                    Upa_Specific_Processing() <enum ProcedureResult (void) at NexoFast.c:1164>:
+                        SearchReservationsByRefData() <enum ProcedureResult (void) at SHAP.c:17>:
+                            puts()
+                        SearchReservationsByPan() <enum ProcedureResult (void) at SHAP.c:29>:
+                            puts()
+                        SCAP_Search_Transaction_Result_List() <enum ProcedureResult (void) at SHAP.c:41>:
+                            puts()
+                        Log_Entry_Data_Retrieval() <enum ProcedureResult (void) at SHAP.c:53>:
+                            puts()
+                        Process_Profile_Parameters() <enum ProcedureResult (void) at NexoFast.c:929>:
+                        SCAP_NoOriginalTransaction() <enum ProcedureResult (void) at SHAP.c:47>:
+                            puts()
+                        UpdatePreAuthAmountConfirmation() <enum ProcedureResult (void) at SHAP.c:65>:
+                            puts()
+                        UpdatePreAuthAmountEntry() <enum ProcedureResult (void) at SHAP.c:71>:
+                            puts()
+                        SetUpdatePreAuthTotalAmount() <enum ProcedureResult (void) at SHAP.c:77>:
+                            puts()
+                        OnlineApprovalRequest() <enum ProcedureResult (void) at SHAP.c:23>:
+                            puts()
+                    Online_Request() <enum ProcedureResult (void) at NexoFast.c:376>:
+                    Check_Online_Performed() <enum ProcedureResult (void) at NexoFast.c:242>:
+                    Profile_Selection() <enum ProcedureResult (void) at NexoFast.c:1015>:
+                    Technology_Selection() <enum ProcedureResult (void) at NexoFast.c:1098>:
+                    Kernel_Activation() <enum ProcedureResult (void) at NexoFast.c:364>:
+                    Kernel_Processing() <enum ProcedureResult (void) at NexoFast.c:370>:
+                    Outcome_Processing() <enum ProcedureResult (void) at NexoFast.c:382>:
+                    Transaction_Completion() <enum ProcedureResult (void) at NexoFast.c:1104>:
+                Card_Validity_Check() <enum ProcedureResult (void) at NexoFast.c:87>:
+                    Pre_Processing() <enum ProcedureResult (void) at NexoFast.c:450>:
+                        Entry() <enum ProcedureResult (int msgId) at SHAP.c:108>:
+                            printf()
+                        Pre_Processing_Ctls() <enum ProcedureResult (void) at NexoFast.c:621>:
+                    Technology_Selection() <enum ProcedureResult (void) at NexoFast.c:1098>:
+                    Profile_Selection() <enum ProcedureResult (void) at NexoFast.c:1015>:
+                    Cvc_Check_Amount() <enum ProcedureResult (void) at NexoFast.c:258>:
+                    Outcome_Processing() <enum ProcedureResult (void) at NexoFast.c:382>:
+                    Online_Request() <enum ProcedureResult (void) at NexoFast.c:376>:
+                    Check_Online_Performed() <enum ProcedureResult (void) at NexoFast.c:242>:
+                    Dcc_Processing() <enum ProcedureResult (void) at NexoFast.c:271>:
+                        Transaction_Dcc_Eligibility() <enum ProcedureResult (void) at NexoFast.c:1110>:
+                            isIssuerCountryExcludedForDcc()
+                        HAP_Online_Request_to_Dcc_Provider() <enum ProcedureResult (void) at SHAP.c:11>:
+                            puts()
+                        SCAP_Cardholder_Confirmation() <enum ProcedureResult (void) at SHAP.c:35>:
+                            puts()
+                    Kernel_Activation() <enum ProcedureResult (void) at NexoFast.c:364>:
+                    Kernel_Processing() <enum ProcedureResult (void) at NexoFast.c:370>:
+                    Transaction_Completion() <enum ProcedureResult (void) at NexoFast.c:1104>:
+            Force_Reboot() <void (void) at SHAP.c:204>:
+                puts()
+            Force_Termination() <void (void) at SHAP.c:208>:
+                puts()
+            Diagnostics_Maintenance_Recovery() <enum ProcedureResult (void) at SHAP.c:194>:
+                puts()
+                fork()
+                abort()
+                wait()
+        printf()
+        ProcedureResult_tostring() <const char * (const enum ProcedureResult f) at Common.c:6>:
+        puts()

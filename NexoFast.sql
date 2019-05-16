@@ -52,7 +52,7 @@ INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','0 0','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-836 -114',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
-INSERT INTO diagrams VALUES(58,'Pre_Processing','3192 327',NULL,75.0);
+INSERT INTO diagrams VALUES(58,'Pre_Processing','3577 326',NULL,75.0);
 INSERT INTO diagrams VALUES(59,'Pre_Processing_Ctls','0 0',NULL,75.0);
 CREATE TABLE state
 (
@@ -60,7 +60,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,59,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,58,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1284,7 +1284,7 @@ INSERT INTO items VALUES(2121,58,'horizontal','',0,1800,1030,400,0,0,0,NULL,NULL
 INSERT INTO items VALUES(2122,58,'if',replace('/* Security Permission\nSuccessful? */ 1','\n',char(10)),0,2200,980,120,30,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2123,58,'if',replace('g_Nexo.ServiceSettings\n[g_Ctd.SelectedService]\n.ctlsProcessingModeSupported','\n',char(10)),0,3660,730,150,30,30,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2124,58,'vertical','',0,3840,730,0,200,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2126,58,'insertion',replace('result =\nPre_Processing_Ctls();','\n',char(10)),1,3840,810,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2126,58,'insertion',replace('result =\nPre_Processing_Ctls();','\n',char(10)),0,3840,810,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2127,58,'vertical','',0,4840,330,0,840,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2128,58,'branch','Ok',0,4840,380,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2129,58,'shelf','PR_OK',0,4840,510,50,40,40,0,NULL,'',NULL,'result');
@@ -1315,9 +1315,9 @@ INSERT INTO items VALUES(2165,58,'branch',replace('Configuration\nError','\n',ch
 INSERT INTO items VALUES(2166,58,'address','Nok',0,4350,1120,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2167,58,'shelf','N_CONFIGURATION_ERROR',0,4350,630,100,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(2168,58,'vertical','',0,4130,330,0,840,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2169,58,'branch',replace('Not\nAllowed','\n',char(10)),0,4130,390,100,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2170,58,'address','Nok',0,4130,1120,100,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2171,58,'shelf','N_CONFIGURATION_ERROR',0,4130,630,100,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(2169,58,'branch',replace('Not\nAllowed','\n',char(10)),0,4130,390,70,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2170,58,'address','Nok',0,4130,1120,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2171,58,'shelf','N_NO_PERMISSION',1,4130,630,70,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(2172,58,'if','PR_DONE == result',0,3840,880,100,20,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2173,58,'vertical','',0,3960,880,0,290,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2174,58,'horizontal','',0,3660,930,180,0,0,0,NULL,NULL,NULL,NULL);

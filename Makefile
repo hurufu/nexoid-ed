@@ -59,7 +59,7 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -f$@ -b $^
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow)
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png)
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
@@ -109,6 +109,12 @@ trace.log: $(EXECUTABLE)
 cflow: main.cflow
 main.cflow:
 	$(CFLOW) --cpp --no-ansi --omit-symbol-names $(SOURCES) > $@
+
+.PHONY: cg
+cg: cg.png
+cg.png:
+	$(CC) -o main $(CPPFLAGS) $(CFLAGS) -fdump-rtl-expand $(SOURCES)
+	egypt *.expand | dot -Tpng > callgraph.png
 
 .PHONY: print-%
 print-%:

@@ -38,6 +38,7 @@ ifdef USE_CCACHE
 CCACHE       := $(call assert_cmd,ccache)
 endif
 CC           := $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
+CFLOW        := $(call assert_cmd,cflow)
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update
@@ -58,7 +59,7 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -f$@ -b $^
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log)
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow)
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
@@ -103,6 +104,11 @@ trace: trace.log
 	$(ADDR2LINE) -spf -e $(EXECUTABLE) <$< | paste $< -
 trace.log: $(EXECUTABLE)
 	./$<
+
+.PHONY: cflow
+cflow: main.cflow
+main.cflow:
+	$(CFLOW) --cpp --no-ansi --omit-symbol-names $(SOURCES) > $@
 
 .PHONY: print-%
 print-%:

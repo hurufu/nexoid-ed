@@ -343,8 +343,8 @@ struct CombinationsListAndParametersEntry {
     union ConfiguredServices supportingServices;
     bool* cashbackPresent;
     union TerminalTransactionQualifiers* terminalTransactionQualifiers;
-    bool* statusCheckSupported;
-    bool* zeroAmountAllowed;
+    bool* statusCheckSupportFlag;
+    bool* zeroAmountAllowedFlag;
     union Amount* readerCtlessTransactionLimit;
     union Amount* readerCtlessFloorLimit;
     union Amount* readerCvmRequiredLimit;
@@ -402,6 +402,7 @@ struct CurrentTransactionData {
 
     // Contactless
     struct CombinationsListAndParametersEntry* CombListWorkingTable;
+    bool NoContactlessAllowed;
 };
 
 struct NexoConfiguration {

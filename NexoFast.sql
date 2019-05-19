@@ -53,8 +53,8 @@ INSERT INTO diagrams VALUES(55,'Service_Initialisation','-836 -114',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
 INSERT INTO diagrams VALUES(58,'Pre_Processing','3144 301',NULL,85.0);
-INSERT INTO diagrams VALUES(60,'Copy_Combination_Lists','52 93',NULL,75.0);
-INSERT INTO diagrams VALUES(61,'Pre_Processing_Ctls','212 61',NULL,75.0);
+INSERT INTO diagrams VALUES(60,'Copy_Combination_Lists','172 338',NULL,75.0);
+INSERT INTO diagrams VALUES(61,'Pre_Processing_Ctls','212 -196',NULL,75.0);
 INSERT INTO diagrams VALUES(62,'Pre_Process_Combination_Lists_Entry','-456 -400',NULL,25.0);
 CREATE TABLE state
 (
@@ -62,7 +62,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,61,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,60,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1324,28 +1324,28 @@ INSERT INTO items VALUES(2172,58,'if','PR_DONE == result',0,3840,880,100,20,20,1
 INSERT INTO items VALUES(2173,58,'vertical','',0,3960,880,0,290,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2174,58,'horizontal','',0,3660,930,180,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2175,58,'address','Bailout',0,3960,1120,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2192,60,'beginend','Copy_Combination_Lists',0,450,60,100,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2193,60,'beginend','End',0,450,1100,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2194,60,'vertical',NULL,0,450,80,0,1000,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2195,60,'loopstart',replace('struct CombinationsListAndParametersEntry\n* r = g_Nexo.CombListsAndParams, ** w = &g_Ctd.CombListWorkingTable;\nr;\nr = r->next','\n',char(10)),0,450,350,290,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2196,60,'loopend','',0,450,1040,290,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2197,60,'shelf','ServiceId_to_ConfiguredServices(g_Ctd.SelectedService)',0,450,140,290,40,40,0,NULL,'',NULL,'const union ConfiguredServices selectedService');
-INSERT INTO items VALUES(2198,60,'if','selectedService.i == r->supportingServices.i',0,450,430,290,20,450,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2199,60,'vertical','',0,1190,430,0,570,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2200,60,'horizontal','',0,450,1000,740,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2201,60,'shelf','Copy_Combination_Lists_Entry(r)',0,450,840,290,40,40,0,NULL,NULL,NULL,'*w');
-INSERT INTO items VALUES(2202,60,'if','r->cashbackPresent',0,450,490,290,20,30,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2203,60,'vertical','',0,770,490,0,290,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2205,60,'if','0 == cashbackAmount',0,770,550,100,20,150,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2208,60,'if','0x00 == *r->cashbackPresent',0,1020,600,130,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2210,60,'if','0x01 == *r->cashbackPresent',0,1020,730,130,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2211,60,'horizontal','',0,770,650,250,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2212,60,'if','0 == cashbackAmount',0,770,690,100,20,150,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(2213,60,'vertical','',0,1020,550,0,100,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2214,60,'vertical','',0,1020,690,0,90,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2215,60,'horizontal','',0,450,780,570,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2216,60,'shelf','&((*w)->next)',0,450,940,290,40,40,0,NULL,NULL,NULL,'w');
-INSERT INTO items VALUES(2217,60,'shelf','g_Ctd.CashbackAmount.i',0,450,240,290,40,40,0,NULL,NULL,NULL,'const uint64_t cashbackAmount');
+INSERT INTO items VALUES(2192,60,'beginend','Copy_Combination_Lists',0,500,-70,100,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2193,60,'beginend','End',0,500,1270,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2194,60,'vertical',NULL,0,500,-50,0,1300,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2195,60,'loopstart',replace('struct CombinationsListAndParametersEntry\n* r = g_Nexo.CombListsAndParams, ** w = &g_Ctd.CombListWorkingTable;\nr;\nr = r->next','\n',char(10)),0,500,230,290,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2196,60,'loopend','',0,500,1210,290,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2197,60,'shelf','ServiceId_to_ConfiguredServices(g_Ctd.SelectedService)',0,500,30,290,40,40,0,NULL,'',NULL,'const union ConfiguredServices selectedService');
+INSERT INTO items VALUES(2198,60,'if','selectedService.i == r->supportingServices.i',0,500,310,290,20,460,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2199,60,'vertical','',0,1250,310,0,860,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2200,60,'horizontal','',0,500,1170,750,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2201,60,'shelf','Copy_Combination_Lists_Entry(r, TransactionAmountEntered)',0,500,740,290,40,40,0,NULL,NULL,NULL,'*w');
+INSERT INTO items VALUES(2202,60,'if','r->cashbackPresent',0,500,370,290,20,40,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2203,60,'vertical','',0,830,370,0,310,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2205,60,'if','0 == cashbackAmount',0,830,430,160,20,90,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2208,60,'if','0x00 == *r->cashbackPresent',0,1080,500,130,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2210,60,'if','0x01 == *r->cashbackPresent',0,1080,640,130,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2211,60,'horizontal','',0,830,540,250,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2212,60,'if','0 == cashbackAmount',0,830,580,160,20,90,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(2213,60,'vertical','',0,1080,430,0,110,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2214,60,'vertical','',0,1080,580,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2215,60,'horizontal','',0,500,680,580,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2216,60,'shelf','&((*w)->next)',0,500,1110,290,40,40,0,NULL,NULL,NULL,'w');
+INSERT INTO items VALUES(2217,60,'shelf','g_Ctd.CashbackAmount.i',0,500,130,290,40,40,0,NULL,NULL,NULL,'const uint64_t cashbackAmount');
 INSERT INTO items VALUES(2218,46,'if','g_Ctd.Minus',0,270,180,250,20,50,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2219,46,'vertical','',0,570,180,0,110,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2220,46,'horizontal','',0,270,290,300,0,0,0,NULL,NULL,NULL,NULL);
@@ -1366,27 +1366,27 @@ INSERT INTO items VALUES(2236,46,'vertical','',0,870,630,0,340,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(2237,46,'shelf','true',0,870,900,100,40,40,0,NULL,NULL,NULL,'g_Ctd.AmountDisplayed');
 INSERT INTO items VALUES(2238,46,'shelf','PR_DONE',0,270,1050,250,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(2239,46,'horizontal','',0,270,970,600,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2305,61,'beginend','Pre_Processing_Ctls',0,660,30,90,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2306,61,'beginend','End',0,660,1120,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2308,61,'horizontal',NULL,0,660,30,240,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2309,61,'action','returns enum ProcedureResult',0,920,30,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2310,61,'vertical','',0,660,30,0,1100,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2311,61,'loopstart',replace('struct CombinationsListAndParametersEntry* w = g_Ctd.CombListWorkingTable;\nw;\nw = w->next','\n',char(10)),0,660,350,310,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2312,61,'loopend','',0,660,820,310,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2317,61,'horizontal','',0,660,780,530,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2318,61,'if','w->ctlessApplicationAllowed',0,660,560,310,20,20,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2319,61,'vertical','',0,990,560,0,100,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2320,61,'horizontal','',0,660,660,330,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2321,61,'if','true == *w->ctlessApplicationNotAllowed',0,990,620,180,20,20,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2322,61,'shelf','true',0,660,720,310,40,40,0,NULL,'',NULL,'ContactlessModeAllowed');
-INSERT INTO items VALUES(2341,61,'vertical','',0,1190,620,0,160,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2363,61,'insertion','Copy_Combination_Lists();',0,660,280,310,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2364,61,'shelf','false;',0,660,110,310,40,40,0,NULL,'',NULL,'bool ContactlessModeAllowed');
-INSERT INTO items VALUES(2370,61,'action','return PR_DONE;',0,660,1060,310,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2371,61,'if','ctlessApplicationAllowed',0,660,880,310,20,80,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(2372,61,'vertical','',0,1050,880,0,140,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2373,61,'horizontal','',0,660,1020,390,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2374,61,'shelf','true',0,1050,960,90,40,40,0,NULL,'',NULL,'NoContactlessAllowed');
+INSERT INTO items VALUES(2305,61,'beginend','Pre_Processing_Ctls',0,670,-150,90,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2306,61,'beginend','End',0,670,940,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2308,61,'horizontal',NULL,0,660,-150,240,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2309,61,'action','returns enum ProcedureResult',0,920,-150,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2310,61,'vertical','',0,670,-150,0,1100,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2311,61,'loopstart',replace('struct CombinationsListAndParametersEntry* w = g_Ctd.CombListWorkingTable;\nw;\nw = w->next','\n',char(10)),0,670,170,310,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2312,61,'loopend','',0,670,640,310,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2317,61,'horizontal','',0,670,600,530,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2318,61,'if','w->ctlessApplicationAllowed',0,670,380,310,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2319,61,'vertical','',0,1000,380,0,100,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2320,61,'horizontal','',0,670,480,330,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2321,61,'if','true == *w->ctlessApplicationNotAllowed',0,1000,440,180,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2322,61,'shelf','true',0,670,540,310,40,40,0,NULL,'',NULL,'ContactlessModeAllowed');
+INSERT INTO items VALUES(2341,61,'vertical','',0,1200,440,0,160,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2363,61,'insertion','Copy_Combination_Lists(TransactionAmountEntered);',0,670,100,310,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2364,61,'shelf','false;',0,670,-70,310,40,40,0,NULL,'',NULL,'bool ContactlessModeAllowed');
+INSERT INTO items VALUES(2370,61,'action','return PR_DONE;',0,670,880,310,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2371,61,'if','ctlessApplicationAllowed',0,670,700,310,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(2372,61,'vertical','',0,1050,700,0,140,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2373,61,'horizontal','',0,670,840,380,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2374,61,'shelf','true',0,1050,780,90,40,40,0,NULL,'',NULL,'NoContactlessAllowed');
 INSERT INTO items VALUES(2384,62,'beginend','Pre_Process_Combination_Lists_Entry',0,780,60,150,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2385,62,'beginend','End',0,780,2870,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2387,62,'horizontal',NULL,0,780,60,200,0,0,0,NULL,NULL,NULL,NULL);
@@ -1442,12 +1442,17 @@ INSERT INTO items VALUES(2437,62,'shelf','acpptr(true)',0,1380,1660,170,40,40,0,
 INSERT INTO items VALUES(2438,62,'if','w->readerContactlessFloorLimitExceeded',0,780,2050,310,20,20,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2439,62,'vertical','',0,1110,2050,0,180,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2440,62,'horizontal','',0,780,2230,330,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2441,61,'insertion','Pre_Process_Combination_Lists_Entry(w);',0,660,480,310,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2442,61,'if','TransactionAmountEntered',0,660,420,310,20,170,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2443,61,'vertical','',0,1140,420,0,100,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2444,61,'horizontal','',0,660,520,480,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2445,61,'shelf','g_Ctd.TransactionAmountEntered',0,660,200,310,40,40,0,NULL,NULL,NULL,'const bool TransactionAmountEntered');
-INSERT INTO items VALUES(2446,61,'insertion','Copy_Predefined_Indicators(w);',0,1140,480,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2441,61,'insertion','Pre_Process_Combination_Lists_Entry(w);',0,670,300,310,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2442,61,'if','TransactionAmountEntered',0,670,240,310,20,160,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2443,61,'vertical','',0,1140,240,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2444,61,'horizontal','',0,670,340,470,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2445,61,'shelf','g_Ctd.TransactionAmountEntered',0,670,20,310,40,40,0,NULL,NULL,NULL,'const bool TransactionAmountEntered');
+INSERT INTO items VALUES(2446,60,'horizontal','',0,500,-70,280,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2447,60,'action',replace('const bool TransactionAmountEntered\n\nreturn enum ProcedureResult','\n',char(10)),0,780,-70,150,30,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2448,60,'if','*w',0,500,820,290,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2449,60,'vertical','',0,830,820,0,130,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2450,60,'horizontal','',0,500,950,330,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2451,60,'commentin','TODO: Handle bad memory allocation',0,830,890,160,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

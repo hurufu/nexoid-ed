@@ -354,10 +354,26 @@ struct CombinationsListAndParametersEntry {
     bool* statusCheckRequested;
     bool* zeroAmount;
     bool* ctlessApplicationNotAllowed;
-    bool* readeCtlessFloorLimitNotAllowed;
+    bool* readerCtlessFloorLimitNotAllowed;
     bool* readerCvmRequiredLimitExceeded;
 
     struct CombinationsListAndParametersEntry* next;
+
+    struct {
+        bool cashbackPresent;
+        bool statusCheckSupportFlag;
+        bool zeroAmountAllowedFlag;
+        bool extendedSelectionSupported;
+        bool statusCheckRequested;
+        bool zeroAmount;
+        bool ctlessApplicationNotAllowed;
+        bool readeCtlessFloorLimitNotAllowed;
+        bool readerCvmRequiredLimitExceeded;
+        union Amount readerCtlessTransactionLimit;
+        union Amount readerCtlessFloorLimit;
+        union Amount readerCvmRequiredLimit;
+        union TerminalTransactionQualifiers;
+    } __mem;
 };
 
 struct CurrentTransactionData {
@@ -496,25 +512,34 @@ ServiceId_to_ConfiguredServices(const enum ServiceId s) {
 }
 
 static inline struct CombinationsListAndParametersEntry*
-Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r) {
+Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r,
+                             const bool TransactionAmountEntered) {
     struct CombinationsListAndParametersEntry tmp = {
         .terminalAid = r->terminalAid,
         .kernelId = r->kernelId,
-        .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers),
+        .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers, &&bad_allocation),
         .statusCheckSupported = acpptr(r->statusCheckSupported),
         .zeroAmountAllowed = acpptr(r->zeroAmountAllowed),
         .readerCtlessTransactionLimit = acpptr(r->readerCtlessTransactionLimit),
         .readerCtlessFloorLimit = acpptr(r->readerCtlessFloorLimit),
         .readerCvmRequiredLimit= acpptr(r->readerCvmRequiredLimit),
         .extendedSelectionSupported = acpptr(r->extendedSelectionSupported),
-
-        .statusCheckRequested = acpval(false),
-        .zeroAmount = acpval(false),
-        .ctlessApplicationNotAllowed = acpval(false),
-        .readeCtlessFloorLimitNotAllowed = acpval(false),
-        .readerCvmRequiredLimitExceeded = acpval(false),
-
         .next = NULL
     };
+    if (TransactionAmountEntered) {
+        tmp.statusCheckRequested = acpval(false),
+        tmp.zeroAmount = acpval(false),
+        tmp.ctlessApplicationNotAllowed = acpval(false),
+        tmp.readeCtlessFloorLimitNotAllowed = acpval(false),
+        tmp.readerCvmRequiredLimitExceeded = acpval(false),
+    } else {
+        tmp.statusCheckRequested = acpptr(r->statusCheckRequested);
+        tmp.zeroAmount = acpptr(r->zeroAmount);
+        tmp.ctlessApplicationNotAllowed = acpptr(r->ctlessApplicationNotAllowed);
+        tmp.readeCtlessFloorLimitNotAllowed = acpptr(r->readeCtlessFloorLimitNotAllowed);
+        tmp.readerCvmRequiredLimitExceeded = acpptr(r->readerCvmRequiredLimitExceeded);
+    }
     return acpval(tmp);
+bad_allocation:
+    return NULL;
 }

@@ -1,0 +1,23 @@
+#pragma once
+
+#include <stdlib.h>
+#include <setjmp.h>
+
+static inline void* bad_malloc(const size_t s) {
+    longjmp();
+}
+
+static inline void* smalloc(const size_t s) {
+    return malloc(s) ?: bad_malloc(s);
+}
+
+#define acpval(Src, Label) ({\
+    typeof(Src)* __dst = smalloc(sizeof(Src));\
+    *__dst = (Src);\
+    __dst;\
+})
+
+#define acpptr(SrcPtr, Label) ({\
+    typeof(SrcPtr) __src = (SrcPtr), __dst = __src ? acpval(*__src, Label) : (void*)0;\
+    __dst;\
+})

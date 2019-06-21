@@ -1,5 +1,5 @@
 # Macros ######################################################################
-assert_cmd = $(if $(shell where $1),$1,$(error "There is no $1 in $$PATH"))
+assert_cmd = $(if $(shell which $1),$1,$(error "There is no $1 in $$PATH"))
 
 # User config #################################################################
 EXECUTABLE   := main

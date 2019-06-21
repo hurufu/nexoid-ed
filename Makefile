@@ -25,11 +25,13 @@ DEPENDS      := $(SOURCES:.c=.d)
 
 CSCOPE_REF   := cscope.out
 
-TIME_RESULT  := time.yaml
-TIME_ARGS    := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
+TIME_FORMAT    ?= yaml
+TIME_RESULT    := time.$(TIME_FORMAT)
+TIME_ARGS.yaml := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
+TIME_ARGS.pdb  := --format='pd(user(%U), system(%S), real(%e), command("%C")).' --append --output $(TIME_RESULT)
 
 # Commands ####################################################################
-TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS),)
+TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS.$(TIME_FORMAT)),)
 CSCOPE       := $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)
@@ -40,14 +42,24 @@ DDD          := $(TIME) $(call assert_cmd,ddd)
 ifdef USE_CCACHE
 CCACHE       := $(call assert_cmd,ccache)
 endif
+PROLOG        = $(TIME) $(call assert_cmd,gprolog)
 CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
 CFLOW        := $(TIME) $(call assert_cmd,cflow)
 DRAKON_GEN   := $(TIME) '$(DRAKON_PATH)/drakon_gen.tcl'
+
+# Build time profiling
+TIME_PROC.pdb  := $(PROLOG) --consult-file time.pdb --consult-file profiling_build.pdb <profiling_build.pq
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update
 
 .PRECIOUS: %.drn
+
+ifdef PROFILE_BUILD
+.PHONY: profile_build
+profile_build: all profiling_build.pdb profiling_build.pq
+	$(TIME_PROC.$(TIME_FORMAT))
+endif
 
 .PHONY: all clean asm pp run index update
 all: $(EXECUTABLE) index .syntastic_c_config cflow

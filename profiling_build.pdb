@@ -1,0 +1,8 @@
+prof(Ux, Sx, Rx) :-
+    findall([U,S,R], pd(user(U), system(S), real(R), _), L),
+    unzip_sum(L, Us, Ss, Rs),
+    Ux is Us, Sx is Ss, Rx is Rs.
+
+unzip_sum([], 0, 0, 0).
+unzip_sum([[A,B,C]|T], A + An, B + Bn, C + Cn) :-
+    unzip_sum(T, An, Bn, Cn).

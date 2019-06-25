@@ -61,7 +61,7 @@ update: $(DRAKON_FILES)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
-$(CSCOPE_REF): $(SOURCES) $(HEADERS)
+$(CSCOPE_REF): $(SOURCES) $(HEADERS) $(wildcard ptmalloc3/*.[ch])
 	$(CSCOPE) -f$@ -b $^
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT))
 clean:

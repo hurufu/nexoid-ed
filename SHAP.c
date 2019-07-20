@@ -201,7 +201,7 @@ enum ProcedureResult Proprietary_Startup_Sequence(void) {
                     .raw = { 0xFF, 0xFF }
                 },
                 .cashbackPresent = acpval(false),
-                .zeroAmountAllowed = acpval(true),
+                .zeroAmountAllowedFlag = acpval(true),
 
                 .next = NULL
             })

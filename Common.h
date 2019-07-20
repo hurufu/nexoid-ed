@@ -1,6 +1,8 @@
 #pragma once
 
 #include "utils.h"
+#define MSPACES 1
+#include "ptmalloc3/ptmalloc3.h"
 #include "memutils.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -8,8 +10,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Workaround for true and false from stdbool don't have distinct type _Bool
+#ifdef false
+#   undef false
+#endif
+#define false ((bool)0)
+#ifdef true
+#   undef true
+#endif
+#define true ((bool)!false)
+
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
+
+mspace s_msp;
 
 enum ProcedureResult {
     PR_UNINITIALISED = 239
@@ -356,24 +370,9 @@ struct CombinationsListAndParametersEntry {
     bool* ctlessApplicationNotAllowed;
     bool* readerCtlessFloorLimitNotAllowed;
     bool* readerCvmRequiredLimitExceeded;
+    bool* readerCtlessFloorLimitExceeded;
 
     struct CombinationsListAndParametersEntry* next;
-
-    struct {
-        bool cashbackPresent;
-        bool statusCheckSupportFlag;
-        bool zeroAmountAllowedFlag;
-        bool extendedSelectionSupported;
-        bool statusCheckRequested;
-        bool zeroAmount;
-        bool ctlessApplicationNotAllowed;
-        bool readeCtlessFloorLimitNotAllowed;
-        bool readerCvmRequiredLimitExceeded;
-        union Amount readerCtlessTransactionLimit;
-        union Amount readerCtlessFloorLimit;
-        union Amount readerCvmRequiredLimit;
-        union TerminalTransactionQualifiers;
-    } __mem;
 };
 
 struct CurrentTransactionData {
@@ -512,34 +511,31 @@ ServiceId_to_ConfiguredServices(const enum ServiceId s) {
 }
 
 static inline struct CombinationsListAndParametersEntry*
-Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r,
-                             const bool TransactionAmountEntered) {
+Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r) {
     struct CombinationsListAndParametersEntry tmp = {
         .terminalAid = r->terminalAid,
         .kernelId = r->kernelId,
-        .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers, &&bad_allocation),
-        .statusCheckSupported = acpptr(r->statusCheckSupported),
-        .zeroAmountAllowed = acpptr(r->zeroAmountAllowed),
+        .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers),
+        .statusCheckSupportFlag = acpptr(r->statusCheckSupportFlag),
+        .zeroAmountAllowedFlag = acpptr(r->zeroAmountAllowedFlag),
         .readerCtlessTransactionLimit = acpptr(r->readerCtlessTransactionLimit),
         .readerCtlessFloorLimit = acpptr(r->readerCtlessFloorLimit),
         .readerCvmRequiredLimit= acpptr(r->readerCvmRequiredLimit),
         .extendedSelectionSupported = acpptr(r->extendedSelectionSupported),
         .next = NULL
     };
-    if (TransactionAmountEntered) {
-        tmp.statusCheckRequested = acpval(false),
-        tmp.zeroAmount = acpval(false),
-        tmp.ctlessApplicationNotAllowed = acpval(false),
-        tmp.readeCtlessFloorLimitNotAllowed = acpval(false),
-        tmp.readerCvmRequiredLimitExceeded = acpval(false),
+    if (g_Ctd.TransactionAmountEntered) {
+        tmp.statusCheckRequested = acpval(false);
+        tmp.zeroAmount = acpval(false);
+        tmp.ctlessApplicationNotAllowed = acpval(false);
+        tmp.readerCtlessFloorLimitNotAllowed = acpval(false);
+        tmp.readerCvmRequiredLimitExceeded = acpval(false);
     } else {
         tmp.statusCheckRequested = acpptr(r->statusCheckRequested);
         tmp.zeroAmount = acpptr(r->zeroAmount);
         tmp.ctlessApplicationNotAllowed = acpptr(r->ctlessApplicationNotAllowed);
-        tmp.readeCtlessFloorLimitNotAllowed = acpptr(r->readeCtlessFloorLimitNotAllowed);
+        tmp.readerCtlessFloorLimitNotAllowed = acpptr(r->readerCtlessFloorLimitNotAllowed);
         tmp.readerCvmRequiredLimitExceeded = acpptr(r->readerCvmRequiredLimitExceeded);
     }
     return acpval(tmp);
-bad_allocation:
-    return NULL;
 }

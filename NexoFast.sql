@@ -32,7 +32,7 @@ INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-346 -4','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','296 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3578 144',NULL,75.0);
 INSERT INTO diagrams VALUES(35,'Process_Profile_Parameters','0 0','',75.0);
-INSERT INTO diagrams VALUES(36,'Main','825 18','',80.0);
+INSERT INTO diagrams VALUES(36,'Main','-550 142','',80.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','244 -160',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','80.42857142857144 -131.90476190476187',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','-198 -63',NULL,75.0);
@@ -62,7 +62,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,62,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,36,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1450,7 +1450,7 @@ INSERT INTO items VALUES(2447,60,'action','returns enum ProcedureResult',0,780,3
 INSERT INTO items VALUES(2448,60,'if','*w',0,460,610,290,20,410,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2449,60,'vertical','',0,1160,610,0,650,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2450,60,'horizontal','',0,460,1260,700,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2452,36,'if','drn_mempool_init() == 0',0,-320,540,120,20,80,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2452,36,'if','mempool_init() == 0',0,-320,540,120,20,80,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2453,36,'vertical','',0,-120,540,0,340,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2454,36,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,-120,810,60,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2455,60,'action','return result;',0,460,1300,290,20,0,0,NULL,NULL,NULL,NULL);

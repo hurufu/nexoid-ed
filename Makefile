@@ -11,6 +11,8 @@ WARNINGS     := all extra
 # Project config ##############################################################
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
+LDFLAGS      := -L./ptmalloc3 -Wl,--rpath=./ptmalloc3
+LDLIBS       := -lptmalloc3
 
 DRAKON_SQL   := NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
@@ -70,7 +72,7 @@ wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
 wipe: clean
 
 $(EXECUTABLE).fat: $(OBJECTS)
-	$(LINK.o) -o $@ $^
+	$(LINK.o) -o $@ $^ $(LDLIBS)
 $(EXECUTABLE): $(EXECUTABLE).fat
 	$(OBJCOPY) --strip-unneeded --add-gnu-debuglink=$(<D)/$< $< $@
 

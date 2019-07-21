@@ -1450,14 +1450,12 @@ INSERT INTO items VALUES(2447,60,'action','returns enum ProcedureResult',0,780,3
 INSERT INTO items VALUES(2448,60,'if','*w',0,460,610,290,20,410,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2449,60,'vertical','',0,1160,610,0,650,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2450,60,'horizontal','',0,460,1260,700,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2452,36,'if','mempool_init() == 0',0,-320,540,120,20,80,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2453,36,'vertical','',0,-120,540,0,340,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2454,36,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,-120,810,60,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2455,60,'action','return result;',0,460,1300,290,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2456,60,'shelf','PR_NOK',0,460,110,290,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(2457,60,'shelf','TE_MEMORY_FAILURE',0,1160,1210,110,40,40,0,NULL,NULL,NULL,'g_Ctd.TerminalErrorReason');
 INSERT INTO items VALUES(2458,62,'shelf','1',0,780,2160,280,40,40,0,NULL,NULL,NULL,'w->terminalTransactionQualifiers->kernel3.onlineCryptogramRequired');
 INSERT INTO items VALUES(2459,62,'commentin','Contactless Mode Allowed',0,780,2660,280,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2460,36,'action','mempool_init();',0,-320,460,120,20,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

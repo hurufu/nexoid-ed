@@ -119,7 +119,7 @@ main.cflow:
 .PHONY: cg
 cg: cg.png
 cg.png:
-	$(CC) -o main $(CPPFLAGS) $(CFLAGS) -fdump-rtl-expand $(SOURCES)
+	$(CC) -o main $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fdump-rtl-expand $(SOURCES) $(LDLIBS)
 	egypt *.expand | dot -Tpng > callgraph.png
 
 .PHONY: print-%

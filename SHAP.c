@@ -34,7 +34,7 @@ SearchReservationsByPan(void) {
 enum ProcedureResult
 SCAP_Cardholder_Confirmation(void) {
     puts(__func__);
-    return PR_NOK;
+    return PR_DONE;
 }
 
 enum ProcedureResult

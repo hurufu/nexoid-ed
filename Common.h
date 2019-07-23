@@ -1,13 +1,29 @@
 #pragma once
 
 #include "utils.h"
+#define MSPACES 1
+#include "ptmalloc3/ptmalloc3.h"
+#include "memutils.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+// Workaround for true and false from stdbool don't have distinct type _Bool
+#ifdef false
+#   undef false
+#endif
+#define false ((bool)0)
+#ifdef true
+#   undef true
+#endif
+#define true ((bool)!false)
 
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
+
+mspace s_msp;
 
 enum ProcedureResult {
     PR_UNINITIALISED = 239
@@ -66,6 +82,7 @@ enum NokReason {
   , N_MISSING_DATA
   , N_NO_PERMISSION
   , N_CONFIGURATION_ERROR
+  , N_AMOUNT_ERROR
 
   , N_MAX
 };
@@ -173,6 +190,7 @@ union ServiceStartEvents {
 
 union ConfiguredServices {
     uint8_t raw[2];
+    uint16_t i;
     struct {
         uint8_t payment : 1;
         uint8_t refund : 1;
@@ -194,6 +212,7 @@ union ConfiguredServices {
 
 union TerminalTransactionQualifiers {
     uint8_t raw[4];
+    uint32_t i;
     union {
         struct {
             uint8_t msrModeSupported : 1;
@@ -331,15 +350,15 @@ struct AuthorisationResponseCode {
 
 struct CombinationsListAndParametersEntry {
     struct {
-        uint8_t _terminalAid_size : 5;
-    };
-    unsigned char terminalAid[16];
+        uint8_t size : 5;
+        unsigned char value[16];
+    } terminalAid;
     unsigned char kernelId;
     union ConfiguredServices supportingServices;
     bool* cashbackPresent;
     union TerminalTransactionQualifiers* terminalTransactionQualifiers;
-    bool* statusCheckSupported;
-    bool* zeroAmountAllowed;
+    bool* statusCheckSupportFlag;
+    bool* zeroAmountAllowedFlag;
     union Amount* readerCtlessTransactionLimit;
     union Amount* readerCtlessFloorLimit;
     union Amount* readerCvmRequiredLimit;
@@ -349,8 +368,9 @@ struct CombinationsListAndParametersEntry {
     bool* statusCheckRequested;
     bool* zeroAmount;
     bool* ctlessApplicationNotAllowed;
-    bool* readeCtlessFloorLimitNotAllowed;
+    bool* readerCtlessFloorLimitNotAllowed;
     bool* readerCvmRequiredLimitExceeded;
+    bool* readerCtlessFloorLimitExceeded;
 
     struct CombinationsListAndParametersEntry* next;
 };
@@ -371,6 +391,9 @@ struct CurrentTransactionData {
     bool AttendantForcedTransactionOnline;
     char ReferenceData[35 + 1];
 
+    // Cashback
+    union Amount CashbackAmount;
+
     // Card data
     const union Country* IssuerCountry;
     unsigned char (* PAN)[11];
@@ -379,8 +402,12 @@ struct CurrentTransactionData {
     volatile bool isDccEligible;
     bool DccPerformedOnce;
 
+    // Pre-Authorisation
+    bool* Minus;
+
     // Service startup
     bool SecurityPermission;
+    bool AmountDisplayed;
     union Country SelectedLanguage;
     struct EventTable {
         bool Table[E_MAX];
@@ -390,6 +417,7 @@ struct CurrentTransactionData {
 
     // Contactless
     struct CombinationsListAndParametersEntry* CombListWorkingTable;
+    bool NoContactlessAllowed;
 };
 
 struct NexoConfiguration {
@@ -431,4 +459,83 @@ void ctd_print(const struct CurrentTransactionData*);
 
 static inline bool isIssuerCountryExcludedForDcc(void) {
     return false;
+}
+
+static inline union ConfiguredServices
+ServiceId_to_ConfiguredServices(const enum ServiceId s) {
+    union ConfiguredServices ret = { };
+    switch (s) {
+        case S_PAYMENT:
+            ret.payment = 1;
+            break;
+        case S_REFUND:
+            ret.refund = 1;
+            break;
+        case S_CANCELLATION:
+            ret.cancellation = 1;
+            break;
+        case S_PRE_AUTH:
+            ret.preAuthorisation = 1;
+            break;
+        case S_UPDATE_PRE_AUTH:
+            ret.updatePreAuthorisation = 1;
+            break;
+        case S_PAYMENT_COMPLETION:
+            ret.paymentCompletion = 1;
+            break;
+        case S_CASH_ADVANCE:
+            ret.cashAdvance = 1;
+            break;
+        case S_DEFFERED_PAYMENT:
+            ret.deferredPayment = 1;
+            break;
+        case S_DEFFERED_PAYMENT_COMPLETION:
+            ret.deferredPaymentCompletion = 1;
+            break;
+        case S_VOICE_AUTHORISATION:
+            ret.voiceAuthorisation = 1;
+            break;
+        case S_CARDHOLDER_DETECTION:
+            ret.cardholderDetection = 1;
+            break;
+        case S_CARD_VALIDITY_CHECK:
+            ret.cardValidityCheck = 1;
+            break;
+        case S_NO_SHOW:
+            ret.noShow = 1;
+            break;
+        default:
+            break;
+    }
+    return ret;
+}
+
+static inline struct CombinationsListAndParametersEntry*
+Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r) {
+    struct CombinationsListAndParametersEntry tmp = {
+        .terminalAid = r->terminalAid,
+        .kernelId = r->kernelId,
+        .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers),
+        .statusCheckSupportFlag = acpptr(r->statusCheckSupportFlag),
+        .zeroAmountAllowedFlag = acpptr(r->zeroAmountAllowedFlag),
+        .readerCtlessTransactionLimit = acpptr(r->readerCtlessTransactionLimit),
+        .readerCtlessFloorLimit = acpptr(r->readerCtlessFloorLimit),
+        .readerCvmRequiredLimit= acpptr(r->readerCvmRequiredLimit),
+        .extendedSelectionSupported = acpptr(r->extendedSelectionSupported),
+        .next = NULL
+    };
+    if (g_Ctd.TransactionAmountEntered) {
+        tmp.statusCheckRequested = acpval(false);
+        tmp.zeroAmount = acpval(false);
+        tmp.ctlessApplicationNotAllowed = acpval(false);
+        tmp.readerCtlessFloorLimitNotAllowed = acpval(false);
+        tmp.readerCvmRequiredLimitExceeded = acpval(false);
+    } else {
+        tmp.statusCheckRequested = acpptr(r->statusCheckRequested);
+        tmp.zeroAmount = acpptr(r->zeroAmount);
+        tmp.ctlessApplicationNotAllowed = acpptr(r->ctlessApplicationNotAllowed);
+        tmp.readerCtlessFloorLimitNotAllowed = acpptr(r->readerCtlessFloorLimitNotAllowed);
+        tmp.readerCvmRequiredLimitExceeded = acpptr(r->readerCvmRequiredLimitExceeded);
+    }
+    return acpval(tmp);
 }

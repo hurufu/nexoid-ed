@@ -34,7 +34,7 @@ SearchReservationsByPan(void) {
 enum ProcedureResult
 SCAP_Cardholder_Confirmation(void) {
     puts(__func__);
-    return PR_NOK;
+    return PR_DONE;
 }
 
 enum ProcedureResult
@@ -81,6 +81,7 @@ SetUpdatePreAuthTotalAmount(void) {
 
 enum ProcedureResult Wait_For_Event(bool (* const Event)[E_MAX],
                                     char (* const ReferenceData)[35 + 1],
+                                    union Amount* TransactionAmount,
                                     enum ServiceId* const SelectedService) {
     static bool terminate = false;
     puts(__func__);
@@ -89,10 +90,10 @@ enum ProcedureResult Wait_For_Event(bool (* const Event)[E_MAX],
         (*Event)[E_TERMINATION_REQUESTED] = true;
     } else {
         (*Event)[E_SERVICE_SELECTION] = true;
-        *SelectedService = S_UPDATE_PRE_AUTH;
+        *SelectedService = S_CARD_VALIDITY_CHECK;
 
-        (*Event)[E_REFERENCE_ENTRY] = true;
-        snprintf(*ReferenceData, sizeof(*ReferenceData), "%d", 624523454);
+        (*Event)[E_AMOUNT_ENTRY] = true;
+        TransactionAmount->i = 0;
     }
     terminate = true;
 
@@ -186,7 +187,25 @@ enum ProcedureResult Proprietary_Startup_Sequence(void) {
         .CvcDefaultAmount = NULL,
 
         // DCC
-        .DccMinimumAllowedAmount = {{ 0x00, 0x00, 0x00, 0x00, 0x15, 0x00 }}
+        .DccMinimumAllowedAmount = {{ 0x00, 0x00, 0x00, 0x00, 0x15, 0x00 }},
+
+        // Contactless
+        .CombListsAndParams = acpval(
+            ((struct CombinationsListAndParametersEntry){
+                .terminalAid = {
+                    .size = 6,
+                    .value = { 0x43, 0x00, 0x01 }
+                },
+                .kernelId = 0x01,
+                .supportingServices = {
+                    .raw = { 0xFF, 0xFF }
+                },
+                .cashbackPresent = acpval(false),
+                .zeroAmountAllowedFlag = acpval(true),
+
+                .next = NULL
+            })
+        )
     };
     return PR_OK;
 }

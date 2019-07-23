@@ -59,6 +59,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_MISSING_DATA: return "N_MISSING_DATA";
         case N_NO_PERMISSION: return "N_NO_PERMISSION";
         case N_CONFIGURATION_ERROR: return "N_CONFIGURATION_ERROR";
+        case N_AMOUNT_ERROR: return "N_AMOUNT_ERROR";
         case N_MAX:
             break;
     }

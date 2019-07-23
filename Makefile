@@ -5,12 +5,14 @@ assert_cmd = $(if $(shell which $1),$1,$(error "There is no $1 in $$PATH"))
 EXECUTABLE   := main
 OL           := 3
 DL           := gdb3
-STD          := c11
+STD          := gnu11
 WARNINGS     := all extra
 
 # Project config ##############################################################
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
+LDFLAGS      := -L./ptmalloc3 -Wl,--rpath=./ptmalloc3
+LDLIBS       := -lptmalloc3 -lpthread
 
 DRAKON_SQL   := NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
@@ -73,7 +75,7 @@ update: $(DRAKON_FILES)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
-$(CSCOPE_REF): $(SOURCES) $(HEADERS)
+$(CSCOPE_REF): $(SOURCES) $(HEADERS) $(wildcard ptmalloc3/*.[ch])
 	$(CSCOPE) -f$@ -b $^
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT))
 clean:
@@ -82,7 +84,7 @@ wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
 wipe: clean
 
 $(EXECUTABLE).fat: $(OBJECTS)
-	$(LINK.o) -o $@ $^
+	$(LINK.o) -o $@ $^ $(LDLIBS)
 $(EXECUTABLE): $(EXECUTABLE).fat
 	$(OBJCOPY) --strip-unneeded --add-gnu-debuglink=$(<D)/$< $< $@
 
@@ -129,7 +131,7 @@ main.cflow:
 .PHONY: cg
 cg: cg.png
 cg.png:
-	$(CC) -o main $(CPPFLAGS) $(CFLAGS) -fdump-rtl-expand $(SOURCES)
+	$(CC) -o main $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fdump-rtl-expand $(SOURCES) $(LDLIBS)
 	egypt *.expand | dot -Tpng > callgraph.png
 
 .PHONY: print-%

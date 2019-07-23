@@ -21,6 +21,7 @@ enum ProcedureResult SetUpdatePreAuthTotalAmount(void);
 enum ProcedureResult Wait_For_Event(
         bool (* Event)[E_MAX],
         char (* ReferenceData)[35 + 1],
+        union Amount* TransactionAmount,
         enum ServiceId* const SelectedService)
     __attribute__((nonnull(1), warn_unused_result));
 

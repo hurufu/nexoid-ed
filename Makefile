@@ -12,7 +12,7 @@ WARNINGS     := all extra
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 LDFLAGS      := -L./ptmalloc3 -Wl,--rpath=./ptmalloc3
-LDLIBS       := -lptmalloc3
+LDLIBS       := -lptmalloc3 -lpthread
 
 DRAKON_SQL   := NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)

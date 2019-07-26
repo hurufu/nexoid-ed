@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','3881 318','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','12 250','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','10 30','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','-29 -237','',75.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
@@ -26,19 +26,19 @@ INSERT INTO diagrams VALUES(25,'Kernel_Activation','-244 -113','',75.0);
 INSERT INTO diagrams VALUES(26,'Profile_Selection','9 -273','',75.0);
 INSERT INTO diagrams VALUES(27,'Kernel_Processing','10 30','',75.0);
 INSERT INTO diagrams VALUES(28,'Outcome_Processing','9 -237','',75.0);
-INSERT INTO diagrams VALUES(30,'Technology_Selection','8 -294','',75.0);
+INSERT INTO diagrams VALUES(30,'Technology_Selection','-125 -93','',75.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -68','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','272 62','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','296 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3578 144',NULL,75.0);
 INSERT INTO diagrams VALUES(35,'Process_Profile_Parameters','0 0','',75.0);
-INSERT INTO diagrams VALUES(36,'Main','-550 -46','',80.0);
-INSERT INTO diagrams VALUES(38,'Perform_Service','-598 -68',NULL,75.0);
+INSERT INTO diagrams VALUES(36,'Main','-362 -45','',80.0);
+INSERT INTO diagrams VALUES(38,'Perform_Service','-597 -134',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','80.42857142857144 -131.90476190476187',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','-198 -63',NULL,75.0);
 INSERT INTO diagrams VALUES(41,'Process_Event','810 78',NULL,75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','0 0','',75.0);
-INSERT INTO diagrams VALUES(43,'Process_Service_Selection','-340 -202','',90.0);
+INSERT INTO diagrams VALUES(43,'Process_Service_Selection','-340 -90','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-218 -311','',75.0);
 INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','0 0','',75.0);
 INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-20 -80','',75.0);
@@ -62,7 +62,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,55,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -106,7 +106,7 @@ INSERT INTO items VALUES(651,18,'insertion',replace('result =\nPre_Processing();
 INSERT INTO items VALUES(652,18,'if','PR_OK == result',0,270,980,120,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(653,18,'vertical','',0,460,980,0,190,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(654,18,'address','(H) FAIL',0,460,1100,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),0,700,800,110,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),1,700,800,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(656,18,'insertion',replace('result =\nProfile_Selection();','\n',char(10)),0,1310,650,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(657,18,'select','result',0,1310,740,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(658,18,'horizontal','',0,1310,780,660,0,0,0,NULL,'',NULL,'');
@@ -829,7 +829,7 @@ INSERT INTO items VALUES(1595,55,'shelf','N_NO_PERMISSION',0,900,540,70,40,40,0,
 INSERT INTO items VALUES(1596,55,'vertical','',0,900,480,0,250,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1597,55,'address','(A) Nok',0,900,680,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1598,55,'commentin',replace('Load selected service settings\nis done by simple table lookup','\n',char(10)),0,650,210,140,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1599,43,'insertion',replace('result =\nService_Initialisation();','\n',char(10)),0,200,130,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1599,43,'insertion',replace('result =\nService_Initialisation();','\n',char(10)),1,200,130,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1600,43,'if','PR_OK == result',0,200,200,130,20,150,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1601,43,'vertical','',0,480,200,0,530,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1602,43,'horizontal','',0,200,730,280,0,0,0,NULL,NULL,NULL,NULL);
@@ -911,7 +911,7 @@ INSERT INTO items VALUES(1708,38,'branch','Ok',0,970,10,50,30,60,0,NULL,'',NULL,
 INSERT INTO items VALUES(1709,38,'address','Return',0,970,670,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1710,38,'address','Bail',0,480,670,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1711,38,'shelf','PR_NOK',0,1090,320,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),0,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),1,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1713,38,'insertion',replace('result =\nUpdate_Pre_Authorisation();','\n',char(10)),0,90,310,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1714,38,'horizontal','',0,90,360,280,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1715,38,'if','g_Ctd.TerminalErrorIndicator',0,90,560,140,20,70,0,NULL,NULL,NULL,NULL);
@@ -1083,7 +1083,7 @@ INSERT INTO items VALUES(1902,38,'vertical','',0,1290,-40,0,760,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(1903,38,'branch','Bail',0,1290,10,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1904,38,'address','Return',0,1290,670,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1905,38,'shelf','PR_INTERNAL_INCONSISTENCY',0,1290,320,130,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(1906,38,'if','PR_DONE == result',1,90,410,140,20,250,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1906,38,'if','PR_DONE == result',0,90,410,140,20,250,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1907,38,'vertical','',0,300,560,0,160,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1908,38,'address','Nok',0,300,670,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1910,38,'shelf','TER_NOT_IMPLEMENTED',0,720,560,110,40,40,0,NULL,NULL,NULL,'g_Ctd.TerminalErrorReason');

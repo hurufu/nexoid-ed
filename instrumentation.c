@@ -17,7 +17,7 @@ void close_trace(void) {
 __attribute__((no_instrument_function))
 void __cyg_profile_func_enter(void* const f, void* const caller) {
     (void) caller;
-    fprintf(s_trace, "%s%p\n", s_indent--, f);
+    fprintf(s_trace, "%s,%p\n", s_indent--, f);
 }
 
 __attribute__((no_instrument_function))

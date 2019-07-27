@@ -120,8 +120,9 @@ ddd: $(EXECUTABLE)
 .PHONY: trace
 trace: trace.log
 	$(ADDR2LINE) -spf -e $(EXECUTABLE) <$< | paste $< -
-trace.log: $(EXECUTABLE)
+trace.log: $(EXECUTABLE) adjust_addr.awk
 	./$<
+	awk --non-decimal-data -f $(word 2,$^) $@ | sponge $@
 
 .PHONY: cflow
 cflow: main.cflow

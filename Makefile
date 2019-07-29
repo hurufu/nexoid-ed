@@ -11,7 +11,7 @@ WARNINGS     := all extra
 # Project config ##############################################################
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
-LDFLAGS      := -L./ptmalloc3 -Wl,--rpath=./ptmalloc3
+LDFLAGS      := -L/usr/loca/include -Wl,--rpath=/usr/local/lib
 LDLIBS       := -lptmalloc3 -lpthread
 
 DRAKON_SQL   := NexoFast.sql

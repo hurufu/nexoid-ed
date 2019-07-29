@@ -1,6 +1,6 @@
 #define ONLY_MSPACES 1
 #define MSPACES 1
-#include "ptmalloc3/ptmalloc3.h"
+#include <ptmalloc3.h>
 
 static mspace s_msp;
 

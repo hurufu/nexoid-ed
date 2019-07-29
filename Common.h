@@ -2,7 +2,7 @@
 
 #include "utils.h"
 #define MSPACES 1
-#include "ptmalloc3/ptmalloc3.h"
+#include <ptmalloc3.h>
 #include "memutils.h"
 #include <stdbool.h>
 #include <stddef.h>

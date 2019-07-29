@@ -1,6 +1,9 @@
-#include "Common.h"
+#include "common.h"
 #include "utils.h"
 #include <stdio.h>
+
+#define TRACE(Fmt, ...)\
+    printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
 
 const char*
 ProcedureResult_tostring(const enum ProcedureResult f) {

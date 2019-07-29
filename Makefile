@@ -9,6 +9,7 @@ STD          := gnu11
 WARNINGS     := all extra
 
 # Project config ##############################################################
+CPPFLAGS     := -Iinclude
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 LDFLAGS      := -L/usr/loca/include -Wl,--rpath=/usr/local/lib
@@ -96,7 +97,7 @@ main.d: main.c | $(DRAKON_HFILES)
 	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h
 %.d: %.c
-	$(CC) -MM -MF $@ $(CFLAGS) -o $@ $<
+	$(CC) -MM -MF $@ $(CPPFLAGS) $(CFLAGS) -o $@ $<
 %.s: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -S -o $@ $<
 %.i: %.c
@@ -106,7 +107,7 @@ main.d: main.c | $(DRAKON_HFILES)
 	chmod a-x $@
 
 .syntastic_c_config: Makefile
-	echo $(CFLAGS) | tr ' ' '\n' > $@
+	echo $(CPPFLAGS) $(CFLAGS) | tr ' ' '\n' > $@
 
 .PHONY: csv
 csv: $(DRAKON_FILES:.drn=.csv)

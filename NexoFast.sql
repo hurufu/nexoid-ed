@@ -62,7 +62,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,55,replace('=== h_header ===\n#include "Common.h"\n\n=== c_header ===\n#include <stdbool.h>\n#include "Interface.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,55,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,

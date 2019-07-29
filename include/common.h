@@ -1,29 +1,14 @@
 #pragma once
 
 #include "utils.h"
-#define MSPACES 1
+#include "mem.h"
+#include "bool.h"
+
 #include <ptmalloc3.h>
-#include "memutils.h"
-#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-// Workaround for true and false from stdbool don't have distinct type _Bool
-#ifdef false
-#   undef false
-#endif
-#define false ((bool)0)
-#ifdef true
-#   undef true
-#endif
-#define true ((bool)!false)
-
-#define TRACE(Fmt, ...)\
-    printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
-
-mspace s_msp;
 
 enum ProcedureResult {
     PR_UNINITIALISED = 239

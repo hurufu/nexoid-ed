@@ -1,3 +1,0 @@
-[submodule "ptmalloc3"]
-	path = ptmalloc3
-	url = /srv/git/ptmalloc3.git

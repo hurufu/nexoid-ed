@@ -27,10 +27,11 @@ OL           := 3
 DL           := gdb3
 STD          := gnu11
 WARNINGS     := all extra
+PREFIX       := /usr/local
 
 # Project config ##############################################################
 NAME         := nexo-ed
-INCLUDE_DIRS := include
+INCLUDE_DIRS := . include
 # TODO: Develop proper pkg-config for dependencies
 LIBRARIES    := ptmalloc3 pthread
 
@@ -41,7 +42,7 @@ CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 VERSION       = $(shell git describe --dirty --broken)
 
-LIBNAME          := $(NAME)-$(VERSION)
+LIBNAME          := lib$(NAME)
 LIBNAME.a        := $(LIBNAME).a
 LIBNAME.so       := $(LIBNAME).so
 LIBNAME.so.debug := $(LIBNAME).so.debug
@@ -53,9 +54,12 @@ DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
 SOURCES      := $(sort $(wildcard *.c) $(DRAKON_CFILES))
-HEADERS      := $(sort $(wildcard *.h) $(DRAKON_HFILES))
+HEADERS      := $(sort $(wildcard $(addsuffix *.h,$(INCLUDE_DIRS)/) $(DRAKON_HFILES)))
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
+
+INSTALLED_FILES  := $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME).a $(LIBNAME).so))
+INSTALLED_FILES  += $(addprefix $(PREFIX)/include/$(NAME)/,$(notdir $(HEADERS)))
 
 CSCOPE_REF   := cscope.out
 
@@ -108,10 +112,7 @@ static: $(LIBNAME.a)
 $(LIBNAME.a): $(OBJECTS)
 	$(AR) rcs $@ $^
 
-$(LIBNAME.so): $(LIBNAME.so.debug)
-	$(OBJCOPY) --strip-unneeded --add-gnu-debuglink=$< $< $@
-
-$(LIBNAME.so.debug): $(OBJECTS)
+$(LIBNAME.so): $(OBJECTS)
 	$(CC) -shared -fPIC $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
@@ -123,6 +124,22 @@ clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
 wipe: clean
+
+.PHONY: install
+install: $(INSTALLED_FILES)
+
+$(PREFIX)/lib/$(LIBNAME.a): $(LIBNAME.a)
+	install -D $< $@
+$(PREFIX)/lib/$(LIBNAME.so): $(LIBNAME.so)
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/%.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: %.h
+	install -D $< $@
+
+.PHONY: uninstall
+uninstall:
+	rm -- $(INSTALLED_FILES)
 
 .PRECIOUS: %.c %.h
 %.c %.h: %.drn

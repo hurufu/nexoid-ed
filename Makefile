@@ -1,19 +1,50 @@
 # Macros ######################################################################
+# FIXME: Remove macros from here and user system-wide `makes` installation
+# Define MAKE_DEBUG to any non-empty value in order to debug all variable
+# definedness tests
+#MAKE_DEBUG := y
+
+# Message to be shown while debuging variables
+MAKE_DEBUG_MSG = $(warning $(origin $1) defined variable "$1" is \
+                 "$(value $1)" expanded to "$($1)")
+
+debug = $(if $(MAKE_DEBUG),$(MAKE_DEBUG_MSG))
+
+# Call function $1 if variable is not defined
+do_ifndef = $(foreach S,$2,$(if $($S),$(call debug,$S),$(call $1,$S is undefined)))
+
+# Stop execution if any variable from the list is undefined
+assert_defined = $(call do_ifndef,error,$1)
+
+# Issue a warning if any variable from the list is undefined
+check_defined = $(call do_ifndef,warning,$1)
+
+
 assert_cmd = $(if $(shell which $1),$1,$(error "There is no $1 in $$PATH"))
 
 # User config #################################################################
-EXECUTABLE   := main
 OL           := 3
 DL           := gdb3
 STD          := gnu11
 WARNINGS     := all extra
 
 # Project config ##############################################################
-CPPFLAGS     := -Iinclude
-CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
+NAME         := nexo-ed
+INCLUDE_DIRS := include
+# TODO: Develop proper pkg-config for dependencies
+LIBRARIES    := ptmalloc3 pthread
+
+# Toolchain settings ##########################################################
+CPPFLAGS     := $(addprefix -I,$(INCLUDE_DIRS))
+CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL) -fPIC
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
-LDFLAGS      := -L/usr/loca/include -Wl,--rpath=/usr/local/lib
-LDLIBS       := -lptmalloc3 -lpthread
+LDLIBS       := $(addprefix -l,$(LIBRARIES))
+VERSION       = $(shell git describe --dirty --broken)
+
+LIBNAME          := $(NAME)-$(VERSION)
+LIBNAME.a        := $(LIBNAME).a
+LIBNAME.so       := $(LIBNAME).so
+LIBNAME.so.debug := $(LIBNAME).so.debug
 
 DRAKON_SQL   := NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
@@ -21,14 +52,14 @@ DRAKON_PATH  ?= /cygdrive/c/opt/Drakon\ Editor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
-SOURCES      := $(sort $(if $(filter trace,$(MAKECMDGOALS)),$(wildcard *.c),$(filter-out instrumentation.c,$(wildcard *.c))) $(DRAKON_CFILES))
+SOURCES      := $(sort $(wildcard *.c) $(DRAKON_CFILES))
 HEADERS      := $(sort $(wildcard *.h) $(DRAKON_HFILES))
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
 
 CSCOPE_REF   := cscope.out
 
-TIME_FORMAT    ?= yaml
+TIME_FORMAT    ?= pdb
 TIME_RESULT    := time.$(TIME_FORMAT)
 TIME_ARGS.yaml := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
 TIME_ARGS.pdb  := --format='pd(user(%U), system(%S), real(%e), command("%C")).' --append --output $(TIME_RESULT)
@@ -64,33 +95,34 @@ profile_build: all profiling_build.pdb profiling_build.pq
 	$(TIME_PROC.$(TIME_FORMAT))
 endif
 
-.PHONY: all clean asm pp run index update
-all: $(EXECUTABLE) index .syntastic_c_config cflow
+.PHONY: all clean asm pp run index update static shared
+all: shared static index .syntastic_c_config cflow
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
-run: $(EXECUTABLE)
-	./$<
 index: $(CSCOPE_REF)
 update: $(DRAKON_FILES)
 	$(SQLITE3) -batch $< '.dump' >$(DRAKON_SQL)
+shared: $(LIBNAME.so)
+static: $(LIBNAME.a)
+
+$(LIBNAME.a): $(OBJECTS)
+	$(AR) rcs $@ $^
+
+$(LIBNAME.so): $(LIBNAME.so.debug)
+	$(OBJCOPY) --strip-unneeded --add-gnu-debuglink=$< $< $@
+
+$(LIBNAME.so.debug): $(OBJECTS)
+	$(CC) -shared -fPIC $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS) $(wildcard ptmalloc3/*.[ch])
 	$(CSCOPE) -f$@ -b $^
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT))
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
 wipe: clean
-
-$(EXECUTABLE).fat: $(OBJECTS)
-	$(LINK.o) -o $@ $^ $(LDLIBS)
-$(EXECUTABLE): $(EXECUTABLE).fat
-	$(OBJCOPY) --strip-unneeded --add-gnu-debuglink=$(<D)/$< $< $@
-
-# Workaround
-main.d: main.c | $(DRAKON_HFILES)
 
 .PRECIOUS: %.c %.h
 %.c %.h: %.drn
@@ -114,10 +146,6 @@ csv: $(DRAKON_FILES:.drn=.csv)
 %.csv: %.drn SelectItemMsg.sql
 	$(SQLITE3) -batch -csv $< <SelectItemMsg.sql >$@
 
-.PHONY: ddd
-ddd: $(EXECUTABLE)
-	$(DDD) $<
-
 .PHONY: trace
 trace: trace.log
 	$(ADDR2LINE) -spf -e $(EXECUTABLE) <$< | paste $< -
@@ -126,16 +154,17 @@ trace.log: $(EXECUTABLE) adjust_addr.awk
 	awk --non-decimal-data -f $(word 2,$^) $@ | sponge $@
 
 .PHONY: cflow
-cflow: main.cflow
-main.cflow:
+cflow: $(NAME).cflow
+$(NAME).cflow:
 	$(CFLOW) --no-ansi --omit-symbol-names $(SOURCES) > $@
 
 .PHONY: cg
 cg: cg.png
 cg.png:
-	$(CC) -o main $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fdump-rtl-expand $(SOURCES) $(LDLIBS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fdump-rtl-expand $(SOURCES) $(LDLIBS)
 	egypt *.expand | dot -Tpng > callgraph.png
 
+# TODO: Move to `makes` library
 .PHONY: print-%
 print-%:
 	@:$(info $($*))

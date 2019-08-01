@@ -30,7 +30,7 @@ WARNINGS     := all extra
 PREFIX       := /usr/local
 
 # Project config ##############################################################
-NAME         := nexo-ed
+NAME         := nexoid
 INCLUDE_DIRS := . include
 # TODO: Develop proper pkg-config for dependencies
 LIBRARIES    := ptmalloc3 pthread

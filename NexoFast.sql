@@ -32,8 +32,8 @@ INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','272 62','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','296 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3578 144',NULL,75.0);
 INSERT INTO diagrams VALUES(35,'Process_Profile_Parameters','0 0','',75.0);
-INSERT INTO diagrams VALUES(36,'Main','495 156','',80.0);
-INSERT INTO diagrams VALUES(38,'Perform_Service','5 1',NULL,75.0);
+INSERT INTO diagrams VALUES(36,'Main','495 -220','',80.0);
+INSERT INTO diagrams VALUES(38,'Perform_Service','-129 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-321 -161',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','-198 -63',NULL,75.0);
 INSERT INTO diagrams VALUES(41,'Process_Event','810 78',NULL,75.0);
@@ -48,7 +48,7 @@ INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
 INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-274.5 -197.83333333333331',NULL,80.0);
-INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 1','',75.0);
+INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 -134','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-568 -45',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
@@ -70,7 +70,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,36,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,54,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -758,18 +758,18 @@ INSERT INTO items VALUES(1511,39,'vertical','',0,370,280,0,520,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(1513,39,'shelf','g_Nexo.DefaultService',0,700,350,210,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedService');
 INSERT INTO items VALUES(1514,39,'shelf','g_Nexo.CardholderDefaultLanguage',0,700,450,210,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedLanguage');
 INSERT INTO items VALUES(1515,39,'insertion','Initialise_Basic_Data();',0,700,530,210,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1516,54,'beginend','Initialise_Transaction_Database',0,120,-20,140,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1517,54,'beginend','End',0,690,510,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1518,54,'vertical','',0,120,0,0,920,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1519,54,'vertical','',0,510,20,0,900,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1520,54,'vertical','',0,690,20,0,480,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1521,54,'horizontal','',0,120,20,570,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1522,54,'arrow','',0,-40,20,160,900,550,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(1523,54,'branch','Zero out CTD',0,120,70,150,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1524,54,'address',replace('EMV data\nelements','\n',char(10)),0,120,870,150,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1525,54,'branch',replace('Nexo data\nelements','\n',char(10)),0,510,80,110,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1526,54,'branch','End',0,690,70,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1527,54,'address','End',0,510,870,110,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1516,54,'beginend','Initialise_Transaction_Database',0,120,-80,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1517,54,'beginend','End',0,890,240,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1518,54,'vertical','',0,120,-60,0,940,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1519,54,'vertical','',0,620,-40,0,920,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1520,54,'vertical','',0,890,-40,0,270,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1521,54,'horizontal','',0,120,-40,770,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1522,54,'arrow','',0,-40,-40,160,920,660,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(1523,54,'branch','Zero out CTD',0,120,10,60,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1524,54,'address',replace('EMV data\nelements','\n',char(10)),0,120,830,60,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1525,54,'branch',replace('Nexo data\nelements','\n',char(10)),0,620,20,190,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1526,54,'branch','End',0,890,10,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1527,54,'address','End',0,620,830,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1528,39,'address',replace('Payment Service\ninitialisation','\n',char(10)),0,370,740,70,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1529,39,'shelf','S_NONE',0,30,370,130,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedService');
 INSERT INTO items VALUES(1530,39,'output','DeactivateAllInterfaces();',0,30,470,130,40,40,0,NULL,NULL,NULL,'SCAP');
@@ -919,7 +919,7 @@ INSERT INTO items VALUES(1708,38,'branch','Ok',0,970,10,50,30,60,0,NULL,'',NULL,
 INSERT INTO items VALUES(1709,38,'address','Return',0,970,670,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1710,38,'address','Bail',0,480,670,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1711,38,'shelf','PR_NOK',0,1090,320,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),1,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),0,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1713,38,'insertion',replace('result =\nUpdate_Pre_Authorisation();','\n',char(10)),0,90,310,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1714,38,'horizontal','',0,90,360,280,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1715,38,'if','g_Ctd.TerminalErrorIndicator',0,90,560,140,20,70,0,NULL,NULL,NULL,NULL);
@@ -1785,18 +1785,18 @@ INSERT INTO items VALUES(2805,18,'branch','End',0,4960,400,70,30,60,0,NULL,'',NU
 INSERT INTO items VALUES(2806,18,'address','End',0,4520,910,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2807,18,'shelf','PR_INTERNAL_INCONSISTENCY',0,4760,630,110,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(2808,18,'shelf','PR_DONE',0,4520,630,110,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(2810,54,'shelf','NONE',0,510,180,110,40,40,0,NULL,NULL,NULL,'g_Ctd.Out.Start');
-INSERT INTO items VALUES(2811,54,'vertical','',0,330,20,0,900,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2812,54,'branch',replace('EMV data\nelements','\n',char(10)),0,330,80,50,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2813,54,'address',replace('Nexo data\nelements','\n',char(10)),0,330,870,50,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2814,54,'shelf','0xFF',0,510,280,110,40,40,0,NULL,'',NULL,'g_Ctd.Out.FieldOffRequest');
-INSERT INTO items VALUES(2815,54,'shelf','T_NONE',0,510,380,110,40,40,0,NULL,'',NULL,'g_Ctd.TransactionResult');
-INSERT INTO items VALUES(2816,54,'shelf','N_NONE',0,510,480,110,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
-INSERT INTO items VALUES(2817,54,'shelf','S_NONE',0,510,580,110,40,40,0,NULL,'',NULL,'g_Ctd.SelectedService');
-INSERT INTO items VALUES(2818,54,'shelf','TECH_NONE',0,510,680,110,40,40,0,NULL,'',NULL,'g_Ctd.TechnologySelected');
-INSERT INTO items VALUES(2819,54,'shelf','O_NONE',0,510,780,110,40,40,0,NULL,'',NULL,'g_Ctd.Outcome');
+INSERT INTO items VALUES(2810,54,'shelf','NONE',0,620,120,190,40,40,0,NULL,NULL,NULL,'g_Ctd.Out.Start');
+INSERT INTO items VALUES(2811,54,'vertical','',0,330,-40,0,920,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2812,54,'branch',replace('EMV data\nelements','\n',char(10)),0,330,20,50,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2813,54,'address',replace('Nexo data\nelements','\n',char(10)),0,330,830,50,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2814,54,'shelf','0xFF',0,620,220,190,40,40,0,NULL,'',NULL,'g_Ctd.Out.FieldOffRequest');
+INSERT INTO items VALUES(2815,54,'shelf','T_NONE',0,620,320,190,40,40,0,NULL,'',NULL,'g_Ctd.TransactionResult');
+INSERT INTO items VALUES(2816,54,'shelf','N_NONE',0,620,420,190,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(2818,54,'shelf','TECH_NONE',0,620,640,190,40,40,0,NULL,'',NULL,'g_Ctd.TechnologySelected');
+INSERT INTO items VALUES(2819,54,'shelf','O_NONE',0,620,740,190,40,40,0,NULL,'',NULL,'g_Ctd.Outcome');
 INSERT INTO items VALUES(2820,36,'shelf','(struct CurrentTransactionData){ }',0,1050,360,180,40,40,0,NULL,'',NULL,'g_Ctd');
 INSERT INTO items VALUES(2821,36,'commentin',replace('In the spec CTD shall be zeroed out in\nService Initialisation, but this doesn''t\nmake sense, that''s why it''s zeroed out\nhere','\n',char(10)),0,1050,240,180,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2822,54,'commentin',replace('Spec describes that all enums that are\nnot listed in a special table shall be\nset to NONE, but this doesn''t make sense\nfor SelectedService, because it''s already\nsetup properly','\n',char(10)),0,620,530,190,50,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

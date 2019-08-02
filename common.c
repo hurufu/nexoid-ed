@@ -33,6 +33,11 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_TERMINATE: return "PR_TERMINATE";
         case PR_SHUTDOWN: return "PR_SHUTDOWN";
         case PR_STARTUP_SEQUENCE: return "PR_STARTUP_SEQUENCE";
+        case PR_NO_CARD_PRESENT: return "PR_NO_CARD_PRESENT";
+        case PR_CTLS_COLLISION: return "PR_CTLS_COLLISION";
+        case PR_MANUAL_ENTRY: return "PR_MANUAL_ENTRY";
+        case PR_RETRY_AFTER_CONTACTLESS: return "PR_RETRY_AFTER_CONTACTLESS";
+        case PR_FALLBACK: return "PR_FALLBACK";
         case PR_MAX:
             break;
     }
@@ -63,6 +68,8 @@ NokReason_tostring(const enum NokReason n) {
         case N_NO_PERMISSION: return "N_NO_PERMISSION";
         case N_CONFIGURATION_ERROR: return "N_CONFIGURATION_ERROR";
         case N_AMOUNT_ERROR: return "N_AMOUNT_ERROR";
+        case N_KERNEL_ERROR: return "N_KERNEL_ERROR";
+        case N_DATA_ERROR: return "N_DATA_ERROR";
         case N_MAX:
             break;
     }

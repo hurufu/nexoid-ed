@@ -127,6 +127,9 @@ enum IdleEvent {                  // Service Start Event?
   , E_TERMINATION_REQUESTED       // No
   , E_SHUTDOWN_REQUESTED          // No
 
+  // Technology selection
+  , E_TIMEOUT                     // No
+
   , E_MAX                         // N/A
 };
 

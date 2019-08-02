@@ -68,7 +68,8 @@ enum ServiceId {
 } __attribute__((__packed__));
 
 enum NokReason {
-    N_NOT_IMPLEMENTED = PR_MAX + 2364
+    N_NONE = PR_MAX + 2364
+  , N_NOT_IMPLEMENTED
   , N_ORIGINAL_TRX_NOT_FOUND
   , N_TECHNICAL_ERROR
   , N_MISSING_DATA
@@ -82,7 +83,8 @@ enum NokReason {
 };
 
 enum Outcome {
-    O_ONLINE_REQUEST = N_MAX + 9745
+    O_NONE = N_MAX + 9745
+  , O_ONLINE_REQUEST
   , O_TRY_ANOTHER_INTERFACE
   , O_END_APPLICATION
 
@@ -435,7 +437,18 @@ union EeaProcessSettings {
     };
 };
 
+enum PrinterStatus {
+    PRINTER_UNAVAILABLE
+};
+
 struct CurrentTransactionData {
+    // Operations
+    bool AcquirerPreSelected;
+    bool CardholderLanguageIsSelected;
+    bool CardholderRequestedChoiceOfApplication;
+    unsigned char PreSelectedAcquirerNumber;
+    enum PrinterStatus PrinterStatus;
+
     // Service
     bool ApplicationInitialised;
     union ServiceSettings* SelectedServiceSettings;
@@ -456,7 +469,7 @@ struct CurrentTransactionData {
     bool FallbackFlag;
 
     // EMV
-    const int KernelId;
+    int KernelId;
     enum Technology TechnologySelected;
     enum Outcome Outcome; // FIXME: Outcome shall be an optional struct
     union ProcessingStatus ProcessingStatus;
@@ -468,7 +481,7 @@ struct CurrentTransactionData {
     union Amount CashbackAmount;
 
     // Card data
-    const union Country* IssuerCountry;
+    union Country* IssuerCountry;
     unsigned char (* PAN)[11];
 
     // DCC

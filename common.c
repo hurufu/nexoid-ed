@@ -61,6 +61,7 @@ TransactionResult_tostring(const enum TransactionResult t) {
 const char*
 NokReason_tostring(const enum NokReason n) {
     switch (n) {
+        case N_NONE: return "N_NONE";
         case N_NOT_IMPLEMENTED: return "N_NOT_IMPLEMENTED";
         case N_ORIGINAL_TRX_NOT_FOUND: return "N_ORIGINAL_TRX_NOT_FOUND";
         case N_TECHNICAL_ERROR: return "N_TECHNICAL_ERROR";

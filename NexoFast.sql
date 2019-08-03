@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','150 134','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','149 133','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','10 30','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','-29 -237','',75.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
@@ -26,13 +26,13 @@ INSERT INTO diagrams VALUES(25,'Kernel_Activation','-244 -113','',75.0);
 INSERT INTO diagrams VALUES(26,'Profile_Selection','9 -273','',75.0);
 INSERT INTO diagrams VALUES(27,'Kernel_Processing','10 30','',75.0);
 INSERT INTO diagrams VALUES(28,'Outcome_Processing','9 -237','',75.0);
-INSERT INTO diagrams VALUES(30,'Technology_Selection_Separate_Readers','-42 -56','',75.0);
+INSERT INTO diagrams VALUES(30,'Technology_Selection_Separate_Readers','1958 210','',75.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -68','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','272 62','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','296 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3578 144',NULL,75.0);
 INSERT INTO diagrams VALUES(35,'Process_Profile_Parameters','0 0','',75.0);
-INSERT INTO diagrams VALUES(36,'Main','495 -220','',80.0);
+INSERT INTO diagrams VALUES(36,'Main','2620 30','',80.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-129 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-321 -161',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','-198 -63',NULL,75.0);
@@ -57,9 +57,9 @@ INSERT INTO diagrams VALUES(60,'Copy_Combination_Lists','36 666',NULL,75.0);
 INSERT INTO diagrams VALUES(61,'Pre_Processing_Ctls','-18 62',NULL,75.0);
 INSERT INTO diagrams VALUES(62,'Pre_Process_Combination_Lists_Entry','285 1910',NULL,70.0);
 INSERT INTO diagrams VALUES(63,'Process_Card_Event','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(64,'Technology_Selection_Initial_Processing','221 205',NULL,75.0);
+INSERT INTO diagrams VALUES(64,'Technology_Selection_Initial_Processing','3149 201','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection','-132 -238',NULL,75.0);
-INSERT INTO diagrams VALUES(66,'Update_Interfaces','-400 -200',NULL,75.0);
+INSERT INTO diagrams VALUES(66,'Update_Interfaces','-400 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(67,'Card_Removal_Process_Separate_Readers','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(68,'Update_Ui_Separate_Readers','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(69,'Is_Card_In_Chip_Reader','0 0',NULL,75.0);
@@ -70,7 +70,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,66,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,30,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -918,7 +918,7 @@ INSERT INTO items VALUES(1708,38,'branch','Ok',0,970,10,50,30,60,0,NULL,'',NULL,
 INSERT INTO items VALUES(1709,38,'address','Return',0,970,670,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1710,38,'address','Bail',0,480,670,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1711,38,'shelf','PR_NOK',0,1090,320,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),0,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),1,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1713,38,'insertion',replace('result =\nUpdate_Pre_Authorisation();','\n',char(10)),0,90,310,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1714,38,'horizontal','',0,90,360,280,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1715,38,'if','g_Ctd.TerminalErrorIndicator',0,90,560,140,20,70,0,NULL,NULL,NULL,NULL);
@@ -1060,7 +1060,7 @@ INSERT INTO items VALUES(1863,33,'shelf','PR_UNINITIALISED',0,-150,330,120,40,40
 INSERT INTO items VALUES(1864,53,'horizontal','',0,240,60,170,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1865,53,'action','returns enum ProcedureResult',0,470,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1866,53,'action','return PR_OK;',0,170,310,160,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1867,36,'select','Perform_Service()',0,3100,520,90,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1867,36,'select','Perform_Service()',1,3100,520,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1868,36,'horizontal','',0,3100,560,330,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1869,36,'case','PR_OK',0,3100,600,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1870,36,'case','PR_NOK',0,3280,600,70,20,60,0,NULL,NULL,NULL,NULL);
@@ -1464,7 +1464,7 @@ INSERT INTO items VALUES(2458,62,'shelf','1',0,780,2160,280,40,40,0,NULL,NULL,NU
 INSERT INTO items VALUES(2459,62,'commentin','Contactless Mode Allowed',0,780,2660,280,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2460,36,'action','mempool_init();',0,-320,460,120,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2461,19,'shelf','NONE',0,170,300,70,40,40,0,NULL,NULL,NULL,'g_Ctd.Out.Start');
-INSERT INTO items VALUES(2462,30,'insertion',replace('result =\nTechnology_Selection_Initial_Processing();','\n',char(10)),1,450,210,180,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2462,30,'insertion',replace('result =\nTechnology_Selection_Initial_Processing();','\n',char(10)),0,450,210,180,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2463,30,'shelf','PR_UNINITIALISED',0,130,300,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(2464,30,'select','result',0,450,280,180,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2465,30,'horizontal','',0,450,320,1890,0,0,0,NULL,NULL,NULL,NULL);
@@ -1615,9 +1615,9 @@ INSERT INTO items VALUES(2623,64,'address','Nok',0,1300,1330,70,30,60,0,NULL,NUL
 INSERT INTO items VALUES(2624,64,'vertical','',0,1440,870,0,80,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2625,64,'vertical','',0,1560,870,0,80,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2628,64,'horizontal','',0,1300,950,260,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2629,64,'vertical','',0,2830,210,0,1170,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2630,64,'branch',replace('Reselect after\ncontactless','\n',char(10)),0,2830,270,160,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2631,64,'address',replace('Retry after\ncontactless','\n',char(10)),0,2830,1320,160,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2629,64,'vertical','',0,2880,210,0,1170,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2630,64,'branch',replace('Reselect after\ncontactless','\n',char(10)),0,2880,270,200,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2631,64,'address',replace('Retry after\ncontactless','\n',char(10)),0,2880,1320,200,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2632,64,'vertical','',0,1910,210,0,1170,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2633,64,'branch','First selection',0,1910,260,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2634,64,'address',replace('Contact or\nContactless','\n',char(10)),0,1910,1320,160,40,60,0,NULL,'',NULL,'');
@@ -1682,18 +1682,18 @@ INSERT INTO items VALUES(2700,64,'vertical','',0,3470,210,0,1170,0,0,NULL,'',NUL
 INSERT INTO items VALUES(2701,64,'branch',replace('Reselect after\ncontact','\n',char(10)),0,3470,270,140,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2702,64,'address','Fallback',0,3470,1330,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2703,64,'address',replace('Reselect after\ncontact','\n',char(10)),0,1140,1320,70,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2704,64,'if',replace('true\n/* Is timer for FieldOffRequest\nenabled and elapsed? */','\n',char(10)),0,2830,400,160,40,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2705,64,'arrow','',0,3030,340,200,60,40,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2706,64,'if','g_Ctd.Continue',0,2830,480,160,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2707,64,'vertical','',0,3030,480,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2708,64,'horizontal','',0,2830,960,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2709,64,'action',replace('/*\nActivate contactless reader\n*/\nresult = PR_OK;','\n',char(10)),0,2830,890,160,50,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2710,64,'insertion',replace('result =\nUpdate_Interfaces();\n/* Enable all */','\n',char(10)),0,3030,780,150,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2711,64,'if','result == PR_OK',0,2830,1000,160,20,70,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2712,64,'vertical','',0,3060,1000,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2713,64,'address','Nok',0,3060,1330,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2714,64,'shelf','TECH_NONE',0,3030,580,150,40,40,0,NULL,NULL,NULL,'g_Ctd.TechnologySelected');
-INSERT INTO items VALUES(2715,64,'shelf','false',0,3030,680,150,40,40,0,NULL,NULL,NULL,'g_Ctd.ExceptionFileCheckPerformed');
+INSERT INTO items VALUES(2704,64,'if',replace('true\n/* Is timer for FieldOffRequest\nenabled and elapsed? */','\n',char(10)),0,2880,400,200,40,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2705,64,'arrow','',0,3120,340,240,60,80,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2706,64,'if','g_Ctd.Continue',0,2880,480,200,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2707,64,'vertical','',0,3120,480,0,680,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2708,64,'horizontal','',0,2880,1160,240,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2709,64,'action',replace('result =\nUpdate_Interface();\n/* Activate contactless reader */','\n',char(10)),0,2880,1100,200,40,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2710,64,'insertion',replace('result =\nUpdate_Interfaces();\n/* Enable all */','\n',char(10)),0,3120,780,150,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2711,64,'if','result == PR_OK',0,2880,1200,200,20,70,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2712,64,'vertical','',0,3150,1200,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2713,64,'address','Nok',0,3150,1330,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2714,64,'shelf','TECH_NONE',0,3120,580,150,40,40,0,NULL,NULL,NULL,'g_Ctd.TechnologySelected');
+INSERT INTO items VALUES(2715,64,'shelf','false',0,3120,680,150,40,40,0,NULL,NULL,NULL,'g_Ctd.ExceptionFileCheckPerformed');
 INSERT INTO items VALUES(2716,64,'vertical','',0,5140,210,0,1170,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2717,64,'branch',replace('Retry after\ncontactless','\n',char(10)),0,5140,270,120,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2718,64,'address','End',0,5140,1330,120,30,60,0,NULL,'',NULL,'');
@@ -1709,7 +1709,7 @@ INSERT INTO items VALUES(2728,64,'if','g_Ctd.ContactlessAllowed',0,3470,730,140,
 INSERT INTO items VALUES(2729,64,'vertical','',0,3720,730,0,140,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2730,64,'horizontal','',0,3470,870,250,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2731,64,'insertion',replace('result =\nUpdate_Interfaces();\n/* Enable all */','\n',char(10)),0,3470,810,140,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2732,64,'insertion',replace('result =\nUpdate_Interfaces();\n/* No contactless */','\n',char(10)),0,3720,800,90,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2732,64,'insertion',replace('result =\nUpdate_Interfaces();\n/* No contactless */','\n',char(10)),0,3720,810,90,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2733,64,'if','result == PR_OK',0,3470,910,140,20,220,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2736,64,'vertical','',0,4940,210,0,1170,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2737,64,'branch','Fallback',0,4940,260,60,30,60,0,NULL,'',NULL,'');
@@ -1800,6 +1800,8 @@ INSERT INTO items VALUES(2823,55,'shelf',replace('&g_Nexo.ServiceSettings\n[g_Ct
 INSERT INTO items VALUES(2824,55,'shelf',replace('&g_Nexo.ServiceStartEvents\n[g_Ctd.SelectedService]','\n',char(10)),0,650,380,150,50,40,0,NULL,'',NULL,'g_Ctd.SelectedServiceStartEvents');
 INSERT INTO items VALUES(2825,55,'commentout',replace('I''m in a hurry and I don''t want to\nlookup where to initialize\nSelectedServiceStartEvents,\nso I''ll set them here','\n',char(10)),0,1000,350,150,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2826,66,'shelf','PR_OK',0,170,280,130,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(2827,64,'commentout',replace('This initialisation isn''t actualy needed,\nbecause it is done during Service_Initialisation,\nbut maybe I don''t know something and it''s actually\nuseful :)','\n',char(10)),0,2320,450,210,50,40,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2828,64,'commentin',replace('In the spec they only say to activate\ncontactless at this point, but they don''t\nspecify to invoke Update_Interface,\nwhich is a little bit silly. This function\nin the spec doesn''t allow enabling of\ncontactless only, which is silly once again.\n\nSo, here I will extend that function to\nproperly handle request to enable only\ncontactless.','\n',char(10)),0,2880,950,200,90,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

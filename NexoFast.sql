@@ -1687,7 +1687,7 @@ INSERT INTO items VALUES(2705,64,'arrow','',0,3120,340,240,60,80,0,NULL,NULL,NUL
 INSERT INTO items VALUES(2706,64,'if','g_Ctd.Continue',0,2880,480,200,20,40,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2707,64,'vertical','',0,3120,480,0,680,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2708,64,'horizontal','',0,2880,1160,240,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2709,64,'action',replace('result =\nUpdate_Interface();\n/* Activate contactless reader */','\n',char(10)),0,2880,1100,200,40,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2709,64,'action',replace('result =\nUpdate_Interfaces();\n/* Activate contactless reader */','\n',char(10)),0,2880,1100,200,40,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2710,64,'insertion',replace('result =\nUpdate_Interfaces();\n/* Enable all */','\n',char(10)),0,3120,780,150,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2711,64,'if','result == PR_OK',0,2880,1200,200,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2712,64,'vertical','',0,3150,1200,0,180,0,0,NULL,NULL,NULL,NULL);

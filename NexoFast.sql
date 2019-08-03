@@ -26,13 +26,13 @@ INSERT INTO diagrams VALUES(25,'Kernel_Activation','-244 -113','',75.0);
 INSERT INTO diagrams VALUES(26,'Profile_Selection','9 -273','',75.0);
 INSERT INTO diagrams VALUES(27,'Kernel_Processing','10 30','',75.0);
 INSERT INTO diagrams VALUES(28,'Outcome_Processing','9 -237','',75.0);
-INSERT INTO diagrams VALUES(30,'Technology_Selection_Separate_Readers','1958 210','',75.0);
+INSERT INTO diagrams VALUES(30,'Technology_Selection_Separate_Readers','2557 -57','',75.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -68','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','272 62','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','296 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3578 144',NULL,75.0);
 INSERT INTO diagrams VALUES(35,'Process_Profile_Parameters','0 0','',75.0);
-INSERT INTO diagrams VALUES(36,'Main','2620 30','',80.0);
+INSERT INTO diagrams VALUES(36,'Main','1120 30','',80.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-129 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-321 -161',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','-198 -63',NULL,75.0);
@@ -70,7 +70,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,30,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,36,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -559,7 +559,7 @@ INSERT INTO items VALUES(1178,36,'address',replace('Diagnostics\nMaintenance\nRe
 INSERT INTO items VALUES(1179,36,'vertical','',0,1550,60,0,820,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1180,36,'branch','(B) Idle',0,1550,110,160,30,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1181,36,'address','Perform Service',0,1550,830,160,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1182,36,'input',replace('result =\nWait_For_Event(\n	&g_Ctd.Event.Table,\n	&g_Ctd.ReferenceData,\n	&g_Ctd.TransactionAmount,\n	&g_Ctd.SelectedService\n);','\n',char(10)),0,1550,250,160,90,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(1182,36,'input',replace('result =\nWait_For_Event();','\n',char(10)),0,1550,250,160,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(1184,36,'select','Process_Event()',0,1550,520,160,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1185,36,'horizontal','',0,1550,560,1360,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1186,36,'case','PR_OK',0,1550,600,160,20,60,0,NULL,NULL,NULL,NULL);
@@ -1060,7 +1060,7 @@ INSERT INTO items VALUES(1863,33,'shelf','PR_UNINITIALISED',0,-150,330,120,40,40
 INSERT INTO items VALUES(1864,53,'horizontal','',0,240,60,170,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1865,53,'action','returns enum ProcedureResult',0,470,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1866,53,'action','return PR_OK;',0,170,310,160,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1867,36,'select','Perform_Service()',1,3100,520,90,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1867,36,'select','Perform_Service()',0,3100,520,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1868,36,'horizontal','',0,3100,560,330,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1869,36,'case','PR_OK',0,3100,600,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1870,36,'case','PR_NOK',0,3280,600,70,20,60,0,NULL,NULL,NULL,NULL);
@@ -1488,8 +1488,8 @@ INSERT INTO items VALUES(2485,30,'vertical','',0,4500,80,0,910,0,0,NULL,'',NULL,
 INSERT INTO items VALUES(2486,30,'branch',replace('Card in chip\nreader','\n',char(10)),0,4500,140,60,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2487,30,'address','Bailout',0,4500,940,60,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2488,30,'vertical','',0,3190,80,0,910,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2489,30,'branch','Wait for Event',0,3190,130,160,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2490,30,'address','Ok',0,3190,940,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2489,30,'branch','Wait for Event',0,3190,130,100,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2490,30,'address','Ok',0,3190,940,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2491,30,'if',replace('g_Ctd.Outcome\n==\nO_TRY_ANOTHER_INTERFACE','\n',char(10)),0,450,440,180,40,40,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2492,30,'vertical','',0,670,440,0,300,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2493,30,'horizontal','',0,450,740,220,0,0,0,NULL,NULL,NULL,NULL);
@@ -1535,9 +1535,9 @@ INSERT INTO items VALUES(2539,30,'insertion',replace('result =\nUpdate_Ui_Separa
 INSERT INTO items VALUES(2540,30,'if','result == PR_OK',0,2700,830,130,20,130,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2541,30,'vertical','',0,2960,830,0,160,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2542,30,'address','Nok',0,2960,940,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2543,30,'select','result',0,3190,680,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2543,30,'select','result',0,3190,680,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2544,30,'horizontal','',0,3190,720,740,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2545,30,'case','PR_OK',0,3190,760,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2545,30,'case','PR_OK',0,3190,760,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2546,30,'case','PR_NO_CARD_PRESENT',0,3470,760,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2547,30,'case','',0,3930,760,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2548,30,'vertical','',0,3470,720,0,270,0,0,NULL,NULL,NULL,NULL);
@@ -1560,11 +1560,11 @@ INSERT INTO items VALUES(2565,30,'case','PR_NOK',0,3810,760,50,20,60,0,NULL,NULL
 INSERT INTO items VALUES(2566,30,'vertical','',0,3810,720,0,270,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2567,30,'address','No card present',0,3470,940,90,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2568,30,'address','Nok',0,3810,940,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2570,30,'insertion',replace('result =\nProcess_Card_Event();','\n',char(10)),0,3190,610,160,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2570,30,'insertion',replace('result =\nProcess_Card_Event();','\n',char(10)),0,3190,610,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2571,30,'case','PR_CTLS_COLLISION',0,3660,760,80,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2572,30,'vertical','',0,3660,720,0,270,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2573,30,'address','Wait for Event',0,3660,940,80,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2574,30,'if',replace('result\n==\nPR_NEW_EVENT','\n',char(10)),0,3190,450,160,40,660,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2574,30,'if',replace('result\n==\nPR_NEW_EVENT','\n',char(10)),0,3190,450,100,40,720,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2575,30,'vertical','',0,4010,450,0,380,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2576,30,'address','Bailout',0,3930,940,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2577,30,'horizontal','',0,3930,830,80,0,0,0,NULL,NULL,NULL,NULL);
@@ -1729,7 +1729,7 @@ INSERT INTO items VALUES(2750,66,'horizontal','',0,170,600,170,0,0,0,NULL,NULL,N
 INSERT INTO items VALUES(2751,66,'shelf','N_TECHNICAL_ERROR',0,340,440,80,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(2752,66,'shelf','PR_NOK',0,340,540,80,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(2753,63,'action','return PR_OK;',0,660,420,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2754,30,'input',replace('result =\nWait_For_Event(\n	&g_Ctd.Event.Table,\n	&g_Ctd.ReferenceData,\n	&g_Ctd.TransactionAmount,\n	&g_Ctd.SelectedService\n);','\n',char(10)),0,3190,290,160,90,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(2754,30,'input',replace('result =\nWait_For_Event();','\n',char(10)),0,3190,330,100,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(2755,67,'beginend','Card_Removal_Process_Separate_Readers',0,170,60,160,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2756,67,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2757,67,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);

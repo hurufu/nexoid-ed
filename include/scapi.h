@@ -9,14 +9,7 @@ enum ProcedureResult SCAP_NoOriginalTransaction(void);
 enum ProcedureResult UpdatePreAuthAmountConfirmation(void);
 enum ProcedureResult UpdatePreAuthAmountEntry(void);
 enum ProcedureResult SetUpdatePreAuthTotalAmount(void);
-
-enum ProcedureResult Wait_For_Event(
-        bool (* Event)[E_MAX],
-        char (* ReferenceData)[35 + 1],
-        union Amount* TransactionAmount,
-        enum ServiceId* const SelectedService)
-    __attribute__((nonnull(1), warn_unused_result));
-
+enum ProcedureResult Wait_For_Event(void);
 enum ProcedureResult OutputAmountError(void);
 enum ProcedureResult OutputTransactionAmount(void);
 bool Authorise_Service(void);

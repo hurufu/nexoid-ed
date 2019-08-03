@@ -1,6 +1,9 @@
-#include "Common.h"
+#include "common.h"
 #include "utils.h"
 #include <stdio.h>
+
+#define TRACE(Fmt, ...)\
+    printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
 
 const char*
 ProcedureResult_tostring(const enum ProcedureResult f) {
@@ -30,6 +33,11 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_TERMINATE: return "PR_TERMINATE";
         case PR_SHUTDOWN: return "PR_SHUTDOWN";
         case PR_STARTUP_SEQUENCE: return "PR_STARTUP_SEQUENCE";
+        case PR_NO_CARD_PRESENT: return "PR_NO_CARD_PRESENT";
+        case PR_CTLS_COLLISION: return "PR_CTLS_COLLISION";
+        case PR_MANUAL_ENTRY: return "PR_MANUAL_ENTRY";
+        case PR_RETRY_AFTER_CONTACTLESS: return "PR_RETRY_AFTER_CONTACTLESS";
+        case PR_FALLBACK: return "PR_FALLBACK";
         case PR_MAX:
             break;
     }
@@ -53,6 +61,7 @@ TransactionResult_tostring(const enum TransactionResult t) {
 const char*
 NokReason_tostring(const enum NokReason n) {
     switch (n) {
+        case N_NONE: return "N_NONE";
         case N_NOT_IMPLEMENTED: return "N_NOT_IMPLEMENTED";
         case N_ORIGINAL_TRX_NOT_FOUND: return "N_ORIGINAL_TRX_NOT_FOUND";
         case N_TECHNICAL_ERROR: return "N_TECHNICAL_ERROR";
@@ -60,6 +69,8 @@ NokReason_tostring(const enum NokReason n) {
         case N_NO_PERMISSION: return "N_NO_PERMISSION";
         case N_CONFIGURATION_ERROR: return "N_CONFIGURATION_ERROR";
         case N_AMOUNT_ERROR: return "N_AMOUNT_ERROR";
+        case N_KERNEL_ERROR: return "N_KERNEL_ERROR";
+        case N_DATA_ERROR: return "N_DATA_ERROR";
         case N_MAX:
             break;
     }

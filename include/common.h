@@ -1,29 +1,14 @@
 #pragma once
 
 #include "utils.h"
-#define MSPACES 1
+#include "mem.h"
+#include "bool.h"
+
 #include <ptmalloc3.h>
-#include "memutils.h"
-#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-// Workaround for true and false from stdbool don't have distinct type _Bool
-#ifdef false
-#   undef false
-#endif
-#define false ((bool)0)
-#ifdef true
-#   undef true
-#endif
-#define true ((bool)!false)
-
-#define TRACE(Fmt, ...)\
-    printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
-
-mspace s_msp;
 
 enum ProcedureResult {
     PR_UNINITIALISED = 239
@@ -50,8 +35,15 @@ enum ProcedureResult {
   , PR_UNABLE_TO_GO_ONLINE
   , PR_CONDITIONS_SATISFIED
   , PR_CONDITIONS_NOT_SATISFIED
+// TODO: Consider removal of selected enums
+  , PR_NO_CARD_PRESENT
+  , PR_CTLS_COLLISION
+//
+  , PR_MANUAL_ENTRY
   , PR_REINITIALISE
   , PR_NEW_EVENT
+  , PR_RETRY_AFTER_CONTACTLESS
+  , PR_FALLBACK
 
   , PR_MAX
 };
@@ -76,19 +68,25 @@ enum ServiceId {
 } __attribute__((__packed__));
 
 enum NokReason {
-    N_NOT_IMPLEMENTED = PR_MAX + 2364
+    N_NONE = PR_MAX + 2364
+  , N_NOT_IMPLEMENTED
   , N_ORIGINAL_TRX_NOT_FOUND
   , N_TECHNICAL_ERROR
   , N_MISSING_DATA
   , N_NO_PERMISSION
   , N_CONFIGURATION_ERROR
   , N_AMOUNT_ERROR
+  , N_KERNEL_ERROR
+  , N_DATA_ERROR
 
   , N_MAX
 };
 
 enum Outcome {
-    O_ONLINE_REQUEST = N_MAX + 9745
+    O_NONE = N_MAX + 9745
+  , O_ONLINE_REQUEST
+  , O_TRY_ANOTHER_INTERFACE
+  , O_END_APPLICATION
 
   , O_MAX
 };
@@ -131,6 +129,9 @@ enum IdleEvent {                  // Service Start Event?
   , E_TERMINATION_REQUESTED       // No
   , E_SHUTDOWN_REQUESTED          // No
 
+  // Technology selection
+  , E_TIMEOUT                     // No
+
   , E_MAX                         // N/A
 };
 
@@ -162,13 +163,29 @@ struct Out {
         C,
         D,
         E,
-        F
+        F,
+        START_MAX
     } Start;
+    unsigned char FieldOffRequest;
+};
+
+enum Technology {
+    TECH_NONE = START_MAX + 104
+  , TECH_EMV_CHIP
+  , TECH_MAGNETIC_STRIPE
+  , TECH_MANUAL_ENTRY
+  , TECH_NON_EMV_CHIP
+  , TECH_FALLBACK // To MSR
+  , TECH_CONTACTLESS
+
+  , TECH_MAX
 };
 
 union TerminalSettings {
     unsigned char raw[5];
     struct {
+        unsigned char hasCombinedReader : 1;
+        unsigned char hasMotorisedCombinedReader : 1;
         unsigned char : 7;
         unsigned char retrievePreauth : 1;
     };
@@ -375,10 +392,69 @@ struct CombinationsListAndParametersEntry {
     struct CombinationsListAndParametersEntry* next;
 };
 
+union ProcessingStatus {
+    unsigned char raw[4];
+    struct {
+        unsigned char technologySelectionNonFallbackMode : 1;
+        unsigned char buildingCandidateListUsingPse : 1;
+        unsigned char buildingCandidateListUsingListOfAids : 1;
+        unsigned char finalAppSelectionForEmv : 1;
+        unsigned char appProfileSelectionForEmv : 1;
+        unsigned char appInitialisationAndOdaMethodDeterminedForEmv : 1;
+        unsigned char appInitialisationFromFirstDecodeAflEntryForEmv : 1;
+        unsigned char initialOda: 1; // Offline Data Authentication
+
+        unsigned char cardholderVerification: 1;
+        unsigned char processingRestrictions: 1;
+        unsigned char terminalRiskManagement: 1;
+        unsigned char terminalActionAnalysis: 1;
+        unsigned char firstGenerateAc: 1;
+        unsigned char onlineRequestOutcome: 1;
+        unsigned char terminalActionAnalysisUnableToGoOnline: 1;
+        unsigned char issuerAuthentication: 1;
+
+        unsigned char issuerScriptProcessingBefore2ndGenerateAc: 1;
+        unsigned char secondGenerateAc: 1;
+        unsigned char issuerScriptProcessingAfter2ndGenerateAc: 1;
+        unsigned char transactionCompletionForEmvChip: 1;
+        unsigned char technologySelectionFallbackMode: 1;
+        unsigned char cardProductSelectionForNonChip: 1;
+        unsigned char appProfileSelectionForNonchip: 1;
+        unsigned char fullMagStripeOrManualEntry: 1;
+
+        unsigned char cvmForMagStripe: 1;
+        unsigned char onlineRequestOutcomeForMagStripeOrManualEntry: 1;
+        unsigned char transactionCompletionForNonChip: 1;
+        unsigned char transactionCompletionForCtlss: 1;
+        unsigned char /* RFU */: 4;
+    };
+};
+
+union EeaProcessSettings {
+    unsigned char raw[2];
+    struct {
+        unsigned char upfrontButtonOnScreenSupported: 1;
+    };
+};
+
+enum PrinterStatus {
+    PRINTER_UNAVAILABLE
+};
+
 struct CurrentTransactionData {
+    // Operations
+    bool AcquirerPreSelected;
+    bool CardholderLanguageIsSelected;
+    bool CardholderRequestedChoiceOfApplication;
+    unsigned char PreSelectedAcquirerNumber;
+    enum PrinterStatus PrinterStatus;
+
+    // Service
+    bool ApplicationInitialised;
+    union ServiceSettings* SelectedServiceSettings;
+    union ServiceStartEvents* SelectedServiceStartEvents;
+
     // Transaction
-    const int KernelId;
-    enum Outcome Outcome;
     struct Out Out;
     union Amount TransactionAmount;
     bool TransactionAmountEntered;
@@ -390,12 +466,22 @@ struct CurrentTransactionData {
     struct AuthorisationResponseCode AuthorisationResponseCode;
     bool AttendantForcedTransactionOnline;
     char ReferenceData[35 + 1];
+    bool FallbackFlag;
+
+    // EMV
+    int KernelId;
+    enum Technology TechnologySelected;
+    enum Outcome Outcome; // FIXME: Outcome shall be an optional struct
+    union ProcessingStatus ProcessingStatus;
+    bool ExceptionFileCheckPerformed;
+    bool Continue;
+    unsigned char NumberOfRemainingChipTries;
 
     // Cashback
     union Amount CashbackAmount;
 
     // Card data
-    const union Country* IssuerCountry;
+    union Country* IssuerCountry;
     unsigned char (* PAN)[11];
 
     // DCC
@@ -415,15 +501,30 @@ struct CurrentTransactionData {
     enum TerminalErrorReason TerminalErrorReason;
     bool TerminalErrorIndicator;
 
+    // Magnetic stripe
+    bool InvalidSwipeOccured;
+
+    // Manual Entry
+    bool PanEnteredManually;
+
     // Contactless
     struct CombinationsListAndParametersEntry* CombListWorkingTable;
+
+    // Yes, there are actually two variables to control contactless in spec
     bool NoContactlessAllowed;
+    bool ContactlessAllowed;
+
+    // IFR
+    bool ShowUpfrontButton;
 };
 
 struct NexoConfiguration {
     // Terminal configuration
     uint8_t TerminalType;
     union TerminalSettings TerminalSettings;
+
+    // EMV configuration
+    unsigned char MaxNumberOfChipTries;
 
     // Application configuration
     enum ServiceId DefaultService;
@@ -446,6 +547,9 @@ struct NexoConfiguration {
 
     // Contactless
     struct CombinationsListAndParametersEntry* CombListsAndParams;
+
+    // IFR
+    union EeaProcessSettings* EeaProcessSettings;
 };
 
 extern struct CurrentTransactionData g_Ctd;

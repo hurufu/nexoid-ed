@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2880 130','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1832 342','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','10 30','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','-29 -237','',75.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
@@ -51,7 +51,7 @@ INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 -134','',
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','162 -97',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
-INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','4744 -56','',75.0);
+INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','8074 -781','',75.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','3908 68','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','50 -40','',75.0);
 INSERT INTO diagrams VALUES(67,'Update_Interfaces','-400 -66','',75.0);
@@ -71,7 +71,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,63,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1957,7 +1957,7 @@ INSERT INTO items VALUES(3622,63,'if','g_Ctd.SelectedServiceSettings->msrProcess
 INSERT INTO items VALUES(3623,63,'commentout','FIXME: Non idiomatic AND conjunction',0,9190,-700,160,20,30,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3624,63,'commentin','Magnetic stripe checking',0,8630,-560,180,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3625,63,'commentout',replace('This action is not fully\ndefined by nexo.','\n',char(10)),0,9140,-560,110,30,250,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3626,63,'if',replace('false\n/* Valid track 2 data found */','\n',char(10)),0,8630,-490,180,30,1010,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3626,63,'if',replace('true\n/* Valid track 2 data found */','\n',char(10)),0,8630,-490,180,30,1010,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3627,63,'vertical','',0,9820,-490,0,1260,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3628,63,'shelf','(struct Track2){ }',0,10090,630,110,40,40,0,NULL,NULL,NULL,'g_Ctd.Track2');
 INSERT INTO items VALUES(3629,63,'commentin','Store Track2 data',0,8630,-420,180,20,60,0,NULL,NULL,NULL,NULL);

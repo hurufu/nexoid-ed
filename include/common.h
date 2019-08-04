@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define PACKED __attribute__(( __packed__ ))
+
 enum ProcedureResult {
     PR_UNINITIALISED = 239
   , PR_NOT_IMPLEMENTED
@@ -382,36 +384,39 @@ struct Track2 {
     } expiryDate;
     union {
         char raw[3]; // Same as ServiceCodeMs in the spec
-        enum {
-            InternationalOk = '1'
-          , InternationalUseIcWhereFeasible = '2'
-          , NationalOnlyExceptUnderBilateralAgreement = '5'
-          , NationalOnlyExceptUnderBilateralAgreementUseIcWhereFeasible = '6'
-          , NoInterchangeExceptUnderBilateralAgreementClosedLoop = '7'
-          , TestCard = '9'
-        } interchangeRules;
-        enum {
-            NormalAuthorisation = '0'
-          , ContactIssuerViaOnlineMeans = '2'
-          , ContactIssuerViaOnlineMeansExceptUnderBilateralAgreement = '4'
-        } authorisationProcessing;
-        enum {
-            NoRestrictionsPinRequired = '0'
-          , NoRestrictions = '1'
-          , GoodsAndServicesOnlyNoCash = '2'
-          , AtmOnlyPinRequired = '3'
-          , CashOnly = '4'
-          , GoodsAndServicesOnlyNocashPinRequired = '5'
-          , NoRestrictionsUsePinWhereFeasible = '6'
-          , GoodsAndServicesOnlyNoCashUsePinWhereFeasible = '7'
-        } rangeOfServices;
+        struct {
+            enum PACKED {
+                InternationalOk = '1'
+              , InternationalUseIcWhereFeasible = '2'
+              , NationalOnlyExceptUnderBilateralAgreement = '5'
+              , NationalOnlyExceptUnderBilateralAgreementUseIcWhereFeasible = '6'
+              , NoInterchangeExceptUnderBilateralAgreementClosedLoop = '7'
+              , TestCard = '9'
+            } interchangeRules;
+            enum PACKED {
+                NormalAuthorisation = '0'
+              , ContactIssuerViaOnlineMeans = '2'
+              , ContactIssuerViaOnlineMeansExceptUnderBilateralAgreement = '4'
+            } authorisationProcessing;
+            enum PACKED {
+                NoRestrictionsPinRequired = '0'
+              , NoRestrictions = '1'
+              , GoodsAndServicesOnlyNoCash = '2'
+              , AtmOnlyPinRequired = '3'
+              , CashOnly = '4'
+              , GoodsAndServicesOnlyNocashPinRequired = '5'
+              , NoRestrictionsUsePinWhereFeasible = '6'
+              , GoodsAndServicesOnlyNoCashUsePinWhereFeasible = '7'
+            } rangeOfServices;
+        };
     } serviceCode;
     struct {
         enum {
-            PVKI,
-            PVV,
-            CVC,
-            CVV
+            DD_NONE,
+            DD_PVKI,
+            DD_PVV,
+            DD_CVC,
+            DD_CVV
         } type;
         union {
             char pvki;

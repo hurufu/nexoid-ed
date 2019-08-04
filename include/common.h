@@ -35,10 +35,6 @@ enum ProcedureResult {
   , PR_UNABLE_TO_GO_ONLINE
   , PR_CONDITIONS_SATISFIED
   , PR_CONDITIONS_NOT_SATISFIED
-// TODO: Consider removal of selected enums
-  , PR_NO_CARD_PRESENT
-  , PR_CTLS_COLLISION
-//
   , PR_MANUAL_ENTRY
   , PR_REINITIALISE
   , PR_NEW_EVENT
@@ -78,6 +74,9 @@ enum NokReason {
   , N_AMOUNT_ERROR
   , N_KERNEL_ERROR
   , N_DATA_ERROR
+  , N_NO_CARD_INSERTED
+  , N_CANCELLED
+  , N_CARD_MISSING
 
   , N_MAX
 };
@@ -106,33 +105,37 @@ enum TransactionType {
 } __attribute__((packed));
 
 // Array is indexed by enum IdleEvent
-enum IdleEvent {                  // Service Start Event?
+// FIXME: Rename IdleEvent to NexoEvent, because it's not used in idle screen only
+enum IdleEvent {                  // Service Start Event? // Technology Selection?
     // NEXO
-    E_LANGUAGE_SELECTION = 0      // No
-  , E_CHOICE_OF_APPLICATION       // No
-  , E_SERVICE_SELECTION           // No
-  , E_ACQUIRER_PRESELECTION       // No
-  , E_CARDHOLDER_DETECTION        // Yes
-  , E_AMOUNT_ENTRY                // Yes
-  , E_CARD_INSERTED               // Yes
-  , E_CARD_SWIPED                 // Yes
-  , E_MANUAL_ENTRY                // Yes
-  , E_REFERENCE_ENTRY             // Yes
-  , E_ACCEPT                      // Yes
-  , E_ATTENDANT_FORCED_ONLINE     // No
-  , E_ADDITIONAL_TRANSACTION_DATA // No
-  , E_CARD_REMOVAL                // No
-  , E_CANCEL                      // No
+    E_LANGUAGE_SELECTION = 0      // No                      No
+  , E_CHOICE_OF_APPLICATION       // No                      Yes
+  , E_SERVICE_SELECTION           // No                      No
+  , E_ACQUIRER_PRESELECTION       // No                      No
+  , E_CARDHOLDER_DETECTION        // Yes                     No
+  , E_AMOUNT_ENTRY                // Yes                     No
+  , E_CARD_INSERTED               // Yes                     Yes
+  , E_CARD_SWIPED                 // Yes                     Yes
+  , E_MANUAL_ENTRY                // Yes                     Yes
+  , E_REFERENCE_ENTRY             // Yes                     No
+  , E_ACCEPT                      // Yes                     No
+  , E_ATTENDANT_FORCED_ONLINE     // No                      No
+  , E_ADDITIONAL_TRANSACTION_DATA // No                      No
+  , E_CARD_REMOVAL                // No                      Yes(?)
+  , E_CANCEL                      // No                      Yes
 
   // Non Nexo
-  , E_REBOOT_REQUESTED            // No
-  , E_TERMINATION_REQUESTED       // No
-  , E_SHUTDOWN_REQUESTED          // No
+  , E_REBOOT_REQUESTED            // No                      No
+  , E_TERMINATION_REQUESTED       // No                      No
+  , E_SHUTDOWN_REQUESTED          // No                      No
+  , E_NONE                        // No                      No(?)
 
   // Technology selection
-  , E_TIMEOUT                     // No
+  , E_TIMEOUT                     // No                      Yes
+  , E_ONE_CTLS_CARD_ACTIVATED     // No                      Yes
+  , E_CTLS_COLLISION              // No                      Yes
 
-  , E_MAX                         // N/A
+  , E_MAX                         // N/A                     N/A
 };
 
 enum TerminalErrorReason {
@@ -186,7 +189,8 @@ union TerminalSettings {
     struct {
         unsigned char hasCombinedReader : 1;
         unsigned char hasMotorisedCombinedReader : 1;
-        unsigned char : 7;
+        unsigned char : 6;
+        unsigned char confirmationByCardNotAllowedForMsr: 1;
         unsigned char retrievePreauth : 1;
     };
 };
@@ -302,7 +306,7 @@ union TerminalTransactionQualifiers {
 union ServiceSettings {
     uint8_t raw[2];
     struct {
-        uint8_t ContactChipPrioritized : 1;
+        uint8_t contactChipHasPriority : 1;
         uint8_t msrProcessingModeSupported : 1;
         uint8_t msrProcessingModeSupportedForCashback : 1;
         uint8_t ServiceProtected : 1;
@@ -363,6 +367,59 @@ union Currency {
 
 struct AuthorisationResponseCode {
     uint8_t v[2];
+};
+
+// NOTE: Strings in Track2 aren't null terminated
+// FIXME: Track2 struct isn't compliant with Nexo definition
+struct Track2 {
+    char pan[19];
+    union {
+        char full[4];
+        struct {
+            char year[2];
+            char month[2];
+        };
+    } expiryDate;
+    union {
+        char raw[3]; // Same as ServiceCodeMs in the spec
+        enum {
+            InternationalOk = '1'
+          , InternationalUseIcWhereFeasible = '2'
+          , NationalOnlyExceptUnderBilateralAgreement = '5'
+          , NationalOnlyExceptUnderBilateralAgreementUseIcWhereFeasible = '6'
+          , NoInterchangeExceptUnderBilateralAgreementClosedLoop = '7'
+          , TestCard = '9'
+        } interchangeRules;
+        enum {
+            NormalAuthorisation = '0'
+          , ContactIssuerViaOnlineMeans = '2'
+          , ContactIssuerViaOnlineMeansExceptUnderBilateralAgreement = '4'
+        } authorisationProcessing;
+        enum {
+            NoRestrictionsPinRequired = '0'
+          , NoRestrictions = '1'
+          , GoodsAndServicesOnlyNoCash = '2'
+          , AtmOnlyPinRequired = '3'
+          , CashOnly = '4'
+          , GoodsAndServicesOnlyNocashPinRequired = '5'
+          , NoRestrictionsUsePinWhereFeasible = '6'
+          , GoodsAndServicesOnlyNoCashUsePinWhereFeasible = '7'
+        } rangeOfServices;
+    } serviceCode;
+    struct {
+        enum {
+            PVKI,
+            PVV,
+            CVC,
+            CVV
+        } type;
+        union {
+            char pvki;
+            char pvv[4];
+            char cvc[3];
+            char cvv[3];
+        };
+    } discretionaryData;
 };
 
 struct CombinationsListAndParametersEntry {
@@ -475,6 +532,8 @@ struct CurrentTransactionData {
     union ProcessingStatus ProcessingStatus;
     bool ExceptionFileCheckPerformed;
     bool Continue;
+    bool ConfirmationByCard;
+    bool WasPresentOneCardOnlyMessageDisplayed;
     unsigned char NumberOfRemainingChipTries;
 
     // Cashback
@@ -503,6 +562,7 @@ struct CurrentTransactionData {
 
     // Magnetic stripe
     bool InvalidSwipeOccured;
+    struct Track2 Track2;
 
     // Manual Entry
     bool PanEnteredManually;

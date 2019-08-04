@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','149 133','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2880 130','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','10 30','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','-29 -237','',75.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
@@ -51,7 +51,7 @@ INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 -134','',
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','162 -97',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
-INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','8612 -258','',75.0);
+INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','4744 -56','',75.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','3908 68','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','50 -40','',75.0);
 INSERT INTO diagrams VALUES(67,'Update_Interfaces','-400 -66','',75.0);
@@ -63,7 +63,7 @@ INSERT INTO diagrams VALUES(72,'Pre_Processing','3261 358','',85.0);
 INSERT INTO diagrams VALUES(73,'Copy_Combination_Lists','36 666','',75.0);
 INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-18 62','',75.0);
 INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','285 1910','',70.0);
-INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-47 -364',NULL,59.0);
+INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-45 -447',NULL,59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 CREATE TABLE state
 (
@@ -115,7 +115,7 @@ INSERT INTO items VALUES(651,18,'insertion',replace('result =\nPre_Processing();
 INSERT INTO items VALUES(652,18,'if','PR_OK == result',0,330,820,120,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(653,18,'vertical','',0,520,820,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(654,18,'address','(H) FAIL',0,520,910,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),1,700,650,110,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),0,700,650,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(656,18,'insertion',replace('result =\nProfile_Selection();','\n',char(10)),0,1320,530,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(657,18,'select','result',0,1320,600,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(658,18,'horizontal','',0,1320,640,630,0,0,0,NULL,'',NULL,'');
@@ -1814,9 +1814,9 @@ INSERT INTO items VALUES(3476,63,'shelf','E_NONE',0,470,460,120,40,40,0,NULL,'',
 INSERT INTO items VALUES(3477,63,'case','E_MANUAL_ENTRY',0,4520,370,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3478,63,'vertical','',0,4520,330,0,440,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3479,63,'address','Ok',0,4520,720,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3480,63,'case','E_CANCEL',0,5340,370,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3480,63,'case','E_CANCEL',0,5340,370,70,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3481,63,'vertical','',0,5340,330,0,440,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3482,63,'address','Nok',0,5340,720,90,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3482,63,'address','Nok',0,5340,720,70,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3483,63,'case','E_CARD_SWIPED',0,4320,370,70,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3484,63,'vertical','',0,4320,330,0,440,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3485,63,'address',replace('Card in mag.\nstripe reader','\n',char(10)),0,4320,710,70,40,60,0,NULL,'',NULL,'');
@@ -1824,7 +1824,7 @@ INSERT INTO items VALUES(3486,63,'case','E_ONE_CTLS_CARD_ACTIVATED',0,4120,370,1
 INSERT INTO items VALUES(3487,63,'vertical','',0,4120,330,0,440,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3488,63,'address',replace('Contactless\nactivated','\n',char(10)),0,4120,710,110,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3489,63,'shelf','N_NO_CARD_INSERTED',0,5540,610,90,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
-INSERT INTO items VALUES(3490,63,'shelf','N_NO_CARD_INSERTED',0,5340,610,90,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(3490,63,'shelf','N_CANCELLED',0,5340,610,70,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(3491,76,'if','g_Ctd.Event.Table[E_CHOICE_OF_APPLICATION]',0,340,20,200,20,530,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3492,76,'vertical','',0,1070,20,0,540,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3493,76,'shelf','E_CHOICE_OF_APPLICATION',0,1070,80,110,40,40,0,NULL,NULL,NULL,'event');

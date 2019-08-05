@@ -186,6 +186,11 @@ enum Technology {
   , TECH_MAX
 };
 
+enum Kernel {
+    KERNEL_NONE = TECH_MAX + 209
+  , KERNEL_M
+};
+
 union TerminalSettings {
     unsigned char raw[5];
     struct {
@@ -454,6 +459,34 @@ struct CombinationsListAndParametersEntry {
     struct CombinationsListAndParametersEntry* next;
 };
 
+struct TerminalListOfBid {
+    struct Bid {
+        uint8_t size;
+        unsigned char value[16 + 1];
+    } Bid;
+
+    struct MatchingPattern {
+        enum {
+            MATCH_PREFIX
+          , MATCH_RANGE
+        } type;
+        union {
+            struct Prefix {
+                uint8_t size;
+                unsigned char value[19];
+            } prefix;
+            struct PrefixRange {
+                uint8_t size;
+                unsigned char value[19];
+            } prefixRange;
+
+        };
+        struct MatchingPattern* next;
+    } matchingPattern;
+
+    struct TerminalListOfBid* next;
+};
+
 union ProcessingStatus {
     unsigned char raw[4];
     struct {
@@ -568,6 +601,8 @@ struct CurrentTransactionData {
     // Magnetic stripe
     bool InvalidSwipeOccured;
     struct Track2 Track2;
+    const struct Bid* SelectedBid;
+    unsigned char PanMatchLength; // integer
 
     // Manual Entry
     bool PanEnteredManually;
@@ -612,6 +647,9 @@ struct NexoConfiguration {
 
     // Contactless
     struct CombinationsListAndParametersEntry* CombListsAndParams;
+
+    // MSR
+    struct TerminalListOfBid* TerminalListOfBid;
 
     // IFR
     union EeaProcessSettings* EeaProcessSettings;

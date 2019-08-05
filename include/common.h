@@ -79,6 +79,7 @@ enum NokReason {
   , N_NO_CARD_INSERTED
   , N_CANCELLED
   , N_CARD_MISSING
+  , N_NO_PROFILE
 
   , N_MAX
 };
@@ -601,6 +602,7 @@ struct CurrentTransactionData {
     // Magnetic stripe
     bool InvalidSwipeOccured;
     struct Track2 Track2;
+    const unsigned char (* Pan)[19];
     const struct Bid* SelectedBid;
     unsigned char PanMatchLength; // integer
 

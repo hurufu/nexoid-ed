@@ -72,6 +72,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_NO_CARD_INSERTED: return "N_NO_CARD_INSERTED";
         case N_CANCELLED: return "N_CANCELLED";
         case N_CARD_MISSING: return "N_CARD_MISSING";
+        case N_NO_PROFILE: return "N_NO_PROFILE";
         case N_MAX:
             break;
     }

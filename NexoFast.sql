@@ -65,10 +65,10 @@ INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','284 -18','
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-45 -447',NULL,59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Profile_Selection_For_Msr','-416 -197','',75.0);
-INSERT INTO diagrams VALUES(80,'Profile_Selection','1 -332','FIXME: Funtion Profile_Selection is not implemented properly, only MSR part is.',75.0);
+INSERT INTO diagrams VALUES(80,'Profile_Selection','0 -332','FIXME: Funtion Profile_Selection is not implemented properly, only MSR part is.',75.0);
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-109 -169','',75.0);
-INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-92 564',NULL,75.0);
-INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','0 0','',75.0);
+INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-92 -369',NULL,75.0);
+INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','-200 -65','',75.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-132 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
@@ -78,7 +78,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,82,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,83,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2050,13 +2050,13 @@ INSERT INTO items VALUES(3759,80,'shelf','N_NOT_IMPLEMENTED',0,730,210,130,40,40
 INSERT INTO items VALUES(3760,80,'shelf','N_TECHNICAL_ERROR',0,1150,310,110,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(3761,80,'shelf','TER_NOT_IMPLEMENTED',0,730,310,130,40,40,0,NULL,'',NULL,'g_Ctd.TerminalErrorReason');
 INSERT INTO items VALUES(3762,80,'horizontal','',0,220,60,280,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3763,80,'insertion',replace('result =\nProfile_Selection_For_Msr();','\n',char(10)),1,220,270,180,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3763,80,'insertion',replace('result =\nProfile_Selection_For_Msr();','\n',char(10)),0,220,270,180,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3764,80,'action','return result;',0,220,500,180,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3765,80,'shelf','PR_INTERNAL_INCONSISTENCY',0,1150,400,110,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(3766,80,'horizontal','',0,220,460,930,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3767,80,'shelf','true',0,730,120,130,40,40,0,NULL,'',NULL,'g_Ctd.TerminalErrorIndicator');
 INSERT INTO items VALUES(3768,80,'shelf','PR_NOK',0,730,400,130,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(3769,80,'insertion',replace('result =\nProcess_Application_Profile_Parameters();','\n',char(10)),0,220,410,180,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3769,80,'insertion',replace('result =\nProcess_Application_Profile_Parameters();','\n',char(10)),1,220,410,180,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3770,80,'if','result == PR_OK',0,220,340,180,20,40,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3771,80,'vertical','',0,440,340,0,120,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3772,79,'shelf','PR_INTERNAL_INCONSISTENCY',0,700,710,110,40,40,0,NULL,NULL,NULL,'result');
@@ -2094,21 +2094,21 @@ INSERT INTO items VALUES(3804,82,'horizontal',NULL,0,190,50,330,0,0,0,NULL,NULL,
 INSERT INTO items VALUES(3805,82,'action','returns enum ProcedureResult',0,520,50,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3806,82,'action','return result;',0,1040,430,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3807,81,'action','return result;',0,2220,420,70,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3808,83,'beginend','Process_Application_Profile_Parameters',0,170,60,170,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3809,83,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3810,83,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3811,83,'vertical','',0,420,120,0,480,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3812,83,'vertical','',0,660,120,0,380,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3813,83,'horizontal','',0,170,120,490,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3814,83,'arrow','',0,20,120,150,480,400,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(3815,83,'branch','branch 1',0,170,170,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3816,83,'address','branch 2',0,170,550,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3817,83,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3818,83,'branch','branch 3',0,660,170,70,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3819,83,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3820,83,'horizontal','',0,170,60,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3808,83,'beginend','Process_Application_Profile_Parameters',0,180,60,170,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3809,83,'beginend','End',0,810,510,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3810,83,'vertical','',0,180,80,0,680,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3811,83,'vertical','',0,550,120,0,640,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3812,83,'vertical','',0,810,120,0,380,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3813,83,'horizontal','',0,180,120,630,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3814,83,'arrow','',0,-30,120,210,640,580,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(3815,83,'branch','branch 1',0,180,170,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3816,83,'address','branch 2',0,180,710,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3817,83,'branch','branch 2',0,550,170,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3818,83,'branch','branch 3',0,810,170,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3819,83,'address','branch 3',0,550,690,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3820,83,'horizontal','',0,180,60,190,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3821,83,'action','returns enum ProcedureResult',0,500,60,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3822,83,'action','return PR_OK;',0,660,420,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3822,83,'action','return PR_OK;',0,810,420,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3823,81,'shelf','1',0,180,400,150,50,60,0,NULL,NULL,NULL,replace('g_Ctd.ProcessingStatus\n.cardProductSelectionForNonChip','\n',char(10)));
 INSERT INTO items VALUES(3824,81,'vertical','',0,820,-50,0,1120,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3825,81,'branch','Search for BID',0,820,0,170,30,60,0,NULL,'',NULL,'');
@@ -2203,6 +2203,8 @@ INSERT INTO items VALUES(3943,82,'address','Match',0,520,1020,50,30,60,0,NULL,NU
 INSERT INTO items VALUES(3944,82,'shelf','N_NO_PROFILE',0,190,830,220,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(3945,82,'shelf','p->ApplicationProfileNumber',0,780,310,170,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedApplicationProfileNumber');
 INSERT INTO items VALUES(3946,82,'shelf','PR_NOK',0,190,930,220,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(3947,83,'commentin',replace('Restore Default Values For\nApplication Profile Parameters','\n',char(10)),0,550,360,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3948,83,'shelf','g_Ctd.SelectedApplicationProfileNumber',0,180,270,170,40,40,0,NULL,NULL,NULL,'unsigned char ProfileNum');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

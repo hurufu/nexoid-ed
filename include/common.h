@@ -175,20 +175,20 @@ struct Out {
     unsigned char FieldOffRequest;
 };
 
-enum Technology {
-    TECH_NONE = START_MAX + 104
-  , TECH_EMV_CHIP
-  , TECH_MAGNETIC_STRIPE
-  , TECH_MANUAL_ENTRY
-  , TECH_NON_EMV_CHIP
-  , TECH_FALLBACK // To MSR
-  , TECH_CONTACTLESS
+enum PACKED Technology {
+    TECH_NONE = 0x00
+  , TECH_EMV_CHIP = 0x01
+  , TECH_MAGNETIC_STRIPE = 0x02
+  , TECH_MANUAL_ENTRY = 0x03
+  , TECH_NON_EMV_CHIP = 0x04
+  , TECH_FALLBACK = 0x05// To MSR
+  , TECH_CONTACTLESS = 0x06
 
   , TECH_MAX
 };
 
 enum Kernel {
-    KERNEL_NONE = TECH_MAX + 209
+    KERNEL_NONE = START_MAX + 209
   , KERNEL_M
 };
 
@@ -488,6 +488,21 @@ struct TerminalListOfBid {
     struct TerminalListOfBid* next;
 };
 
+struct ApplicationProfileSelectionTableNonChip {
+    struct Bid Bid;
+    unsigned char ApplicationProfileNumber;
+    union ConfiguredServices SupportedServices;
+    unsigned char* ApplicationProfileAcquirerNumber;
+    struct {
+        struct Prefix value;
+        struct Prefix* next;
+    }* prefix;
+    struct Prefix* prefixMask;
+    enum TechnologySelected* TechnologyOfProfile;
+
+    struct ApplicationProfileSelectionTableNonChip* next;
+};
+
 union ProcessingStatus {
     unsigned char raw[4];
     struct {
@@ -515,7 +530,7 @@ union ProcessingStatus {
         unsigned char transactionCompletionForEmvChip: 1;
         unsigned char technologySelectionFallbackMode: 1;
         unsigned char cardProductSelectionForNonChip: 1;
-        unsigned char appProfileSelectionForNonchip: 1;
+        unsigned char appProfileSelectionForNonChip: 1;
         unsigned char fullMagStripeOrManualEntry: 1;
 
         unsigned char cvmForMagStripe: 1;
@@ -563,6 +578,7 @@ struct CurrentTransactionData {
     bool AttendantForcedTransactionOnline;
     char ReferenceData[35 + 1];
     bool FallbackFlag;
+    unsigned char SelectedApplicationProfileNumber;
 
     // EMV
     int KernelId;
@@ -652,6 +668,7 @@ struct NexoConfiguration {
 
     // MSR
     struct TerminalListOfBid* TerminalListOfBid;
+    struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
 
     // IFR
     union EeaProcessSettings* EeaProcessSettings;

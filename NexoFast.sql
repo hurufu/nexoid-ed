@@ -60,24 +60,25 @@ INSERT INTO diagrams VALUES(70,'Is_Card_In_Chip_Reader','60 30','',75.0);
 INSERT INTO diagrams VALUES(71,'Is_Card_In_Magnetic_Stripe_Reader','10 30','',75.0);
 INSERT INTO diagrams VALUES(72,'Pre_Processing','3261 358','',85.0);
 INSERT INTO diagrams VALUES(73,'Copy_Combination_Lists','36 -134','',75.0);
-INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-18 62','',75.0);
+INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-17 -205','',75.0);
 INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','284 -18','',70.0);
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-45 -447',NULL,59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Profile_Selection_For_Msr','-416 -197','',75.0);
 INSERT INTO diagrams VALUES(80,'Profile_Selection','1 -332','FIXME: Funtion Profile_Selection is not implemented properly, only MSR part is.',75.0);
-INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-286 -68','',75.0);
-INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-66 0',NULL,75.0);
+INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-109 -169','',75.0);
+INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-92 564',NULL,75.0);
 INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','0 0','',75.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-132 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
+INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,81,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,82,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2077,21 +2078,21 @@ INSERT INTO items VALUES(3788,81,'branch','End',0,2220,0,70,30,60,0,NULL,'',NULL
 INSERT INTO items VALUES(3789,81,'address','End',0,2020,1020,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3790,81,'horizontal','',0,190,-120,180,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3791,81,'action','returns enum ProcedureResult',0,440,-120,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3792,82,'beginend','Application_Profile_Selection_For_Non_Chip',0,170,60,180,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3793,82,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3794,82,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3795,82,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3796,82,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3797,82,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3798,82,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3799,82,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3800,82,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3801,82,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3802,82,'branch','branch 3',0,660,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3803,82,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3804,82,'horizontal',NULL,0,170,60,340,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3805,82,'action','returns enum ProcedureResult',0,510,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3806,82,'action','return PR_OK;',0,660,430,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3792,82,'beginend','Application_Profile_Selection_For_Non_Chip',0,190,50,180,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3793,82,'beginend','End',0,1040,510,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3794,82,'vertical','',0,190,70,0,1000,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3795,82,'vertical','',0,780,90,0,980,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3796,82,'vertical','',0,1040,90,0,410,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3797,82,'horizontal','',0,190,90,850,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3798,82,'arrow','',0,-70,90,260,980,850,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3799,82,'branch','branch 1',0,190,140,220,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3800,82,'address','End',0,190,1020,220,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3801,82,'branch','Match',0,780,140,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3802,82,'branch','End',0,1040,140,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3803,82,'address','End',0,780,1020,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3804,82,'horizontal',NULL,0,190,50,330,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3805,82,'action','returns enum ProcedureResult',0,520,50,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3806,82,'action','return result;',0,1040,430,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3807,81,'action','return result;',0,2220,420,70,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3808,83,'beginend','Process_Application_Profile_Parameters',0,170,60,170,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3809,83,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
@@ -2180,8 +2181,28 @@ INSERT INTO items VALUES(3921,86,'action',replace('const struct PrefixRange r\n\
 INSERT INTO items VALUES(3922,86,'action','return result;',0,190,660,120,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3923,86,'shelf','PR_UNINITIALISED',0,190,170,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(3924,85,'action','return result;',0,390,780,190,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3925,86,'action','(void)r;',0,190,380,120,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3925,86,'action','(void)r;',0,190,380,120,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3926,81,'shelf','&g_Ctd.Track2.pan',0,180,510,150,40,40,0,NULL,NULL,NULL,'g_Ctd.Pan');
+INSERT INTO items VALUES(3927,82,'shelf','1',0,190,430,220,50,60,0,NULL,NULL,NULL,replace('g_Ctd.ProcessingStatus\n.appProfileSelectionForNonChip','\n',char(10)));
+INSERT INTO items VALUES(3928,82,'loopstart',replace('p = g_Nexo.ApplicationProfileSelectionTableNonChip;\np;\np = p->next','\n',char(10)),0,190,530,220,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3929,82,'loopend','',0,190,750,220,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3930,82,'insertion',replace('result =\nMatch_Application_Profile_Entry(p);','\n',char(10)),0,190,620,220,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3931,82,'shelf','NULL;',0,190,320,220,40,40,0,NULL,NULL,NULL,'struct ApplicationProfileSelectionTableNonChip* p');
+INSERT INTO items VALUES(3932,82,'shelf','PR_UNINITIALISED',0,190,230,220,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(3933,87,'beginend','Match_Application_Profile_Entry',0,160,60,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3934,87,'beginend','End',0,160,520,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3935,87,'vertical',NULL,0,160,80,0,420,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3936,87,'horizontal',NULL,0,160,60,210,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3937,87,'action',replace('struct ApplicationProfileSelectionTableNonChip* p\n\nreturns enum ProcedureResult','\n',char(10)),0,540,60,210,40,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3938,87,'action','return PR_MATCH;',0,160,460,80,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3939,87,'action','(void)p;',0,160,120,80,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3940,82,'if','result == PR_MATCH',0,190,690,220,20,110,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3941,82,'vertical','',0,520,690,0,380,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3942,82,'shelf','PR_MATCH',0,780,440,170,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(3943,82,'address','Match',0,520,1020,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3944,82,'shelf','N_NO_PROFILE',0,190,830,220,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(3945,82,'shelf','p->ApplicationProfileNumber',0,780,310,170,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedApplicationProfileNumber');
+INSERT INTO items VALUES(3946,82,'shelf','PR_NOK',0,190,930,220,40,40,0,NULL,NULL,NULL,'result');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -2271,6 +2292,7 @@ INSERT INTO tree_nodes VALUES(128,120,'folder','7.4.2.6 Process Application Prof
 INSERT INTO tree_nodes VALUES(129,128,'item','',83);
 INSERT INTO tree_nodes VALUES(131,121,'item',NULL,85);
 INSERT INTO tree_nodes VALUES(132,121,'item',NULL,86);
+INSERT INTO tree_nodes VALUES(133,121,'item',NULL,87);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

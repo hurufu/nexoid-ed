@@ -1,6 +1,14 @@
 NexoConfiguration DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
-    CombinationListsAndParameters ::= [PRIVATE 12] SEQUENCE OF CombinationsListsAndParametersEntry
+    TerminalListOfBid ::= [PRIVATE 7] SEQUENCE SIZE(0..50) OF SEQUENCE {
+        bid [1] OCTET STRING (SIZE(5..10))
+      , matchingPattern [0] SEQUENCE SIZE(1..10) OF CHOICE {
+            prefix [2] OCTET STRING (SIZE(0..19))
+          , prefixRange [3] OCTET STRING (SIZE(0..19))
+        }
+    }
+
+    CombinationListsAndParameters ::= [PRIVATE 12] SEQUENCE SIZE(0..50) OF CombinationsListsAndParametersEntry
 
     CombinationsListsAndParametersEntry ::= SEQUENCE {
         terminalAid [1] OCTET STRING (SIZE(5..16)),
@@ -25,6 +33,6 @@ NexoConfiguration DEFINITIONS IMPLICIT TAGS ::= BEGIN
         cardValidityCheck (10),
         noShow (11),
         voidAuthorisation (12)
-    }
+    } (SIZE(2))
 
 END

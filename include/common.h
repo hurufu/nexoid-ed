@@ -736,7 +736,7 @@ struct CurrentTransactionData {
     unsigned char SelectedApplicationProfileNumber;
 
     // EMV
-    int KernelId;
+    enum Kernel KernelId;
     enum Technology TechnologySelected;
     enum Outcome Outcome; // FIXME: Outcome shall be an optional struct
     union ProcessingStatus ProcessingStatus;

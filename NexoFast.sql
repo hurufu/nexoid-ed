@@ -46,7 +46,7 @@ INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
 INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-274.5 -197.83333333333331',NULL,80.0);
-INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 266','',75.0);
+INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 -134','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-770 12',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
@@ -72,14 +72,14 @@ INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','-200 -6
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-132 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','368 -227',NULL,50.0);
+INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','1474 -176',NULL,100.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,54,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,88,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2205,14 +2205,14 @@ INSERT INTO items VALUES(3946,82,'shelf','PR_NOK',0,190,930,220,40,40,0,NULL,NUL
 INSERT INTO items VALUES(3947,83,'commentin',replace('Restore Default Values For\nApplication Profile Parameters','\n',char(10)),0,550,360,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3948,83,'shelf','g_Ctd.SelectedApplicationProfileNumber',0,180,270,170,40,40,0,NULL,NULL,NULL,'unsigned char ProfileNum');
 INSERT INTO items VALUES(3949,88,'beginend','Update_Cardholder_Initial_Message',0,300,-60,150,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3950,88,'beginend','End',0,2120,510,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3950,88,'beginend','End',0,2160,560,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3951,88,'vertical','',0,300,-40,0,1220,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3953,88,'vertical','',0,2120,-20,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3954,88,'horizontal','',0,300,-20,1820,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3953,88,'vertical','',0,2160,-20,0,570,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3954,88,'horizontal','',0,300,-20,1860,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3955,88,'arrow','',0,150,-20,150,1200,1770,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3956,88,'branch',replace('Local variables\ndeclaration','\n',char(10)),0,300,40,130,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3957,88,'address','Display',0,1400,1130,210,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3959,88,'branch','End',0,2120,40,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3959,88,'branch','End',0,2160,60,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3961,88,'horizontal',NULL,0,300,-60,190,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3962,88,'action','returns enum ProcedureResult',0,600,-60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3963,88,'if','g_Ctd.SelectedServiceStartEvents->cardInserted',0,1400,490,210,20,40,0,NULL,NULL,NULL,NULL);
@@ -2225,8 +2225,8 @@ INSERT INTO items VALUES(3974,88,'if','g_Ctd.CardholderRequestedChoiceOfApplicat
 INSERT INTO items VALUES(3987,88,'vertical','',0,1920,-20,0,1200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3988,88,'branch','Display',0,1920,40,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3989,88,'address','End',0,1920,1130,100,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3993,88,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,1920,260,100,50,40,0,NULL,NULL,NULL,'SCAP');
-INSERT INTO items VALUES(3994,88,'action','return result;',0,2120,400,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3993,88,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,1920,280,100,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(3994,88,'action','return result;',0,2160,240,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3995,88,'vertical','',0,1400,-20,0,1200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3996,88,'branch','EEA IFR',0,1400,30,210,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3997,88,'shelf','0',0,300,470,130,40,40,0,NULL,NULL,NULL,'size_t number');
@@ -2257,6 +2257,11 @@ INSERT INTO items VALUES(4023,88,'commentin',replace('For unattended PoI capable
 INSERT INTO items VALUES(4024,55,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_MSG_NONE\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,50,550,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4025,63,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_MSG_CARD_ERROR\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,10010,290,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4026,54,'shelf','CRDHLDR_MSG_NONE',0,620,840,190,40,40,0,NULL,'',NULL,'g_Ctd.CardholderInitialMessage');
+INSERT INTO items VALUES(4027,88,'if','PR_DONE == result',0,1920,370,100,20,80,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4028,88,'vertical','',0,2100,370,0,150,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4029,88,'horizontal','',0,1920,520,180,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4030,88,'shelf','PR_OK',0,1920,460,100,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(4031,88,'shelf','PR_NOK',0,2090,460,50,40,40,0,NULL,NULL,NULL,'result');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

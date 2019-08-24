@@ -64,10 +64,10 @@ INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-17 -205','',75.0);
 INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','284 -18','',70.0);
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-45 -447',NULL,59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(79,'Profile_Selection_For_Msr','-28 -132','',75.0);
+INSERT INTO diagrams VALUES(79,'Profile_Selection_For_Msr','-28 134','',75.0);
 INSERT INTO diagrams VALUES(80,'Profile_Selection','0 -332','FIXME: Funtion Profile_Selection is not implemented properly, only MSR part is.',75.0);
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-109 -169','',75.0);
-INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-92 -101','First best match is selected',75.0);
+INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-92 -34','First best match is selected',75.0);
 INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','-200 -65','',75.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-132 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
@@ -79,7 +79,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,79,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -124,7 +124,7 @@ INSERT INTO items VALUES(652,18,'if','PR_OK == result',0,330,820,120,20,70,1,NUL
 INSERT INTO items VALUES(653,18,'vertical','',0,520,820,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(654,18,'address','(H) FAIL',0,520,910,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),0,700,650,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(656,18,'insertion',replace('result =\nProfile_Selection();','\n',char(10)),0,1340,530,90,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(656,18,'insertion',replace('result =\nProfile_Selection();','\n',char(10)),1,1340,530,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(657,18,'select','result',0,1340,600,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(658,18,'horizontal','',0,1340,640,780,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(659,18,'case','PR_OK',0,1340,680,90,20,60,0,NULL,'',NULL,'');
@@ -2049,7 +2049,7 @@ INSERT INTO items VALUES(3759,80,'shelf','N_NOT_IMPLEMENTED',0,730,210,130,40,40
 INSERT INTO items VALUES(3760,80,'shelf','N_TECHNICAL_ERROR',0,1150,310,110,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(3761,80,'shelf','TER_NOT_IMPLEMENTED',0,730,310,130,40,40,0,NULL,'',NULL,'g_Ctd.TerminalErrorReason');
 INSERT INTO items VALUES(3762,80,'horizontal','',0,220,60,280,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3763,80,'insertion',replace('result =\nProfile_Selection_For_Msr();','\n',char(10)),0,220,270,180,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3763,80,'insertion',replace('result =\nProfile_Selection_For_Msr();','\n',char(10)),1,220,270,180,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3764,80,'action','return result;',0,220,500,180,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3765,80,'shelf','PR_INTERNAL_INCONSISTENCY',0,1150,400,110,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(3766,80,'horizontal','',0,220,460,930,0,0,0,NULL,'',NULL,'');
@@ -2197,7 +2197,7 @@ INSERT INTO items VALUES(3938,87,'action','return PR_MATCH;',0,160,460,80,20,0,0
 INSERT INTO items VALUES(3939,87,'action','(void)p;',0,160,120,80,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3940,82,'if','result == PR_MATCH',0,190,690,220,20,110,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3941,82,'vertical','',0,520,690,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3942,82,'shelf','PR_MATCH',0,780,440,170,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(3942,82,'shelf','PR_OK',0,780,440,170,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(3943,82,'address','Match',0,520,1020,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3944,82,'shelf','N_NO_PROFILE',0,190,830,220,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
 INSERT INTO items VALUES(3945,82,'shelf','p->ApplicationProfileNumber',0,780,310,170,40,40,0,NULL,NULL,NULL,'g_Ctd.SelectedApplicationProfileNumber');

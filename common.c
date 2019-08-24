@@ -43,6 +43,18 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
 }
 
 const char*
+CardholderMessage_tostring(const enum CardholderMessage m) {
+    switch (m) {
+        case CRDHLDR_MSG_CARD_ERROR: return "CRDHLDR_MSG_CARD_ERROR";
+        case CRDHLDR_MSG_WELCOME: return "CRDHLDR_MSG_WELCOME";
+        case CRDHLDR_MSG_NONE: return "CRDHLDR_MSG_NONE";
+        case CRDHLDR_MSG_CHOOSE_APPLICATION: return "CRDHLDR_MSG_CHOOSE_APPLICATION";
+        case CRDHLDR_MSG_PRINTER_OUT_OF_ORDER: return "CRDHLDR_MSG_PRINTER_OUT_OF_ORDER";
+    }
+    return NULL;
+}
+
+const char*
 TransactionResult_tostring(const enum TransactionResult t) {
     switch (t) {
         case T_NONE: return "T_NONE";

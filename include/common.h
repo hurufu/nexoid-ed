@@ -187,6 +187,14 @@ enum PACKED Technology {
   , TECH_MAX
 };
 
+enum PACKED CardholderMessage {
+    CRDHLDR_MSG_CARD_ERROR = 0x06
+  , CRDHLDR_MSG_WELCOME = 0x14
+  , CRDHLDR_MSG_NONE = 0x1E
+  , CRDHLDR_MSG_CHOOSE_APPLICATION = 0xDC
+  , CRDHLDR_MSG_PRINTER_OUT_OF_ORDER = 0xE1
+};
+
 enum Kernel {
     KERNEL_NONE = START_MAX + 209
   , KERNEL_M
@@ -195,11 +203,90 @@ enum Kernel {
 union TerminalSettings {
     unsigned char raw[5];
     struct {
+        unsigned char hasPreReadCombinedReader : 1;
+        unsigned char hasPostReadCombinedReader : 1;
         unsigned char hasCombinedReader : 1;
         unsigned char hasMotorisedCombinedReader : 1;
-        unsigned char : 6;
+        unsigned char allowedSupplementaryAmt : 1;
+        unsigned char requiredSaleSystemAuthorisation : 1;
+        unsigned char merchantReceiptPrintedFirst : 1;
         unsigned char confirmationByCardNotAllowedForMsr: 1;
-        unsigned char retrievePreauth : 1;
+
+        unsigned char allowedAttendantForcingTrxOnline : 1;
+        unsigned char /* RFU */ : 7;
+
+        unsigned char allowedLastTrxCancellation : 1;
+        unsigned char useTrxLogForCancellation : 1;
+        unsigned char allowedCancellationWihOnlineApprovalIfTrxLogIsNotUsed : 1;
+        unsigned char allowedVoiceAuthForLastTrx : 1;
+        unsigned char retrieveUpdatePreAuthFromTrxLog : 1;
+        unsigned char /* RFU */ : 2;
+        unsigned char retrieveVoiceAuthFromTrxLog : 1;
+
+        unsigned char printApprovedCardholderReceipt : 1;
+        unsigned char printDeclinedCardholderReceipt : 1;
+        unsigned char printVoiceAuthCardholderReceipt : 1;
+        unsigned char printAbortedCardholderReceipt : 1;
+        unsigned char /* RFU */ : 1;
+        unsigned char printDolOnApprovedAndAbortedAndVoiceAuthCardholderReceipt : 1;
+        unsigned char printDolOnDeclinedAndAbortedCardholderReceipt : 1;
+        unsigned char /* RFU */ : 1;
+
+        unsigned char printApprovedMerchantReceipt : 1;
+        unsigned char printDeclinedMerchantReceipt : 1;
+        unsigned char printVoiceAuthMerchantReceipt : 1;
+        unsigned char printAbortedMerchantReceipt : 1;
+        unsigned char /* RFU */ : 1;
+        unsigned char printDolOnApprovedAndAbortedMerchantReceipt : 1;
+        unsigned char printDolOnDeclinedAndAbortedMerchantReceipt : 1;
+        unsigned char /* RFU */ : 1;
+    };
+};
+
+union AdditionalTerminalCapabilities {
+    unsigned char raw[5];
+    struct {
+        struct TransactionTypeCapability {
+            unsigned char cash : 1;
+            unsigned char goods : 1;
+            unsigned char services : 1;
+            unsigned char cashback : 1;
+            unsigned char inquiry : 1;
+            unsigned char transfer : 1;
+            unsigned char payment : 1;
+            unsigned char administrative : 1;
+
+            unsigned char cashDeposit : 1;
+            unsigned char /* RFU */ : 1;
+        } TransactionType;
+
+        struct TransactionDataInputCapability {
+            unsigned char numericKeys : 1;
+            unsigned char alphabeticAndSpecialCharactersKeys : 1;
+            unsigned char commandKeys : 1;
+            unsigned char functionKeys : 1;
+            unsigned char /* RFU */ : 4;
+        } TerminalDataInput;
+
+        struct TransactionDataOutputCapability {
+            unsigned char printAttendant : 1;
+            unsigned char printCardholder : 1;
+            unsigned char displayAttendant : 1;
+            unsigned char displayCardholder : 1;
+            unsigned char /* RFU */ : 2;
+            // ISO/IEC 8859
+            unsigned char codeTable10 : 1;
+            unsigned char codeTable9 : 1;
+
+            unsigned char codeTable8 : 1;
+            unsigned char codeTable7 : 1;
+            unsigned char codeTable6 : 1;
+            unsigned char codeTable5 : 1;
+            unsigned char codeTable4 : 1;
+            unsigned char codeTable3 : 1;
+            unsigned char codeTable2 : 1;
+            unsigned char codeTable1 : 1;
+        } TerminalDataOutput;
     };
 };
 
@@ -552,6 +639,73 @@ enum PrinterStatus {
     PRINTER_UNAVAILABLE
 };
 
+union TerminalType {
+    uint8_t b[1];
+
+    union {
+        struct {
+            enum PACKED {
+                OPERATED_BY_FINANCIAL_INSTITUTION = 0x1
+              , OPERATED_BY_MERCHANT = 0x2
+              , OPERATED_BY_CARDHOLDER = 0x3
+            } operationalControl : 4;
+        };
+
+        struct {
+            uint8_t : 4;
+            enum PACKED {
+                ATTENDED_ONLINE_ONLY = 0x1
+              , ATTENDED_OFFLINE_AND_ONLINE = 0x2
+              , ATTENDED_OFFLINE_ONLY = 0x3
+              , UNATTENDED_ONLINE_ONLY = 0x4
+              , UNATTENDED_OFFLINE_AND_ONLINE = 0x5
+              , UNATTENDED_OFFLINE_ONLY = 0x6
+
+              /*
+              , ATTENDED = 0x1
+              , ATTENDED = 0x2
+              , ATTENDED = 0x3
+
+              , UNATTENDED = 0x4
+              , UNATTENDED = 0x5
+              , UNATTENDED = 0x6
+
+              , ONLINE_ONLY = 0x1
+              , ONLINE_ONLY = 0x4
+
+              , OFFLINE_ONLY = 0x3
+              , OFFLINE_ONLY = 0x6
+
+              , OFFLINE_AND_ONLINE = 0x2
+              , OFFLINE_AND_ONLINE = 0x5
+              */
+            } operationalEnvironment : 4;
+        };
+
+        enum PACKED {
+            ATTENDED_ONLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x11
+          , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_FINANCIAL_INSTITUTION = 0x12
+          , ATTENDED_OFFLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x13
+          , ATTENDED_ONLINE_ONLY_OPERATED_BY_MERCHANT = 0x21
+          , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_MERCHANT = 0x22
+          , ATTENDED_OFFLINE_ONLY_OPERATED_BY_MERCHANT = 0x23
+          , ATTENDED_ONLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x31
+          , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_CARDHOLDER = 0x32
+          , ATTENDED_OFFLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x33
+
+          , UNATTENDED_ONLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x14
+          , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_FINANCIAL_INSTITUTION = 0x15
+          , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x16
+          , UNATTENDED_ONLINE_ONLY_OPERATED_BY_MERCHANT = 0x24
+          , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_MERCHANT = 0x25
+          , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_MERCHANT = 0x26
+          , UNATTENDED_ONLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x34
+          , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_CARDHOLDER = 0x35
+          , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x36
+        } e;
+    };
+};
+
 struct CurrentTransactionData {
     // Operations
     bool AcquirerPreSelected;
@@ -564,6 +718,7 @@ struct CurrentTransactionData {
     bool ApplicationInitialised;
     union ServiceSettings* SelectedServiceSettings;
     union ServiceStartEvents* SelectedServiceStartEvents;
+    int8_t CardholderInitialMessage;
 
     // Transaction
     struct Out Out;
@@ -638,8 +793,9 @@ struct CurrentTransactionData {
 
 struct NexoConfiguration {
     // Terminal configuration
-    uint8_t TerminalType;
+    union TerminalType TerminalType;
     union TerminalSettings TerminalSettings;
+    union AdditionalTerminalCapabilities AdditionalTerminalCapabilities;
 
     // EMV configuration
     unsigned char MaxNumberOfChipTries;
@@ -678,6 +834,7 @@ extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
 
 const char* ProcedureResult_tostring(enum ProcedureResult f);
+const char* CardholderMessage_tostring(const enum CardholderMessage m);
 const char* TransactionResult_tostring(enum TransactionResult);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);

@@ -718,7 +718,7 @@ struct CurrentTransactionData {
     bool ApplicationInitialised;
     union ServiceSettings* SelectedServiceSettings;
     union ServiceStartEvents* SelectedServiceStartEvents;
-    int8_t CardholderInitialMessage;
+    enum CardholderMessage CardholderInitialMessage;
 
     // Transaction
     struct Out Out;

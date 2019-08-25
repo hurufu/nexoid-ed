@@ -12,6 +12,8 @@
 
 #define PACKED __attribute__(( __packed__ ))
 
+#define MAX_CARDHOLDER_MESSAGES (6)
+
 enum ProcedureResult {
     PR_UNINITIALISED = 239
   , PR_NOT_IMPLEMENTED
@@ -78,6 +80,8 @@ enum NokReason {
   , N_DATA_ERROR
   , N_NO_CARD_INSERTED
   , N_CANCELLED
+  , N_ABORTED
+  , N_TIMEOUT
   , N_CARD_MISSING
   , N_NO_PROFILE
 
@@ -175,6 +179,18 @@ struct Out {
     unsigned char FieldOffRequest;
 };
 
+enum CtlssIndicatorStatus {
+    STATUS_NONE = START_MAX
+  , STATUS_NOT_READY
+  , STATUS_IDLE
+  , STATUS_READY_TO_READ
+  , STATUS_PROCESSING
+  , STATUS_CARD_READ_SUCCESSFULLY
+  , STATUS_PROCESSING_ERROR
+
+  , STATUS_MAX
+};
+
 enum PACKED Technology {
     TECH_NONE = 0x00
   , TECH_EMV_CHIP = 0x01
@@ -198,6 +214,10 @@ enum PACKED CardholderMessage {
 enum Kernel {
     KERNEL_NONE = START_MAX + 209
   , KERNEL_M
+};
+
+struct HoldTime {
+    uint8_t bcd[6];
 };
 
 union TerminalSettings {
@@ -462,6 +482,29 @@ union Currency {
 
 struct AuthorisationResponseCode {
     uint8_t v[2];
+};
+
+// 5F2D
+union LanguagePreference {
+    char raw[8];
+    // TODO: Use proper country code enum in LanguagePreference union
+#   if 0
+    union Country lang[4];
+#   endif
+};
+
+struct UiParameters {
+    enum CardholderMessage Id;
+    enum CtlssIndicatorStatus Status;
+    struct HoldTime HoldTime;
+    union LanguagePreference* LanguagePreference; // Not used in nexo
+    enum ValueQualifier {
+        UI_VALUE_QUILIFIER_NONE
+      , UI_VALUE_QUILIFIER_AMOUNT
+      , UI_VALUE_QUILIFIER_BALANCE
+    } ValueQualifier;
+    union Amount Value;
+    union Currency CurrencyCode;
 };
 
 // NOTE: Strings in Track2 aren't null terminated
@@ -745,6 +788,12 @@ struct CurrentTransactionData {
     bool ConfirmationByCard;
     bool WasPresentOneCardOnlyMessageDisplayed;
     unsigned char NumberOfRemainingChipTries;
+
+    // UI
+    struct UiParameters* UiParametersForOutcome;
+    struct UiParameters* UiParametersForRestart;
+    struct UiParameters* UiParametersForTrxCompletion;
+    bool UiRequestPostponed;
 
     // Cashback
     union Amount CashbackAmount;

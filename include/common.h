@@ -107,9 +107,13 @@ enum TransactionResult {
   , T_MAX
 };
 
-enum TransactionType {
-    TT_UNKNOWN
-} __attribute__((packed));
+enum PACKED TransactionType {
+    TRX_NONE = 0xFF
+  , TRX_DEBIT_GOODS_AND_SERVICES = 0x00
+  , TRX_DEBIT_CASH = 0x01
+  , TRX_DEBIT_GOODS_AND_SERVICES_WITH_CASH_DISBURSEMENT = 0x09
+  , TRX_CREDIT_RETURN = 0x20
+};
 
 // Array is indexed by enum IdleEvent
 // FIXME: Rename IdleEvent to NexoEvent, because it's not used in idle screen only
@@ -214,6 +218,16 @@ enum PACKED CardholderMessage {
 enum Kernel {
     KERNEL_NONE = START_MAX + 209
   , KERNEL_M
+
+  , KERNEL_MAX
+};
+
+enum KernelMode {
+    KERNEL_MODE_NONE = KERNEL_MAX + 19
+  , KERNEL_MODE_FULL
+  , KERNEL_MODE_EXTRACT_PAN
+
+  , KERNEL_MODE_MAX
 };
 
 struct HoldTime {
@@ -780,6 +794,7 @@ struct CurrentTransactionData {
 
     // EMV
     enum Kernel KernelId;
+    enum KernelMode KernelMode;
     enum Technology TechnologySelected;
     enum Outcome Outcome; // FIXME: Outcome shall be an optional struct
     union ProcessingStatus ProcessingStatus;

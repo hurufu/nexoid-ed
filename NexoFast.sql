@@ -2904,7 +2904,7 @@ INSERT INTO items VALUES(4770,111,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL
 INSERT INTO items VALUES(4771,111,'action','returns enum ProcedureResult',0,430,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4772,111,'action','return PR_OK;',0,170,270,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4773,110,'insertion',replace('result =\nKernel_M_Processing();','\n',char(10)),0,450,400,100,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4774,110,'if','PR_OK == result',0,450,470,100,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(4774,110,'if','PR_DONE == result',0,450,470,100,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4775,110,'vertical','',0,620,470,0,130,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4776,110,'address','Nok',0,620,550,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4777,112,'beginend','Kernel_M_Processing',0,-30,50,90,20,60,0,NULL,NULL,NULL,NULL);
@@ -2998,7 +2998,7 @@ INSERT INTO items VALUES(4873,114,'shelf','1',0,440,230,150,60,80,0,NULL,NULL,NU
 INSERT INTO items VALUES(4874,114,'insertion',replace('result =\nPerform_Cvm_For_Magstripe();','\n',char(10)),0,440,340,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4875,114,'if','PR_OK == result',0,440,410,150,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4876,114,'shelf','PR_NOK',0,660,490,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(4877,114,'shelf','PR_OK',0,440,490,150,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(4877,114,'shelf','PR_DONE',0,440,490,150,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(4878,114,'shelf','&g_Ctd.Track2.serviceCode',0,440,-30,150,40,40,0,NULL,NULL,NULL,'g_Ctd.ServiceCodeMs');
 INSERT INTO items VALUES(4879,114,'commentout',replace('TODO: Proper Service Code extraction\nfrom raw Track 2 data','\n',char(10)),0,770,-30,160,30,20,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4880,116,'beginend','Check_Magnetic_Stripe_Fallback',0,510,-10,130,20,60,0,NULL,NULL,NULL,NULL);

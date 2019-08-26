@@ -73,6 +73,7 @@ enum NokReason {
   , N_ORIGINAL_TRX_NOT_FOUND
   , N_TECHNICAL_ERROR
   , N_MISSING_DATA
+  , N_CONF_ERROR
   , N_NO_PERMISSION
   , N_CONFIGURATION_ERROR
   , N_AMOUNT_ERROR
@@ -84,6 +85,7 @@ enum NokReason {
   , N_TIMEOUT
   , N_CARD_MISSING
   , N_NO_PROFILE
+  , N_FALLBACK_PROHIBITED
 
   , N_MAX
 };
@@ -184,6 +186,7 @@ struct Out {
         START_MAX
     } Start;
     unsigned char FieldOffRequest;
+    bool DataRecordPresent;
 };
 
 enum CtlssIndicatorStatus {
@@ -280,15 +283,14 @@ enum PACKED CardholderMessage {
   , CRDHLDR_SSN_RECEIPT_PRINTING_FAILED = 0x93
 };
 
-enum Kernel {
-    KERNEL_NONE = START_MAX + 209
-  , KERNEL_M
-
-  , KERNEL_MAX
+enum PACKED Kernel {
+    KERNEL_NONE = 0x00
+  , KERNEL_M = 0x3F
+  , KERNEL_E = 0x3E
 };
 
 enum KernelMode {
-    KERNEL_MODE_NONE = KERNEL_MAX + 19
+    KERNEL_MODE_NONE = START_MAX + 19
   , KERNEL_MODE_FULL
   , KERNEL_MODE_EXTRACT_PAN
 
@@ -298,6 +300,12 @@ enum KernelMode {
 enum PrintMessage {
     PRINT_MERCHANT_RECEIPT
   , PRINT_CARDHOLDER_RECEIPT
+};
+
+enum PACKED FallbackParameterMagneticStripe {
+    FALLBACK_TRANSACTION_PROHIBITED = 0x00
+  , FALLBACK_TRANSACTION_ALLOWED = 0x01
+  , TRACK2_ONLY_PRODUCT = 0x02
 };
 
 struct HoldTime {
@@ -603,7 +611,7 @@ struct Track2 {
             char month[2];
         };
     } expiryDate;
-    union {
+    union ServiceCodeMs {
         char raw[3]; // Same as ServiceCodeMs in the spec
         struct {
             enum PACKED {
@@ -914,7 +922,9 @@ struct CurrentTransactionData {
 
     // Magnetic stripe
     bool InvalidSwipeOccured;
+    bool TransactionConfirmedByCardholder;
     struct Track2 Track2;
+    union ServiceCodeMs* ServiceCodeMs;
     const unsigned char (* Pan)[19];
     const struct Bid* SelectedBid;
     unsigned char PanMatchLength; // integer
@@ -967,6 +977,7 @@ struct NexoConfiguration {
     // MSR
     struct TerminalListOfBid* TerminalListOfBid;
     struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
+    enum FallbackParameterMagneticStripe FallbackParameterMagneticStripe; //TODO: Move to APS
 
     // IFR
     union EeaProcessSettings* EeaProcessSettings;

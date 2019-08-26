@@ -62,6 +62,9 @@ TransactionResult_tostring(const enum TransactionResult t) {
         case T_ABORTED: return "T_ABORTED";
         case T_APPROVED: return "T_APPROVED";
         case T_DECLINED: return "T_DECLINED";
+        case T_PARTIALLY_APPROVED: return "T_PARTIALLY_APPROVED";
+        case T_VOICE_AUTHORISATION: return "T_VOICE_AUTHORISATION";
+        case T_PAYMENT_PART_ONLY: return "T_PAYMENT_PART_ONLY";
         case T_MAX:
             break;
     }

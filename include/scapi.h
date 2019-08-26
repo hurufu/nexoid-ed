@@ -22,6 +22,7 @@ enum ProcedureResult OutputAmountError(void);
 enum ProcedureResult OutputTransactionAmount(void);
 bool Authorise_Service(void);
 enum ProcedureResult Output(size_t size, const enum CardholderMessage msg[size]);
+enum ProcedureResult Data_Print_Interaction(enum PrintMessage);
 enum ProcedureResult Data_Output_Interaction(size_t size, const struct UiParameters msg[size]) DEPRECATED("Use Data_Output_Interaction instead");
 enum ProcedureResult Entry(int) DEPRECATED("Use Date_Entry_Interaction instead");
 enum ProcedureResult Date_Entry_Interaction() WARN("Function signature isn't yet defined");

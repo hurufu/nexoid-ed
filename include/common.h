@@ -958,7 +958,7 @@ extern struct NexoConfiguration g_Nexo;
 
 const char* NokReason_tostring(enum NokReason n);
 const char* ProcedureResult_tostring(enum ProcedureResult f);
-const char* CardholderMessage_tostring(const enum CardholderMessage m);
+const char* CardholderMessage_tostring(enum CardholderMessage m);
 const char* TransactionResult_tostring(enum TransactionResult);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);

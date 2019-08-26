@@ -157,6 +157,8 @@ NokReason_tostring(const enum NokReason n) {
         case N_NO_PROFILE: return "N_NO_PROFILE";
         case N_ABORTED: return "N_ABORTED";
         case N_TIMEOUT: return "N_TIMEOUT";
+        case N_CONF_ERROR: return "N_CONF_ERROR";
+        case N_FALLBACK_PROHIBITED: return "N_FALLBACK_PROHIBITED";
         case N_MAX:
             break;
     }

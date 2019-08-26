@@ -863,7 +863,7 @@ struct CurrentTransactionData {
     char ReferenceData[35 + 1];
     bool FallbackFlag;
     unsigned char SelectedApplicationProfileNumber;
-    union ApplicationProfileSettings* SelectedApplicationProfileSettings;
+    union ApplicationProfileSettings* SelectedApplicationProfileSettings; // FIXME: Delete?
 
     // EMV
     enum Kernel KernelId;

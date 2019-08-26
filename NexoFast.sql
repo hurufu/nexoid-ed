@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','3964 240','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1964 240','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','10 30','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','5654 -67','',85.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
@@ -73,7 +73,7 @@ INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','-216 352',NULL,100.0);
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','7 -227',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),75.999999999999999999);
-INSERT INTO diagrams VALUES(90,'Kernel_Activation','317 64','',75.0);
+INSERT INTO diagrams VALUES(90,'Kernel_Activation','1382 64','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-457.2608695652174 -187.95652173913044',NULL,100.0);
 INSERT INTO diagrams VALUES(92,'Set_Transaction_Type','-458.0 -2.499999999999986',NULL,100.0);
 INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-200 -200',NULL,75.0);
@@ -94,7 +94,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,102,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -165,12 +165,12 @@ INSERT INTO items VALUES(678,18,'vertical','',0,1500,820,0,140,0,0,NULL,'',NULL,
 INSERT INTO items VALUES(679,18,'address','(H) FAIL',0,1500,910,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(680,18,'vertical','',0,2330,350,0,610,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(681,18,'insertion',replace('result =\nKernel_Activation();','\n',char(10)),0,2330,610,90,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(682,18,'if','PR_OK == result',0,2330,680,90,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(682,18,'if','PR_DONE == result',0,2330,680,90,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(683,18,'vertical','',0,2490,680,0,280,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(684,18,'address','(H) FAIL',0,2490,910,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(685,18,'address',replace('(E) Outcome\nProcessing','\n',char(10)),0,2330,900,90,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(686,18,'insertion',replace('result =\nKernel_Processing();','\n',char(10)),0,2330,750,90,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(687,18,'if','PR_OK == result',0,2330,820,90,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(687,18,'if','PR_DONE == result',0,2330,820,90,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(688,18,'vertical','',0,2720,350,0,610,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(689,18,'insertion',replace('result =\nOutcome_Processing();','\n',char(10)),0,2720,690,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(690,18,'if','g_Ctd.Outcome == O_ONLINE_REQUEST',0,2720,820,160,20,100,1,NULL,'',NULL,'');
@@ -202,7 +202,7 @@ INSERT INTO items VALUES(715,18,'address','(H) FAIL',0,4280,910,80,30,60,0,NULL,
 INSERT INTO items VALUES(716,18,'address','(I) Completion',0,4480,910,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(717,18,'address','(H) FAIL',0,3130,910,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(718,18,'shelf','T_ABORTED',0,4480,820,110,40,40,0,NULL,'',NULL,'g_Ctd.TransactionResult');
-INSERT INTO items VALUES(719,18,'insertion','Transaction_Completion();',1,4720,540,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(719,18,'insertion','Transaction_Completion();',0,4720,540,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(720,18,'commentout','120',0,4880,530,30,20,30,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(721,18,'commentin',replace('Non EMV is not\nsupported','\n',char(10)),0,4280,830,80,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(722,18,'branch',replace('(F) Online Request\nProcessing','\n',char(10)),0,3310,410,110,40,60,0,NULL,'',NULL,'');
@@ -258,7 +258,7 @@ INSERT INTO items VALUES(816,27,'arrow','',0,20,120,150,480,400,1,NULL,'',NULL,'
 INSERT INTO items VALUES(817,27,'branch','branch 1',0,170,170,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(818,27,'address','branch 2',0,170,550,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(819,27,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(820,27,'branch','branch 3',0,660,170,60,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(820,27,'branch','branch 3',0,660,170,70,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(821,27,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(822,28,'beginend','Outcome_Processing',0,170,60,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(823,28,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
@@ -927,7 +927,7 @@ INSERT INTO items VALUES(1749,31,'action','returns enum ProcedureResult',0,440,5
 INSERT INTO items VALUES(1750,31,'action','return PR_DONE;',0,220,610,170,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1754,27,'horizontal','',0,170,60,130,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1755,27,'action','returns enum ProcedureResult',0,430,60,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1756,27,'action','return PR_OK;',0,660,410,60,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1756,27,'action','return PR_DONE;',1,660,410,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1757,28,'horizontal','',0,170,60,130,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1758,28,'action','returns enum ProcedureResult',0,430,60,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1759,28,'action','return PR_OK;',0,660,430,60,20,0,0,NULL,NULL,NULL,NULL);

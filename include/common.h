@@ -700,7 +700,7 @@ struct ApplicationProfileSelectionTableNonChip {
         struct Prefix* next;
     }* prefix;
     struct Prefix* prefixMask;
-    enum TechnologySelected* TechnologyOfProfile;
+    enum TechnologySelected* TechnologyOfProfile; // WUT?
 
     struct ApplicationProfileSelectionTableNonChip* next;
 };

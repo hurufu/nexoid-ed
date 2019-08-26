@@ -276,6 +276,7 @@ enum PACKED CardholderMessage {
   /* Sale system notification */
   , CRDHLDR_SSN_CARD_REMOVAL_REQUESTED = 0x90
   , CRDHLDR_SSN_CARD_REMOVED = 0x91
+  , CRDHLDR_SSN_REQUEST_SIGNATURE = 0x92
 };
 
 enum Kernel {
@@ -517,9 +518,10 @@ union ServiceSettings {
 };
 
 union ApplicationProfileSettings {
-    uint8_t raw[0];
+    uint8_t raw[5];
     struct {
         uint8_t isDccAcceptorModeAllowed : 1;
+        uint8_t isMerchantSignatureRequiredForApprovedRefund : 1;
     };
 };
 
@@ -855,6 +857,7 @@ struct CurrentTransactionData {
     char ReferenceData[35 + 1];
     bool FallbackFlag;
     unsigned char SelectedApplicationProfileNumber;
+    union ApplicationProfileSettings* SelectedApplicationProfileSettings;
 
     // EMV
     enum Kernel KernelId;
@@ -873,6 +876,11 @@ struct CurrentTransactionData {
     struct UiParameters* UiParametersForRestart;
     struct UiParameters* UiParametersForTrxCompletion;
     bool UiRequestPostponed;
+    bool PrintCardholderReceipt;
+    bool PrintMerchantReceipt;
+    bool SignatureLine;
+    bool SignatureLineMerchant;
+    bool SignatureLineForVoiceAuthorisation;
 
     // Cashback
     union Amount CashbackAmount;

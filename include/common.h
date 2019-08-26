@@ -976,6 +976,7 @@ extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
 
 const char* NokReason_tostring(enum NokReason n);
+const char* PrintMessage_tostring(enum PrintMessage);
 const char* ProcedureResult_tostring(enum ProcedureResult f);
 const char* CardholderMessage_tostring(enum CardholderMessage m);
 const char* TransactionResult_tostring(enum TransactionResult);

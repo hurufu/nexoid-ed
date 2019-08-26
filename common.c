@@ -130,6 +130,15 @@ TransactionResult_tostring(const enum TransactionResult t) {
 }
 
 const char*
+PrintMessage_tostring(const enum PrintMessage p) {
+    switch (p) {
+        case PRINT_MERCHANT_RECEIPT: return "PRINT_MERCHANT_RECEIPT";
+        case PRINT_CARDHOLDER_RECEIPT: return "PRINT_CARDHOLDER_RECEIPT";
+    }
+    return NULL;
+}
+
+const char*
 NokReason_tostring(const enum NokReason n) {
     switch (n) {
         case N_NONE: return "N_NONE";

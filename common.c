@@ -104,6 +104,8 @@ CardholderMessage_tostring(const enum CardholderMessage m) {
         case CRDHLDR_SRC_SELECTED_SERVICE: return "CRDHLDR_SRC_SELECTED_SERVICE";
         case CRDHLDR_SRC_CARDHOLDER_MESSAGE: return "CRDHLDR_SRC_CARDHOLDER_MESSAGE";
         case CRDHLDR_SRC_NOK_REASON: return "CRDHLDR_SRC_NOK_REASON";
+        case CRDHLDR_SSN_CARD_REMOVAL_REQUESTED: return "CRDHLDR_SSN_CARD_REMOVAL_REQUESTED";
+        case CRDHLDR_SSN_CARD_REMOVED: return "CRDHLDR_SSN_CARD_REMOVED";
     }
     return NULL;
 }

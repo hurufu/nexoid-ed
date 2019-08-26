@@ -9,3 +9,4 @@ enum ProcedureResult SearchReservationsByRefData(void);
 enum ProcedureResult SearchReservationsByPan(void);
 enum ProcedureResult Log_Entry_Data_Retrieval(void);
 enum ProcedureResult Initialiase_Basic_Data(void);
+enum ProcedureResult Transaction_Finalisation(void);

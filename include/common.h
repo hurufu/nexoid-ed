@@ -272,6 +272,10 @@ enum PACKED CardholderMessage {
   , CRDHLDR_SRC_SELECTED_SERVICE = 0x84
   , CRDHLDR_SRC_CARDHOLDER_MESSAGE = 0x85
   , CRDHLDR_SRC_NOK_REASON = 0x86
+
+  /* Sale system notification */
+  , CRDHLDR_SSN_CARD_REMOVAL_REQUESTED = 0x90
+  , CRDHLDR_SSN_CARD_REMOVED = 0x91
 };
 
 enum Kernel {
@@ -829,6 +833,7 @@ struct CurrentTransactionData {
     bool CardholderRequestedChoiceOfApplication;
     unsigned char PreSelectedAcquirerNumber;
     enum PrinterStatus PrinterStatus;
+    bool IsCardInReader; // TODO: Consider making IsCardInReader an atomic variable
 
     // Service
     bool ApplicationInitialised;

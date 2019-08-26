@@ -775,6 +775,17 @@ enum PrinterStatus {
     PRINTER_UNAVAILABLE
 };
 
+#define TERMINAL_TYPE_ATTENDED(T)\
+    ONEOF((T).operationalEnvironment, ATTENDED_ONLINE_ONLY, ATTENDED_OFFLINE_AND_ONLINE, ATTENDED_OFFLINE_ONLY)
+#define TERMINAL_TYPE_UNATTENDED(T)\
+    ONEOF((T).operationalEnvironment, UNATTENDED_ONLINE_ONLY, UNATTENDED_OFFLINE_AND_ONLINE, UNATTENDED_OFFLINE_ONLY)
+#define TERMINAL_TYPE_ONLINE_ONLY(T)\
+    ONEOF((T).operationalEnvironment, ATTENDED_ONLINE_ONLY, UNATTENDED_ONLINE_ONLY)
+#define TERMINAL_TYPE_OFFLINE_ONLY(T)\
+    ONEOF((T).operationalEnvironment, ATTENDED_OFFLINE_ONLY, UNATTENDED_OFFLINE_ONLY)
+#define TERMINAL_TYPE_OFFLINE_WITH_ONLINE_CAPABILITY(T)\
+    ONEOF((T).operationalEnvironment, ATTENDED_OFFLINE_AND_ONLINE, UNATTENDED_OFFLINE_AND_ONLINE)
+
 union TerminalType {
     uint8_t b[1];
 
@@ -785,6 +796,7 @@ union TerminalType {
               , OPERATED_BY_MERCHANT = 0x2
               , OPERATED_BY_CARDHOLDER = 0x3
             } operationalControl : 4;
+            uint8_t : 4;
         };
 
         struct {
@@ -796,25 +808,6 @@ union TerminalType {
               , UNATTENDED_ONLINE_ONLY = 0x4
               , UNATTENDED_OFFLINE_AND_ONLINE = 0x5
               , UNATTENDED_OFFLINE_ONLY = 0x6
-
-              /*
-              , ATTENDED = 0x1
-              , ATTENDED = 0x2
-              , ATTENDED = 0x3
-
-              , UNATTENDED = 0x4
-              , UNATTENDED = 0x5
-              , UNATTENDED = 0x6
-
-              , ONLINE_ONLY = 0x1
-              , ONLINE_ONLY = 0x4
-
-              , OFFLINE_ONLY = 0x3
-              , OFFLINE_ONLY = 0x6
-
-              , OFFLINE_AND_ONLINE = 0x2
-              , OFFLINE_AND_ONLINE = 0x5
-              */
             } operationalEnvironment : 4;
         };
 

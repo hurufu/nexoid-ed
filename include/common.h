@@ -271,6 +271,7 @@ enum PACKED CardholderMessage {
   , CRDHLDR_SRC_DECLINE_DISPLAY_MESSAGE = 0x83
   , CRDHLDR_SRC_SELECTED_SERVICE = 0x84
   , CRDHLDR_SRC_CARDHOLDER_MESSAGE = 0x85
+  , CRDHLDR_SRC_NOK_REASON = 0x86
 };
 
 enum Kernel {
@@ -955,6 +956,7 @@ struct NexoConfiguration {
 extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
 
+const char* NokReason_tostring(enum NokReason n);
 const char* ProcedureResult_tostring(enum ProcedureResult f);
 const char* CardholderMessage_tostring(const enum CardholderMessage m);
 const char* TransactionResult_tostring(enum TransactionResult);

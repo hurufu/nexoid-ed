@@ -103,6 +103,7 @@ CardholderMessage_tostring(const enum CardholderMessage m) {
         case CRDHLDR_SRC_DECLINE_DISPLAY_MESSAGE: return "CRDHLDR_SRC_DECLINE_DISPLAY_MESSAGE";
         case CRDHLDR_SRC_SELECTED_SERVICE: return "CRDHLDR_SRC_SELECTED_SERVICE";
         case CRDHLDR_SRC_CARDHOLDER_MESSAGE: return "CRDHLDR_SRC_CARDHOLDER_MESSAGE";
+        case CRDHLDR_SRC_NOK_REASON: return "CRDHLDR_SRC_NOK_REASON";
     }
     return NULL;
 }

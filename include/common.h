@@ -960,6 +960,7 @@ const char* NokReason_tostring(enum NokReason n);
 const char* ProcedureResult_tostring(enum ProcedureResult f);
 const char* CardholderMessage_tostring(enum CardholderMessage m);
 const char* TransactionResult_tostring(enum TransactionResult);
+const char* ServiceId_tostring(enum ServiceId s);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
 void ctd_print(const struct CurrentTransactionData*);

@@ -150,6 +150,28 @@ NokReason_tostring(const enum NokReason n) {
     return NULL;
 }
 
+const char*
+ServiceId_tostring(const enum ServiceId s) {
+    switch (s) {
+        case S_NONE: return "S_NONE";
+        case S_PAYMENT: return "S_PAYMENT";
+        case S_REFUND: return "S_REFUND";
+        case S_CANCELLATION: return "S_CANCELLATION";
+        case S_PRE_AUTH: return "S_PRE_AUTH";
+        case S_UPDATE_PRE_AUTH: return "S_UPDATE_PRE_AUTH";
+        case S_PAYMENT_COMPLETION: return "S_PAYMENT_COMPLETION";
+        case S_CASH_ADVANCE: return "S_CASH_ADVANCE";
+        case S_DEFFERED_PAYMENT: return "S_DEFFERED_PAYMENT";
+        case S_DEFFERED_PAYMENT_COMPLETION: return "S_DEFFERED_PAYMENT_COMPLETION";
+        case S_VOICE_AUTHORISATION: return "S_VOICE_AUTHORISATION";
+        case S_CARDHOLDER_DETECTION: return "S_CARDHOLDER_DETECTION";
+        case S_CARD_VALIDITY_CHECK: return "S_CARD_VALIDITY_CHECK";
+        case S_NO_SHOW: return "S_NO_SHOW";
+        case S_MAX: return "S_MAX";
+    }
+    return NULL;
+}
+
 static struct small_string
 byte_tostring(const unsigned char b) {
     struct small_string ret;

@@ -19,13 +19,13 @@ CREATE TABLE diagrams
 );
 INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1964 240','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','10 30','',75.0);
-INSERT INTO diagrams VALUES(20,'Transaction_Completion','5654 -67','',85.0);
+INSERT INTO diagrams VALUES(20,'Transaction_Completion','2720 45','',85.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','60 30','',75.0);
 INSERT INTO diagrams VALUES(27,'Kernel_Processing','10 30','',75.0);
 INSERT INTO diagrams VALUES(28,'Outcome_Processing','10 30','',75.0);
-INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -68','',75.0);
-INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','272 62','',75.0);
+INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
+INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-528 -72','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','296 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','-597 112',NULL,75.0);
 INSERT INTO diagrams VALUES(35,'Process_Profile_Parameters','10 30','',75.0);
@@ -80,7 +80,7 @@ INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-200 -2
 INSERT INTO diagrams VALUES(94,'Update_Kernel_Transaction_Database','0 -200','',75.0);
 INSERT INTO diagrams VALUES(95,'Initialise_Kernel_M','0 0','',75.0);
 INSERT INTO diagrams VALUES(96,'Force_Transaction_Acceptance','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(97,'Check_Cardholder_Confirmation','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(97,'Check_Cardholder_Confirmation','-518 -230',NULL,75.0);
 INSERT INTO diagrams VALUES(98,'Request_Partially_Approved_Trx_Confirmation','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(99,'Save_Transaction','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
@@ -99,7 +99,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,83,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -320,8 +320,6 @@ INSERT INTO items VALUES(894,32,'case','PR_NO_MATCH',0,960,620,80,20,60,0,NULL,'
 INSERT INTO items VALUES(895,32,'case','',0,1290,620,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(896,32,'vertical','',0,1290,580,0,210,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(897,32,'address','Ineligible',0,1290,730,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(898,18,'insertion','Dcc_Processing();',0,2330,540,90,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(899,18,'commentout','Non Standard',0,2500,540,60,20,30,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(900,33,'beginend','Update_Pre_Authorisation',0,-150,130,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(901,33,'beginend','End',0,6800,400,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(902,33,'vertical','',0,80,170,0,500,0,0,NULL,'',NULL,'');
@@ -2618,7 +2616,7 @@ INSERT INTO items VALUES(4459,20,'shelf','CRDHLDR_EMV_REMOVE_CARD',0,5750,180,15
 INSERT INTO items VALUES(4460,20,'shelf','CRDHLDR_SSN_CARD_REMOVAL_REQUESTED',0,5750,280,150,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(4461,20,'commentin','TODO: Wait For Card Removal',0,5750,470,150,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4462,20,'shelf','0',0,5750,550,150,40,40,0,NULL,'',NULL,'number');
-INSERT INTO items VALUES(4463,20,'insertion','Print_Transaction_Receipt();',1,6090,190,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4463,20,'insertion','Print_Transaction_Receipt();',0,6090,190,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4464,20,'if',replace('g_Ctd.TransactionResult\n==\nT_PAYMENT_PART_ONLY','\n',char(10)),0,6370,130,130,40,250,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4465,20,'vertical','',0,6750,130,0,160,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4466,20,'horizontal','',0,6370,290,380,0,0,0,NULL,NULL,NULL,NULL);

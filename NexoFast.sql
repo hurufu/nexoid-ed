@@ -2969,7 +2969,7 @@ INSERT INTO items VALUES(4841,112,'shelf','O_END_APPLICATION',0,1510,530,80,40,4
 INSERT INTO items VALUES(4842,112,'insertion',replace('result =\nFull_Magnetic_Stripe_Processing();','\n',char(10)),0,960,360,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4843,112,'insertion',replace('result =\nFull_Manual_Entry_Processing();','\n',char(10)),0,1270,360,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4844,112,'horizontal','',0,960,590,550,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4845,112,'if','PR_OK == result',0,960,450,150,20,400,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4845,112,'if','PR_DONE == result',0,960,450,150,20,400,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4847,112,'horizontal','',0,960,410,310,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4848,112,'shelf','true',0,960,660,150,50,60,0,NULL,'',NULL,replace('g_Ctd.Out\n.DataRecordPresent','\n',char(10)));
 INSERT INTO items VALUES(4850,112,'shelf','O_ONLINE_REQUEST',0,960,530,150,40,40,0,NULL,'',NULL,'g_Ctd.Outcome');

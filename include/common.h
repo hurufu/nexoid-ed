@@ -134,6 +134,9 @@ enum IdleEvent {                  // Service Start Event? // Technology Selectio
   , E_CARD_REMOVAL                // No                      Yes(?)
   , E_CANCEL                      // No                      Yes
 
+  // Optional
+  , E_PRINTER_STATUS              // No                      No
+
   // Non Nexo
   , E_REBOOT_REQUESTED            // No                      No
   , E_TERMINATION_REQUESTED       // No                      No
@@ -775,6 +778,7 @@ union EeaProcessSettings {
 
 enum PrinterStatus {
     PRINTER_UNAVAILABLE
+  , PRINTER_OPERATIONAL
 };
 
 #define TERMINAL_TYPE_ATTENDED(T)\

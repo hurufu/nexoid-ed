@@ -30,7 +30,7 @@ INSERT INTO diagrams VALUES(36,'Main','-510 -157','',80.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-129 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-667 279',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','-198 -63',NULL,75.0);
-INSERT INTO diagrams VALUES(41,'Process_Event','742 350',NULL,75.0);
+INSERT INTO diagrams VALUES(41,'Process_Event','2274 -317',NULL,75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','0 0','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','-116 78','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-218 -311','',75.0);
@@ -112,7 +112,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,88,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,41,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -629,7 +629,7 @@ INSERT INTO items VALUES(1402,41,'vertical','',0,940,370,0,390,0,0,NULL,'',NULL,
 INSERT INTO items VALUES(1403,41,'action',replace('result =\nProcess_Amount_Entry();','\n',char(10)),0,940,430,140,30,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1404,41,'if','PR_DONE == result',0,940,500,140,20,350,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1405,41,'vertical','',0,1430,500,0,490,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1406,41,'output',replace('result =\nOutputAmountError();','\n',char(10)),1,1430,640,100,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(1406,41,'output',replace('result =\nOutputAmountError();','\n',char(10)),0,1430,640,100,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(1407,41,'if','PR_DONE == result',0,1430,720,100,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1408,41,'if','g_Ctd.TransactionAmount.i == 0',0,940,560,140,20,30,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1409,41,'vertical','',0,1110,560,0,200,0,0,NULL,'',NULL,'');
@@ -3586,6 +3586,10 @@ INSERT INTO items VALUES(5562,124,'if','PR_OK == hap_result',0,320,630,130,20,70
 INSERT INTO items VALUES(5563,124,'vertical','',0,520,630,0,200,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5564,124,'address','Proceed',0,520,780,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5565,124,'shelf','hap_result',0,640,550,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(5566,41,'if','g_Ctd.Event.Table[E_PRINTER_STATUS]',0,2600,-110,220,20,90,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5568,41,'vertical','',0,2910,-110,0,120,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5569,41,'horizontal','',0,2600,10,310,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5570,41,'commentin','TODO: Handle printer',0,2910,-50,98,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

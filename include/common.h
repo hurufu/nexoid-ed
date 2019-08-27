@@ -286,6 +286,13 @@ enum PACKED FallbackParameterMagneticStripe {
   , TRACK2_ONLY_PRODUCT = 0x02
 };
 
+enum PACKED CvmMagneticStripe {
+    CVM_MSR_ONLINE_PIN = 0x01
+  , CVM_MSR_SIGNATURE = 0x02
+  , CVM_MSR_NO_CVM = 0x03
+  , CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES = 0x04 // aka 'SIGNATURE or ONLINE PIN'
+};
+
 struct HoldTime {
     uint8_t bcd[6];
 };
@@ -332,6 +339,13 @@ union TerminalSettings {
         unsigned char /* RFU */ : 1;
     };
 };
+
+union TerminalCapabilities {
+    uint8_t raw[3];
+    struct {
+        uint8_t signature: 1; // [2, 6]
+    };
+} /* 9F33 */;
 
 union AdditionalTerminalCapabilities {
     unsigned char raw[5];
@@ -923,6 +937,7 @@ struct NexoConfiguration {
     // Terminal configuration
     union TerminalType TerminalType;
     union TerminalSettings TerminalSettings;
+    union TerminalCapabilities TerminalCapabilities;
     union AdditionalTerminalCapabilities AdditionalTerminalCapabilities;
 
     // EMV configuration
@@ -953,7 +968,8 @@ struct NexoConfiguration {
     // MSR
     struct TerminalListOfBid* TerminalListOfBid;
     struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
-    enum FallbackParameterMagneticStripe FallbackParameterMagneticStripe; //TODO: Move to APS
+    enum FallbackParameterMagneticStripe FallbackParameterMagneticStripe; //TODO: Move to AP
+    enum CvmMagneticStripe CvmMagneticStripe; // TODO: Move to AP
 
     // IFR
     union EeaProcessSettings* EeaProcessSettings;

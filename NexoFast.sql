@@ -46,7 +46,7 @@ INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 362','',75
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-638 72',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
-INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','9322 -188','',75.0);
+INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','8721 -121','',75.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','3908 68','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','50 -40','',75.0);
 INSERT INTO diagrams VALUES(67,'Update_Interfaces','-400 -66','',75.0);
@@ -97,7 +97,7 @@ INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,75.0)
 INSERT INTO diagrams VALUES(114,'Full_Magnetic_Stripe_Processing','-248 -508',NULL,75.0);
 INSERT INTO diagrams VALUES(115,'Full_Manual_Entry_Processing','0 0','',75.0);
 INSERT INTO diagrams VALUES(116,'Check_Magnetic_Stripe_Fallback','289 -97',NULL,75.0);
-INSERT INTO diagrams VALUES(117,'Perform_Cvm_For_Magstripe','-133 -65','TODO: This function isn''t fully implemented',75.0);
+INSERT INTO diagrams VALUES(117,'Perform_Cvm_For_Magstripe','477 -37','TODO: This function isn''t fully implemented',75.0);
 INSERT INTO diagrams VALUES(118,'Process_Profile_Parameters','10 30','',75.0);
 INSERT INTO diagrams VALUES(119,'Outcome_Processing','660 77','',80.0);
 INSERT INTO diagrams VALUES(120,'Ui_Parameters_For_Outcome_Processing','929 65',NULL,75.0);
@@ -110,7 +110,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,97,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,117,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1450,7 +1450,7 @@ INSERT INTO items VALUES(3099,66,'vertical','',0,230,-10,0,400,0,0,NULL,'',NULL,
 INSERT INTO items VALUES(3100,66,'if',replace('g_Nexo.TerminalSettings.\nhasCombinedReader','\n',char(10)),0,230,160,170,30,110,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3101,66,'vertical','',0,510,160,0,150,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3102,66,'horizontal','',0,230,310,280,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3103,66,'insertion',replace('result =\nTechnology_Selection_Separate_Readers();','\n',char(10)),0,230,260,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3103,66,'insertion',replace('result =\nTechnology_Selection_Separate_Readers();','\n',char(10)),1,230,260,170,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3104,66,'action','return result;',0,230,350,170,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3105,66,'shelf','PR_NOT_IMPLEMENTED',0,510,250,90,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(3106,66,'shelf','PR_UNINITIALISED',0,230,70,170,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
@@ -2982,26 +2982,24 @@ INSERT INTO items VALUES(4898,116,'shelf','N_FALLBACK_PROHIBITED',0,1370,780,100
 INSERT INTO items VALUES(4899,116,'shelf','PR_NOK',0,1370,880,100,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(4900,116,'shelf','PR_OK',0,510,880,280,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(4901,116,'horizontal','',0,510,940,860,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4902,117,'beginend','Perform_Cvm_For_Magstripe',0,210,110,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4903,117,'beginend','End',0,780,420,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4904,117,'vertical','',0,210,130,0,440,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4905,117,'vertical','',0,520,150,0,420,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4906,117,'vertical','',0,780,150,0,260,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4907,117,'horizontal','',0,210,150,570,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4908,117,'arrow','',0,70,150,140,420,450,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4909,117,'branch','branch 1',0,210,200,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4910,117,'address','branch 2',0,210,520,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4911,117,'branch','branch 2',0,520,200,170,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4912,117,'branch','branch 3',0,780,200,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4913,117,'address','branch 3',0,520,520,170,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4914,117,'horizontal',NULL,0,210,110,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4915,117,'action','returns enum ProcedureResult',0,480,110,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4916,117,'shelf','PR_UNINITIALISED',0,210,290,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(4917,117,'action','return result;',0,780,360,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4918,117,'shelf','1',0,210,410,120,60,80,0,NULL,'',NULL,replace('g_Ctd.ProcessingStatus\n.cvmForMagStripe\n/* 0xCA[4,8] */','\n',char(10)));
-INSERT INTO items VALUES(4919,117,'shelf','PR_OK',0,780,290,70,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(4920,117,'shelf','true',0,520,290,170,40,40,0,NULL,NULL,NULL,'g_Ctd.SignatureLine');
-INSERT INTO items VALUES(4921,117,'shelf','true',0,520,390,170,40,40,0,NULL,'',NULL,'g_Ctd.TransactionConfirmedByCardholder');
+INSERT INTO items VALUES(4902,117,'beginend','Perform_Cvm_For_Magstripe',0,380,170,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4903,117,'beginend','End',0,2530,630,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4904,117,'vertical','',0,380,190,0,640,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4905,117,'vertical','',0,2390,210,0,620,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4906,117,'vertical','',0,2530,210,0,410,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4907,117,'horizontal','',0,380,210,2150,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4908,117,'arrow','',0,240,210,140,620,2150,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4909,117,'branch','Init',0,380,260,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4910,117,'address',replace('Switch on configured\nCVM from AP','\n',char(10)),0,380,770,120,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4911,117,'branch','Nok',0,2390,260,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4912,117,'branch','End',0,2530,260,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4913,117,'address','End',0,2390,780,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4914,117,'horizontal',NULL,0,380,170,190,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4915,117,'action','returns enum ProcedureResult',0,640,170,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4916,117,'shelf','PR_UNINITIALISED',0,380,350,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(4917,117,'action','return result;',0,2530,570,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4918,117,'shelf','1',0,380,470,120,60,80,0,NULL,'',NULL,replace('g_Ctd.ProcessingStatus\n.cvmForMagStripe\n/* 0xCA[4,8] */','\n',char(10)));
+INSERT INTO items VALUES(4919,117,'shelf','PR_NOK',0,2390,480,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(4928,72,'select','g_Ctd.SelectedService',0,3820,340,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4929,72,'horizontal','',0,3820,380,1370,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4930,72,'case','S_CANCELLATION',0,4040,420,70,20,60,0,NULL,NULL,NULL,NULL);
@@ -3365,6 +3363,39 @@ INSERT INTO items VALUES(5325,97,'address','End',0,1310,590,50,30,60,0,NULL,'',N
 INSERT INTO items VALUES(5326,97,'shelf','PR_NOT_IMPLEMENTED',0,1470,440,90,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(5327,97,'shelf','PR_OK',0,1310,440,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(5328,97,'address','Ok',0,1190,570,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5329,117,'vertical','',0,640,210,0,620,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5330,117,'branch',replace('Switch on configured\nCVM from AP','\n',char(10)),0,640,270,120,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5331,117,'address','Not implemented',0,640,780,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5332,117,'select','g_Nexo.CvmMagneticStripe',0,640,350,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5333,117,'horizontal','',0,640,390,1090,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5334,117,'case','CVM_MSR_ONLINE_PIN',0,640,430,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5335,117,'case','CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES',0,950,430,170,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5336,117,'case','',0,1730,430,70,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5337,117,'vertical','',0,950,390,0,80,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5338,117,'vertical','',0,1730,390,0,440,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5339,117,'case','CVM_MSR_SIGNATURE',0,1470,430,170,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5340,117,'vertical','',0,1470,390,0,440,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5343,117,'vertical','',0,2100,210,0,620,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5344,117,'branch',replace('Configuration\nerror','\n',char(10)),0,2100,270,100,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5345,117,'address','Nok',0,2100,780,100,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5346,117,'shelf','N_CONFIGURATION_ERROR',0,2100,370,100,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(5347,117,'vertical','',0,2270,210,0,620,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5348,117,'branch','Ok',0,2270,260,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5349,117,'address','End',0,2270,780,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5350,117,'shelf','PR_OK',0,2270,480,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5351,117,'address',replace('Configuration\nerror','\n',char(10)),0,1730,770,70,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5352,117,'if',replace('g_Nexo.TerminalCapabilities\n.signature','\n',char(10)),0,1470,500,170,30,90,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5354,117,'horizontal','',0,640,470,570,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5356,117,'case','CVM_MSR_NO_CVM',0,1210,430,70,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5357,117,'vertical','',0,1210,390,0,80,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5358,117,'vertical','',0,1900,210,0,620,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5359,117,'branch','Not implemented',0,1900,260,80,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5360,117,'address','Nok',0,1900,780,80,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5361,117,'shelf','N_NOT_IMPLEMENTED',0,1900,370,80,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(5362,117,'address','Ok',0,1470,780,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5363,117,'shelf','true',0,1470,590,170,40,40,0,NULL,NULL,NULL,'g_Ctd.SignatureLine');
+INSERT INTO items VALUES(5364,117,'shelf','true',0,1470,690,170,40,40,0,NULL,'',NULL,'g_Ctd.TransactionConfirmedByCardholder');
+INSERT INTO items VALUES(5365,117,'commentin',replace('TODO: Not all CVM''s for\nMSR are implemented','\n',char(10)),0,640,520,120,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

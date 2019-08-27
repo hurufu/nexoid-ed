@@ -87,6 +87,7 @@ enum NokReason {
   , N_CARD_MISSING
   , N_NO_PROFILE
   , N_FALLBACK_PROHIBITED
+  , N_TECHNOLOGY_NOT_SUPPORTED
 
   , N_MAX
 };
@@ -310,7 +311,8 @@ union TerminalSettings {
         unsigned char confirmationByCardNotAllowedForMsr: 1;
 
         unsigned char allowedAttendantForcingTrxOnline : 1;
-        unsigned char /* RFU */ : 7;
+        unsigned char referralAllowed : 1; // Defined only in nexo flow
+        unsigned char /* RFU */ : 6;
 
         unsigned char allowedLastTrxCancellation : 1;
         unsigned char useTrxLogForCancellation : 1;
@@ -567,6 +569,8 @@ union Currency {
 };
 
 enum PACKED AuthorisationResponseCode {
+    ARC_UNABLE_TO_GO_ONLINE_OFFLINE_DECLINED = MULTICHAR('Z','3'),
+    ARC_UNABLE_TO_GO_ONLINE_OFFLINE_AUTHORISED = MULTICHAR('Y','3'),
     ARC_OFFLINE_APPROVED = MULTICHAR('Y','1'),
     ARC_OFFLINE_DECLINED = MULTICHAR('Z','1')
 };
@@ -859,6 +863,9 @@ struct CurrentTransactionData {
     unsigned char SelectedApplicationProfileNumber;
     union ApplicationProfileSettings* SelectedApplicationProfileSettings; // FIXME: Delete?
 
+    // Online
+    bool UnableToGoOnline;
+
     // EMV
     enum Kernel KernelId;
     enum KernelMode KernelMode;
@@ -924,6 +931,7 @@ struct CurrentTransactionData {
 
     // Contactless
     struct CombinationsListAndParametersEntry* CombListWorkingTable;
+    bool TimeoutIndicator;
 
     // Yes, there are actually two variables to control contactless in spec
     bool NoContactlessAllowed;

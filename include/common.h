@@ -513,6 +513,7 @@ union ApplicationProfileSettings {
     struct {
         uint8_t isDccAcceptorModeAllowed : 1;
         uint8_t isMerchantSignatureRequiredForApprovedRefund : 1;
+        uint8_t performExceptionFileChecking : 1;
     };
 };
 
@@ -550,8 +551,9 @@ union Currency {
     char Str[4];
 };
 
-struct AuthorisationResponseCode {
-    uint8_t v[2];
+enum PACKED AuthorisationResponseCode {
+    ARC_OFFLINE_APPROVED = MULTICHAR('Y','1'),
+    ARC_OFFLINE_DECLINED = MULTICHAR('Z','1')
 };
 
 // 5F2D
@@ -835,7 +837,7 @@ struct CurrentTransactionData {
     enum NokReason NokReason;
     enum ServiceId SelectedService;
     union Currency TransactionCurrency;
-    struct AuthorisationResponseCode AuthorisationResponseCode;
+    enum AuthorisationResponseCode AuthorisationResponseCode;
     bool AttendantForcedTransactionOnline;
     char ReferenceData[35 + 1];
     bool FallbackFlag;
@@ -848,6 +850,7 @@ struct CurrentTransactionData {
     enum Technology TechnologySelected;
     union ProcessingStatus ProcessingStatus;
     bool ExceptionFileCheckPerformed;
+    bool ExceptionFileMatch;
     bool Continue;
     bool ConfirmationByCard;
     bool WasPresentOneCardOnlyMessageDisplayed;

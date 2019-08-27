@@ -252,6 +252,7 @@ enum PACKED CardholderMessage {
   , CRDHLDR_SRC_SELECTED_SERVICE = 0x84
   , CRDHLDR_SRC_CARDHOLDER_MESSAGE = 0x85
   , CRDHLDR_SRC_NOK_REASON = 0x86
+  , CRDHLDR_SRC_UI_PARAMETERS_FOR_OUTCOME_STATUS_ONLY = 0x87
 
   /* Sale system notification */
   , CRDHLDR_SSN_CARD_REMOVAL_REQUESTED = 0x90
@@ -571,9 +572,9 @@ struct UiParameters {
     struct HoldTime HoldTime;
     union LanguagePreference* LanguagePreference; // Not used in nexo
     enum ValueQualifier {
-        UI_VALUE_QUILIFIER_NONE
-      , UI_VALUE_QUILIFIER_AMOUNT
-      , UI_VALUE_QUILIFIER_BALANCE
+        UI_VALUE_QUALIFIER_NONE
+      , UI_VALUE_QUALIFIER_AMOUNT
+      , UI_VALUE_QUALIFIER_BALANCE
     } ValueQualifier;
     union Amount Value;
     union Currency CurrencyCode;

@@ -103,14 +103,14 @@ INSERT INTO diagrams VALUES(119,'Outcome_Processing','9035 141','',80.0);
 INSERT INTO diagrams VALUES(120,'Ui_Parameters_For_Outcome_Processing','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(121,'Store_Kernel_Data','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(122,'Exception_File_Checking','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','-66 0',NULL,75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,119,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,123,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -3257,12 +3257,12 @@ INSERT INTO items VALUES(5210,122,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,N
 INSERT INTO items VALUES(5211,122,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5212,122,'action','returns enum ProcedureResult',0,430,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5213,122,'action','return PR_OK;',0,170,290,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5214,123,'beginend','Prepare_Cardholder_Confirmation_Check',0,170,60,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5215,123,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5216,123,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5217,123,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5218,123,'action','returns enum ProcedureResult',0,480,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5219,123,'action','return PR_OK;',0,170,280,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5214,123,'beginend','Prepare_Cardholder_Confirmation_Check',0,300,210,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5215,123,'beginend','End',0,300,770,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5216,123,'vertical',NULL,0,300,230,0,520,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5217,123,'horizontal',NULL,0,300,210,200,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5218,123,'action','returns enum ProcedureResult',0,610,210,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5219,123,'action','return PR_OK;',0,300,710,170,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5220,119,'vertical','',0,6340,350,0,720,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5221,119,'select','g_Ctd.TransactionResult',0,6340,470,140,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5222,119,'horizontal','',0,6340,510,410,0,0,0,NULL,'',NULL,'');
@@ -3282,6 +3282,19 @@ INSERT INTO items VALUES(5235,119,'shelf','ARC_OFFLINE_APPROVED /* Y1 */',0,6340
 INSERT INTO items VALUES(5236,119,'address','Store Kernel Data',0,6340,1020,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5237,119,'branch','Approved (2)',0,6340,400,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5238,119,'address','Approved (2)',0,5600,1020,190,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5241,123,'horizontal','',0,300,670,580,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5242,123,'shelf','true',0,300,430,170,40,40,0,NULL,NULL,NULL,'g_Ctd.SignatureLine');
+INSERT INTO items VALUES(5243,123,'shelf','true',0,300,610,170,40,40,0,NULL,'',NULL,'g_Ctd.TransactionConfirmedByCardholder');
+INSERT INTO items VALUES(5244,123,'select','g_Ctd.Out.Cvm',0,300,270,170,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5245,123,'horizontal','',0,300,310,580,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5246,123,'case','CVM_OBTAIN_SIGNATURE',0,300,350,170,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5247,123,'case','CVM_NO_CVM',0,650,350,150,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5248,123,'case','',0,880,350,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5249,123,'vertical','',0,650,310,0,240,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5250,123,'vertical','',0,880,310,0,360,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5251,123,'if','g_Ctd.ConfirmationByCard',0,650,410,150,20,80,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5252,123,'if',replace('g_Ctd.SelectedServiceSettings\n->crdhlrConfirmationNotAllowed\n/* XX.DF10[2,6] */','\n',char(10)),0,650,490,150,40,80,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5253,123,'horizontal','',0,300,550,350,0,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

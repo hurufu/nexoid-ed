@@ -23,6 +23,7 @@ enum ProcedureResult {
   , PR_TERMINATE
   , PR_SHUTDOWN
   , PR_STARTUP_SEQUENCE
+  , PR_BAIL
 
   , PR_OK
   , PR_NOK
@@ -163,6 +164,7 @@ enum TerminalErrorReason {
 
   // Not specified in NEXO
   , TER_NOT_IMPLEMENTED
+  , TER_INTERFACE_CONTRACT_VIOLATION
 
   , TER_MAX
 };
@@ -569,6 +571,7 @@ union Currency {
 };
 
 enum PACKED AuthorisationResponseCode {
+    ARC_NONE = 0x00,
     ARC_UNABLE_TO_GO_ONLINE_OFFLINE_DECLINED = MULTICHAR('Z','3'),
     ARC_UNABLE_TO_GO_ONLINE_OFFLINE_AUTHORISED = MULTICHAR('Y','3'),
     ARC_OFFLINE_APPROVED = MULTICHAR('Y','1'),
@@ -892,6 +895,7 @@ struct CurrentTransactionData {
     bool SignatureLine;
     bool SignatureLineMerchant;
     bool SignatureLineForVoiceAuthorisation;
+    char DeclineDisplayMessage[40 + 1];
 
     // Cashback
     union Amount CashbackAmount;

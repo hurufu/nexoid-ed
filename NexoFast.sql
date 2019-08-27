@@ -104,14 +104,15 @@ INSERT INTO diagrams VALUES(120,'Ui_Parameters_For_Outcome_Processing','929 65',
 INSERT INTO diagrams VALUES(121,'Store_Kernel_Data','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(122,'Exception_File_Checking','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','-66 0',NULL,75.0);
-INSERT INTO diagrams VALUES(124,'Wait_For_Hap_Response','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(124,'Wait_For_Hap_Response','-268 0',NULL,75.0);
+INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','-1 -272',NULL,75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,19,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,124,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -3529,22 +3530,58 @@ INSERT INTO items VALUES(5501,19,'vertical','',0,5510,310,0,160,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(5502,19,'horizontal','',0,5310,470,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5503,19,'address','Done',0,5700,770,170,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5504,19,'shelf','ARC_UNABLE_TO_GO_ONLINE_OFFLINE_AUTHORISED',0,5310,410,180,40,40,0,NULL,'',NULL,'g_Ctd.AuthorisationResponseCode');
-INSERT INTO items VALUES(5505,124,'beginend','Wait_For_Hap_Response',0,170,60,100,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5506,124,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5507,124,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5508,124,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5509,124,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5510,124,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5511,124,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5512,124,'branch','branch 1',0,170,170,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5513,124,'address','branch 2',0,170,550,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5514,124,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5515,124,'branch','branch 3',0,660,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5516,124,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5517,124,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5518,124,'action','returns enum ProcedureResult',0,430,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5519,124,'shelf','PR_UNINITIALISED',0,170,260,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(5520,124,'action','return result;',0,660,420,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5505,124,'beginend','Wait_For_Hap_Response',0,280,300,100,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5506,124,'beginend','End',0,770,520,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5507,124,'vertical','',0,280,320,0,300,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5508,124,'vertical','',0,550,340,0,280,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5509,124,'vertical','',0,770,340,0,170,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5510,124,'horizontal','',0,280,340,490,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5511,124,'arrow','',0,140,340,140,280,410,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5512,124,'branch','branch 1',0,280,390,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5513,124,'address','branch 2',0,280,570,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5514,124,'branch','branch 2',0,550,390,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5515,124,'branch','branch 3',0,770,390,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5516,124,'address','branch 3',0,550,570,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5517,124,'horizontal',NULL,0,280,300,190,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5518,124,'action','returns enum ProcedureResult',0,530,300,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5519,124,'shelf','PR_UNINITIALISED',0,280,480,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(5520,124,'action','return result;',0,770,460,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5521,125,'beginend','Check_Minimal_Response_Tags',1,420,-40,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5522,125,'beginend','End',0,420,900,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5523,125,'vertical',NULL,0,420,-40,0,920,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5524,125,'horizontal',NULL,0,430,-40,180,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5525,125,'action','returns enum ProcedureResult',0,690,-40,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5526,125,'shelf','PR_UNINITIALISED',0,420,40,200,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(5527,125,'action','return result;',0,420,840,200,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5531,125,'if','ARC_NONE == g_Ctd.AuthorisationResponseCode',0,420,340,200,20,1260,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5533,125,'select','g_Ctd.TransactionResult',0,420,120,200,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5534,125,'horizontal','',0,420,160,1460,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5535,125,'case','T_APPROVED',0,420,200,200,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5536,125,'case','T_PARTIALLY_APPROVED',0,850,200,90,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5537,125,'case','',0,1880,200,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5538,125,'vertical','',0,850,160,0,140,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5539,125,'vertical','',0,1880,160,0,640,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5540,125,'shelf','PR_OK',0,420,740,200,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(5541,125,'horizontal','',0,420,800,1460,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5542,125,'shelf','PR_NOK',0,1880,740,120,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5543,125,'case','T_ABORTED',0,690,200,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5544,125,'vertical','',0,690,160,0,140,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5545,125,'case','T_PAYMENT_PART_ONLY',0,1270,200,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5546,125,'vertical','',0,1270,160,0,140,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5547,125,'case','T_VOICE_AUTHORISATION',0,1060,200,100,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5548,125,'vertical','',0,1060,160,0,140,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5549,125,'case','T_DECLINED',0,1560,200,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5550,125,'vertical','',0,1560,160,0,140,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5551,125,'if','strlen(g_Ctd.DeclineDisplayMessage) == 0',0,1560,260,180,20,140,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5552,125,'horizontal','',0,420,300,1140,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5553,125,'shelf','N_TECHNICAL_ERROR',0,2160,440,140,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(5554,125,'if','N_NONE == g_Ctd.NokReason',0,1880,380,120,20,160,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5555,125,'vertical','',0,2160,380,0,420,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5556,125,'horizontal','',0,1880,800,280,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5557,125,'shelf','true',0,2160,540,140,40,40,0,NULL,NULL,NULL,'g_Ctd.TerminalErrorIndicator');
+INSERT INTO items VALUES(5558,125,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,2160,640,140,40,40,0,NULL,'',NULL,'g_Ctd.TerminalErrorReason');
+INSERT INTO items VALUES(5559,125,'shelf','PR_BAIL',0,2160,740,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5560,124,'insertion',replace('result =\nCheck_Minimal_Response_Tags();','\n',char(10)),0,550,470,130,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -3671,6 +3708,7 @@ INSERT INTO tree_nodes VALUES(170,166,'item',NULL,121);
 INSERT INTO tree_nodes VALUES(171,30,'item',NULL,122);
 INSERT INTO tree_nodes VALUES(172,30,'item',NULL,123);
 INSERT INTO tree_nodes VALUES(173,25,'item',NULL,124);
+INSERT INTO tree_nodes VALUES(174,25,'item',NULL,125);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

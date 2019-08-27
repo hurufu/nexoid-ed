@@ -1,5 +1,13 @@
 NexoConfiguration DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
+    AcquirerParameterTable ::= [PRIVATE 13] SEQUENCE SIZE(0..25) OF AcquirerParameterTableEntry
+
+    AcquirerParameterTableEntry ::= [1] SEQUENCE {
+        acquirerNumber [1] INTEGER(0..255),
+        acquirerLabel [2] IA5String (SIZE(1..16)),
+        usedForPreSelection [3] BOOLEAN
+    }
+
     TerminalListOfBid ::= [PRIVATE 7] SEQUENCE SIZE(0..50) OF SEQUENCE {
         bid [1] OCTET STRING (SIZE(5..10))
       , matchingPattern [0] SEQUENCE SIZE(1..10) OF CHOICE {

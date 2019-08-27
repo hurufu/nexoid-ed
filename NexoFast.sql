@@ -18,7 +18,7 @@ CREATE TABLE diagrams
 	zoom double
 );
 INSERT INTO diagrams VALUES(18,'Card_Validity_Check','3426 240','CVC',75.0);
-INSERT INTO diagrams VALUES(19,'Online_Request','3672 -80','',75.0);
+INSERT INTO diagrams VALUES(19,'Online_Request','2922 40','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','2720 45','',85.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','60 30','',75.0);
@@ -28,7 +28,7 @@ INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','1396 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3448 52',NULL,75.0);
 INSERT INTO diagrams VALUES(36,'Main','-510 -157','',80.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-129 -133',NULL,75.0);
-INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-667 78',NULL,70.0);
+INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-667 279',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','-198 -63',NULL,75.0);
 INSERT INTO diagrams VALUES(41,'Process_Event','742 350',NULL,75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','0 0','',75.0);
@@ -68,7 +68,7 @@ INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','-108 -7
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-132 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','-216 352',NULL,100.0);
+INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','1604 -38',NULL,100.0);
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-508 -466',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),75.999999999999999999);
 INSERT INTO diagrams VALUES(90,'Kernel_Activation','-168 276','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-457.2608695652174 -187.95652173913044',NULL,100.0);
@@ -82,9 +82,9 @@ INSERT INTO diagrams VALUES(98,'Request_Partially_Approved_Trx_Confirmation','0 
 INSERT INTO diagrams VALUES(99,'Save_Transaction','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(101,'Print_Transaction_Receipt','-456 -181',NULL,85.0);
-INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','-265 51',NULL,80.0);
+INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','-475 448',NULL,80.0);
 INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','0 0',NULL,100.0);
-INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','104 12',NULL,100.0);
+INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','1004 602',NULL,100.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(106,'Perform_General_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(107,'Perform_Specific_Checks','0 0',NULL,75.0);
@@ -112,7 +112,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,124,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,88,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2168,7 +2168,7 @@ INSERT INTO items VALUES(3954,88,'horizontal','',0,300,-20,1860,0,0,0,NULL,NULL,
 INSERT INTO items VALUES(3955,88,'arrow','',0,150,-20,150,1200,1770,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3956,88,'branch',replace('Local variables\ndeclaration','\n',char(10)),0,300,40,130,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3957,88,'address','Display',0,1400,1130,210,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3959,88,'branch','End',0,2160,60,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3959,88,'branch','End',0,2160,40,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3961,88,'horizontal',NULL,0,300,-60,190,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3962,88,'action','returns enum ProcedureResult',0,600,-60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3963,88,'if','g_Ctd.SelectedServiceStartEvents->cardInserted',0,1400,490,210,20,40,0,NULL,NULL,NULL,NULL);
@@ -2185,9 +2185,9 @@ INSERT INTO items VALUES(3993,88,'output',replace('result =\nOutput(number, msg)
 INSERT INTO items VALUES(3994,88,'action','return result;',0,2160,240,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3995,88,'vertical','',0,1400,-20,0,1200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3996,88,'branch','EEA IFR',0,1400,30,210,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3997,88,'shelf','0',1,300,470,130,40,40,0,NULL,NULL,NULL,'size_t number');
+INSERT INTO items VALUES(3997,88,'shelf','0',0,300,470,130,40,40,0,NULL,NULL,NULL,'size_t number');
 INSERT INTO items VALUES(3998,88,'shelf','PR_UNINITIALISED',0,300,370,130,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(3999,88,'shelf','{ }',1,300,570,130,40,40,0,NULL,NULL,NULL,'enum CardholderMessage msg[4]');
+INSERT INTO items VALUES(3999,88,'shelf','{ }',0,300,570,130,40,40,0,NULL,NULL,NULL,'enum CardholderMessage msg[4]');
 INSERT INTO items VALUES(4000,88,'address',replace('Is printer\nout of order?','\n',char(10)),0,300,1120,130,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4001,88,'vertical','',0,670,-20,0,1200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4002,88,'branch',replace('Is printer\nout of order?','\n',char(10)),0,670,40,220,40,60,0,NULL,'',NULL,'');
@@ -2213,10 +2213,9 @@ INSERT INTO items VALUES(4023,88,'commentin',replace('For unattended PoI capable
 INSERT INTO items VALUES(4024,55,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,50,550,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4025,63,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_CARD_ERROR\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,10010,290,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4026,54,'shelf','CRDHLDR_ACT_NONE',0,620,840,190,40,40,0,NULL,'',NULL,'g_Ctd.CardholderInitialMessage');
-INSERT INTO items VALUES(4027,88,'if','PR_DONE == result',0,1920,370,100,20,80,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4027,88,'if','PR_OK == result',0,1920,370,100,20,80,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4028,88,'vertical','',0,2100,370,0,150,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4029,88,'horizontal','',0,1920,520,180,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4030,88,'shelf','PR_OK',0,1920,460,100,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(4031,88,'shelf','PR_NOK',0,2090,460,50,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(4032,88,'if','g_Nexo.EeaProcessSettings',0,1650,680,200,20,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4033,18,'vertical','',0,1980,640,0,320,0,0,NULL,NULL,NULL,NULL);
@@ -2642,7 +2641,7 @@ INSERT INTO items VALUES(4537,104,'address','Done',0,1240,1350,100,30,60,0,NULL,
 INSERT INTO items VALUES(4538,104,'if','g_Ctd.SignatureLine',0,1240,670,100,20,180,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4539,104,'vertical','',0,1520,670,0,460,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4540,104,'horizontal','',0,1240,1130,580,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4541,104,'output',replace('enum CardholderMessage msg[] = {\n    CRDHLDR_SSN_REQUEST_SIGNATURE\n};\n\nresult =\nOutput(1, msg);','\n',char(10)),0,1520,770,160,80,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(4541,104,'output',replace('enum CardholderMessage msg[] = {\n    CRDHLDR_SSN_REQUEST_SIGNATURE\n};\n\nresult =\nOutput(1, msg);','\n',char(10)),1,1520,770,160,80,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(4542,104,'select','result',0,1520,890,160,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4543,104,'horizontal','',0,1520,930,490,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4544,104,'case','PR_OK',0,1520,970,160,20,60,0,NULL,NULL,NULL,NULL);
@@ -2744,7 +2743,7 @@ INSERT INTO items VALUES(4646,102,'if','result == PR_OK',0,170,330,330,20,40,1,N
 INSERT INTO items VALUES(4647,102,'output',replace('result =\nOutput(1, (enum CardholderMessage[1]){CRDHLDR_SSN_RECEIPT_PRINTING_FAILED});','\n',char(10)),0,170,450,330,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4648,102,'if','result == PR_OK',0,170,570,330,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4649,102,'if','g_Ctd.SignatureLine',0,170,630,330,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4650,102,'output',replace('result =\nOutput(1, (enum CardholderMessage[1]){CRDHLDR_SSN_REQUEST_SIGNATURE});','\n',char(10)),0,170,720,330,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(4650,102,'output',replace('result =\nOutput(1, (enum CardholderMessage[1]){CRDHLDR_SSN_REQUEST_SIGNATURE});','\n',char(10)),1,170,720,330,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4651,102,'if','result == PR_OK',0,170,810,330,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4652,83,'insertion','Restore_Application_Profile_Defaults();',0,150,420,170,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4653,105,'beginend','Restore_Application_Profile_Defaults',0,300,60,160,20,60,0,NULL,NULL,NULL,NULL);

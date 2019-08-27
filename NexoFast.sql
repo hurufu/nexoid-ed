@@ -77,7 +77,7 @@ INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-200 -2
 INSERT INTO diagrams VALUES(94,'Update_Kernel_Transaction_Database','0 -200','',75.0);
 INSERT INTO diagrams VALUES(95,'Initialise_Kernel_M','0 0','',75.0);
 INSERT INTO diagrams VALUES(96,'Force_Transaction_Acceptance','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(97,'Check_Cardholder_Confirmation','-518 -230',NULL,75.0);
+INSERT INTO diagrams VALUES(97,'Check_Cardholder_Confirmation','-138 -15',NULL,75.0);
 INSERT INTO diagrams VALUES(98,'Request_Partially_Approved_Trx_Confirmation','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(99,'Save_Transaction','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
@@ -110,7 +110,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,120,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,97,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2424,21 +2424,21 @@ INSERT INTO items VALUES(4315,96,'address','branch 2',0,170,550,50,30,60,0,NULL,
 INSERT INTO items VALUES(4316,96,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4317,96,'branch','branch 3',0,660,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4318,96,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4319,97,'beginend','Check_Cardholder_Confirmation',0,170,60,130,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4320,97,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4321,97,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4322,97,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4323,97,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4324,97,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4325,97,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4326,97,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4327,97,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4328,97,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4329,97,'branch','branch 3',0,660,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4330,97,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4331,97,'horizontal',NULL,0,170,60,280,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4332,97,'action','returns enum ProcedureResult',0,450,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4333,97,'action','return PR_OK;',0,660,410,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4319,97,'beginend','Check_Cardholder_Confirmation',0,300,260,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4320,97,'beginend','End',0,1650,510,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4321,97,'vertical','',0,300,280,0,360,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4322,97,'vertical','',0,1470,300,0,340,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4323,97,'vertical','',0,1650,300,0,200,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4324,97,'horizontal','',0,300,300,1350,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4325,97,'arrow','',0,160,300,140,340,1310,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4326,97,'branch','branch 1',0,300,350,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4327,97,'address','branch 2',0,300,590,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4328,97,'branch','Not implemented',0,1470,350,90,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4329,97,'branch','End',0,1650,350,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4330,97,'address','End',0,1470,590,90,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4331,97,'horizontal',NULL,0,300,260,280,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4332,97,'action','returns enum ProcedureResult',0,580,260,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4333,97,'action','return result;',0,1650,420,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4334,98,'beginend','Request_Partially_Approved_Trx_Confirmation',0,230,60,190,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4335,98,'beginend','End',0,230,390,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4336,98,'vertical',NULL,0,230,80,0,290,0,0,NULL,NULL,NULL,NULL);
@@ -3343,6 +3343,28 @@ INSERT INTO items VALUES(5301,120,'horizontal','',0,1370,790,700,0,0,0,NULL,NULL
 INSERT INTO items VALUES(5302,120,'commentout',replace('There is no ''else''\nstatement in the spec','\n',char(10)),0,1750,420,100,30,100,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5304,120,'shelf','true',0,1550,630,160,40,40,0,NULL,NULL,NULL,'g_Ctd.UiRequestPostponed');
 INSERT INTO items VALUES(5306,120,'shelf','g_Ctd.UiParametersForOutcome',0,1550,730,160,40,40,0,NULL,NULL,NULL,'g_Ctd.UiParametersForTrxCompletion');
+INSERT INTO items VALUES(5307,97,'shelf','PR_UNINITIALISED',0,300,440,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(5308,97,'vertical','',0,550,300,0,340,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5309,97,'branch','branch 2',0,550,350,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5310,97,'address','Not implemented',0,550,590,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5311,97,'select','g_Ctd.SelectedService',0,550,420,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5312,97,'horizontal','',0,550,460,640,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5313,97,'case','S_PAYMENT',0,550,500,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5314,97,'case','S_PRE_AUTH',0,890,500,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5315,97,'case','',0,1190,500,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5316,97,'vertical','',0,890,460,0,80,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5317,97,'vertical','',0,1190,460,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5318,97,'case','S_CASH_ADVANCE',0,750,500,70,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5319,97,'vertical','',0,750,460,0,80,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5320,97,'case','S_UPDATE_PRE_AUTH',0,1040,500,80,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5321,97,'vertical','',0,1040,460,0,80,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5322,97,'horizontal','',0,550,540,490,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5323,97,'vertical','',0,1310,300,0,340,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5324,97,'branch','Ok',0,1310,350,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5325,97,'address','End',0,1310,590,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5326,97,'shelf','PR_NOT_IMPLEMENTED',0,1470,440,90,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(5327,97,'shelf','PR_OK',0,1310,440,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5328,97,'address','Ok',0,1190,570,50,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

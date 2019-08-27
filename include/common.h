@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "mem.h"
 #include "bool.h"
+#include "outcome.h"
 
 #include <ptmalloc3.h>
 #include <stddef.h>
@@ -90,17 +91,8 @@ enum NokReason {
   , N_MAX
 };
 
-enum Outcome {
-    O_NONE = N_MAX + 9745
-  , O_ONLINE_REQUEST
-  , O_TRY_ANOTHER_INTERFACE
-  , O_END_APPLICATION
-
-  , O_MAX
-};
-
 enum TransactionResult {
-    T_NONE = O_MAX + 8273
+    T_NONE = N_MAX + 8273
   , T_ABORTED
   , T_NOT_SUPPORTED
   , T_APPROVED
@@ -174,23 +166,8 @@ enum TerminalErrorReason {
   , TER_MAX
 };
 
-struct Out {
-    enum Start {
-        NONE = TER_MAX + 2398,
-        A,
-        B,
-        C,
-        D,
-        E,
-        F,
-        START_MAX
-    } Start;
-    unsigned char FieldOffRequest;
-    bool DataRecordPresent;
-};
-
 enum CtlssIndicatorStatus {
-    STATUS_NONE = START_MAX
+    STATUS_NONE
   , STATUS_NOT_READY
   , STATUS_IDLE
   , STATUS_READY_TO_READ
@@ -290,7 +267,7 @@ enum PACKED Kernel {
 };
 
 enum KernelMode {
-    KERNEL_MODE_NONE = START_MAX + 19
+    KERNEL_MODE_NONE
   , KERNEL_MODE_FULL
   , KERNEL_MODE_EXTRACT_PAN
 
@@ -851,7 +828,6 @@ struct CurrentTransactionData {
     enum CardholderMessage CardholderInitialMessage;
 
     // Transaction
-    struct Out Out;
     union Amount TransactionAmount;
     bool TransactionAmountEntered;
     enum TransactionType TransactionType;
@@ -870,13 +846,16 @@ struct CurrentTransactionData {
     enum Kernel KernelId;
     enum KernelMode KernelMode;
     enum Technology TechnologySelected;
-    enum Outcome Outcome; // FIXME: Outcome shall be an optional struct
     union ProcessingStatus ProcessingStatus;
     bool ExceptionFileCheckPerformed;
     bool Continue;
     bool ConfirmationByCard;
     bool WasPresentOneCardOnlyMessageDisplayed;
     unsigned char NumberOfRemainingChipTries;
+
+    // Outcome
+    enum Outcome Outcome;
+    struct OutcomeParameters Out;
 
     // UI
     struct UiParameters* UiParametersForOutcome;

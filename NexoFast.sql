@@ -42,8 +42,8 @@ INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
 INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-274.5 -197.83333333333331',NULL,80.0);
-INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 362','',75.0);
-INSERT INTO diagrams VALUES(55,'Service_Initialisation','-638 72',NULL,75.0);
+INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 550','',75.0);
+INSERT INTO diagrams VALUES(55,'Service_Initialisation','516 62',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
 INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','3986 -1253','',75.0);
@@ -68,7 +68,7 @@ INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','-108 -7
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-132 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','1604 -38',NULL,100.0);
+INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','303 -161',NULL,70.0);
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-508 -466',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),75.999999999999999999);
 INSERT INTO diagrams VALUES(90,'Kernel_Activation','-168 276','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-457.2608695652174 -187.95652173913044',NULL,100.0);
@@ -112,7 +112,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,102,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,88,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -788,7 +788,7 @@ INSERT INTO items VALUES(1579,55,'vertical','',0,1330,80,0,830,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(1580,55,'branch','Initialisation',0,1330,130,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1581,55,'address','Ok',0,1330,860,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1582,55,'address','Initialisation',0,1080,860,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1583,55,'insertion',replace('result =\nUpdate_Cardholder_Initial_Message();','\n',char(10)),0,1330,300,160,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1583,55,'insertion',replace('result =\nUpdate_Cardholder_Initial_Message();','\n',char(10)),1,1330,300,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1584,55,'if','PR_OK == result',0,1330,370,160,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1585,55,'vertical','',0,1560,370,0,540,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1586,55,'address','(A) Nok',0,1560,860,50,30,60,0,NULL,NULL,NULL,NULL);
@@ -2167,24 +2167,24 @@ INSERT INTO items VALUES(3953,88,'vertical','',0,2160,-20,0,570,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(3954,88,'horizontal','',0,300,-20,1860,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3955,88,'arrow','',0,150,-20,150,1200,1770,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3956,88,'branch',replace('Local variables\ndeclaration','\n',char(10)),0,300,40,130,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3957,88,'address','Display',0,1400,1130,210,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3957,88,'address','Display',0,1450,1130,210,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3959,88,'branch','End',0,2160,40,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3961,88,'horizontal',NULL,0,300,-60,190,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3962,88,'action','returns enum ProcedureResult',0,600,-60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3963,88,'if','g_Ctd.SelectedServiceStartEvents->cardInserted',0,1400,490,210,20,40,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3964,88,'vertical','',0,1650,490,0,500,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3966,88,'commentin',replace('In spec Allowed Service Start Events is used\ninstead of Selected Service Start Events','\n',char(10)),0,1400,420,210,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3967,88,'if','g_Ctd.SelectedServiceStartEvents->cardSwiped',0,1400,550,210,20,40,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3969,88,'if','g_Ctd.SelectedServiceStartEvents->manualEntry',0,1400,610,210,20,40,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3971,88,'if',replace('g_Nexo.EeaProcessSettings\n->upfrontButtonOnScreenSupported','\n',char(10)),0,1650,760,200,30,50,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3974,88,'if','g_Ctd.CardholderRequestedChoiceOfApplication',0,1650,840,200,20,50,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3963,88,'if','g_Ctd.SelectedServiceStartEvents->cardInserted',0,1450,490,210,20,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3964,88,'vertical','',0,1680,490,0,500,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3966,88,'commentin',replace('In spec Allowed Service Start Events is used\ninstead of Selected Service Start Events','\n',char(10)),0,1450,420,210,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3967,88,'if','g_Ctd.SelectedServiceStartEvents->cardSwiped',0,1450,550,210,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3969,88,'if','g_Ctd.SelectedServiceStartEvents->manualEntry',0,1450,610,210,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3971,88,'if',replace('g_Nexo.EeaProcessSettings\n->upfrontButtonOnScreenSupported','\n',char(10)),0,1680,760,200,30,20,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3974,88,'if','g_Ctd.CardholderRequestedChoiceOfApplication',0,1680,840,200,20,20,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3987,88,'vertical','',0,1920,-20,0,1200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3988,88,'branch','Display',0,1920,40,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3989,88,'address','End',0,1920,1130,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3993,88,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,1920,280,100,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(3994,88,'action','return result;',0,2160,240,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3995,88,'vertical','',0,1400,-20,0,1200,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3996,88,'branch','EEA IFR',0,1400,30,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3995,88,'vertical','',0,1450,-20,0,1200,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3996,88,'branch','EEA IFR',0,1450,30,210,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3997,88,'shelf','0',0,300,470,130,40,40,0,NULL,NULL,NULL,'size_t number');
 INSERT INTO items VALUES(3998,88,'shelf','PR_UNINITIALISED',0,300,370,130,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(3999,88,'shelf','{ }',0,300,570,130,40,40,0,NULL,NULL,NULL,'enum CardholderMessage msg[4]');
@@ -2199,25 +2199,24 @@ INSERT INTO items VALUES(4007,88,'if',replace('g_Ctd.PrinterStatus\n==\nPRINTER_
 INSERT INTO items VALUES(4009,88,'if',replace('g_Nexo.AdditionalTerminalCapabilities\n.TerminalDataOutput\n.printCardholder\n/* E1.9F40[4,7] */','\n',char(10)),0,670,490,220,50,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4010,88,'shelf','CRDHLDR_MSG_PRINTER_OUT_OF_ORDER',0,670,1000,220,40,40,0,NULL,NULL,NULL,'msg[number++]');
 INSERT INTO items VALUES(4011,88,'horizontal','',0,670,1060,270,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4012,88,'shelf','g_Ctd.CardholderInitialMessage',0,1040,150,130,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(4012,88,'shelf','g_Nexo.CardholderInitialMessage',0,1090,150,140,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(4013,88,'if',replace('g_Nexo.TerminalSettings\n.printDeclinedCardholderReceipt\n/* E1.DF34[4,7] */','\n',char(10)),0,670,700,220,40,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4014,88,'if',replace('g_Nexo.TerminalSettings\n.printVoiceAuthCardholderReceipt\n/* E1.DF34[4,6] */','\n',char(10)),0,670,800,220,40,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4015,88,'if',replace('g_Nexo.TerminalSettings\n.printAbortedCardholderReceipt\n/* E1.DF34[4,5] */','\n',char(10)),0,670,900,220,40,50,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(4016,88,'vertical','',0,1040,-20,0,1200,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4017,88,'branch','Initial message',0,1040,30,130,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4018,88,'address','EEA IFR',0,1040,1130,130,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4019,88,'horizontal','',0,1400,990,500,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4020,88,'shelf','CRDHLDR_MSG_CHOOSE_APPLICATION',0,1650,930,200,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(4016,88,'vertical','',0,1090,-20,0,1200,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4017,88,'branch','Initial message',0,1090,30,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4018,88,'address','EEA IFR',0,1090,1130,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4019,88,'horizontal','',0,1450,990,450,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4020,88,'shelf','CRDHLDR_MSG_CHOOSE_APPLICATION',0,1680,930,200,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(4021,88,'vertical','',0,1900,680,0,310,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4023,88,'commentin',replace('For unattended PoI capable of, and configured for,\nprinting a receipt and if PoI knows in advance\nthat it cannot print a receipt it shall inform the\ncardholder that a receipt won''t be printed and\noffer a choice to continue of abort','\n',char(10)),0,670,150,220,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4024,55,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,50,550,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4025,63,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_CARD_ERROR\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,10010,290,180,80,40,0,NULL,'',NULL,'SCAP');
-INSERT INTO items VALUES(4026,54,'shelf','CRDHLDR_ACT_NONE',0,620,840,190,40,40,0,NULL,'',NULL,'g_Ctd.CardholderInitialMessage');
 INSERT INTO items VALUES(4027,88,'if','PR_OK == result',0,1920,370,100,20,80,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4028,88,'vertical','',0,2100,370,0,150,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4029,88,'horizontal','',0,1920,520,180,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4031,88,'shelf','PR_NOK',0,2090,460,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(4032,88,'if','g_Nexo.EeaProcessSettings',0,1650,680,200,20,50,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(4032,88,'if','g_Nexo.EeaProcessSettings',0,1680,680,200,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4033,18,'vertical','',0,1980,640,0,320,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4034,18,'case','PR_NOK',0,1980,680,70,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4035,18,'address','(I) Completion',0,1980,910,70,30,60,0,NULL,NULL,NULL,NULL);

@@ -858,7 +858,6 @@ struct CurrentTransactionData {
     bool ApplicationInitialised;
     union ServiceSettings* SelectedServiceSettings;
     union ServiceStartEvents* SelectedServiceStartEvents;
-    enum CardholderMessage CardholderInitialMessage;
 
     // Transaction
     union Amount TransactionAmount;
@@ -991,6 +990,9 @@ struct NexoConfiguration {
     struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
     enum FallbackParameterMagneticStripe FallbackParameterMagneticStripe; //TODO: Move to AP
     enum CvmMagneticStripe CvmMagneticStripe; // TODO: Move to AP
+
+    // Application Profile
+    enum CardholderMessage CardholderInitialMessage;
 
     // IFR
     union EeaProcessSettings* EeaProcessSettings;

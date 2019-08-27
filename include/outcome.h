@@ -59,12 +59,8 @@ struct OutcomeParameters {
     enum Start Start;
     enum OnlineResponseData OnlineResponseData;
     enum Cvm Cvm;
-#   if 0
-    // Those tags are specified in the spec, but aren't used, because there
-    // are other more robust ways to check if pointer is populated
     bool UiRequestOnOutcomePresent;
     bool UiRequestOnRestartPresent;
-#   endif
     bool DataRecordPresent;
     bool DiscretionaryDataPresent;
     enum AlternateInterfacePreference AlternateInterfacePreference;

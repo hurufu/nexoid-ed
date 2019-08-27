@@ -858,9 +858,9 @@ struct CurrentTransactionData {
     struct OutcomeParameters Out;
 
     // UI
-    struct UiParameters* UiParametersForOutcome;
-    struct UiParameters* UiParametersForRestart;
-    struct UiParameters* UiParametersForTrxCompletion;
+    struct UiParameters UiParametersForOutcome;
+    struct UiParameters UiParametersForRestart;
+    struct UiParameters UiParametersForTrxCompletion;
     bool UiRequestPostponed;
     bool PrintCardholderReceipt;
     bool PrintMerchantReceipt;

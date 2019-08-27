@@ -82,7 +82,7 @@ INSERT INTO diagrams VALUES(98,'Request_Partially_Approved_Trx_Confirmation','0 
 INSERT INTO diagrams VALUES(99,'Save_Transaction','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(101,'Print_Transaction_Receipt','-456 -181',NULL,85.0);
-INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','-475 448',NULL,80.0);
+INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','441 830',NULL,80.0);
 INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','2324 432',NULL,100.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','0 0',NULL,75.0);
@@ -112,7 +112,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,104,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,102,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2603,9 +2603,9 @@ INSERT INTO items VALUES(4497,101,'insertion','Merchant_Receipt_Printing();',0,1
 INSERT INTO items VALUES(4498,101,'insertion','Cardholder_Receipt_Printing();',0,130,310,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4499,101,'insertion','Cardholder_Receipt_Printing();',1,430,250,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4500,101,'insertion','Merchant_Receipt_Printing();',0,430,310,130,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4501,102,'beginend','Merchant_Receipt_Printing',0,170,0,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4502,102,'beginend','End',0,170,890,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4503,102,'vertical',NULL,0,170,20,0,850,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4501,102,'beginend','Merchant_Receipt_Printing',0,650,50,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4502,102,'beginend','End',0,650,1240,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4503,102,'vertical',NULL,0,650,70,0,1150,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4506,103,'beginend','Cardholder_Receipt_Printing',0,170,60,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4507,103,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4508,103,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
@@ -2733,17 +2733,17 @@ INSERT INTO items VALUES(4637,104,'horizontal','',0,3550,990,210,0,0,0,NULL,NULL
 INSERT INTO items VALUES(4638,104,'if',replace('g_Nexo.TerminalSettings\n.printVoiceAuthMerchantReceipt','\n',char(10)),0,3550,1050,170,30,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4639,104,'shelf','true',0,3550,1150,170,40,40,0,NULL,'',NULL,'g_Ctd.PrintMerchantReceipt');
 INSERT INTO items VALUES(4640,104,'vertical','',0,3760,1050,0,250,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4641,102,'if','g_Ctd.PrintMerchantReceipt',0,170,150,330,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4642,102,'vertical','',0,540,150,0,700,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4643,102,'horizontal','',0,170,850,370,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4644,102,'output',replace('result =\nData_Print_Interaction(PRINT_MERCHANT_RECEIPT);','\n',char(10)),0,170,240,330,50,40,0,NULL,NULL,NULL,'SCAP');
-INSERT INTO items VALUES(4645,102,'shelf','PR_UNINITIALISED',0,170,70,330,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(4646,102,'if','result == PR_OK',0,170,330,330,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4647,102,'output',replace('result =\nOutput(1, (enum CardholderMessage[1]){CRDHLDR_SSN_RECEIPT_PRINTING_FAILED});','\n',char(10)),0,170,450,330,50,40,0,NULL,'',NULL,'SCAP');
-INSERT INTO items VALUES(4648,102,'if','result == PR_OK',0,170,570,330,20,40,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(4649,102,'if','g_Ctd.SignatureLine',0,170,630,330,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4650,102,'output',replace('result =\nOutput(1, (enum CardholderMessage[1]){CRDHLDR_SSN_REQUEST_SIGNATURE});','\n',char(10)),1,170,720,330,50,40,0,NULL,'',NULL,'SCAP');
-INSERT INTO items VALUES(4651,102,'if','result == PR_OK',0,170,810,330,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(4641,102,'if','g_Ctd.PrintMerchantReceipt',0,650,210,210,20,620,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4642,102,'vertical','',0,1480,210,0,990,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4643,102,'horizontal','',0,650,1200,830,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4644,102,'output',replace('result =\nData_Print_Interaction(PRINT_MERCHANT_RECEIPT);','\n',char(10)),0,650,300,210,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(4645,102,'shelf','PR_UNINITIALISED',0,650,130,210,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(4646,102,'if','result == PR_OK',0,650,390,210,20,60,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4647,102,'output',replace('result =\nOutput(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_RECEIPT_PRINTING_FAILED\n      , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED\n    }\n);','\n',char(10)),0,920,510,200,90,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(4648,102,'if','result == PR_OK',0,920,640,200,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(4649,102,'if','g_Ctd.SignatureLine',0,650,820,210,20,620,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4650,102,'output',replace('result =\nOutput(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_REQUEST_SIGNATURE\n      , CRDHLDR_MSG_REQUEST_SIGNATURE\n    }\n);','\n',char(10)),0,650,950,210,90,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(4651,102,'if','result == PR_OK',0,650,1080,210,20,160,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4652,83,'insertion','Restore_Application_Profile_Defaults();',0,150,420,170,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4653,105,'beginend','Restore_Application_Profile_Defaults',0,300,60,160,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4654,105,'beginend','End',0,300,570,50,20,60,0,NULL,NULL,NULL,NULL);
@@ -3591,6 +3591,14 @@ INSERT INTO items VALUES(5569,41,'horizontal','',0,2600,10,310,0,0,0,NULL,NULL,N
 INSERT INTO items VALUES(5570,41,'commentin','TODO: Handle printer',0,2910,-50,98,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5571,104,'commentin',replace('FIXME: Application profile shall\nbe propely supported possibly\nby an external symbol\n\nCurrently this pointer will\nbe always unavailable','\n',char(10)),0,590,940,148,60,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5572,104,'horizontal','',0,340,1110,250,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5573,102,'vertical','',0,920,390,0,390,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5574,102,'horizontal','',0,650,780,510,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5575,102,'vertical','',0,1160,640,0,140,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5576,102,'commentin',replace('NEXO doesn''t specify\nany action on error\nat this point','\n',char(10)),0,1160,720,100,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5577,102,'commentin',replace('NEXO doesn''t specify\nany action on error\nat this point','\n',char(10)),0,1020,1140,100,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5578,102,'commentout','In nexo spec only one message is sent',0,1300,510,160,20,40,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5579,102,'commentout','In nexo spec only one message is sent',0,1060,950,160,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5580,102,'vertical','',0,1020,1080,0,120,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

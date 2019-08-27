@@ -192,7 +192,7 @@ INSERT INTO items VALUES(689,18,'insertion',replace('result =\nOutcome_Processin
 INSERT INTO items VALUES(690,18,'if','g_Ctd.Outcome == O_ONLINE_REQUEST',0,2720,820,160,20,100,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(691,18,'vertical','',0,2980,820,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(692,18,'insertion',replace('result =\nOnline_Request();','\n',char(10)),0,3310,500,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(693,18,'if','PR_OK == result',0,2720,760,160,20,250,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(693,18,'if','PR_DONE == result',0,2720,760,160,20,250,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(694,18,'vertical','',0,3130,760,0,200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(695,18,'select','g_Ctd.Out.Start',0,3310,620,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(696,18,'horizontal','',0,3310,660,700,0,0,0,NULL,'',NULL,'');
@@ -225,7 +225,7 @@ INSERT INTO items VALUES(722,18,'branch',replace('(F) Online Request\nProcessing
 INSERT INTO items VALUES(723,18,'vertical','',0,3310,350,0,610,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(724,18,'address','(I) Completion',0,2720,910,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(725,18,'address',replace('(F) Online Request\nProcessing','\n',char(10)),0,2980,900,90,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(726,18,'if','PR_OK == result',0,3310,560,110,20,710,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(726,18,'if','PR_DONE == result',0,3310,560,110,20,710,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(727,18,'vertical','',0,3490,840,0,120,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(728,18,'vertical','',0,4130,560,0,400,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(729,18,'address','(H) FAIL',0,4130,910,50,30,60,0,NULL,'',NULL,'');

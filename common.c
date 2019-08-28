@@ -211,7 +211,7 @@ ServiceStartEvent_tostring(const union ServiceStartEvents s) {
 
 void ctd_print(const struct CurrentTransactionData* const ctd) {
     printf("CTD: "
-           ", TransactionResult: %s"
+           "{ TransactionResult: %s"
            ", NokReason: %s"
            " }\n",
         TransactionResult_tostring(ctd->TransactionResult),

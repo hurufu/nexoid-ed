@@ -1,0 +1,153 @@
+blob
+mark :1
+data 932
+NexoConfiguration DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+    CombinationListsAndParameters ::= [PRIVATE 12] SEQUENCE OF CombinationsListsAndParametersEntry
+
+    CombinationsListsAndParametersEntry ::= SEQUENCE {
+        terminalAid [1] OCTET STRING (SIZE(5..16)),
+        kernelId [2] OCTET STRING (SIZE(1)),
+        supportingServices [3] ConfiguredServices,
+        cashbackPresent [4] BOOLEAN OPTIONAL,
+        statusCheckSupport [5] BOOLEAN OPTIONAL,
+        zeroAmountAllowed [6] BOOLEAN OPTIONAL
+    }
+
+    ConfiguredServices ::= BIT STRING {
+        payment (0),
+        refund (1),
+        cancellation (2),
+        preAuthorisation (3),
+        updatePreAuthorisation (4),
+        paymentCompletion (5),
+        cashAdvance (6),
+        deferredPayment (7),
+        deferredPaymentCompletion (8),
+        cardholderDetection (9),
+        cardValidityCheck (10),
+        noShow (11),
+        voidAuthorisation (12)
+    }
+
+END
+
+reset refs/heads/asn1
+commit refs/heads/asn1
+mark :2
+author Aleksy Grabowski <alg@novelpay.pl> 1558000321 +0200
+committer Aleksy Grabowski <hurufu@gmail.com> 1566883224 +0200
+data 32
+Add ASN.1 for Combination Lists
+M 100644 :1 NexoConfigration.asn1
+
+blob
+mark :3
+data 1253
+NexoConfiguration DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+    TerminalListOfBid ::= [PRIVATE 7] SEQUENCE SIZE(0..50) OF SEQUENCE {
+        bid [1] OCTET STRING (SIZE(5..10))
+      , matchingPattern [0] SEQUENCE SIZE(1..10) OF CHOICE {
+            prefix [2] OCTET STRING (SIZE(0..19))
+          , prefixRange [3] OCTET STRING (SIZE(0..19))
+        }
+    }
+
+    CombinationListsAndParameters ::= [PRIVATE 12] SEQUENCE SIZE(0..50) OF CombinationsListsAndParametersEntry
+
+    CombinationsListsAndParametersEntry ::= SEQUENCE {
+        terminalAid [1] OCTET STRING (SIZE(5..16)),
+        kernelId [2] OCTET STRING (SIZE(1)),
+        supportingServices [3] ConfiguredServices,
+        cashbackPresent [4] BOOLEAN OPTIONAL,
+        statusCheckSupport [5] BOOLEAN OPTIONAL,
+        zeroAmountAllowed [6] BOOLEAN OPTIONAL
+    }
+
+    ConfiguredServices ::= BIT STRING {
+        payment (0),
+        refund (1),
+        cancellation (2),
+        preAuthorisation (3),
+        updatePreAuthorisation (4),
+        paymentCompletion (5),
+        cashAdvance (6),
+        deferredPayment (7),
+        deferredPaymentCompletion (8),
+        cardholderDetection (9),
+        cardValidityCheck (10),
+        noShow (11),
+        voidAuthorisation (12)
+    } (SIZE(2))
+
+END
+
+commit refs/heads/asn1
+mark :4
+author Aleksy Grabowski <hurufu@gmail.com> 1565122414 +0200
+committer Aleksy Grabowski <hurufu@gmail.com> 1566883224 +0200
+data 31
+Add TerminalListOfBid to ASN.1
+from :2
+M 100644 :3 NexoConfigration.asn1
+
+blob
+mark :5
+data 1543
+NexoConfiguration DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+    AcquirerParameterTable ::= [PRIVATE 13] SEQUENCE SIZE(0..25) OF AcquirerParameterTableEntry
+
+    AcquirerParameterTableEntry ::= [1] SEQUENCE {
+        acquirerNumber [1] INTEGER(0..255),
+        acquirerLabel [2] IA5String (SIZE(1..16)),
+        usedForPreSelection [3] BOOLEAN
+    }
+
+    TerminalListOfBid ::= [PRIVATE 7] SEQUENCE SIZE(0..50) OF SEQUENCE {
+        bid [1] OCTET STRING (SIZE(5..10))
+      , matchingPattern [0] SEQUENCE SIZE(1..10) OF CHOICE {
+            prefix [2] OCTET STRING (SIZE(0..19))
+          , prefixRange [3] OCTET STRING (SIZE(0..19))
+        }
+    }
+
+    CombinationListsAndParameters ::= [PRIVATE 12] SEQUENCE SIZE(0..50) OF CombinationsListsAndParametersEntry
+
+    CombinationsListsAndParametersEntry ::= SEQUENCE {
+        terminalAid [1] OCTET STRING (SIZE(5..16)),
+        kernelId [2] OCTET STRING (SIZE(1)),
+        supportingServices [3] ConfiguredServices,
+        cashbackPresent [4] BOOLEAN OPTIONAL,
+        statusCheckSupport [5] BOOLEAN OPTIONAL,
+        zeroAmountAllowed [6] BOOLEAN OPTIONAL
+    }
+
+    ConfiguredServices ::= BIT STRING {
+        payment (0),
+        refund (1),
+        cancellation (2),
+        preAuthorisation (3),
+        updatePreAuthorisation (4),
+        paymentCompletion (5),
+        cashAdvance (6),
+        deferredPayment (7),
+        deferredPaymentCompletion (8),
+        cardholderDetection (9),
+        cardValidityCheck (10),
+        noShow (11),
+        voidAuthorisation (12)
+    } (SIZE(2))
+
+END
+
+commit refs/heads/asn1
+mark :6
+author Aleksy Grabowski <hurufu@gmail.com> 1566894943 +0200
+committer Aleksy Grabowski <hurufu@gmail.com> 1566894943 +0200
+data 48
+Add [ED] AcquirerParameterTable to ASN.1 module
+from :4
+M 100644 :5 NexoConfigration.asn1
+

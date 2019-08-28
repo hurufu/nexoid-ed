@@ -835,6 +835,12 @@ union TerminalType {
     };
 };
 
+struct AcquirerParameters {
+    uint8_t AcquirerNumber;
+    char AcquirerLabel[16 + 1];
+    bool UsedForPreSelection;
+};
+
 struct CurrentTransactionData {
     // Operations
     bool AcquirerPreSelected;

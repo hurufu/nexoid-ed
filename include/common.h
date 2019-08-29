@@ -858,7 +858,8 @@ struct CurrentTransactionData {
     // Service
     bool ApplicationInitialised;
     union ServiceSettings* SelectedServiceSettings;
-    union ServiceStartEvents* SelectedServiceStartEvents;
+    union ServiceStartEvents* SelectedServiceStartEvents; // TODO: remove
+    union ServiceStartEvents ServiceStartEvents;
 
     // Transaction
     union Amount TransactionAmount;

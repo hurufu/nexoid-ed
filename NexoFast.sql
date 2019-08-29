@@ -26,18 +26,18 @@ INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-528 -72','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','1396 6','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3448 52',NULL,75.0);
-INSERT INTO diagrams VALUES(36,'Main','2717 -190','',80.0);
+INSERT INTO diagrams VALUES(36,'Main','1216 185','',80.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-328 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-667 279',NULL,70.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','948 -225',NULL,75.0);
-INSERT INTO diagrams VALUES(41,'Process_Event','2274 -317',NULL,75.0);
+INSERT INTO diagrams VALUES(41,'Process_Event','1469 -378',NULL,75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','0 0','',75.0);
-INSERT INTO diagrams VALUES(43,'Process_Service_Selection','-115 -88','',90.0);
+INSERT INTO diagrams VALUES(43,'Process_Service_Selection','-113 -200','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-218 -311','',75.0);
 INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','0 0','',75.0);
 INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-20 -80','',75.0);
-INSERT INTO diagrams VALUES(47,'Process_Card_Inserted','0 0','',75.0);
-INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','0 0','',75.0);
+INSERT INTO diagrams VALUES(47,'Process_Card_Inserted','130 -133','',75.0);
+INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',75.0);
 INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
@@ -45,7 +45,7 @@ INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-274.5 -197.8333
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 -117','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','516 62',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
-INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
+INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1377 -268',NULL,75.0);
 INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','990 65','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',80.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','3908 68','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','-150 -240','',75.0);
@@ -112,7 +112,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,70,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,47,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -644,7 +644,7 @@ INSERT INTO items VALUES(1419,41,'address','Nok',0,1600,940,50,30,60,0,NULL,NULL
 INSERT INTO items VALUES(1425,41,'if','g_Ctd.Event.Table[E_CARD_INSERTED]',0,1840,-110,170,20,100,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1426,41,'vertical','',0,2110,-110,0,160,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1427,41,'horizontal','',0,1840,50,270,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1428,41,'insertion',replace('result =\nProcess_Card_Inserted();','\n',char(10)),0,2110,-50,110,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1428,41,'insertion',replace('result =\nProcess_Card_Inserted();','\n',char(10)),1,2110,-50,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1429,41,'if','PR_DONE == result',0,2110,10,110,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1430,41,'vertical','',0,2300,10,0,980,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1431,41,'address','Reinitialise',0,2300,940,60,30,60,0,NULL,NULL,NULL,NULL);
@@ -701,12 +701,12 @@ INSERT INTO items VALUES(1483,45,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'
 INSERT INTO items VALUES(1484,46,'beginend','Process_Amount_Entry',0,270,20,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1485,46,'beginend','End',0,270,1210,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1486,46,'vertical','',0,270,40,0,1150,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1487,47,'beginend','Process_Card_Inserted',0,170,60,100,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1488,47,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1489,47,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1487,47,'beginend','Process_Card_Inserted',0,480,-70,100,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1488,47,'beginend','End',0,480,750,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1489,47,'vertical','',0,480,-50,0,780,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1490,48,'beginend','Process_Card_Swiped',0,170,60,90,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1491,48,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1492,48,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1491,48,'beginend','End',0,170,880,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1492,48,'vertical','',0,170,80,0,780,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1493,49,'beginend','Process_Manual_Entry',0,170,60,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1494,49,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1495,49,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
@@ -949,12 +949,11 @@ INSERT INTO items VALUES(1800,45,'horizontal','',0,170,60,250,0,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(1801,46,'action','returns enum ProcedureResult',0,550,20,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1802,46,'horizontal','',0,270,20,240,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1803,46,'action','return result;',0,270,1150,250,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1804,47,'action','returns enum ProcedureResult',0,460,60,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1805,47,'horizontal','',0,170,60,250,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1806,47,'action','return PR_NOT_IMPLEMENTED;',0,170,250,110,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1804,47,'action','returns enum ProcedureResult',0,730,-70,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1805,47,'horizontal','',0,480,-70,210,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1806,47,'action','return result;',0,480,690,180,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1807,48,'action','returns enum ProcedureResult',0,460,60,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1808,48,'horizontal','',0,170,60,250,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1809,48,'action','return PR_NOT_IMPLEMENTED;',0,170,260,110,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1810,49,'action','returns enum ProcedureResult',0,460,60,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1811,49,'horizontal','',0,170,60,250,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1812,49,'action','return PR_NOT_IMPLEMENTED;',0,170,250,110,20,0,0,NULL,NULL,NULL,NULL);
@@ -3014,8 +3013,8 @@ INSERT INTO items VALUES(4948,72,'branch','Check amount',0,2520,70,140,30,60,0,N
 INSERT INTO items VALUES(4949,72,'vertical','',0,2730,620,0,160,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4950,72,'address','No Amount',0,2730,730,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4951,72,'address',replace('Amount\nentered','\n',char(10)),0,2520,720,140,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4952,36,'insertion',replace('result =\nPerform_Service();','\n',char(10)),1,3150,450,90,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4953,36,'insertion',replace('result =\nProcess_Event();','\n',char(10)),0,1550,540,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4952,36,'insertion',replace('result =\nPerform_Service();','\n',char(10)),0,3150,450,90,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4953,36,'insertion',replace('result =\nProcess_Event();','\n',char(10)),1,1550,540,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4954,36,'insertion',replace('result =\nCheck_Service_Start_Conditions();','\n',char(10)),0,1550,770,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4955,118,'beginend','Process_Profile_Parameters',0,170,60,120,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4956,118,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
@@ -3654,6 +3653,37 @@ INSERT INTO items VALUES(5699,63,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,73
 INSERT INTO items VALUES(5701,63,'commentin',replace('TODO: Consider disabling\nall interfaces at this\npoint','\n',char(10)),0,12360,180,120,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5702,63,'commentout','Technology Selected',0,6730,-130,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5703,63,'commentin',replace('FIXME: This error reason will\nbe overwritten later to\nTER_NEXO_FAST_FAILURE','\n',char(10)),0,8380,320,140,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5704,47,'if','g_Ctd.ServiceStartEvents.cardSwiped',0,480,90,180,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5705,47,'vertical','',0,720,90,0,160,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5707,47,'if','g_Nexo.TerminalSettings.hasCombinedReader',0,720,150,190,20,70,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5708,47,'vertical','',0,1240,210,0,440,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5709,47,'horizontal','',0,480,650,760,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5710,47,'if','g_Nexo.TerminalSettings.hasMotorisedCombinedReader',0,980,210,220,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(5711,47,'shelf','PR_UNINITIALISED',0,480,10,180,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(5712,47,'if','g_Ctd.ServiceStartEvents.manualEntry',0,480,290,180,20,580,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5713,47,'horizontal','',0,480,250,500,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5714,47,'if','g_Ctd.ServiceStartEvents.referenceEntry',0,480,350,180,20,580,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5715,47,'if','g_Ctd.ServiceStartEvents.accept',0,480,410,180,20,580,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5716,47,'shelf','1',0,480,490,180,40,40,0,NULL,NULL,NULL,'g_Ctd.ServiceStartEvents.cardInserted');
+INSERT INTO items VALUES(5717,47,'shelf','PR_DONE',0,480,590,180,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(5718,47,'shelf','PR_REINITIALISE',0,1240,590,70,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5733,47,'vertical','',0,980,150,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5734,48,'action','return result;',0,170,820,180,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5735,48,'if','g_Ctd.ServiceStartEvents.cardInserted',0,170,220,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5736,48,'vertical','',0,410,220,0,160,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5737,48,'if','g_Nexo.TerminalSettings.hasCombinedReader',0,410,280,190,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(5738,48,'vertical','',0,930,340,0,440,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5739,48,'horizontal','',0,170,780,760,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5740,48,'if','g_Nexo.TerminalSettings.hasMotorisedCombinedReader',0,670,340,220,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(5741,48,'shelf','PR_UNINITIALISED',0,170,140,180,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(5742,48,'if','g_Ctd.ServiceStartEvents.manualEntry',0,170,420,180,20,580,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5743,48,'horizontal','',0,170,380,500,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5744,48,'if','g_Ctd.ServiceStartEvents.referenceEntry',0,170,480,180,20,580,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5745,48,'if','g_Ctd.ServiceStartEvents.accept',0,170,540,180,20,580,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5746,48,'shelf','1',0,170,620,180,40,40,0,NULL,'',NULL,'g_Ctd.ServiceStartEvents.cardSwiped');
+INSERT INTO items VALUES(5747,48,'shelf','PR_DONE',0,170,720,180,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5748,48,'shelf','PR_REINITIALISE',0,930,720,70,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5749,48,'vertical','',0,670,280,0,100,0,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

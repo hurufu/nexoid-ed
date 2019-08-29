@@ -112,7 +112,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,47,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,71,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1506,11 +1506,11 @@ INSERT INTO items VALUES(3155,70,'vertical','',0,410,120,0,480,0,0,NULL,'',NULL,
 INSERT INTO items VALUES(3156,70,'horizontal','',0,410,100,180,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3157,70,'action','returns bool',0,590,100,60,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3158,70,'action','return ret;',0,410,560,160,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3159,71,'beginend','Is_Card_In_Magnetic_Stripe_Reader',0,320,180,150,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3160,71,'beginend','End',0,320,600,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3161,71,'vertical','',0,320,200,0,380,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3162,71,'horizontal','',0,320,180,200,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3163,71,'action','returns bool',0,550,180,60,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3159,71,'beginend','Is_Card_In_Magnetic_Stripe_Reader',0,420,190,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3160,71,'beginend','End',0,420,710,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3161,71,'vertical','',0,420,210,0,480,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3162,71,'horizontal','',0,420,190,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3163,71,'action','returns bool',0,650,190,60,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3165,72,'beginend','Pre_Processing',0,560,-20,70,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3166,72,'beginend','End',0,7040,450,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3167,72,'vertical','',0,560,0,0,780,0,0,NULL,'',NULL,'');
@@ -3610,13 +3610,13 @@ INSERT INTO items VALUES(5633,70,'horizontal','',0,410,520,180,0,0,0,NULL,NULL,N
 INSERT INTO items VALUES(5634,70,'commentout',replace('NOTE:\nThis behaviour is not defined by nexo','\n',char(10)),0,770,250,160,30,80,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5635,70,'shelf','false',0,410,180,160,40,40,0,NULL,NULL,NULL,'bool ret');
 INSERT INTO items VALUES(5636,70,'shelf',replace('false\n\n/* Ignore it until \nSelected Service Start Event\nwouldn''t contain actuall start event.\nIt contains configured events now\n*/','\n',char(10)),0,410,410,160,90,40,0,NULL,NULL,NULL,'ret');
-INSERT INTO items VALUES(5637,71,'action','return ret;',0,320,540,160,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5638,71,'if',replace('g_Ctd.SelectedServiceStartEvents\n->cardSwiped','\n',char(10)),0,320,350,160,30,20,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(5639,71,'vertical','',0,500,350,0,150,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5640,71,'horizontal','',0,320,500,180,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5641,71,'commentout',replace('NOTE:\nThis behaviour is not defined by nexo','\n',char(10)),0,680,320,160,30,80,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5642,71,'shelf','false',0,320,260,160,40,40,0,NULL,'',NULL,'bool ret');
-INSERT INTO items VALUES(5643,71,'shelf','true',0,320,440,160,40,40,0,NULL,'',NULL,'ret');
+INSERT INTO items VALUES(5637,71,'action','return ret;',0,420,650,160,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5638,71,'if',replace('g_Ctd.SelectedServiceStartEvents\n->cardSwiped','\n',char(10)),0,420,360,160,30,20,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(5639,71,'vertical','',0,600,360,0,250,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5640,71,'horizontal','',0,420,610,180,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5641,71,'commentout',replace('NOTE:\nThis behaviour is not defined by nexo','\n',char(10)),0,780,330,160,30,80,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5642,71,'shelf','false',0,420,270,160,40,40,0,NULL,'',NULL,'bool ret');
+INSERT INTO items VALUES(5643,71,'shelf',replace('false\n\n/* Ignore it until \nSelected Service Start Event\nwouldn''t contain actuall start event.\nIt contains configured events now\n*/','\n',char(10)),0,420,500,160,90,40,0,NULL,'',NULL,'ret');
 INSERT INTO items VALUES(5651,63,'vertical','',0,7320,0,0,730,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5665,63,'output',replace('result =\nActivate_Contacts_And_Reset_Chip();','\n',char(10)),0,6580,-390,160,50,40,0,NULL,'',NULL,'KERNEL E');
 INSERT INTO items VALUES(5666,63,'commentout',replace('This action is not defined by nexo.\nIt shall be performed as defined in\nEMV Book 1 sections 5-9','\n',char(10)),0,6960,-390,150,40,130,0,NULL,'',NULL,'');

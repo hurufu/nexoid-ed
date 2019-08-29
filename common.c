@@ -164,6 +164,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_CONF_ERROR: return "N_CONF_ERROR";
         case N_FALLBACK_PROHIBITED: return "N_FALLBACK_PROHIBITED";
         case N_TECHNOLOGY_NOT_SUPPORTED: return "N_TECHNOLOGY_NOT_SUPPORTED";
+        case N_CHIP_ERROR: return "N_CHIP_ERROR";
         case N_MAX:
             break;
     }

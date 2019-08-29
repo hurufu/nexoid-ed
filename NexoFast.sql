@@ -46,7 +46,7 @@ INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 -117','',7
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','516 62',NULL,75.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-845 -2',NULL,75.0);
-INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','7615 -310','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',80.0);
+INSERT INTO diagrams VALUES(63,'Technology_Selection_Separate_Readers','7615 -185','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',80.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','3908 68','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','-150 -240','',75.0);
 INSERT INTO diagrams VALUES(67,'Update_Interfaces','-400 -66','',75.0);
@@ -112,7 +112,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,63,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,63,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -3635,7 +3635,7 @@ INSERT INTO items VALUES(5678,63,'case','',0,8380,30,140,20,60,0,NULL,'',NULL,''
 INSERT INTO items VALUES(5679,63,'vertical','',0,8150,-10,0,740,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5680,63,'vertical','',0,8380,-10,0,740,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5682,63,'address','Bailout',0,8380,680,140,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5683,63,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,8380,370,140,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(5683,63,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,8380,430,140,40,40,0,NULL,NULL,NULL,'g_Ctd.TerminalErrorReason');
 INSERT INTO items VALUES(5684,63,'address','Bailout',0,7320,680,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5685,63,'address','Non EMV',0,7080,680,80,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5686,63,'vertical','',0,11640,-960,0,1690,0,0,NULL,NULL,NULL,NULL);
@@ -3651,9 +3651,9 @@ INSERT INTO items VALUES(5695,63,'case','',0,8540,-220,50,20,60,0,NULL,NULL,NULL
 INSERT INTO items VALUES(5697,63,'vertical','',0,8540,-260,0,520,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5698,63,'horizontal','',0,8380,260,160,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5699,63,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,7320,170,140,40,40,0,NULL,'',NULL,'g_Ctd.NokReason');
-INSERT INTO items VALUES(5700,63,'commentin',replace('FIXME: Here NokReason will\nbe overwritten with a new\nvalue','\n',char(10)),0,8380,160,140,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5701,63,'commentin',replace('TODO: Consider disabling\nall interfaces at this\npoint','\n',char(10)),0,12360,180,120,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5702,63,'commentout','Technology Selected',0,6730,-130,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5703,63,'commentin',replace('FIXME: This error reason will\nbe overwritten later to\nTER_NEXO_FAST_FAILURE','\n',char(10)),0,8380,320,140,40,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

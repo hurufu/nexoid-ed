@@ -37,6 +37,8 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_RETRY_AFTER_CONTACTLESS: return "PR_RETRY_AFTER_CONTACTLESS";
         case PR_FALLBACK: return "PR_FALLBACK";
         case PR_BAIL: return "PR_BAIL";
+        case PR_PSE_UNSUCCESSFUL: return "PR_PSE_UNSUCCESSFUL";
+        case PR_C: return "PR_C";
         case PR_MAX:
             break;
     }
@@ -165,6 +167,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_FALLBACK_PROHIBITED: return "N_FALLBACK_PROHIBITED";
         case N_TECHNOLOGY_NOT_SUPPORTED: return "N_TECHNOLOGY_NOT_SUPPORTED";
         case N_CHIP_ERROR: return "N_CHIP_ERROR";
+        case N_GPO6985: return "N_GPO6985";
         case N_MAX:
             break;
     }

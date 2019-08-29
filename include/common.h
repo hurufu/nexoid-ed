@@ -46,6 +46,8 @@ enum ProcedureResult {
   , PR_NEW_EVENT
   , PR_RETRY_AFTER_CONTACTLESS
   , PR_FALLBACK
+  , PR_PSE_UNSUCCESSFUL
+  , PR_C // FIXME: Use better name
 
   , PR_MAX
 };
@@ -90,6 +92,7 @@ enum NokReason {
   , N_NO_PROFILE
   , N_FALLBACK_PROHIBITED
   , N_TECHNOLOGY_NOT_SUPPORTED
+  , N_GPO6985 // Aka "Conditions of use not satisfied"
 
   , N_MAX
 };

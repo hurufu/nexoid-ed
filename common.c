@@ -196,6 +196,28 @@ ServiceId_tostring(const enum ServiceId s) {
     return NULL;
 }
 
+const char*
+TerminalErrorReason_tostring(const enum TerminalErrorReason t) {
+    switch (t) {
+        case TE_NONE: return "TE_NONE";
+        case TE_HARDWARE_ERROR: return "TE_HARDWARE_ERROR";
+        case TE_MEMORY_FAILURE: return "TE_MEMORY_FAILURE";
+        case TE_CONFIGURATION_ERROR: return "TE_CONFIGURATION_ERROR";
+        case TE_CRYPTOGRAPHIC_KEYS_MISSING: return "TE_CRYPTOGRAPHIC_KEYS_MISSING";
+        case TE_LOG_LIMIT_EXCEEDED: return "TE_LOG_LIMIT_EXCEEDED";
+        case TE_COMMUNICATION_ERROR: return "TE_COMMUNICATION_ERROR";
+        case TE_UNSPECIFIED: return "TE_UNSPECIFIED";
+        case TE_NEXO_FAST_FAILURE: return "TE_NEXO_FAST_FAILURE";
+        case TE_INTERACTION_ERROR: return "TE_INTERACTION_ERROR";
+        case TE_OVERSPEND: return "TE_OVERSPEND";
+        case TER_NOT_IMPLEMENTED: return "TER_NOT_IMPLEMENTED";
+        case TER_INTERFACE_CONTRACT_VIOLATION: return "TER_INTERFACE_CONTRACT_VIOLATION";
+        case TER_MAX:
+            break;
+    }
+    return NULL;
+}
+
 static struct small_string
 byte_tostring(const unsigned char b) {
     struct small_string ret;
@@ -217,9 +239,11 @@ void ctd_print(const struct CurrentTransactionData* const ctd) {
     printf("CTD: "
            "{ TransactionResult: %s"
            ", NokReason: %s"
+           ", TerminalErrorReason: %s"
            " }\n",
         TransactionResult_tostring(ctd->TransactionResult),
-        NokReason_tostring(ctd->NokReason)
+        NokReason_tostring(ctd->NokReason),
+        TerminalErrorReason_tostring(ctd->TerminalErrorReason)
     );
 }
 

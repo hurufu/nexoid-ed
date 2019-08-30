@@ -10,3 +10,7 @@
  * is possible to perform Application Selection
  */
 enum ProcedureResult Activate_Contacts_And_Reset_Chip(void);
+
+enum ProcedureResult Select_Application(const struct Aid*);
+
+enum ProcedureResult Select_Next_Application(const struct Aid*);

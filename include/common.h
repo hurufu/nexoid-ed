@@ -2,16 +2,16 @@
 
 #include "utils.h"
 #include "mem.h"
+#include "termainal.h"
 #include "bool.h"
 #include "outcome.h"
+#include "emv_status.h"
 
 #include <ptmalloc3.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#define PACKED __attribute__(( __packed__ ))
 
 #define MAX_CARDHOLDER_MESSAGES (6)
 
@@ -48,8 +48,31 @@ enum ProcedureResult {
   , PR_FALLBACK
   , PR_PSE_UNSUCCESSFUL
   , PR_C // FIXME: Use better name
+  , PR_PARTIAL_MATCH
+  , PR_EXACT_MATCH
 
   , PR_MAX
+};
+
+enum ProcedureResultOk {
+    PR1_OK
+  , PR1_NOK
+};
+
+enum ProcedureResultDone {
+    PR2_DONE
+  , PR2_NOK
+};
+
+enum ProcedureResultBinaryMatch {
+    PR3_MATCH
+  , PR3_NO_MATCH
+};
+
+enum ProcedureResultMatch {
+    PR4_EXACT_MATCH
+  , PR4_PARTIAL_MATCH
+  , PR4_NO_MATCH
 };
 
 enum ServiceId {
@@ -93,6 +116,7 @@ enum NokReason {
   , N_FALLBACK_PROHIBITED
   , N_TECHNOLOGY_NOT_SUPPORTED
   , N_GPO6985 // Aka "Conditions of use not satisfied"
+  , N_CARD_BLOCKED
 
   , N_MAX
 };
@@ -744,7 +768,7 @@ union ProcessingStatus {
     struct {
         unsigned char technologySelectionNonFallbackMode : 1;
         unsigned char buildingCandidateListUsingPse : 1;
-        unsigned char buildingCandidateListUsingListOfAids : 1;
+        unsigned char buildingCandidateListUsingListOfAid : 1;
         unsigned char finalAppSelectionForEmv : 1;
         unsigned char appProfileSelectionForEmv : 1;
         unsigned char appInitialisationAndOdaMethodDeterminedForEmv : 1;
@@ -892,7 +916,9 @@ struct CurrentTransactionData {
     bool Continue;
     bool ConfirmationByCard;
     bool WasPresentOneCardOnlyMessageDisplayed;
+    bool CandidateListHasOneEntry;
     unsigned char NumberOfRemainingChipTries;
+    union EmvStatus Sw1Sw2;
 
     // Outcome
     enum Outcome Outcome;

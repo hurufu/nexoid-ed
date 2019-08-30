@@ -30,4 +30,4 @@ struct TerminalListOfAid {
     struct TerminalListOfAidEntry entry[50]; // 0xBF01
 };
 
-extern struct TerminalListOfAid* TerminalListOfAid; // 0xE5
+extern struct TerminalListOfAid* g_TerminalListOfAid; // 0xE5

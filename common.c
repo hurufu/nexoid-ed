@@ -39,6 +39,8 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_BAIL: return "PR_BAIL";
         case PR_PSE_UNSUCCESSFUL: return "PR_PSE_UNSUCCESSFUL";
         case PR_C: return "PR_C";
+        case PR_PARTIAL_MATCH: return "PR_PARTIAL_MATCH";
+        case PR_EXACT_MATCH: return "PR_EXACT_MATCH";
         case PR_MAX:
             break;
     }
@@ -168,6 +170,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_TECHNOLOGY_NOT_SUPPORTED: return "N_TECHNOLOGY_NOT_SUPPORTED";
         case N_CHIP_ERROR: return "N_CHIP_ERROR";
         case N_GPO6985: return "N_GPO6985";
+        case N_CARD_BLOCKED: return "N_CARD_BLOCKED";
         case N_MAX:
             break;
     }

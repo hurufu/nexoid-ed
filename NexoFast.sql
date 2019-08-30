@@ -89,7 +89,7 @@ INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','0 0',NULL,75.
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-266 0',NULL,75.0);
 INSERT INTO diagrams VALUES(110,'Kernel_Processing','30 -129','',75.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','520 0',NULL,75.0);
+INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','1320 0',NULL,75.0);
 INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(114,'Full_Magnetic_Stripe_Processing','-248 -508',NULL,75.0);
 INSERT INTO diagrams VALUES(115,'Full_Manual_Entry_Processing','0 0','',75.0);
@@ -120,7 +120,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,133,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,112,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2627,7 +2627,6 @@ INSERT INTO items VALUES(4850,112,'shelf','O_ONLINE_REQUEST',0,960,530,150,40,40
 INSERT INTO items VALUES(4851,112,'vertical','',0,1780,90,0,720,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4852,112,'branch','Handle DCC',0,1780,140,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4853,112,'address','Done',0,1780,760,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4854,112,'commentin',replace('TODO: DCC is disabled\nto avoid clutter','\n',char(10)),0,1780,450,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4855,114,'beginend','Full_Magnetic_Stripe_Processing',0,440,-210,140,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4856,114,'beginend','End',0,440,650,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4857,114,'vertical',NULL,0,440,-210,0,840,0,0,NULL,NULL,NULL,NULL);
@@ -3970,6 +3969,7 @@ INSERT INTO items VALUES(6801,138,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,N
 INSERT INTO items VALUES(6802,138,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(6803,138,'action',replace('const struct Aid* const aid\n\nreturns enum ProcedureResult','\n',char(10)),0,410,60,130,40,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(6804,138,'action','return PR_NOK;',0,170,300,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(6805,112,'insertion','Dcc_Processing();',0,1780,380,110,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

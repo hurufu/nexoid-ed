@@ -6,6 +6,7 @@
 #include "bool.h"
 #include "outcome.h"
 #include "emv_status.h"
+#include "pklr.h"
 
 #include <ptmalloc3.h>
 #include <stddef.h>
@@ -873,6 +874,10 @@ union TerminalType {
     };
 };
 
+struct CandidateList {
+    struct CandidateList* next;
+};
+
 struct CurrentTransactionData {
     // Operations
     bool AcquirerPreSelected;
@@ -918,7 +923,11 @@ struct CurrentTransactionData {
     bool WasPresentOneCardOnlyMessageDisplayed;
     bool CandidateListHasOneEntry;
     unsigned char NumberOfRemainingChipTries;
+
+    // Hidden
     union EmvStatus Sw1Sw2;
+    uint8_t ResponseData[256];
+    struct CandidateList CandidateList;
 
     // Outcome
     enum Outcome Outcome;

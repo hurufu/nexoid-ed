@@ -48,7 +48,11 @@ enum ProcedureResult {
   , PR_RETRY_AFTER_CONTACTLESS
   , PR_FALLBACK
   , PR_PSE_UNSUCCESSFUL
+  , PR_A // FIXME: Use better name
+  , PR_B // FIXME: Use better name
   , PR_C // FIXME: Use better name
+  , PR_D // FIXME: Use better name
+  , PR_E // FIXME: Use better name
   , PR_PARTIAL_MATCH
   , PR_EXACT_MATCH
 

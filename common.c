@@ -38,7 +38,11 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_FALLBACK: return "PR_FALLBACK";
         case PR_BAIL: return "PR_BAIL";
         case PR_PSE_UNSUCCESSFUL: return "PR_PSE_UNSUCCESSFUL";
+        case PR_A: return "PR_A";
+        case PR_B: return "PR_B";
         case PR_C: return "PR_C";
+        case PR_D: return "PR_D";
+        case PR_E: return "PR_E";
         case PR_PARTIAL_MATCH: return "PR_PARTIAL_MATCH";
         case PR_EXACT_MATCH: return "PR_EXACT_MATCH";
         case PR_MAX:

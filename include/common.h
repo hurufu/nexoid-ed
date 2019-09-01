@@ -122,6 +122,7 @@ enum NokReason {
   , N_TECHNOLOGY_NOT_SUPPORTED
   , N_GPO6985 // Aka "Conditions of use not satisfied"
   , N_CARD_BLOCKED
+  , N_EMPTY_LIST
 
   , N_MAX
 };
@@ -887,6 +888,7 @@ struct CurrentTransactionData {
     bool AcquirerPreSelected;
     bool CardholderLanguageIsSelected;
     bool CardholderRequestedChoiceOfApplication;
+    bool CardholderRequestedChangeOfApplication;
     unsigned char PreSelectedAcquirerNumber;
     enum PrinterStatus PrinterStatus;
     bool IsCardInReader; // TODO: Consider making IsCardInReader an atomic variable

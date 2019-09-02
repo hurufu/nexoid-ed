@@ -20,6 +20,17 @@ struct Aid {
     };
 };
 
+struct ExtendedAid {
+    size_t l_raw;
+    union {
+        uint8_t raw[16];
+        struct {
+            uint8_t rid[5];
+            uint8_t ext[];// Proprietary Extended Selection 0x9F29
+        };
+    };
+};
+
 struct TerminalListOfAidEntry {
     struct Aid terminalAid; // 0xDF01
     bool applicationSelectionIndicator; // 0xDF02

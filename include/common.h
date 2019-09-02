@@ -307,6 +307,13 @@ enum PACKED CardholderMessage {
 
 enum PACKED Kernel {
     KERNEL_NONE = 0x00
+  , KERNEL_C1 = 0x01
+  , KERNEL_C2 = 0x02
+  , KERNEL_C3 = 0x03
+  , KERNEL_C4 = 0x04
+  , KERNEL_C5 = 0x05
+  , KERNEL_C6 = 0x06
+  , KERNEL_C7 = 0x07
   , KERNEL_M = 0x3F
   , KERNEL_E = 0x3E
 };
@@ -335,6 +342,10 @@ enum PACKED CvmMagneticStripe {
   , CVM_MSR_SIGNATURE = 0x02
   , CVM_MSR_NO_CVM = 0x03
   , CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES = 0x04 // aka 'SIGNATURE or ONLINE PIN'
+};
+
+enum IssuerCodeTableIndex {
+    ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
 };
 
 struct HoldTime {
@@ -879,10 +890,6 @@ union TerminalType {
     };
 };
 
-struct CandidateList {
-    struct CandidateList* next;
-};
-
 struct CurrentTransactionData {
     // Operations
     bool AcquirerPreSelected;
@@ -933,7 +940,6 @@ struct CurrentTransactionData {
     // Hidden
     union EmvStatus Sw1Sw2;
     uint8_t ResponseData[256];
-    struct CandidateList CandidateList;
 
     // Outcome
     enum Outcome Outcome;

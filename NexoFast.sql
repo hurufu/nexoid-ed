@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','517 173','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','781 104','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request','2922 40','',75.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','2720 45','',85.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
@@ -69,7 +69,7 @@ INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-508 -466',replace('Sing
 INSERT INTO diagrams VALUES(90,'Kernel_Activation','-168 276','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-457.2608695652174 -187.95652173913044',NULL,100.0);
 INSERT INTO diagrams VALUES(92,'Set_Transaction_Type','-458.0 -2.499999999999986',NULL,100.0);
-INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-341 -361',NULL,75.0);
+INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-340 -293',NULL,75.0);
 INSERT INTO diagrams VALUES(94,'Update_Kernel_Transaction_Database','0 -200','',75.0);
 INSERT INTO diagrams VALUES(95,'Initialise_Kernel_M','0 0','',75.0);
 INSERT INTO diagrams VALUES(96,'Force_Transaction_Acceptance','0 0',NULL,75.0);
@@ -107,29 +107,30 @@ INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
 INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','5979 -662','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',80.0);
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','0 0','',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','677 -524',NULL,75.0);
-INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','426 -48',NULL,75.0);
+INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','1357 20',NULL,75.0);
 INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','-200 -200','',75.0);
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','716 0',NULL,80.0);
-INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','952 -130',NULL,85.0);
-INSERT INTO diagrams VALUES(141,'Build_Candidate_List','1114 -84','TODO: Move to separate module',75.0);
+INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','1088 0',NULL,80.0);
+INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','1185 -128',NULL,85.0);
+INSERT INTO diagrams VALUES(141,'Build_Candidate_List','1046 -84','TODO: Move to separate module',75.0);
 INSERT INTO diagrams VALUES(142,'Ctlss_Application_Kernel_Profile_Selection','136 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(143,'Is_Fallback_To_Msr_Allowed','186 -182','nexo-FAST note 122-95',80.0);
 INSERT INTO diagrams VALUES(144,'Set_Outcomes_At_Fallback','0 0','nexo-FAST note 122-98',80.0);
 INSERT INTO diagrams VALUES(145,'Chip_Profile_Selection','0 0','',80.0);
 INSERT INTO diagrams VALUES(146,'Reset_Transaction_Database','0 0','nexo-FAST note 126-05',75.0);
-INSERT INTO diagrams VALUES(147,'Sort_Candidate_List_By_Priority','0 0',replace('nexo-FAST note 126-10\nEMV Book 1 section 12.4, Step 4','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(148,'Eea_Specific_Process_On_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(149,'Process_On_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(150,'Is_Aid_Preference_Table_Configured','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(151,'Compare_Candidate_Application','-68 1',NULL,75.0);
+INSERT INTO diagrams VALUES(152,'Sort_Candidate_List_By_Priority','66 -66',NULL,75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,93,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,134,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -174,7 +175,7 @@ INSERT INTO items VALUES(652,18,'if','PR_OK == result',0,330,820,120,20,70,1,NUL
 INSERT INTO items VALUES(653,18,'vertical','',0,520,820,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(654,18,'address','(H) FAIL',0,520,910,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),0,700,650,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(656,18,'insertion',replace('result =\nApplication_Kernel_And_Profile_Selection();','\n',char(10)),0,1430,530,190,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(656,18,'insertion',replace('result =\nApplication_Kernel_And_Profile_Selection();','\n',char(10)),1,1430,530,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(657,18,'select','result',0,1430,600,190,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(658,18,'horizontal','',0,1430,640,880,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(659,18,'case','PR_OK',0,1430,680,190,20,60,0,NULL,'',NULL,'');
@@ -902,7 +903,7 @@ INSERT INTO items VALUES(1708,38,'branch','Ok',0,970,10,50,30,60,0,NULL,'',NULL,
 INSERT INTO items VALUES(1709,38,'address','Return',0,970,670,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1710,38,'address','Bail',0,480,670,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1711,38,'shelf','PR_NOK',0,1090,320,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),1,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1712,38,'insertion',replace('result =\nCard_Validity_Check();','\n',char(10)),0,370,310,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1713,38,'insertion',replace('result =\nUpdate_Pre_Authorisation();','\n',char(10)),0,90,310,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1714,38,'horizontal','',0,90,360,280,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1715,38,'if','g_Ctd.TerminalErrorIndicator',0,90,560,140,20,70,0,NULL,NULL,NULL,NULL);
@@ -2691,7 +2692,7 @@ INSERT INTO items VALUES(4948,72,'branch','Check amount',0,2520,70,140,30,60,0,N
 INSERT INTO items VALUES(4949,72,'vertical','',0,2730,620,0,160,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4950,72,'address','No Amount',0,2730,730,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4951,72,'address',replace('Amount\nentered','\n',char(10)),0,2520,720,140,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4952,36,'insertion',replace('result =\nPerform_Service();','\n',char(10)),1,3150,450,90,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4952,36,'insertion',replace('result =\nPerform_Service();','\n',char(10)),0,3150,450,90,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4953,36,'insertion',replace('result =\nProcess_Event();','\n',char(10)),0,1550,540,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4954,36,'insertion',replace('result =\nCheck_Service_Start_Conditions();','\n',char(10)),0,1550,770,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4955,118,'beginend','Process_Profile_Parameters',0,170,60,120,20,60,0,NULL,'',NULL,'');
@@ -4063,7 +4064,7 @@ INSERT INTO items VALUES(7088,143,'shelf','false',0,600,20,200,40,40,0,NULL,NULL
 INSERT INTO items VALUES(7104,139,'vertical','',0,1390,100,0,770,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7105,139,'branch',replace('Final Application\nSelection','\n',char(10)),0,1390,160,140,40,60,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(7106,139,'address',replace('Final Application\nSelection','\n',char(10)),0,1640,810,80,40,60,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(7107,139,'insertion',replace('result =\nFinal_Selection_For_Emv_Chip();','\n',char(10)),0,1390,260,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(7107,139,'insertion',replace('result =\nFinal_Selection_For_Emv_Chip();','\n',char(10)),1,1390,260,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7108,139,'select','result',0,1390,330,140,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7109,139,'horizontal','',0,1390,370,640,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7110,139,'case','PR_OK',0,1390,410,140,20,60,0,NULL,'',NULL,'');
@@ -4170,21 +4171,6 @@ INSERT INTO items VALUES(7215,134,'vertical','',0,1050,380,0,450,0,0,NULL,NULL,N
 INSERT INTO items VALUES(7216,134,'if','N_NO_PROFILE == g_Ctd.NokReason',0,760,440,200,20,90,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7217,134,'address',replace('Try to select\nnext candidate\napplication\n(2)','\n',char(10)),0,1050,750,70,60,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7218,134,'insertion','Sort_Candidate_List_By_Priority();',0,1840,360,180,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7219,147,'beginend','Sort_Candidate_List_By_Priority',0,170,60,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7220,147,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7221,147,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7222,147,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7223,147,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7224,147,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7225,147,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7226,147,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7227,147,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7228,147,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7229,147,'branch','branch 3',0,660,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7230,147,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7231,147,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7232,147,'action','returns enum ProcedureResult',0,470,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7233,147,'action','return PR_OK;',0,660,390,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7234,148,'beginend','Eea_Specific_Process_On_Candidate_List',0,170,60,170,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7235,148,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7236,148,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
@@ -4244,6 +4230,32 @@ INSERT INTO items VALUES(7289,150,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL
 INSERT INTO items VALUES(7290,150,'action','returns bool',0,400,60,60,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7291,150,'action','return true;',0,170,310,60,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7292,93,'shelf','N_NOT_IMPLEMENTED',0,590,290,80,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(7293,139,'commentin','Build_Candidate_List',0,840,320,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7295,151,'beginend','Compare_Candidate_Application',0,370,210,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7296,151,'beginend','End',0,370,530,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7297,151,'vertical',NULL,0,370,230,0,280,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7298,151,'horizontal',NULL,0,370,210,440,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7299,151,'action',replace('const void* const lhs\nconst void* const rhs\n\nreturns int','\n',char(10)),0,850,210,100,50,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7300,151,'action','return r - l;',0,370,470,360,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7317,151,'shelf','(((struct CandidateApplication*)lhs)->ApplicationPriorityIndicator.priority + 15) % 16',0,370,290,360,40,40,0,NULL,NULL,NULL,'const int_fast8_t l');
+INSERT INTO items VALUES(7318,151,'shelf','(((struct CandidateApplication*)rhs)->ApplicationPriorityIndicator.priority + 15) % 16',0,370,390,360,40,40,0,NULL,'',NULL,'const int_fast8_t r');
+INSERT INTO items VALUES(7319,151,'commentin',replace('Example values:\n\nlhs | rhs | res\n 2     4     2\n 1     3     2\n 0     2   -14','\n',char(10)),0,880,390,78,60,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7323,152,'beginend','Sort_Candidate_List_By_Priority',0,560,40,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7324,152,'beginend','End',0,560,700,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7325,152,'vertical',NULL,0,560,60,0,620,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7326,152,'horizontal',NULL,0,560,40,170,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7328,152,'action',replace('qsort(\n    g_CandidateList->entry,\n    g_CandidateList->l_entry,\n    sizeof(g_CandidateList->entry[0]),\n    Compare_Candidate_Application\n);','\n',char(10)),0,560,360,170,60,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(7329,152,'action','returns enum ProcedureResult',0,850,40,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(7330,152,'action','return result;',0,560,640,170,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(7331,152,'if','g_CandidateList',0,560,200,170,20,150,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7332,152,'vertical','',0,880,200,0,400,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7333,152,'horizontal','',0,560,600,320,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7334,152,'shelf','PR_UNINITIALISED',0,560,120,170,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(7335,152,'shelf','PR_OK',0,560,540,170,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(7336,152,'shelf','PR_NOK',0,880,540,130,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(7337,152,'shelf','true',0,880,260,130,40,40,0,NULL,NULL,NULL,'g_Ctd.TerminalErrorIndicator');
+INSERT INTO items VALUES(7338,152,'shelf','TE_NEXO_FAST_FAILURE',0,880,440,130,40,40,0,NULL,'',NULL,'g_Ctd.TerminalErrorReason');
+INSERT INTO items VALUES(7339,152,'commentin',replace('FIXME: Consider better\nerror code','\n',char(10)),0,880,350,130,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -4391,10 +4403,11 @@ INSERT INTO tree_nodes VALUES(199,123,'item',NULL,144);
 INSERT INTO tree_nodes VALUES(200,120,'folder','7.4.2.5 Profile Selection - Chip',NULL);
 INSERT INTO tree_nodes VALUES(201,200,'item','',145);
 INSERT INTO tree_nodes VALUES(202,83,'item',NULL,146);
-INSERT INTO tree_nodes VALUES(203,183,'item',NULL,147);
 INSERT INTO tree_nodes VALUES(204,183,'item',NULL,148);
 INSERT INTO tree_nodes VALUES(205,183,'item',NULL,149);
 INSERT INTO tree_nodes VALUES(206,183,'item',NULL,150);
+INSERT INTO tree_nodes VALUES(207,183,'item',NULL,151);
+INSERT INTO tree_nodes VALUES(208,183,'item',NULL,152);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

@@ -175,6 +175,7 @@ NokReason_tostring(const enum NokReason n) {
         case N_CHIP_ERROR: return "N_CHIP_ERROR";
         case N_GPO6985: return "N_GPO6985";
         case N_CARD_BLOCKED: return "N_CARD_BLOCKED";
+        case N_EMPTY_LIST: return "N_EMPTY_LIST";
         case N_MAX:
             break;
     }

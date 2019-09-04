@@ -178,8 +178,8 @@ $(NAME).cflow:
 .PHONY: cg
 cg: cg.png
 cg.png:
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fdump-rtl-expand $(SOURCES) $(LDLIBS)
-	egypt *.expand | dot -Tpng > callgraph.png
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fdump-rtl-expand $(SOURCES) $(LDLIBS)
+	egypt *.expand | sed '8irankdir="LR"' | dot -Tpng > callgraph.png
 
 # TODO: Move to `makes` library
 .PHONY: print-%

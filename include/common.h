@@ -890,6 +890,20 @@ union TerminalType {
     };
 };
 
+struct AidPreference {
+    struct Aid PartialCardAid; // DF01
+    bool ApplicationSelectionIndicator; // DF02
+    struct {
+        size_t l_entry;
+        struct Aid entry[100]; // DF01
+    } SubordinatedApplications; // BF02
+}; // BF01
+
+struct AidPreferenceTable {
+    size_t l_entry;
+    struct AidPreference entry[50];
+}; // EE
+
 struct CurrentTransactionData {
     // Operations
     bool AcquirerPreSelected;
@@ -1052,6 +1066,7 @@ struct NexoConfiguration {
 
 extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
+extern struct AidPreferenceTable* g_AidPreferenceTable;
 
 const char* NokReason_tostring(enum NokReason n);
 const char* PrintMessage_tostring(enum PrintMessage);

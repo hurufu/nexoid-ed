@@ -7,6 +7,8 @@
 #include "outcome.h"
 #include "emv_status.h"
 #include "pklr.h"
+#include "emv.h"
+#include "nexo_types.h"
 
 #include <ptmalloc3.h>
 #include <stddef.h>
@@ -354,7 +356,7 @@ struct HoldTime {
 
 union TerminalSettings {
     unsigned char raw[5];
-    struct {
+    struct PACKED {
         unsigned char hasPreReadCombinedReader : 1;
         unsigned char hasPostReadCombinedReader : 1;
         unsigned char hasCombinedReader : 1;
@@ -376,23 +378,8 @@ union TerminalSettings {
         unsigned char /* RFU */ : 2;
         unsigned char retrieveVoiceAuthFromTrxLog : 1;
 
-        unsigned char printApprovedCardholderReceipt : 1;
-        unsigned char printDeclinedCardholderReceipt : 1;
-        unsigned char printVoiceAuthCardholderReceipt : 1;
-        unsigned char printAbortedCardholderReceipt : 1;
-        unsigned char /* RFU */ : 1;
-        unsigned char printDolOnApprovedAndAbortedAndVoiceAuthCardholderReceipt : 1;
-        unsigned char printDolOnDeclinedAndAbortedCardholderReceipt : 1;
-        unsigned char /* RFU */ : 1;
-
-        unsigned char printApprovedMerchantReceipt : 1;
-        unsigned char printDeclinedMerchantReceipt : 1;
-        unsigned char printVoiceAuthMerchantReceipt : 1;
-        unsigned char printAbortedMerchantReceipt : 1;
-        unsigned char /* RFU */ : 1;
-        unsigned char printDolOnApprovedAndAbortedMerchantReceipt : 1;
-        unsigned char printDolOnDeclinedAndAbortedMerchantReceipt : 1;
-        unsigned char /* RFU */ : 1;
+        union ReceiptSettings cardholderReceipt;
+        union ReceiptSettings merchantReceipt;
     };
 };
 
@@ -402,53 +389,6 @@ union TerminalCapabilities {
         uint8_t signature: 1; // [2, 6]
     };
 } /* 9F33 */;
-
-union AdditionalTerminalCapabilities {
-    unsigned char raw[5];
-    struct {
-        struct TransactionTypeCapability {
-            unsigned char cash : 1;
-            unsigned char goods : 1;
-            unsigned char services : 1;
-            unsigned char cashback : 1;
-            unsigned char inquiry : 1;
-            unsigned char transfer : 1;
-            unsigned char payment : 1;
-            unsigned char administrative : 1;
-
-            unsigned char cashDeposit : 1;
-            unsigned char /* RFU */ : 1;
-        } TransactionType;
-
-        struct TransactionDataInputCapability {
-            unsigned char numericKeys : 1;
-            unsigned char alphabeticAndSpecialCharactersKeys : 1;
-            unsigned char commandKeys : 1;
-            unsigned char functionKeys : 1;
-            unsigned char /* RFU */ : 4;
-        } TerminalDataInput;
-
-        struct TransactionDataOutputCapability {
-            unsigned char printAttendant : 1;
-            unsigned char printCardholder : 1;
-            unsigned char displayAttendant : 1;
-            unsigned char displayCardholder : 1;
-            unsigned char /* RFU */ : 2;
-            // ISO/IEC 8859
-            unsigned char codeTable10 : 1;
-            unsigned char codeTable9 : 1;
-
-            unsigned char codeTable8 : 1;
-            unsigned char codeTable7 : 1;
-            unsigned char codeTable6 : 1;
-            unsigned char codeTable5 : 1;
-            unsigned char codeTable4 : 1;
-            unsigned char codeTable3 : 1;
-            unsigned char codeTable2 : 1;
-            unsigned char codeTable1 : 1;
-        } TerminalDataOutput;
-    };
-};
 
 union ServiceStartEvents {
     uint8_t raw[1];
@@ -579,15 +519,6 @@ union ServiceSettings {
     };
 };
 
-union ApplicationProfileSettings {
-    uint8_t raw[5];
-    struct {
-        uint8_t isDccAcceptorModeAllowed : 1;
-        uint8_t isMerchantSignatureRequiredForApprovedRefund : 1;
-        uint8_t performExceptionFileChecking : 1;
-    };
-};
-
 struct SearchLogCriteria {
     bool closed;
     char* referenceData;
@@ -628,6 +559,8 @@ enum PACKED AuthorisationResponseCode {
   , ARC_UNABLE_TO_GO_ONLINE_OFFLINE_AUTHORISED = MULTICHAR('Y','3')
   , ARC_OFFLINE_APPROVED = MULTICHAR('Y','1')
   , ARC_OFFLINE_DECLINED = MULTICHAR('Z','1')
+  , ARC_VISA_SCA_REQUIRED_PIN_NOT_SUPPORTED = MULTICHAR('1','A')
+  , ARC_VISA_SCA_REQUIRED_SUPPORTED_ONLINE_PIN = MULTICHAR('7','0')
   , ARC_NONE = 0xFF
 };
 

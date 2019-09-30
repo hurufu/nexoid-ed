@@ -1024,6 +1024,7 @@ struct NexoConfiguration {
     union TerminalSettings TerminalSettings;
     union TerminalCapabilities TerminalCapabilities;
     union AdditionalTerminalCapabilities AdditionalTerminalCapabilities;
+    union ConfiguredServices configuredServices;
 
     // EMV configuration
     unsigned char MaxNumberOfChipTries;

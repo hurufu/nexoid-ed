@@ -911,7 +911,6 @@ struct CurrentTransactionData {
     bool CardholderRequestedChoiceOfApplication;
     bool CardholderRequestedChangeOfApplication;
     unsigned char PreSelectedAcquirerNumber;
-    enum PrinterStatus PrinterStatus;
     bool IsCardInReader; // TODO: Consider making IsCardInReader an atomic variable
 
     // Service
@@ -1067,6 +1066,7 @@ struct NexoConfiguration {
 extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
 extern struct AidPreferenceTable* g_AidPreferenceTable;
+extern enum PrinterStatus g_PrinterStatus;
 
 const char* NokReason_tostring(enum NokReason n);
 const char* PrintMessage_tostring(enum PrintMessage);

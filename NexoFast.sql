@@ -1869,7 +1869,7 @@ INSERT INTO items VALUES(4003,88,'address','Initial message',0,670,1130,220,30,6
 INSERT INTO items VALUES(4004,88,'if',replace('g_Nexo.TerminalType\n.operationalEnvironment\n==\nUNATTENDED_OFFLINE_AND_ONLINE\n/* E1.9F35 == ''X5'' */','\n',char(10)),0,670,370,220,50,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4005,88,'vertical','',0,940,260,0,800,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4006,88,'if',replace('g_Nexo.TerminalSettings\n.printApprovedCardholderReceipt\n/* E1.DF34[4,8] */','\n',char(10)),0,670,600,220,40,50,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(4007,88,'if',replace('g_Ctd.PrinterStatus\n==\nPRINTER_UNAVAILABLE','\n',char(10)),0,670,260,220,40,50,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(4007,88,'if',replace('g_PrinterStatus\n==\nPRINTER_UNAVAILABLE','\n',char(10)),1,670,260,220,40,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4009,88,'if',replace('g_Nexo.AdditionalTerminalCapabilities\n.TerminalDataOutput\n.printCardholder\n/* E1.9F40[4,7] */','\n',char(10)),0,670,490,220,50,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4010,88,'shelf','CRDHLDR_MSG_PRINTER_OUT_OF_ORDER',0,670,1000,220,40,40,0,NULL,NULL,NULL,'msg[number++]');
 INSERT INTO items VALUES(4011,88,'horizontal','',0,670,1060,270,0,0,0,NULL,NULL,NULL,NULL);

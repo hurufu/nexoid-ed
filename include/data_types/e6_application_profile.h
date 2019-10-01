@@ -4,9 +4,6 @@
 #include "c4.h"
 #include "emv.h"
 
-#include <stdint.h>
-#include <stddef.h>
-
 // TODO: Add tlv retrieval by tag
 // WARNING: Tag values will be probably reversed in the future
 // FIXME: Consider header generation from ASN.1 module
@@ -15,7 +12,7 @@
 // _ENU_ - Data elements defined by EMV and not used by nexo-FAST (section 13.2)
 // _NXO_ - Data elements defined by nexo-FAST for use outside of kernel processing (section 13.3)
 // _NXE_ - Data elements defined by nexo-FAST for use in kernel E (section 13.4)
-// _NNA_ - Not know, not applicable
+// _NNA_ - Not known, not applicable
 // _NIS_ - Defined by nIS only
 
 enum ApplicationProfileTag {
@@ -62,10 +59,6 @@ struct ApplicationProfile {
     union MagStripeCvmCapability* magStripeCvmCapabilityCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityNoCvmRequired;
 
-    struct ApplicationProfile_ddol {
-        size_t l;
-        uint8_t* e;
-    } ddol; // Isn't defined in nIS
     bcd_t holdTimeValue;
     union Kernel2Configuration* kernel2Configuration;
     union Kernel4ReaderCapabilities* kernel4ReaderCapabilities;

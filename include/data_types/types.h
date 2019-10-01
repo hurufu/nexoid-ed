@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 typedef uint8_t bcd_t;
 
 // Packed BCD max n12 padded with zeros to the right

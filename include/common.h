@@ -9,6 +9,7 @@
 #include "pklr.h"
 #include "emv.h"
 #include "nexo_types.h"
+#include "types.h"
 
 #include <ptmalloc3.h>
 #include <stddef.h>
@@ -350,10 +351,6 @@ enum IssuerCodeTableIndex {
     ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
 };
 
-struct HoldTime {
-    uint8_t bcd[6];
-};
-
 union TerminalSettings {
     unsigned char raw[5];
     struct PACKED {
@@ -576,7 +573,7 @@ union LanguagePreference {
 struct UiParameters {
     enum CardholderMessage Id;
     enum CtlssIndicatorStatus Status;
-    struct HoldTime HoldTime;
+    struct bcd6 HoldTime;
     union LanguagePreference* LanguagePreference; // Not used in nexo
     enum ValueQualifier {
         UI_VALUE_QUALIFIER_NONE

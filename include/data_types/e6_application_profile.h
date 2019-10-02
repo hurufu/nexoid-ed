@@ -7,7 +7,7 @@
 // TODO: Add tlv retrieval by tag
 // FIXME: Consider header generation from ASN.1 module
 
-struct ApplicationProfile {
+struct ApplicationProfileBase {
     // Unique Application Profile ID:
     bcd_t profileNumber;
     bcd_t acquirerNumber;
@@ -28,7 +28,20 @@ struct ApplicationProfile {
     union MagStripeCvmCapability* magStripeCvmCapabilityCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityNoCvmRequired;
 
+    // missing Default DDA DOL (DF1A)
     bcd_t holdTimeValue;
     union Kernel2Configuration* kernel2Configuration;
     union Kernel4ReaderCapabilities* kernel4ReaderCapabilities;
+    union Kernel4Settings* kernel4Settings;
+    union MsrCvmCapability* msrCvmCapabilityCvmRequired;
+    union MsrCvmCapability* msrCvmCapabilityNoCvmRequired;
+    struct bcd2* maxTargetPercentageForBiasedRandomSelection;
+    struct bcd4 merchantCategoryCode;
+    uint8_t (* merchantCustomData)[20];
+    char merchantIdentifier[15];
+    char* merchantNameAndLocation;
+};
+
+struct ApplicationProfile {
+    struct ApplicationProfileBase;
 };

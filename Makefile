@@ -54,7 +54,7 @@ DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
 SOURCES      := $(sort $(wildcard *.c) $(DRAKON_CFILES))
-HEADERS      := $(sort $(wildcard $(addsuffix *.h,$(INCLUDE_DIRS)/) $(DRAKON_HFILES)))
+HEADERS      := $(sort $(wildcard $(addsuffix /*.h,$(INCLUDE_DIRS)) $(DRAKON_HFILES)))
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
 

@@ -18,3 +18,5 @@ enum ProcedureResult Reset_Chip(void);
 enum ProcedureResult Select_Application(const struct Aid*);
 
 enum ProcedureResult Select_Next_Application(const struct Aid*);
+
+enum ProcedureResult Generate_Ac(); // FIXME: Signature isn't yet defined

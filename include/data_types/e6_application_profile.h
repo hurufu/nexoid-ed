@@ -4,8 +4,16 @@
 #include "c4.h"
 #include "emv.h"
 
+struct bcd4 {
+    unsigned char v[4];
+};
+
 // TODO: Add tlv retrieval by tag
 // FIXME: Consider header generation from ASN.1 module
+
+enum PACKED FallbackParameterChip {
+    FALLBACK_TRANSACTION_ALLOWED_FOR_CHIP = 0x01
+};
 
 struct ApplicationProfileBase {
     // Unique Application Profile ID:
@@ -40,6 +48,8 @@ struct ApplicationProfileBase {
     uint8_t (* merchantCustomData)[20];
     char merchantIdentifier[15];
     char* merchantNameAndLocation;
+
+    enum FallbackParameterChip FallbackParameterChip;
 };
 
 struct ApplicationProfile {

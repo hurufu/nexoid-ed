@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "mem.h"
 #include "termainal.h"
+#include "fci.h"
 #include "bool.h"
 #include "outcome.h"
 #include "emv_status.h"
@@ -841,6 +842,7 @@ struct CurrentTransactionData {
     bool CardholderLanguageIsSelected;
     bool CardholderRequestedChoiceOfApplication;
     bool CardholderRequestedChangeOfApplication;
+    bool CardholderConfirmedOnce;
     unsigned char PreSelectedAcquirerNumber;
     bool IsCardInReader; // TODO: Consider making IsCardInReader an atomic variable
 
@@ -884,6 +886,7 @@ struct CurrentTransactionData {
     // Hidden
     union EmvStatus Sw1Sw2;
     uint8_t ResponseData[256];
+    struct Aid AidTerminal;
 
     // Outcome
     enum Outcome Outcome;

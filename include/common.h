@@ -837,6 +837,10 @@ struct AidPreferenceTable {
     struct AidPreference entry[50];
 }; // EE
 
+union CommandTemplate {
+    uint8_t raw[2];
+};
+
 struct CurrentTransactionData {
     // Operations
     bool AcquirerPreSelected;
@@ -888,6 +892,7 @@ struct CurrentTransactionData {
     bool AacReceived; // FIXME: Delete this parameter
     bool TcReceived; // FIXME: Delete thi parameter
     union TerminalVerificationResults Tvr;
+    union CommandTemplate CommandTemplate;
 
     // Hidden
     union EmvStatus Sw1Sw2;
@@ -915,7 +920,7 @@ struct CurrentTransactionData {
 
     // Card data
     union Country* IssuerCountry;
-    unsigned char (* PAN)[11];
+    unsigned char (* PAN)[11]; // TODO: Rename to Pan
 
     // DCC
     volatile bool isDccEligible;
@@ -939,7 +944,7 @@ struct CurrentTransactionData {
     bool TransactionConfirmedByCardholder;
     struct Track2 Track2;
     union ServiceCodeMs* ServiceCodeMs;
-    const unsigned char (* Pan)[19];
+    const unsigned char (* Pan)[19]; // TODO: Delete
     const struct Bid* SelectedBid;
     unsigned char PanMatchLength; // integer
 

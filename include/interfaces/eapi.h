@@ -20,3 +20,5 @@ enum ProcedureResult Select_Application(const struct Aid*);
 enum ProcedureResult Select_Next_Application(const struct Aid*);
 
 enum ProcedureResult Generate_Ac(); // FIXME: Signature isn't yet defined
+
+enum ProcedureResult Get_Processing_Options(); // FIXME: Signature isn't yet defined

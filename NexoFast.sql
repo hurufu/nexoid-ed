@@ -124,7 +124,7 @@ INSERT INTO diagrams VALUES(149,'Process_On_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(151,'Compare_Candidate_Application','-68 1',NULL,75.0);
 INSERT INTO diagrams VALUES(152,'Sort_Candidate_List_By_Priority','66 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(153,'Initialise_Kernel_E','-66 0','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
-INSERT INTO diagrams VALUES(154,'Kernel_E_Processing','4077 -740',NULL,75.0);
+INSERT INTO diagrams VALUES(154,'Kernel_E_Processing','3742 -740',NULL,75.0);
 INSERT INTO diagrams VALUES(155,'Cardholder_Application_Confirmation','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(156,'Check_Cardholder_Language','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(157,'Kernel_E_Check_Activation_Data','-236 -380','nexo-FAST note 152-20',75.0);
@@ -132,18 +132,25 @@ INSERT INTO diagrams VALUES(158,'Kernel_E_Initialise_Data','0 0','TODO: Shall be
 INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(161,'Emv_Completion','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(162,'Can_Fallback_Be_Performed','-193 -246',NULL,75.0);
-INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','-145 -132','',75.0);
+INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1521 -148','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','0 0','',75.0);
-INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','501 -992','nexo-Fast fig. 158~160',75.0);
+INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','898 -1057','nexo-Fast fig. 158~160',75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','0 0','',75.0);
 INSERT INTO diagrams VALUES(170,'Determination_Of_Oda_Method','-518 -230','',75.0);
+INSERT INTO diagrams VALUES(171,'Cardholder_Verification','0 0','',75.0);
+INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),75.0);
+INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(175,'Dates_Restriction','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(176,'Application_Usage_Control','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','0 0','',75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,170,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,173,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4692,7 +4699,7 @@ INSERT INTO items VALUES(8022,166,'if','PR_DONE == result',0,1620,350,210,20,190
 INSERT INTO items VALUES(8023,166,'address','Nok',0,2020,560,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8024,166,'insertion',replace('result =\nProcessing_Restrictions();','\n',char(10)),0,2210,260,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8025,166,'if','PR_DONE == result',0,2210,330,120,20,70,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8026,166,'insertion',replace('result =\nTerminal_Risk_Managment();\n/* TRM */','\n',char(10)),0,2210,410,120,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8026,166,'insertion',replace('result =\nTerminal_Risk_Management();','\n',char(10)),0,2210,410,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8027,166,'if','PR_DONE == result',0,2210,490,120,20,70,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8028,166,'vertical','',0,2400,330,0,280,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8029,166,'address','Nok',0,2400,560,50,30,60,0,NULL,'',NULL,'');
@@ -4842,6 +4849,78 @@ INSERT INTO items VALUES(8172,169,'action','return PR_OK;',0,660,400,70,20,0,0,N
 INSERT INTO items VALUES(8173,170,'beginend','Determination_Of_Oda_Method',0,170,60,120,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8174,170,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8175,170,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8176,171,'beginend','Cardholder_Verification',0,170,60,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8177,171,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8178,171,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8179,171,'vertical','',0,420,120,0,480,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8180,171,'vertical','',0,660,120,0,380,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8181,171,'horizontal','',0,170,120,490,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8182,171,'arrow','',0,20,120,150,480,400,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8183,171,'branch','branch 1',0,170,170,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8184,171,'address','branch 2',0,170,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8185,171,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8186,171,'branch','branch 3',0,660,170,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8187,171,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8188,171,'horizontal','',0,170,60,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8189,171,'action','returns enum ProcedureResult',0,450,60,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8190,171,'action','return PR_OK;',0,660,390,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8191,172,'beginend','Application_And_Transaction_Amount_Confirmation',0,170,80,200,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8192,172,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8193,172,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8194,172,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8195,172,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8196,172,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8197,172,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8198,172,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8199,172,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8200,172,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8201,172,'branch','branch 3',0,660,170,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8202,172,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8203,172,'horizontal',NULL,0,270,80,200,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8204,172,'action','returns enum ProcedureResult',0,540,80,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8205,172,'action','return PR_OK;',0,660,380,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8206,173,'beginend','Processing_Restrictions',0,290,180,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8207,173,'beginend','End',0,290,480,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8208,173,'vertical','',0,290,200,0,260,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8209,173,'horizontal','',0,290,180,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8210,173,'action','returns enum ProcedureResult',0,550,180,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8211,173,'action','return PR_DONE;',0,290,420,180,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8213,174,'beginend','Application_Version_Number_Restriction',0,170,60,170,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8214,174,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8215,174,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8216,173,'insertion','Application_Version_Number_Restriction();',0,290,240,180,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8217,175,'beginend','Dates_Restriction',1,170,60,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8218,175,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8219,175,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8220,173,'insertion','Dates_Restriction();',0,290,300,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8221,176,'beginend','Application_Usage_Control',0,170,60,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8222,176,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8223,176,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8224,176,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8225,176,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8226,176,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8227,176,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8228,176,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8229,176,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8230,176,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8231,176,'branch','branch 3',0,660,170,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8232,176,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8233,173,'insertion','Application_Usage_Control();',0,290,360,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8234,177,'beginend','Terminal_Risk_Management',0,170,60,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8235,177,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8236,177,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8237,177,'vertical','',0,420,120,0,480,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8238,177,'vertical','',0,660,120,0,380,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8239,177,'horizontal','',0,170,120,490,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8240,177,'arrow','',0,20,120,150,480,400,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8241,177,'branch','branch 1',0,170,170,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8242,177,'address','branch 2',0,170,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8243,177,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8244,177,'branch','branch 3',0,660,170,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8245,177,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8246,177,'horizontal','',0,170,60,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8247,177,'action','returns enum ProcedureResult',0,440,60,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8248,177,'action','return PR_OK;',0,660,420,70,20,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -5010,6 +5089,16 @@ INSERT INTO tree_nodes VALUES(226,45,'folder','8.2.3 Application Initialisation'
 INSERT INTO tree_nodes VALUES(227,226,'item','',168);
 INSERT INTO tree_nodes VALUES(228,222,'item','',169);
 INSERT INTO tree_nodes VALUES(229,224,'item','',170);
+INSERT INTO tree_nodes VALUES(230,45,'folder','8.2.5 Cardholder Verification',NULL);
+INSERT INTO tree_nodes VALUES(231,230,'item','',171);
+INSERT INTO tree_nodes VALUES(232,30,'item',NULL,172);
+INSERT INTO tree_nodes VALUES(233,45,'folder','8.2.6 Processing Restrictions',NULL);
+INSERT INTO tree_nodes VALUES(234,233,'item','',173);
+INSERT INTO tree_nodes VALUES(235,233,'item',NULL,174);
+INSERT INTO tree_nodes VALUES(236,233,'item',NULL,175);
+INSERT INTO tree_nodes VALUES(237,233,'item',NULL,176);
+INSERT INTO tree_nodes VALUES(238,45,'folder','8.2.7 Terminal Risk Management',NULL);
+INSERT INTO tree_nodes VALUES(239,238,'item','',177);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

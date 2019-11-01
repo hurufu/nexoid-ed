@@ -887,6 +887,7 @@ struct CurrentTransactionData {
     bool OnlineRequired; // FIXME: Delete this parameter
     bool AacReceived; // FIXME: Delete this parameter
     bool TcReceived; // FIXME: Delete thi parameter
+    union TerminalVerificationResults Tvr;
 
     // Hidden
     union EmvStatus Sw1Sw2;

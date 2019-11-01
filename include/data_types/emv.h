@@ -3,7 +3,42 @@
 union TerminalVerificationResults {
     uint8_t raw[5];
     struct {
-        // TODO: Fill TVR bitfield
+        uint8_t /* RFU */ : 1;
+        uint8_t sdaSelected : 1;
+        uint8_t cdaFailed : 1;
+        uint8_t ddaFailed : 1;
+        uint8_t cardNumberAppearsOnHotlist : 1;
+        uint8_t iccDataMissing : 1;
+        uint8_t sdaFailed : 1;
+        uint8_t offlineDataProcessingWasNotPerformed : 1;
+
+        uint8_t /* RFU */ : 3;
+        uint8_t newCard : 1;
+        uint8_t requestedServiceNotAllowedForCardProduct : 1;
+        uint8_t applicationNotYetEffective : 1;
+        uint8_t expiredApplication : 1;
+        uint8_t cardAndTerminalHaveDifferentApplicationVersions : 1;
+
+        uint8_t /* RFU */ : 2;
+        uint8_t onlinePinEntered : 1;
+        uint8_t pinEntryRequiredPinPadPresentButPinWasNotEntered : 1;
+        uint8_t pinEntryRequiredButNoPinPadPresentOrNotWorking : 1;
+        uint8_t pinEntryTryLimitExceeded : 1;
+        uint8_t unrecognisedCvm : 1;
+        uint8_t cardholderVerificationWasNotSuccessful : 1;
+
+        uint8_t /* RFU */ : 3;
+        uint8_t merchantForcedTransactionOnline : 1;
+        uint8_t transactionSelectedRandomlyForOnLineProcessing : 1;
+        uint8_t upperConsecutiveOfflineLimitExceeded : 1;
+        uint8_t lowerConsecutiveOfflineLimitExceeded : 1;
+        uint8_t transactionExceedsFloorLimit : 1;
+
+/*1~4*/ uint8_t /* RFU */ : 4;
+        uint8_t scriptProcessingFailedAfterFinalGenerateAc : 1;
+        uint8_t scriptProcessingFailedBeforeFinalGenerateAc : 1;
+        uint8_t issuerAuthenticationFailed : 1;
+/*8*/   uint8_t defaultTdolUsed : 1;
     };
 };
 

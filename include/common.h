@@ -847,6 +847,7 @@ struct CurrentTransactionData {
     bool CardholderLanguageIsSelected;
     bool CardholderRequestedChoiceOfApplication;
     bool CardholderRequestedChangeOfApplication;
+    bool CardholderAcceptedSelectedApplication;
     bool CardholderConfirmedOnce;
     unsigned char PreSelectedAcquirerNumber;
     bool IsCardInReader; // TODO: Consider making IsCardInReader an atomic variable

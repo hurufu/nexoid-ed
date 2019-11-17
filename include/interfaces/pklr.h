@@ -50,3 +50,12 @@
  *      }
  */
 enum ProcedureResult PKLR_Build_Candidate_List(void);
+
+/**  Redirect to API that will complete EMV transaction
+ *
+ *  Redirect to API that will perform:
+ *    * issuer authentication
+ *    * 2nd GENERATE AC command
+ *    * script processing
+ */
+enum ProcedureResult pklr_Emv_Completion(void);

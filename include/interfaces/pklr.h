@@ -59,3 +59,8 @@ enum ProcedureResult PKLR_Build_Candidate_List(void);
  *    * script processing
  */
 enum ProcedureResult pklr_Emv_Completion(void);
+
+/** Experimental API to hide all Kernel 1E related processing
+ *  @warning Probably it's not compatible with nexo, but it's useful as a dummy
+ */
+enum ProcedureResult pklr_Kernel_E_Processing(void);

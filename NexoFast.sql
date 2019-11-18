@@ -25,10 +25,10 @@ INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-528 -72','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','4294 12','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','2648 52',NULL,75.0);
-INSERT INTO diagrams VALUES(36,'Main','2588 122','',80.0);
+INSERT INTO diagrams VALUES(36,'Main','1078 -63','',60.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-328 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(39,'Default_Service_Initialisation','-667 279',NULL,70.0);
-INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','948 -225',NULL,75.0);
+INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','281 -224','nexo-FAST v.3.2 note 15-50',75.0);
 INSERT INTO diagrams VALUES(41,'Process_Event','1469 -378',NULL,75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','0 0','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','-113 -200','',90.0);
@@ -145,7 +145,7 @@ INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0)
 INSERT INTO diagrams VALUES(182,'Initialise_Kernel_E','-65 -66','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(183,'Authorisation_Request','-49 -149','nexo-FAST v.3.2 fig. 58 notes 10 and 20',75.0);
 INSERT INTO diagrams VALUES(184,'Pin_Entry','92 -58',NULL,75.0);
-INSERT INTO diagrams VALUES(185,'Transaction_Completion','20 -565',NULL,70.0);
+INSERT INTO diagrams VALUES(185,'Transaction_Completion','20 -920',NULL,70.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',70.0);
 INSERT INTO diagrams VALUES(187,'Tc_Additional_Confirmation','-185 -38',NULL,80.0);
 INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-105 202',NULL,70.0);
@@ -159,7 +159,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,103,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,40,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2574,7 +2574,7 @@ INSERT INTO items VALUES(4950,72,'address','No Amount',0,2730,730,50,30,60,0,NUL
 INSERT INTO items VALUES(4951,72,'address',replace('Amount\nentered','\n',char(10)),0,2520,720,140,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4952,36,'insertion',replace('result =\nPerform_Service();','\n',char(10)),0,3150,450,90,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4953,36,'insertion',replace('result =\nProcess_Event();','\n',char(10)),0,1550,540,150,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4954,36,'insertion',replace('result =\nCheck_Service_Start_Conditions();','\n',char(10)),0,1550,770,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4954,36,'insertion',replace('result =\nCheck_Service_Start_Conditions();','\n',char(10)),1,1550,770,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4955,118,'beginend','Process_Profile_Parameters',0,170,60,120,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4956,118,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4957,118,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
@@ -4937,7 +4937,7 @@ INSERT INTO items VALUES(8694,189,'shelf','0',0,180,750,150,40,40,0,NULL,'',NULL
 INSERT INTO items VALUES(8695,189,'shelf','{ }',0,180,220,150,40,40,0,NULL,'',NULL,'enum CardholderMessage msg[4]');
 INSERT INTO items VALUES(8696,189,'shelf','0',0,180,120,150,40,40,0,NULL,'',NULL,'size_t number');
 INSERT INTO items VALUES(8697,185,'insertion','Tc_Remove_Card();',0,260,-70,150,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8698,185,'insertion','Print_Transaction_Receipt();',1,260,-10,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8698,185,'insertion','Print_Transaction_Receipt();',0,260,-10,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8699,190,'beginend','Tc_Transaction_Finalisation',0,150,120,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8700,190,'beginend','End',0,150,680,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8701,190,'vertical',NULL,0,150,140,0,520,0,0,NULL,NULL,NULL,NULL);

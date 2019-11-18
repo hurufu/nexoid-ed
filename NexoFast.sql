@@ -145,21 +145,21 @@ INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0)
 INSERT INTO diagrams VALUES(182,'Initialise_Kernel_E','-65 -66','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(183,'Authorisation_Request','-49 -149','nexo-FAST v.3.2 fig. 58 notes 10 and 20',75.0);
 INSERT INTO diagrams VALUES(184,'Pin_Entry','92 -58',NULL,75.0);
-INSERT INTO diagrams VALUES(185,'Transaction_Completion','-120 -714',NULL,70.0);
+INSERT INTO diagrams VALUES(185,'Transaction_Completion','22 -855',NULL,70.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',70.0);
 INSERT INTO diagrams VALUES(187,'Tc_Additional_Confirmation','-185 -38',NULL,80.0);
-INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-84 -157',NULL,70.0);
+INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-107 204',NULL,70.0);
 INSERT INTO diagrams VALUES(189,'Tc_Remove_Card','-210 71',NULL,70.0);
 INSERT INTO diagrams VALUES(190,'Tc_Transaction_Finalisation','-210 -70',NULL,70.0);
 INSERT INTO diagrams VALUES(191,'Tc_Save_Transaction','0 0',NULL,70.0);
-INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','2562 -189',replace('TODO: Consider redesign of cardholder messages format, so it can be possible to signal that some informations should be displayed on one line, like:\nPAYMENT: <Transaction Amount> <Currency>','\n',char(10)),75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,185,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,192,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4878,10 +4878,10 @@ INSERT INTO items VALUES(8614,186,'commentin',replace('FIXME:\nAmounth Other [9F
 INSERT INTO items VALUES(8615,187,'beginend','Tc_Additional_Confirmation',0,230,10,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8616,187,'beginend','End',0,230,510,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8617,187,'vertical',NULL,0,230,30,0,460,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8620,185,'insertion','Tc_Additional_Confirmation();',0,260,-310,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8620,185,'insertion','Tc_Additional_Confirmation();',1,260,-310,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8625,187,'horizontal','',0,230,290,430,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8626,187,'insertion',replace('result =\nRequest_Partially_Approved_Trx_Confirmation();','\n',char(10)),0,660,240,200,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8630,187,'insertion',replace('result =\nCheck_Cardholder_Confirmation();','\n',char(10)),0,230,240,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8630,187,'insertion',replace('result =\nCheck_Cardholder_Confirmation();','\n',char(10)),1,230,240,210,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8631,187,'if','result == PR_OK',0,230,330,210,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8632,187,'shelf','T_ABORTED',0,460,410,110,40,40,0,NULL,'',NULL,'g_Ctd.TransactionResult');
 INSERT INTO items VALUES(8633,187,'if','T_PARTIALLY_APPROVED == g_Ctd.TransactionResult',0,230,170,210,20,220,0,NULL,NULL,NULL,NULL);
@@ -5065,27 +5065,73 @@ INSERT INTO items VALUES(8840,97,'branch',replace('Transaction\nconfirmation','\
 INSERT INTO items VALUES(8841,97,'address','Ok',0,2620,750,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8842,97,'if','g_Ctd.ConfirmationByCard',0,2160,550,180,20,80,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8843,97,'address','Ok',0,2160,750,180,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8844,97,'insertion',replace('result =\nTransaction_Confirmation();','\n',char(10)),0,2620,470,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8844,97,'insertion',replace('result =\nTransaction_Confirmation();','\n',char(10)),1,2620,470,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8845,97,'if','PR_OK == result',0,2620,540,120,20,70,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8846,97,'vertical','',0,2810,540,0,260,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8847,97,'address','Nok',0,2810,750,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8848,192,'beginend','Transaction_Confirmation',0,310,80,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8849,192,'beginend','End',0,730,460,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8850,192,'vertical','',0,310,100,0,500,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8851,192,'vertical','',0,500,120,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8852,192,'vertical','',0,730,120,0,330,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8853,192,'horizontal','',0,310,120,420,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8854,192,'arrow','',0,170,120,140,480,330,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8855,192,'branch','branch 1',0,310,170,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8856,192,'address','branch 2',0,310,550,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8857,192,'branch','branch 2',0,500,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8858,192,'branch','branch 3',0,730,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8859,192,'address','branch 3',0,500,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8860,192,'horizontal',NULL,0,310,80,170,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8861,192,'action','returns enum ProcedureResult',0,570,80,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8862,192,'action','return result;',0,730,400,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8863,192,'shelf','PR_UNINITIALISED',0,310,270,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(8864,192,'shelf','PR_OK',0,500,270,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(8848,192,'beginend','Transaction_Confirmation',0,720,-250,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8849,192,'beginend','End',0,3130,230,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8850,192,'vertical','',0,720,-230,0,820,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8851,192,'vertical','',0,2990,-210,0,800,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8852,192,'vertical','',0,3130,-210,0,430,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8853,192,'horizontal','',0,720,-210,2410,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8854,192,'arrow','',0,530,-210,190,800,2460,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8855,192,'branch','branch 1',0,720,-160,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8856,192,'address','Switch on service type',0,720,540,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8857,192,'branch','Nok',0,2990,-160,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8858,192,'branch','End',0,3130,-160,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8859,192,'address','End',0,2990,540,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8860,192,'horizontal',NULL,0,720,-250,170,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8861,192,'action','returns enum ProcedureResult',0,980,-250,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8862,192,'action','return result;',0,3130,170,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8863,192,'shelf','PR_UNINITIALISED',0,720,130,170,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(8864,192,'shelf','PR_NOK',0,2990,70,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(8865,192,'if',replace('g_Ctd.\nTransactionConfirmedByCardholder','\n',char(10)),0,720,220,170,30,70,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8866,192,'vertical','',0,960,220,0,370,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8867,192,'address','Ok',0,960,540,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8868,192,'vertical','',0,2780,-210,0,800,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8869,192,'branch','Ok',0,2780,-160,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8870,192,'address','End',0,2780,540,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8871,192,'shelf','PR_OK',0,2780,70,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(8872,192,'vertical','',0,1160,-210,0,800,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8873,192,'branch','Switch on service type',0,1160,-160,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8874,192,'address','Output',0,1160,540,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8875,192,'select','g_Ctd.SelectedService',0,1160,-90,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8876,192,'horizontal','',0,1160,-50,880,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8877,192,'case','S_PRE_AUTH',0,1160,-10,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8878,192,'case','S_UPDATE_PRE_AUTH',0,1440,-10,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8879,192,'case','',0,2040,-10,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8880,192,'vertical','',0,1440,-50,0,540,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8881,192,'vertical','',0,2040,-50,0,540,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8882,192,'vertical','',0,2350,-210,0,800,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8883,192,'branch','Output',0,2350,-160,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8884,192,'address','Ok',0,2350,540,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8885,192,'if','PR_OK == result',0,2350,430,150,20,70,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8886,192,'vertical','',0,2570,430,0,160,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8887,192,'address','Nok',0,2570,540,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8888,192,'shelf','{ }',0,720,30,170,40,40,0,NULL,'',NULL,'enum CardholderMessage msg[20]');
+INSERT INTO items VALUES(8889,192,'shelf','0',0,720,-70,170,40,40,0,NULL,'',NULL,'size_t number');
+INSERT INTO items VALUES(8891,192,'horizontal','',0,1160,490,880,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8892,192,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,2350,340,150,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8893,192,'if','g_Ctd.Minus',0,1440,50,130,20,90,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8894,192,'if','*g_Ctd.Minus',0,1660,90,70,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8895,192,'vertical','',0,1660,50,0,80,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8896,192,'vertical','',0,1750,90,0,400,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8897,192,'shelf','CRDHLDR_SRC_APPLICATION_LABEL_DISPLAYED',0,720,310,170,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8898,192,'shelf','CRDHLDR_MSG_PAYMENT',0,2040,70,140,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8899,192,'shelf','CRDHLDR_SRC_PAYMENT_AMOUNT',0,2040,170,140,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8900,192,'horizontal','',0,1440,130,220,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8901,192,'shelf','CRDHLDR_MSG_AMOUNT_INCREMENT',0,1440,430,130,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8903,192,'shelf','CRDHLDR_MSG_AMOUNT_DECREMENT',0,1750,430,130,40,40,0,NULL,NULL,NULL,'msg[number++]');
+INSERT INTO items VALUES(8904,192,'shelf','CRDHLDR_MSG_AMOUNT_ESTIMATED',0,1160,430,130,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8906,192,'shelf','CRDHLDR_SRC_TRX_CURRENCY_ALPHA3',0,2040,270,140,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8907,192,'shelf','CRDHLDR_MSG_TOTAL',0,2040,430,140,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8908,192,'shelf','CRDHLDR_SRC_COMMAND_KEY_ENTER_LABEL',0,2350,230,150,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8909,192,'shelf','CRDHLDR_SRC_TRX_AMOUNT',0,2350,-70,150,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8910,192,'shelf','CRDHLDR_SRC_TRX_CURRENCY_ALPHA3',0,2350,30,150,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8911,192,'shelf','CRDHLDR_MSG_ENTER',0,2350,130,150,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(8912,192,'shelf','true',0,2780,-50,140,50,60,0,NULL,NULL,NULL,replace('g_Ctd.\nTransactionConfirmedByCardholder','\n',char(10)));
+INSERT INTO items VALUES(8913,192,'commentin','TODO: Add Cashback/Tip amount',0,2040,350,140,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

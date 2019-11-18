@@ -868,6 +868,7 @@ struct CurrentTransactionData {
     union Currency TransactionCurrency;
     enum AuthorisationResponseCode AuthorisationResponseCode;
     bool AttendantForcedTransactionOnline;
+    bool ForcedTransactionApproval;
     char ReferenceData[35 + 1];
     bool FallbackFlag;
     unsigned char SelectedApplicationProfileNumber;

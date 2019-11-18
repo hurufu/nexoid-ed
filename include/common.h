@@ -894,6 +894,7 @@ struct CurrentTransactionData {
     bool TcReceived; // FIXME: Delete thi parameter
     union TerminalVerificationResults Tvr;
     union CommandTemplate CommandTemplate;
+    bool PinPadNotWorking;
 
     // Hidden
     union EmvStatus Sw1Sw2;
@@ -942,7 +943,7 @@ struct CurrentTransactionData {
 
     // Magnetic stripe
     bool InvalidSwipeOccured;
-    bool TransactionConfirmedByCardholder;
+    bool TransactionConfirmedByCardholder; // EMV also
     struct Track2 Track2;
     union ServiceCodeMs* ServiceCodeMs;
     const unsigned char (* Pan)[19]; // TODO: Delete

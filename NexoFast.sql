@@ -21,7 +21,7 @@ INSERT INTO diagrams VALUES(18,'Card_Validity_Check','3272 212','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','751 -2','',80.0);
 INSERT INTO diagrams VALUES(20,'Transaction_Completion','5143 524','',85.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','',75.0);
-INSERT INTO diagrams VALUES(22,'Check_Online_Performed','60 30','',75.0);
+INSERT INTO diagrams VALUES(22,'Check_Online_Performed','258 -236','',75.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-528 -72','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','4294 12','',100.0);
@@ -152,7 +152,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,19,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,22,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -243,7 +243,7 @@ INSERT INTO items VALUES(698,18,'case','C',0,4140,700,70,20,60,0,NULL,'',NULL,''
 INSERT INTO items VALUES(699,18,'case','D',0,4280,700,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(700,18,'vertical','',0,4140,660,0,300,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(701,18,'vertical','',0,4280,660,0,300,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(702,18,'insertion',replace('result =\nCheck_Online_Performed();','\n',char(10)),0,3650,770,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(702,18,'insertion',replace('result =\nCheck_Online_Performed();','\n',char(10)),1,3650,770,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(703,18,'if','PR_OK == result',0,3650,840,160,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(704,18,'address','(I) Completion',0,3650,910,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(705,18,'case','B',0,4000,700,50,20,60,0,NULL,'',NULL,'');
@@ -303,9 +303,9 @@ INSERT INTO items VALUES(758,21,'if','g_Nexo.CvcDefaultAmount',0,240,110,120,20,
 INSERT INTO items VALUES(759,21,'vertical','',0,490,110,0,120,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(760,21,'horizontal','',0,240,230,250,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(761,21,'shelf','*g_Nexo.CvcDefaultAmount',0,490,170,110,40,40,0,NULL,'',NULL,'g_Ctd.TransactionAmount');
-INSERT INTO items VALUES(762,22,'beginend','Check_Online_Performed',0,170,60,100,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(763,22,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(764,22,'vertical','',0,170,60,0,310,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(762,22,'beginend','Check_Online_Performed',0,600,-110,100,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(763,22,'beginend','End',0,600,630,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(764,22,'vertical','',0,600,-110,0,720,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(855,31,'beginend','Dcc_Processing',0,220,50,70,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(856,31,'beginend','End',0,220,670,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(857,31,'vertical','',0,220,50,0,620,0,0,NULL,'',NULL,'');
@@ -948,9 +948,9 @@ INSERT INTO items VALUES(1750,31,'action','return PR_DONE;',0,220,610,170,20,0,0
 INSERT INTO items VALUES(1760,19,'horizontal','',0,950,40,190,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1761,19,'action','returns enum ProcedureResult',0,1240,40,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1762,19,'action','return result;',0,7660,350,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1763,22,'action','return PR_OK;',0,170,260,60,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1764,22,'horizontal','',0,170,60,130,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1765,22,'action','returns enum ProcedureResult',0,430,60,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1763,22,'action','return result;',0,600,570,170,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1764,22,'horizontal','',0,610,-110,110,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1765,22,'action','returns enum ProcedureResult',0,850,-110,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1766,20,'horizontal','',0,1170,-70,130,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1767,20,'action','returns enum ProcedureResult',0,1430,-70,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1768,20,'action','return result;',0,7410,430,70,20,0,0,NULL,NULL,NULL,NULL);
@@ -4970,6 +4970,20 @@ INSERT INTO items VALUES(8558,19,'if','g_Ctd.ConfirmationByCard',0,3350,410,150,
 INSERT INTO items VALUES(8561,19,'if',replace('g_Ctd\n.SelectedServiceSettings\n->crdhlrConfirmationNotAllowed','\n',char(10)),0,3350,490,150,40,200,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8562,19,'address','Transaction Confirmed',0,3350,820,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8563,19,'commentout',replace('TODO:\nIs EMV data present?','\n',char(10)),0,6020,630,90,30,90,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8564,22,'if','T_APPROVED == g_Ctd.TransactionResult',0,600,50,170,20,70,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8565,22,'vertical','',0,840,50,0,310,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8567,22,'shelf','PR_UNINITIALISED',0,600,-30,170,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(8568,22,'shelf','PR_OK',0,600,470,170,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(8569,22,'if',replace('g_Ctd.ProcessingStatus\n.onlineRequestOutcome','\n',char(10)),0,1080,200,120,30,20,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8572,22,'if',replace('g_Ctd.ProcessingStatus\n.onlineRequestOutcomeForMagStripeOrManualEntry','\n',char(10)),0,840,120,220,30,20,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8573,22,'vertical','',0,1080,120,0,140,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8574,22,'if',replace('g_Ctd\n.UnableToGoOnline','\n',char(10)),0,840,310,120,30,260,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8575,22,'vertical','',0,1220,200,0,330,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8576,22,'shelf','N_KERNEL_ERROR',0,1220,370,70,40,40,0,NULL,NULL,NULL,'g_Ctd.NokReason');
+INSERT INTO items VALUES(8577,22,'horizontal','',0,840,260,240,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8578,22,'horizontal','',0,600,360,240,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8579,22,'shelf','PR_OK',0,1220,470,70,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(8580,22,'horizontal','',0,600,530,620,0,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

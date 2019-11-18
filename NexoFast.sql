@@ -74,7 +74,7 @@ INSERT INTO diagrams VALUES(95,'Initialise_Kernel_M','0 0','',75.0);
 INSERT INTO diagrams VALUES(96,'Forcing_Transaction_Acceptance','2072 94','nexo-FAST v.3.2 par. 6.4.2.3',75.0);
 INSERT INTO diagrams VALUES(97,'Check_Cardholder_Confirmation','2040 52',NULL,75.0);
 INSERT INTO diagrams VALUES(98,'Request_Partially_Approved_Trx_Confirmation','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(99,'Save_Transaction','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(99,'Save_Transaction','-66 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(101,'Print_Transaction_Receipt','-456 -181',NULL,85.0);
 INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','275 238',NULL,80.0);
@@ -145,21 +145,21 @@ INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0)
 INSERT INTO diagrams VALUES(182,'Initialise_Kernel_E','-65 -66','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(183,'Authorisation_Request','-49 -149','nexo-FAST v.3.2 fig. 58 notes 10 and 20',75.0);
 INSERT INTO diagrams VALUES(184,'Pin_Entry','92 -58',NULL,75.0);
-INSERT INTO diagrams VALUES(185,'Transaction_Completion','22 -855',NULL,70.0);
+INSERT INTO diagrams VALUES(185,'Transaction_Completion','21 -711',NULL,70.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',70.0);
 INSERT INTO diagrams VALUES(187,'Tc_Additional_Confirmation','-185 -38',NULL,80.0);
 INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-107 204',NULL,70.0);
 INSERT INTO diagrams VALUES(189,'Tc_Remove_Card','-210 71',NULL,70.0);
 INSERT INTO diagrams VALUES(190,'Tc_Transaction_Finalisation','-210 -70',NULL,70.0);
 INSERT INTO diagrams VALUES(191,'Tc_Save_Transaction','0 0',NULL,70.0);
-INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','2562 -189',replace('TODO: Consider redesign of cardholder messages format, so it can be possible to signal that some informations should be displayed on one line, like:\nPAYMENT: <Transaction Amount> <Currency>','\n',char(10)),75.0);
+INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','361 -388',replace('TODO: Consider redesign of cardholder messages format, so it can be possible to signal that some informations should be displayed on one line, like:\nPAYMENT: <Transaction Amount> <Currency>','\n',char(10)),75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,192,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,99,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "hapi.h"\n#include "papi.h"\n#include "scapi.h"\n#include "tmapi.h"\n#include "eapi.h"\n#include "candidate_list.h"\n\n#include <string.h>\n\nstruct CurrentTransactionData g_Ctd;\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2124,12 +2124,12 @@ INSERT INTO items VALUES(4336,98,'vertical',NULL,0,230,80,0,290,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(4337,98,'horizontal',NULL,0,170,60,360,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4338,98,'action','returns enum ProcedureResult',0,600,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4339,98,'action','return PR_OK;',0,230,280,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4340,99,'beginend','Save_Transaction',0,170,60,80,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4341,99,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4342,99,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4343,99,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4344,99,'action','returns enum ProcedureResult',0,410,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4345,99,'action','return PR_OK;',0,170,300,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4340,99,'beginend','Save_Transaction',0,430,-10,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4341,99,'beginend','End',0,430,610,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4342,99,'vertical',NULL,0,430,10,0,580,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4343,99,'horizontal',NULL,0,430,-10,190,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4344,99,'action','returns enum ProcedureResult',0,660,-10,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4345,99,'action','return result;',0,430,550,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4347,100,'beginend','Sale_System_Notification',0,170,60,110,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4348,100,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4349,100,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
@@ -4878,7 +4878,7 @@ INSERT INTO items VALUES(8614,186,'commentin',replace('FIXME:\nAmounth Other [9F
 INSERT INTO items VALUES(8615,187,'beginend','Tc_Additional_Confirmation',0,230,10,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8616,187,'beginend','End',0,230,510,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8617,187,'vertical',NULL,0,230,30,0,460,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8620,185,'insertion','Tc_Additional_Confirmation();',1,260,-310,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8620,185,'insertion','Tc_Additional_Confirmation();',0,260,-310,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8625,187,'horizontal','',0,230,290,430,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8626,187,'insertion',replace('result =\nRequest_Partially_Approved_Trx_Confirmation();','\n',char(10)),0,660,240,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8630,187,'insertion',replace('result =\nCheck_Cardholder_Confirmation();','\n',char(10)),1,230,240,210,30,60,0,NULL,'',NULL,'');
@@ -4971,7 +4971,7 @@ INSERT INTO items VALUES(8743,191,'vertical','',0,510,360,0,140,0,0,NULL,'',NULL
 INSERT INTO items VALUES(8744,191,'horizontal','',0,350,500,160,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8745,191,'shelf','T_ABORTED',0,510,440,110,40,40,0,NULL,'',NULL,'g_Ctd.TransactionResult');
 INSERT INTO items VALUES(8746,191,'if','result == PR_OK',0,350,360,120,20,40,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8747,185,'insertion','Tc_Save_Transaction();',0,260,-250,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8747,185,'insertion','Tc_Save_Transaction();',1,260,-250,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8748,187,'shelf','PR_UNINITIALISED',0,230,90,180,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(8749,188,'shelf','PR_UNINITIALISED',0,270,60,160,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(8750,189,'shelf','PR_UNINITIALISED',0,180,20,150,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
@@ -5132,6 +5132,14 @@ INSERT INTO items VALUES(8910,192,'shelf','CRDHLDR_SRC_TRX_CURRENCY_ALPHA3',0,23
 INSERT INTO items VALUES(8911,192,'shelf','CRDHLDR_MSG_ENTER',0,2350,130,150,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(8912,192,'shelf','true',0,2780,-50,140,50,60,0,NULL,NULL,NULL,replace('g_Ctd.\nTransactionConfirmedByCardholder','\n',char(10)));
 INSERT INTO items VALUES(8913,192,'commentin','TODO: Add Cashback/Tip amount',0,2040,350,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8914,99,'output',replace('result =\nTransaction_Data_Storage();','\n',char(10)),0,430,180,130,50,40,0,NULL,NULL,NULL,'HAP');
+INSERT INTO items VALUES(8915,99,'if','PR_DONE == result',0,430,270,130,20,90,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8916,99,'vertical','',0,650,270,0,240,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8917,99,'horizontal','',0,430,510,220,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8918,99,'shelf','PR_UNINITIALISED',0,430,70,130,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(8919,99,'shelf','PR_NOK',0,650,450,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(8920,99,'shelf','PR_OK',0,430,450,130,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(8921,99,'commentin',replace('TODO: Save Transaction for\nReceipt Copy','\n',char(10)),0,430,360,130,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

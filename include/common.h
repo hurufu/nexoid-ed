@@ -511,8 +511,8 @@ union ServiceSettings {
 
         uint8_t deferredPaymentTrxAmountRequired : 1;
         uint8_t deferredPaymentAdditionalSalesInfo : 1;
-        uint8_t crdhlrConfirmationNotAllowed : 1;
-        uint8_t crdhlrConfirmationRequired : 1;
+        uint8_t crdhlrConfirmationByCardNotAllowed : 1;
+        uint8_t crdhlrConfirmationAlwaysRequired : 1;
         uint8_t preauthTrxAmountRequired : 1;
         uint8_t /* RFU */ : 3;
     };

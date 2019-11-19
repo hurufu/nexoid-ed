@@ -828,6 +828,29 @@ union TerminalType {
     };
 };
 
+enum InterfaceStatus {
+    INTERFACE_CHIP_READER = (1 << 0),
+    INTERFACE_MAGNETIC_STRIPE_READER = (1 << 1),
+    INTERFACE_ATTENDANT_NUMERIC_KEYPAD = (1 << 2),
+    INTERFACE_ATTENDANT_F_KEY_MANUAL_ENTRY = (1 << 3),
+    INTERFACE_ATTENDANT_F_KEY_REFERENCE_ENTRY = (1 << 4),
+    INTERFACE_ATTENDANT_F_KEY_ACCEPT = (1 << 5),
+    INTERFACE_CONTACTLESS_READER = (1 << 6),
+
+    INTERFACE_DISABLE_ALL = 0x0000,
+    INTERFACE_ENABLE_ALL = INTERFACE_CHIP_READER
+                         | INTERFACE_MAGNETIC_STRIPE_READER
+                         | INTERFACE_ATTENDANT_NUMERIC_KEYPAD
+                         | INTERFACE_ATTENDANT_F_KEY_MANUAL_ENTRY
+                         | INTERFACE_ATTENDANT_F_KEY_REFERENCE_ENTRY
+                         | INTERFACE_ATTENDANT_F_KEY_ACCEPT
+                         | INTERFACE_CONTACTLESS_READER
+                         ,
+    INTERFACE_NO_CONTACTLESS =  INTERFACE_ENABLE_ALL
+                             & ~INTERFACE_CONTACTLESS_READER
+                             ,
+};
+
 struct AidPreference {
     struct Aid PartialCardAid; // DF01
     bool ApplicationSelectionIndicator; // DF02

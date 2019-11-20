@@ -11,7 +11,6 @@
 #include "emv.h"
 #include "nexo_types.h"
 #include "types.h"
-#include "effective_application_profile.h"
 
 #include <ptmalloc3.h>
 #include <stddef.h>
@@ -1043,7 +1042,6 @@ struct NexoConfiguration {
 extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
 extern struct AidPreferenceTable* g_AidPreferenceTable;
-extern struct EffectiveApplicationProfile* g_Ap;
 extern enum PrinterStatus g_PrinterStatus;
 
 const char* NokReason_tostring(enum NokReason n);

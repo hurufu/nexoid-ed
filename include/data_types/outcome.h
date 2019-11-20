@@ -28,7 +28,7 @@ enum Start {
   , F
 };
 
-enum OnlineResponseData {
+enum OnlineResponseType {
     ONLINE_RES_NONE
   , ONLINE_RES_EMV_DATA
   , ONLINE_RES_ANY
@@ -55,7 +55,7 @@ enum Receipt {
 
 struct OutcomeParameters {
     enum Start Start;
-    enum OnlineResponseData OnlineResponseData;
+    enum OnlineResponseType OnlineResponseType; // It's called Online Response Data in nexo
     enum Cvm Cvm;
     bool UiRequestOnOutcomePresent;
     bool UiRequestOnRestartPresent;

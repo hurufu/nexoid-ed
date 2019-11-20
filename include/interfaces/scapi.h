@@ -25,6 +25,4 @@ enum ProcedureResult Output(size_t size, const enum CardholderMessage msg[size])
 enum ProcedureResult Data_Print_Interaction(enum PrintMessage);
 enum ProcedureResult Entry(int) DEPRECATED("Use Date_Entry_Interaction instead");
 enum ProcedureResult Date_Entry_Interaction() WARN("Function signature isn't yet defined");
-enum ProcedureResult DeactivateAllInterfaces(void) DEPRECATED("Use scap_Update_Interfaces");;
-enum ProcedureResult Enable_Allowed_Interfaces(void) DEPRECATED("Use scap_Update_Interfaces");
 enum ProcedureResult scap_Update_Interfaces(enum InterfaceStatus);

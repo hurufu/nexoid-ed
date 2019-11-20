@@ -5,8 +5,5 @@
 struct TerminalConfiguration {
 };
 
-struct ApplicationProfile {
-};
-
 struct ServiceConfiguration {
 };

@@ -18,7 +18,7 @@ enum PACKED FallbackParameterChip {
 // source nexo-IS 4.0
 // configuration: Application Profile
 // presence: M
-struct ApplicationProfileBase {
+struct ApplicationProfile {
     // Unique Application Profile ID:
     bcd_t profileNumber;
     bcd_t acquirerNumber;
@@ -53,8 +53,4 @@ struct ApplicationProfileBase {
     char* merchantNameAndLocation;
 
     enum FallbackParameterChip FallbackParameterChip;
-};
-
-struct ApplicationProfile {
-    struct ApplicationProfileBase;
 };

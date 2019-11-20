@@ -119,8 +119,8 @@ $(LIBNAME.so): $(OBJECTS)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
-$(CSCOPE_REF): $(SOURCES) $(HEADERS) $(wildcard ptmalloc3/*.[ch])
-	$(CSCOPE) -f$@ -b $^
+$(CSCOPE_REF): $(SOURCES) $(wildcard ptmalloc3/*.[ch]) $(HEADERS)
+	$(CSCOPE) -R -f $@ -b
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)

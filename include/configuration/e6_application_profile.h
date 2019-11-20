@@ -15,6 +15,9 @@ enum PACKED FallbackParameterChip {
     FALLBACK_TRANSACTION_ALLOWED_FOR_CHIP = 0x01
 };
 
+// source nexo-IS 4.0
+// configuration: Application Profile
+// presence: M
 struct ApplicationProfileBase {
     // Unique Application Profile ID:
     bcd_t profileNumber;

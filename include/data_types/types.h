@@ -13,10 +13,6 @@ struct bcd2 {
     bcd_t v[2];
 };
 
-struct ans16 {
-    char v[16];
-};
-
 struct ans_16 {
     uint8_t l;
     char v[16];

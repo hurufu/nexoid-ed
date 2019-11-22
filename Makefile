@@ -31,7 +31,7 @@ PREFIX       := /usr/local
 
 # Project config ##############################################################
 NAME         := nexoid
-INCLUDE_DIRS := . include include/data_types include/interfaces include/global_data_elements
+INCLUDE_DIRS := . $(shell find include -type d)
 # TODO: Develop proper pkg-config for dependencies
 LIBRARIES    := ptmalloc3 pthread
 

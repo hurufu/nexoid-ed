@@ -869,49 +869,20 @@ union CommandTemplate {
 };
 
 struct NexoConfiguration {
-    // Terminal configuration
-    union TerminalType TerminalType;
-    union TerminalSettings TerminalSettings;
-    union TerminalCapabilities TerminalCapabilities;
-    union AdditionalTerminalCapabilities AdditionalTerminalCapabilities;
-    union ConfiguredServices configuredServices;
-
-    // EMV configuration
-    unsigned char MaxNumberOfChipTries;
-
-    // Application configuration
-    enum ServiceId DefaultService;
-    union CurrencyAlpha3* ApplicationCurrency;
-    union Country CardholderDefaultLanguage;
-
-    // Service configuration
+    // FIXME: Not defined in such way, remove from NexoConfiguration
     union ServiceStartEvents ServiceStartEvents[S_MAX];
     union ServiceSettings ServiceSettings[S_MAX];
-    union ApplicationProfileSettings ApplicationProfileSettings;
 
-    // CVC
-    union Amount* CvcDefaultAmount;
-
-    // DCC
-    union Amount DccMinimumAllowedAmount;
-
-    // Refund
-    union Amount RefundProtectionAmount;
-
-    // Contactless
+    // FIXME: Move to EC
     struct CombinationsListAndParametersEntry* CombListsAndParams;
 
-    // MSR
+    // Move to E7
     struct TerminalListOfBid* TerminalListOfBid;
+    // Move to E8
     struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
-    enum FallbackParameterMagneticStripe FallbackParameterMagneticStripe; //TODO: Move to AP
-    enum CvmMagneticStripe CvmMagneticStripe; // TODO: Move to AP
 
-    // Application Profile
+    // Move to E4
     enum CardholderMessage CardholderInitialMessage;
-
-    // IFR
-    union EeaProcessSettings* EeaProcessSettings;
 };
 
 extern struct NexoConfiguration g_Nexo;

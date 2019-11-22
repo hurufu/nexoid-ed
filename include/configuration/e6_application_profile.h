@@ -27,7 +27,8 @@ struct ApplicationProfile {
     struct bcd6 acquirerIdentifier;
     void* additionalDataElements; // TODO: Define EF template
     union TerminalVerificationResults* additionalRestrictionsForForcedAcceptance;
-    union AdditionalTerminalCapabilities* additionalTerminalCapabilities;
+    union AdditionalTerminalCapabilities* additionalTerminalCapabilities; // FIXME: Not mentioned in nexo-FAST 13.1.2
+    union TerminalCapabilities* terminalCapabilities;
     struct bcd2 terminalCountryCode;
     struct ans_16 applicationLabelDefault;
     union ApplicationProfileSettings applicationProfileSettings;
@@ -38,6 +39,9 @@ struct ApplicationProfile {
     union CvmCapability* cvmCapabilityNoCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityNoCvmRequired;
+    union Amount* cvcDefaultAmount;
+    union Amount* dccMinimumAllowedAmount;
+    union Amount refundProtectionAmount; // FIXME: Make refundProtectionAmount optional
 
     // missing Default DDA DOL (DF1A)
     bcd_t holdTimeValue;
@@ -53,4 +57,6 @@ struct ApplicationProfile {
     char* merchantNameAndLocation;
 
     enum FallbackParameterChip fallbackParameterChip;
+    enum FallbackParameterMagneticStripe fallbackParameterMagneticStripe;
+    enum CvmMagneticStripe cvmMagneticStripe;
 };

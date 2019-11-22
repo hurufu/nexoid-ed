@@ -71,7 +71,7 @@ union AdditionalTerminalCapabilities {
 
             unsigned char cashDeposit : 1;
             unsigned char /* RFU */ : 1;
-        } TransactionType;
+        } transactionType;
 
         struct TransactionDataInputCapability {
             unsigned char numericKeys : 1;
@@ -79,7 +79,7 @@ union AdditionalTerminalCapabilities {
             unsigned char commandKeys : 1;
             unsigned char functionKeys : 1;
             unsigned char /* RFU */ : 4;
-        } TerminalDataInput;
+        } terminalDataInput;
 
         struct TransactionDataOutputCapability {
             unsigned char printAttendant : 1;
@@ -99,7 +99,7 @@ union AdditionalTerminalCapabilities {
             unsigned char codeTable3 : 1;
             unsigned char codeTable2 : 1;
             unsigned char codeTable1 : 1;
-        } TerminalDataOutput;
+        } terminalDataOutput;
     };
 };
 

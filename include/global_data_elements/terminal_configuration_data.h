@@ -6,4 +6,5 @@ struct TerminalConfiguration {
 };
 
 struct ServiceConfiguration {
+    const union ServiceSettings* serviceSettings;
 };

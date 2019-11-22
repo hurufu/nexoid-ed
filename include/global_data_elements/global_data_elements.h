@@ -5,6 +5,7 @@
 #include "kernel_data.h"
 #include "card_data.h"
 #include "online_response_data.h"
+#include "e6_application_profile.h"
 
 // This header should be included only by nexo application and by the trusted
 // layer, because it contains all the references that are available to the nexo

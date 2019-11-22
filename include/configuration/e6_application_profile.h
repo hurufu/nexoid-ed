@@ -52,5 +52,5 @@ struct ApplicationProfile {
     char merchantIdentifier[15];
     char* merchantNameAndLocation;
 
-    enum FallbackParameterChip FallbackParameterChip;
+    enum FallbackParameterChip fallbackParameterChip;
 };

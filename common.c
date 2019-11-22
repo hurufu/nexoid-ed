@@ -1,6 +1,7 @@
 #include "common.h"
 #include "utils.h"
 #include <stdio.h>
+#include "global_data_elements.h"
 
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
@@ -248,18 +249,6 @@ ServiceStartEvent_tostring(const union ServiceStartEvents s) {
     return byte_tostring(s.raw[0]);
 }
 
-void ctd_print(const struct CurrentTransactionData* const ctd) {
-    printf("CTD: "
-           "{ TransactionResult: %s"
-           ", NokReason: %s"
-           ", TerminalErrorReason: %s"
-           " }\n",
-        TransactionResult_tostring(ctd->TransactionResult),
-        NokReason_tostring(ctd->NokReason),
-        TerminalErrorReason_tostring(ctd->TerminalErrorReason)
-    );
-}
-
 bool isIssuerCountryExcludedForDcc(void) {
     return false;
 }
@@ -327,7 +316,7 @@ Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* co
         .extendedSelectionSupported = acpptr(r->extendedSelectionSupported),
         .next = NULL
     };
-    if (g_Ctd.TransactionAmountEntered) {
+    if (ttd.transactionAmountEntered) {
         tmp.statusCheckRequested = acpval(false);
         tmp.zeroAmount = acpval(false);
         tmp.ctlessApplicationNotAllowed = acpval(false);

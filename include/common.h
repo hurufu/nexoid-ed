@@ -548,7 +548,7 @@ union Country {
     char Str[3];
 };
 
-union Currency {
+union CurrencyAlpha3 {
     enum {
         Currency_EUR = MULTICHAR('E','U','R'),
         Currency_PLN = MULTICHAR('P','L','N')
@@ -588,7 +588,7 @@ struct UiParameters {
       , UI_VALUE_QUALIFIER_BALANCE
     } ValueQualifier;
     union Amount Value;
-    union Currency CurrencyCode;
+    union CurrencyAlpha3 CurrencyCode;
 };
 
 // NOTE: Strings in Track2 aren't null terminated
@@ -868,131 +868,6 @@ union CommandTemplate {
     uint8_t raw[2];
 };
 
-struct CurrentTransactionData {
-    // Operations
-    bool AcquirerPreSelected;
-    bool CardholderLanguageIsSelected;
-    bool CardholderRequestedChoiceOfApplication;
-    bool CardholderRequestedChangeOfApplication;
-    bool CardholderAcceptedSelectedApplication;
-    bool CardholderConfirmedOnce;
-    unsigned char PreSelectedAcquirerNumber;
-    bool IsCardInReader; // TODO: Consider making IsCardInReader an atomic variable
-
-    // Service
-    bool ApplicationInitialised;
-    union ServiceSettings* SelectedServiceSettings;
-    union ServiceStartEvents* SelectedServiceStartEvents; // TODO: remove
-    union ServiceStartEvents ServiceStartEvents;
-
-    // Transaction
-    union Amount TransactionAmount;
-    bool TransactionAmountEntered;
-    enum TransactionType TransactionType;
-    enum TransactionResult TransactionResult;
-    enum NokReason NokReason;
-    enum ServiceId SelectedService;
-    union Currency TransactionCurrency;
-    enum AuthorisationResponseCode AuthorisationResponseCode;
-    bool AttendantForcedTransactionOnline;
-    bool ForcedTransactionApproval;
-    char ReferenceData[35 + 1];
-    bool FallbackFlag;
-    unsigned char SelectedApplicationProfileNumber;
-    union ApplicationProfileSettings* SelectedApplicationProfileSettings; // FIXME: Delete?
-
-    // Online
-    bool UnableToGoOnline;
-
-    // EMV
-    enum Kernel KernelId;
-    enum KernelMode KernelMode;
-    enum Technology TechnologySelected;
-    union ProcessingStatus ProcessingStatus;
-    bool ExceptionFileCheckPerformed;
-    bool ExceptionFileMatch;
-    bool Continue;
-    bool ConfirmationByCard;
-    bool WasPresentOneCardOnlyMessageDisplayed;
-    bool CandidateListHasOneEntry;
-    unsigned char NumberOfRemainingChipTries;
-    bool CdaFailed; // FIXME: Delete this parameter
-    bool OnlineRequired; // FIXME: Delete this parameter
-    bool AacReceived; // FIXME: Delete this parameter
-    bool TcReceived; // FIXME: Delete thi parameter
-    union TerminalVerificationResults Tvr;
-    union CommandTemplate CommandTemplate;
-    bool PinPadNotWorking;
-
-    // Hidden
-    union EmvStatus Sw1Sw2;
-    uint8_t ResponseData[256];
-    struct Aid AidTerminal;
-
-    // Outcome
-    enum Outcome Outcome;
-    struct OutcomeParameters Out;
-
-    // UI
-    struct UiParameters UiParametersForOutcome;
-    struct UiParameters UiParametersForRestart;
-    struct UiParameters UiParametersForTrxCompletion;
-    bool UiRequestPostponed;
-    bool PrintCardholderReceipt;
-    bool PrintMerchantReceipt;
-    bool SignatureLine;
-    bool SignatureLineMerchant;
-    bool SignatureLineForVoiceAuthorisation;
-    char DeclineDisplayMessage[40 + 1];
-
-    // Cashback
-    union Amount CashbackAmount;
-
-    // Card data
-    union Country* IssuerCountry;
-    unsigned char (* PAN)[11]; // TODO: Rename to Pan
-
-    // DCC
-    volatile bool isDccEligible;
-    bool DccPerformedOnce;
-
-    // Pre-Authorisation
-    bool* Minus;
-
-    // Service startup
-    bool SecurityPermission;
-    bool AmountDisplayed;
-    union Country SelectedLanguage;
-    struct EventTable {
-        bool Table[E_MAX];
-    } Event;
-    enum TerminalErrorReason TerminalErrorReason;
-    bool TerminalErrorIndicator;
-
-    // Magnetic stripe
-    bool InvalidSwipeOccured;
-    bool TransactionConfirmedByCardholder; // EMV also
-    struct Track2 Track2;
-    union ServiceCodeMs* ServiceCodeMs;
-    const unsigned char (* Pan)[19]; // TODO: Delete
-    const struct Bid* SelectedBid;
-    unsigned char PanMatchLength; // integer
-
-    // Manual Entry
-    bool PanEnteredManually;
-
-    // Contactless
-    struct CombinationsListAndParametersEntry* CombListWorkingTable;
-    bool TimeoutIndicator;
-
-    // Yes, there are actually two variables to control contactless in spec
-    bool NoContactlessAllowed;
-    bool ContactlessAllowed;
-
-    // IFR
-    bool ShowUpfrontButton;
-};
-
 struct NexoConfiguration {
     // Terminal configuration
     union TerminalType TerminalType;
@@ -1006,7 +881,7 @@ struct NexoConfiguration {
 
     // Application configuration
     enum ServiceId DefaultService;
-    union Currency* ApplicationCurrency;
+    union CurrencyAlpha3* ApplicationCurrency;
     union Country CardholderDefaultLanguage;
 
     // Service configuration
@@ -1039,7 +914,6 @@ struct NexoConfiguration {
     union EeaProcessSettings* EeaProcessSettings;
 };
 
-extern struct CurrentTransactionData g_Ctd;
 extern struct NexoConfiguration g_Nexo;
 extern struct AidPreferenceTable* g_AidPreferenceTable;
 extern enum PrinterStatus g_PrinterStatus;
@@ -1052,7 +926,6 @@ const char* TransactionResult_tostring(enum TransactionResult);
 const char* ServiceId_tostring(enum ServiceId s);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
-void ctd_print(const struct CurrentTransactionData*);
 bool isIssuerCountryExcludedForDcc(void);
 union ConfiguredServices ServiceId_to_ConfiguredServices(enum ServiceId);
 struct CombinationsListAndParametersEntry* Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry*);

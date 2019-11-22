@@ -101,7 +101,7 @@ profile_build: all profiling_build.pdb profiling_build.pq
 	$(TIME_PROC.$(TIME_FORMAT))
 endif
 
-.PHONY: all clean asm pp run index update static shared
+.PHONY: all clean asm pp index update static shared
 all: shared static index .syntastic_c_config cflow
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)

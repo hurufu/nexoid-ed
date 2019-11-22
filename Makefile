@@ -143,6 +143,12 @@ $(PREFIX)/include/$(NAME)/%.h: include/data_types/%.h
 	install -D $< $@
 $(PREFIX)/include/$(NAME)/%.h: include/interfaces/%.h
 	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/configuration/%.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/global_data_elements/%.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/local_data_elements/%.h
+	install -D $< $@
 
 .PHONY: uninstall
 uninstall:

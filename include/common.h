@@ -814,8 +814,6 @@ union CommandTemplate {
 };
 
 struct NexoConfiguration {
-    // FIXME: Not defined in such way, remove from NexoConfiguration
-    union ServiceStartEvents ServiceStartEvents[S_MAX];
     union ServiceSettings ServiceSettings[S_MAX];
 };
 

@@ -1509,7 +1509,7 @@ INSERT INTO items VALUES(3283,72,'address','Bailout',0,5720,730,50,30,60,0,NULL,
 INSERT INTO items VALUES(3284,73,'beginend','Copy_Combination_Lists',0,460,30,100,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3285,73,'beginend','End',0,460,1360,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3286,73,'vertical','',0,460,50,0,1290,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3287,73,'loopstart',replace('struct CombinationsListAndParametersEntry\n* r = g_Nexo.CombListsAndParams, ** w = &ttd.combListWorkingTable;\nr;\nr = r->next','\n',char(10)),0,460,420,280,50,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3287,73,'loopstart',replace('struct CombinationListAndParameters\n* r = ec, ** w = &ttd.combListWorkingTable;\nr;\nr = r->next','\n',char(10)),0,460,420,280,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3288,73,'loopend','',0,460,1190,280,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3289,73,'shelf','ServiceId_to_ConfiguredServices(ttd.selectedService)',1,460,210,280,40,40,0,NULL,'',NULL,'const union ConfiguredServices selectedService');
 INSERT INTO items VALUES(3290,73,'if','selectedService.i == r->supportingServices.i',0,460,670,280,20,400,1,NULL,'',NULL,'');
@@ -1541,7 +1541,7 @@ INSERT INTO items VALUES(3315,74,'beginend','End',0,670,780,50,20,60,0,NULL,'',N
 INSERT INTO items VALUES(3316,74,'horizontal','',0,660,-220,240,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3317,74,'action','returns enum ProcedureResult',0,920,-220,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3318,74,'vertical','',0,670,-220,0,1010,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3319,74,'loopstart',replace('struct CombinationsListAndParametersEntry* w = ttd.combListWorkingTable;\nw;\nw = w->next','\n',char(10)),0,670,10,300,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3319,74,'loopstart',replace('struct CombinationListAndParameters* w = ttd.combListWorkingTable;\nw;\nw = w->next','\n',char(10)),0,670,10,300,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3320,74,'loopend','',0,670,480,300,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3321,74,'horizontal','',0,670,440,530,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3322,74,'if','w->ctlessApplicationNotAllowed',0,670,220,300,20,30,0,NULL,'',NULL,'');
@@ -1564,7 +1564,7 @@ INSERT INTO items VALUES(3338,74,'horizontal','',0,670,180,470,0,0,0,NULL,'',NUL
 INSERT INTO items VALUES(3339,75,'beginend','Pre_Process_Combination_Lists_Entry',0,780,60,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3340,75,'beginend','End',0,780,2780,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3341,75,'horizontal','',0,780,60,200,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3342,75,'action','struct CombinationsListAndParametersEntry* w',0,1150,60,190,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3342,75,'action','struct CombinationListAndParameters* w',0,1150,60,190,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3343,75,'vertical','',0,780,60,0,2720,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3344,75,'shelf','0',0,780,1850,280,40,40,0,NULL,'',NULL,'w->terminalTransactionQualifiers->kernel3.onlineCryptogramRequired');
 INSERT INTO items VALUES(3345,75,'shelf','0',0,780,1950,280,40,40,0,NULL,'',NULL,'w->terminalTransactionQualifiers->kernel3.cvmRequired');

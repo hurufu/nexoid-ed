@@ -53,7 +53,7 @@ struct TerminalTransactionData {
     struct Track2 track2Data; // FIXME: Use proper structure for Track 2
     const struct Bid* selectedBid;
     bool panEnteredManually;
-    struct CombinationsListAndParametersEntry* combListWorkingTable;
+    struct CombinationListAndParameters* combListWorkingTable;
     bool timeoutIndicator;
     bool noContactlessAllowed;
     union ServiceStartEvents serviceStartEvents;

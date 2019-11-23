@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "global_data_elements.h"
 #include "e4_service_settings_table.h"
+#include "ec_combination_list_and_parameters.h"
 
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
@@ -303,9 +304,9 @@ ServiceId_to_ConfiguredServices(const enum ServiceId s) {
     return ret;
 }
 
-struct CombinationsListAndParametersEntry*
-Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r) {
-    struct CombinationsListAndParametersEntry tmp = {
+struct CombinationListAndParameters*
+Copy_Combination_Lists_Entry(const struct CombinationListAndParameters* const r) {
+    struct CombinationListAndParameters tmp = {
         .terminalAid = r->terminalAid,
         .kernelId = r->kernelId,
         .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers),

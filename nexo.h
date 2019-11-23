@@ -12,6 +12,7 @@
 #include "e4_service_settings_table.h"
 #include "e7_terminal_list_of_bid.h"
 #include "e8_application_selection_table_non_chip.h"
+#include "ec_combination_list_and_parameters.h"
 
 #include <string.h>
 

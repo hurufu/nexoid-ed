@@ -647,33 +647,6 @@ struct Track2 {
     } discretionaryData;
 };
 
-struct CombinationsListAndParametersEntry {
-    struct {
-        uint8_t size : 5;
-        unsigned char value[16];
-    } terminalAid;
-    unsigned char kernelId;
-    union ConfiguredServices supportingServices;
-    bool* cashbackPresent;
-    union TerminalTransactionQualifiers* terminalTransactionQualifiers;
-    bool* statusCheckSupportFlag;
-    bool* zeroAmountAllowedFlag;
-    union Amount* readerCtlessTransactionLimit;
-    union Amount* readerCtlessFloorLimit;
-    union Amount* readerCvmRequiredLimit;
-    bool* extendedSelectionSupported;
-
-    // Predefined indicators
-    bool* statusCheckRequested;
-    bool* zeroAmount;
-    bool* ctlessApplicationNotAllowed;
-    bool* readerCtlessFloorLimitNotAllowed;
-    bool* readerCvmRequiredLimitExceeded;
-    bool* readerCtlessFloorLimitExceeded;
-
-    struct CombinationsListAndParametersEntry* next;
-};
-
 struct Bid {
     uint8_t size;
     unsigned char value[16 + 1];
@@ -844,9 +817,6 @@ struct NexoConfiguration {
     // FIXME: Not defined in such way, remove from NexoConfiguration
     union ServiceStartEvents ServiceStartEvents[S_MAX];
     union ServiceSettings ServiceSettings[S_MAX];
-
-    // FIXME: Move to EC
-    struct CombinationsListAndParametersEntry* CombListsAndParams;
 };
 
 extern struct NexoConfiguration g_Nexo;
@@ -863,4 +833,4 @@ struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
 bool isIssuerCountryExcludedForDcc(void);
 union ConfiguredServices ServiceId_to_ConfiguredServices(enum ServiceId);
-struct CombinationsListAndParametersEntry* Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry*);
+struct CombinationListAndParameters* Copy_Combination_Lists_Entry(const struct CombinationListAndParameters*);

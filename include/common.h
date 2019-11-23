@@ -813,11 +813,6 @@ union CommandTemplate {
     uint8_t raw[2];
 };
 
-struct NexoConfiguration {
-    union ServiceSettings ServiceSettings[S_MAX];
-};
-
-extern struct NexoConfiguration g_Nexo;
 extern struct AidPreferenceTable* g_AidPreferenceTable;
 extern enum PrinterStatus g_PrinterStatus;
 

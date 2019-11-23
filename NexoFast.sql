@@ -165,7 +165,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,55,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n\nstruct NexoConfiguration g_Nexo;','\n',char(10)));
+INSERT INTO state VALUES(1,55,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,

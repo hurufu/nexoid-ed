@@ -9,6 +9,7 @@
 #include "application_kernel_and_app_profile_selection.h"
 #include "technology_selection.h"
 #include "transaction_completion.h"
+#include "e4_service_settings_table.h"
 #include "e7_terminal_list_of_bid.h"
 #include "e8_application_selection_table_non_chip.h"
 

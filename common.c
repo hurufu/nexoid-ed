@@ -2,6 +2,7 @@
 #include "utils.h"
 #include <stdio.h>
 #include "global_data_elements.h"
+#include "e4_service_settings_table.h"
 
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)

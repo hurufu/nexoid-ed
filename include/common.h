@@ -847,9 +847,6 @@ struct NexoConfiguration {
 
     // FIXME: Move to EC
     struct CombinationsListAndParametersEntry* CombListsAndParams;
-
-    // Move to E4
-    enum CardholderMessage CardholderInitialMessage;
 };
 
 extern struct NexoConfiguration g_Nexo;

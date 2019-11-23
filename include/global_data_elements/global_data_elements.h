@@ -23,5 +23,6 @@ extern struct KernelData kd;
 extern struct CardData cd;
 extern struct OnlineResponseData ord;
 
+extern struct ServiceSettingsTable e4;
 extern struct TerminalListOfBid* e7;
 extern struct ApplicationProfileSelectionTableNonChip* e8;

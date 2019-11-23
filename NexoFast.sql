@@ -1872,7 +1872,7 @@ INSERT INTO items VALUES(4007,88,'if',replace('g_PrinterStatus\n==\nPRINTER_UNAV
 INSERT INTO items VALUES(4009,88,'if',replace('tc.additionalTerminalCapabilities\n.terminalDataOutput.printCardholder\n/* E1.9F40[4,7] */','\n',char(10)),0,670,490,220,40,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4010,88,'shelf','CRDHLDR_MSG_PRINTER_OUT_OF_ORDER',0,670,1010,220,40,40,0,NULL,NULL,NULL,'msg[number++]');
 INSERT INTO items VALUES(4011,88,'horizontal','',0,670,1070,270,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4012,88,'shelf','g_Nexo.CardholderInitialMessage',0,1090,150,140,40,40,0,NULL,'',NULL,'msg[number++]');
+INSERT INTO items VALUES(4012,88,'shelf','/* FIXME */ e4.a[0].cardholderInitialMessage',0,1090,150,140,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(4013,88,'if',replace('tc.terminalSettings\n.cardholderReceipt.printDeclined\n/* E1.DF34[4,7] */','\n',char(10)),0,670,700,220,40,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4014,88,'if',replace('tc.terminalSettings\n.cardholderReceipt.printVoiceAuth\n/* E1.DF34[4,6] */','\n',char(10)),0,670,800,220,40,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4015,88,'if',replace('tc.terminalSettings\n.cardholderReceipt.printAborted\n/* E1.DF34[4,5] */','\n',char(10)),0,670,910,220,40,50,1,NULL,'',NULL,'');

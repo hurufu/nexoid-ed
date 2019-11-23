@@ -7,6 +7,8 @@
 #include "online_response_data.h"
 #include "e6_application_profile.h"
 #include "e7_terminal_list_of_bid.h"
+#include "e4_service_settings_table.h"
+#include "e1_terminal_specific_data.h"
 
 // This header should be included only by nexo application and by the trusted
 // layer, because it contains all the references that are available to the nexo
@@ -23,6 +25,7 @@ extern struct KernelData kd;
 extern struct CardData cd;
 extern struct OnlineResponseData ord;
 
+extern struct TerminalSpecificData e1;
 extern struct ServiceSettingsTable e4;
 extern struct TerminalListOfBid* e7;
 extern struct ApplicationProfileSelectionTableNonChip* e8;

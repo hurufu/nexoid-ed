@@ -41,7 +41,7 @@ struct TerminalTransactionData {
     bool signatureLine;
     bool signatureLineMerchant;
     bool signatureLineForVoiceAuthorisation;
-    unsigned char (* pan)[11]; // FIXME: Use proper structure for PAN
+    char (* pan)[19]; // FIXME: Use proper structure for PAN
     bool isDccEligible;
     bool dccPerformedOnce;
     bool* minus; // FIXME: Consider making minus a value, and not a pointer

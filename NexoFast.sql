@@ -25,7 +25,7 @@ INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-568 21','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','4294 12','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3470 104',NULL,75.0);
-INSERT INTO diagrams VALUES(36,'Main','2905 38','',60.0);
+INSERT INTO diagrams VALUES(36,'Main','570 35','',60.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-397 -129',NULL,75.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','92 -30','nexo-FAST v.3.2 note 15-50',75.0);
 INSERT INTO diagrams VALUES(41,'Process_Event','2652 -158',NULL,75.0);
@@ -42,7 +42,7 @@ INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
 INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-217 -150',NULL,80.0);
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 -117','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-734.0952380952381 -14.76190476190476',NULL,70.0);
-INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','0 -328',NULL,75.0);
+INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-316 -161','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1081.6666666666665 -152.0',NULL,60.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','4140 254','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','-150 -240','',75.0);
@@ -126,7 +126,7 @@ INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(161,'Emv_Completion','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1522 -148','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','0 0','',75.0);
-INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','3062 -1098','nexo-Fast fig. 158~160',75.0);
+INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','261 -1097','nexo-Fast fig. 158~160',75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','0 0','',75.0);
 INSERT INTO diagrams VALUES(170,'Determination_Of_Oda_Method','-518 -230','',75.0);
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','0 0','',75.0);
@@ -159,14 +159,14 @@ INSERT INTO diagrams VALUES(197,'Update_Interfaces_No_Contactless','-448 -185',N
 INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -160','',75.0);
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-132 528','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Dsi_Check_Card_Service','315.09523809523813 62.190476190476204','Based on nexo-FAST v.3.2 note 20-10',75.0);
-INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1013 -201','',85.0);
+INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1012 143','',85.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,168,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,56,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -562,7 +562,7 @@ INSERT INTO items VALUES(1171,36,'address',replace('Diagnostics\nMaintenance\nRe
 INSERT INTO items VALUES(1172,36,'branch',replace('Default Service\ninitialisation','\n',char(10)),0,1050,120,180,40,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1173,36,'vertical','',0,1050,60,0,1010,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1174,36,'address','(B) Idle',0,1050,1020,180,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1175,36,'insertion',replace('result =\nDefault_Service_Initialisation();','\n',char(10)),0,1050,470,180,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1175,36,'insertion',replace('result =\nDefault_Service_Initialisation();','\n',char(10)),1,1050,470,180,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1176,36,'if','PR_OK == result',0,1050,540,180,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1177,36,'vertical','',0,1310,540,0,530,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1178,36,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,1310,1000,60,50,60,0,NULL,'',NULL,'');
@@ -775,11 +775,11 @@ INSERT INTO items VALUES(1555,55,'address','Ok',0,20,860,180,30,60,0,NULL,NULL,N
 INSERT INTO items VALUES(1556,55,'branch','(A) Nok',0,1710,130,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1557,55,'branch','Return',0,1970,130,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1558,55,'address','Return',0,1710,860,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1559,56,'beginend','Initialise_Basic_Data',0,170,60,100,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1560,56,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1561,56,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1559,56,'beginend','Initialise_Basic_Data',0,170,-40,100,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1560,56,'beginend','End',0,170,520,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1561,56,'vertical',NULL,0,170,-20,0,520,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1562,55,'insertion','Initialise_Transaction_Database();',0,20,230,180,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1563,55,'if','ttd.selectedService == S_NONE',1,20,290,180,20,220,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1563,55,'if','ttd.selectedService == S_NONE',0,20,290,180,20,220,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1566,55,'if','PR_DONE == result',0,20,680,180,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1567,55,'vertical','',0,270,430,0,480,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1568,55,'vertical','',0,680,80,0,830,0,0,NULL,NULL,NULL,NULL);
@@ -5318,7 +5318,7 @@ INSERT INTO items VALUES(9238,201,'vertical','',0,1420,290,0,400,0,0,NULL,'',NUL
 INSERT INTO items VALUES(9239,201,'address','Nok',0,1420,640,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9243,201,'shelf','PR_BAIL',0,2260,160,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(9245,201,'address','Nok',0,1820,640,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9246,201,'insertion',replace('result =\nService_Initialisation();','\n',char(10)),0,1620,470,130,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9246,201,'insertion',replace('result =\nService_Initialisation();','\n',char(10)),1,1620,470,130,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9247,201,'if','PR_OK == result',0,1620,540,130,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9248,201,'horizontal','',0,650,-120,200,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9249,201,'action','returns enum ProcedureResult',0,980,-120,130,20,0,0,NULL,'',NULL,'');
@@ -5382,6 +5382,11 @@ INSERT INTO items VALUES(9312,200,'case','S_NONE',0,880,470,50,20,60,0,NULL,'',N
 INSERT INTO items VALUES(9313,200,'vertical','',0,880,430,0,420,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9314,200,'horizontal','',0,880,510,200,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9315,200,'shelf','PR_NOK',0,880,660,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(9316,56,'shelf','false',0,170,140,210,40,40,0,NULL,NULL,NULL,'ttd.acquirerPreSelected');
+INSERT INTO items VALUES(9317,56,'shelf','false',0,170,240,210,40,40,0,NULL,'',NULL,'ttd.cardholderLanguageIsSelected');
+INSERT INTO items VALUES(9318,56,'commentin',replace('FIXME: It''s useless to setup those fields here,\nbecause ttd is cleared just before default\nservice initialisation','\n',char(10)),0,170,40,210,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9319,56,'shelf','false',0,170,340,210,40,40,0,NULL,NULL,NULL,'ttd.cardholderRequestedChoiceOfApplication');
+INSERT INTO items VALUES(9320,56,'shelf','(struct bcd2){ }',0,170,440,210,40,40,0,NULL,NULL,NULL,'ttd.preSelectedAcquirerNumber');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

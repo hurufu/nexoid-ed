@@ -10,6 +10,7 @@
 #include "technology_selection.h"
 #include "transaction_completion.h"
 #include "e7_terminal_list_of_bid.h"
+#include "e8_application_selection_table_non_chip.h"
 
 #include <string.h>
 

@@ -689,21 +689,6 @@ struct PrefixRange {
     unsigned char value[19];
 };
 
-struct ApplicationProfileSelectionTableNonChip {
-    struct Bid Bid;
-    unsigned char ApplicationProfileNumber;
-    union ConfiguredServices SupportedServices;
-    unsigned char* ApplicationProfileAcquirerNumber;
-    struct {
-        struct Prefix value;
-        struct Prefix* next;
-    }* prefix;
-    struct Prefix* prefixMask;
-    enum TechnologySelected* TechnologyOfProfile; // WUT?
-
-    struct ApplicationProfileSelectionTableNonChip* next;
-};
-
 union ProcessingStatus {
     unsigned char raw[4];
     struct {
@@ -862,9 +847,6 @@ struct NexoConfiguration {
 
     // FIXME: Move to EC
     struct CombinationsListAndParametersEntry* CombListsAndParams;
-
-    // Move to E8
-    struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
 
     // Move to E4
     enum CardholderMessage CardholderInitialMessage;

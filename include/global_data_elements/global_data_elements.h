@@ -24,3 +24,4 @@ extern struct CardData cd;
 extern struct OnlineResponseData ord;
 
 extern struct TerminalListOfBid* e7;
+extern struct ApplicationProfileSelectionTableNonChip* e8;

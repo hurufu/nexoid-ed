@@ -674,32 +674,19 @@ struct CombinationsListAndParametersEntry {
     struct CombinationsListAndParametersEntry* next;
 };
 
-struct TerminalListOfBid {
-    struct Bid {
-        uint8_t size;
-        unsigned char value[16 + 1];
-    } Bid;
+struct Bid {
+    uint8_t size;
+    unsigned char value[16 + 1];
+} Bid;
 
-    struct MatchingPattern {
-        enum {
-            MATCH_PREFIX
-          , MATCH_RANGE
-        } type;
-        union {
-            struct Prefix {
-                uint8_t size;
-                unsigned char value[19];
-            } prefix;
-            struct PrefixRange {
-                uint8_t size;
-                unsigned char value[19];
-            } prefixRange;
+struct Prefix {
+    uint8_t size;
+    unsigned char value[19];
+};
 
-        };
-        struct MatchingPattern* next;
-    } matchingPattern;
-
-    struct TerminalListOfBid* next;
+struct PrefixRange {
+    uint8_t size;
+    unsigned char value[19];
 };
 
 struct ApplicationProfileSelectionTableNonChip {
@@ -876,8 +863,6 @@ struct NexoConfiguration {
     // FIXME: Move to EC
     struct CombinationsListAndParametersEntry* CombListsAndParams;
 
-    // Move to E7
-    struct TerminalListOfBid* TerminalListOfBid;
     // Move to E8
     struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
 

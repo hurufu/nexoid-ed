@@ -6,6 +6,7 @@
 #include "card_data.h"
 #include "online_response_data.h"
 #include "e6_application_profile.h"
+#include "e7_terminal_list_of_bid.h"
 
 // This header should be included only by nexo application and by the trusted
 // layer, because it contains all the references that are available to the nexo
@@ -21,3 +22,5 @@ extern struct TerminalTransactionData ttd;
 extern struct KernelData kd;
 extern struct CardData cd;
 extern struct OnlineResponseData ord;
+
+extern struct TerminalListOfBid* e7;

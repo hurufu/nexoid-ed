@@ -6,4 +6,19 @@
 // presence: C
 
 struct TerminalListOfBid {
+    struct Bid Bid;
+
+    struct MatchingPattern {
+        enum {
+            MATCH_PREFIX
+          , MATCH_RANGE
+        } type;
+        union {
+            struct Prefix prefix;
+            struct PrefixRange prefixRange;
+        };
+        struct MatchingPattern* next;
+    } matchingPattern;
+
+    struct TerminalListOfBid* next;
 };

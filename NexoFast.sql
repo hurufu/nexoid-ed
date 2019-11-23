@@ -1750,7 +1750,7 @@ INSERT INTO items VALUES(3831,81,'shelf','0',0,180,930,150,40,40,0,NULL,NULL,NUL
 INSERT INTO items VALUES(3832,81,'shelf','NULL',0,180,830,150,40,40,0,NULL,NULL,NULL,'ttd.selectedBid');
 INSERT INTO items VALUES(3833,81,'shelf','PR_UNINITIALISED',0,180,90,150,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(3834,79,'shelf','PR_UNINITIALISED',0,260,90,190,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(3835,81,'loopstart',replace('b = g_Nexo.TerminalListOfBid;\nb;\nb = b->next','\n',char(10)),0,820,120,180,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3835,81,'loopstart',replace('b = e7;\nb;\nb = b->next','\n',char(10)),0,820,120,180,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3836,81,'loopend','',0,820,840,180,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3837,81,'loopstart',replace('p = &b->matchingPattern;\np;\np = p->next','\n',char(10)),0,820,220,180,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3838,81,'loopend','',0,820,780,180,20,60,0,NULL,NULL,NULL,NULL);

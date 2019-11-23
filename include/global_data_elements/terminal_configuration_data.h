@@ -14,7 +14,3 @@ struct TerminalConfiguration {
     union Country cardholderDefaultLanguage;
     union EeaProcessSettings* eeaProcessSettings; // FIXME: shouldn't be a pointer
 };
-
-struct ServiceConfiguration {
-    const union ServiceSettings* serviceSettings;
-};

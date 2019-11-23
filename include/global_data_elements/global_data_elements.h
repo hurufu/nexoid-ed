@@ -19,7 +19,7 @@
 
 extern struct TerminalConfiguration tc;
 extern struct ApplicationProfile ap;
-extern struct ServiceConfiguration sc;
+extern struct ServiceSettingsEntry sc;
 extern struct TerminalTransactionData ttd;
 extern struct KernelData kd;
 extern struct CardData cd;

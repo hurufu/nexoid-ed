@@ -10,6 +10,7 @@
 struct ServiceSettingsEntry {
     enum CardholderMessage cardholderInitialMessage;
     union ServiceSettings serviceSettings;
+    union ServiceStartEvents serviceStartEvents;
 };
 
 struct ServiceSettingsTable {

@@ -41,7 +41,7 @@ INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
 INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-217 -150',NULL,80.0);
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 -49','',75.0);
-INSERT INTO diagrams VALUES(55,'Service_Initialisation','800 225',NULL,85.0);
+INSERT INTO diagrams VALUES(55,'Service_Initialisation','1447 224',NULL,85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-316 -161','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1081.6666666666665 -152.0',NULL,60.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','4140 254','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
@@ -152,12 +152,12 @@ INSERT INTO diagrams VALUES(190,'Tc_Transaction_Finalisation','-210 -70',NULL,70
 INSERT INTO diagrams VALUES(191,'Tc_Save_Transaction','0 0',NULL,70.0);
 INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','361 -388',replace('TODO: Consider redesign of cardholder messages format, so it can be possible to signal that some informations should be displayed on one line, like:\nPAYMENT: <Transaction Amount> <Currency>','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(193,'Update_Interfaces_Disable_All','-377 -226','',75.0);
-INSERT INTO diagrams VALUES(194,'Update_Interfaces_Disable_Other','1085 -476','Based on nexo-FAST v.3.2 note 120-10 and table 11',60.0);
+INSERT INTO diagrams VALUES(194,'Update_Interfaces_Disable_Other','1251 -558','Based on nexo-FAST v.3.2 note 120-10 and table 11',60.0);
 INSERT INTO diagrams VALUES(195,'Update_Interfaces','30 -208','NOTE: Function Update_Interfaces has different interface then defined by nexo, which is arguably better',75.0);
-INSERT INTO diagrams VALUES(196,'Update_Interfaces_Enable_All','-88 61',NULL,75.0);
+INSERT INTO diagrams VALUES(196,'Update_Interfaces_Enable_All','112 126',NULL,75.0);
 INSERT INTO diagrams VALUES(197,'Update_Interfaces_No_Contactless','-448 -185',NULL,75.0);
 INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -160','',75.0);
-INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-132 528','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
+INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-132 -6','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Dsi_Check_Card_Service','315.09523809523813 62.190476190476204','Based on nexo-FAST v.3.2 note 20-10',75.0);
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1012 143','',85.0);
 CREATE TABLE state
@@ -166,7 +166,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,55,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,199,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -5225,7 +5225,7 @@ INSERT INTO items VALUES(9111,198,'insertion',replace('result =\nUpdate_Interfac
 INSERT INTO items VALUES(9112,65,'insertion',replace('result =\nUpdate_Interfaces_Enable_All();','\n',char(10)),0,3510,810,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9113,65,'insertion',replace('result =\nUpdate_Interfaces_Enable_All();','\n',char(10)),0,4230,800,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9114,65,'insertion',replace('result =\nUpdate_Interfaces_No_Contactless();','\n',char(10)),0,4540,800,150,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9115,55,'insertion',replace('result =\nUpdate_Interfaces_Enable_Allowed();','\n',char(10)),0,1860,580,160,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9115,55,'insertion',replace('result =\nUpdate_Interfaces_Enable_Allowed();','\n',char(10)),1,1860,580,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9116,199,'beginend','Update_Interfaces_Enable_Allowed',0,250,-250,140,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9117,199,'beginend','End',0,250,1660,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9118,199,'vertical',NULL,0,250,-250,0,1890,0,0,NULL,NULL,NULL,NULL);
@@ -5236,31 +5236,31 @@ INSERT INTO items VALUES(9122,199,'insertion',replace('result =\nUpdate_Interfac
 INSERT INTO items VALUES(9123,199,'shelf','INTERFACE_DISABLE_ALL',0,250,-70,190,40,40,0,NULL,'',NULL,'enum InterfaceStatus status');
 INSERT INTO items VALUES(9124,199,'commentout','Same as `status = 0`',0,570,-70,90,20,110,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9125,199,'shelf','PR_UNINITIALISED',0,250,-170,190,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(9126,199,'if',replace('ttd.serviceStartEvents\n.accept','\n',char(10)),0,250,1170,190,30,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9126,199,'if',replace('sc.serviceStartEvents\n.accept','\n',char(10)),0,250,1170,190,30,40,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9127,199,'vertical','',0,480,1170,0,140,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9128,199,'horizontal','',0,250,1310,230,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9129,199,'action',replace('status |=\nINTERFACE_ATTENDANT_F_KEY_ACCEPT;','\n',char(10)),0,250,1260,190,30,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9130,199,'if',replace('ttd.serviceStartEvents\n.referenceEntry','\n',char(10)),0,250,980,190,30,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9130,199,'if',replace('sc.serviceStartEvents\n.referenceEntry','\n',char(10)),0,250,980,190,30,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9131,199,'vertical','',0,480,980,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9132,199,'horizontal','',0,250,1120,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9133,199,'action',replace('status |=\nINTERFACE_ATTENDANT_F_KEY_REFERENCE_ENTRY;','\n',char(10)),0,250,1070,190,30,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9134,199,'if',replace('ttd.serviceStartEvents\n.manualEntry','\n',char(10)),0,250,790,190,30,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9134,199,'if',replace('sc.serviceStartEvents\n.manualEntry','\n',char(10)),0,250,790,190,30,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9135,199,'vertical','',0,480,790,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9136,199,'horizontal','',0,250,930,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9137,199,'action',replace('status |=\nINTERFACE_ATTENDANT_F_KEY_REFERENCE_ENTRY;','\n',char(10)),0,250,880,190,30,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9138,199,'if',replace('ttd.serviceStartEvents\n.cardholderDetect','\n',char(10)),0,250,1360,190,30,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9138,199,'if',replace('sc.serviceStartEvents\n.cardholderDetect','\n',char(10)),0,250,1360,190,30,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9139,199,'vertical','',0,480,1360,0,120,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9140,199,'horizontal','',0,250,1480,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9141,199,'commentin','Not supported by nexo',0,250,1440,190,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9142,199,'if',replace('ttd.serviceStartEvents\n.amountEntry','\n',char(10)),0,250,600,190,30,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9142,199,'if',replace('sc.serviceStartEvents\n.amountEntry','\n',char(10)),0,250,600,190,30,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9143,199,'vertical','',0,480,600,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9144,199,'horizontal','',0,250,740,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9145,199,'action',replace('status |=\nINTERFACE_ATTENDANT_NUMERIC_KEYPAD;','\n',char(10)),0,250,690,190,30,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9146,199,'if',replace('ttd.serviceStartEvents\n.cardSwiped','\n',char(10)),0,250,310,190,30,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9146,199,'if',replace('sc.serviceStartEvents\n.cardSwiped','\n',char(10)),0,250,310,190,30,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9147,199,'vertical','',0,480,310,0,240,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9148,199,'horizontal','',0,250,550,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9149,199,'action',replace('status |=\nINTERFACE_MAGNETIC_STRIPE_READER;','\n',char(10)),0,250,400,190,30,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9150,199,'if',replace('ttd.serviceStartEvents\n.cardInserted','\n',char(10)),0,250,20,190,30,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9150,199,'if',replace('sc.serviceStartEvents\n.cardInserted','\n',char(10)),0,250,20,190,30,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9151,199,'vertical','',0,480,20,0,240,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9152,199,'horizontal','',0,250,260,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9153,199,'action',replace('status |=\nINTERFACE_CHIP_READER;','\n',char(10)),0,250,210,190,30,0,0,NULL,'',NULL,'');

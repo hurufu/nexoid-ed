@@ -795,25 +795,10 @@ enum InterfaceStatus {
                              ,
 };
 
-struct AidPreference {
-    struct Aid PartialCardAid; // DF01
-    bool ApplicationSelectionIndicator; // DF02
-    struct {
-        size_t l_entry;
-        struct Aid entry[100]; // DF01
-    } SubordinatedApplications; // BF02
-}; // BF01
-
-struct AidPreferenceTable {
-    size_t l_entry;
-    struct AidPreference entry[50];
-}; // EE
-
 union CommandTemplate {
     uint8_t raw[2];
 };
 
-extern struct AidPreferenceTable* g_AidPreferenceTable;
 extern enum PrinterStatus g_PrinterStatus;
 
 const char* NokReason_tostring(enum NokReason n);

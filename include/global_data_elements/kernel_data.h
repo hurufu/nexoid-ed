@@ -9,7 +9,6 @@ struct KernelData {
     // FIXME: I have no idea were to put commandTemplate
     union CommandTemplate commandTemplate;
 
-    union EmvStatus sw1Sw2;
     uint8_t responseData[256];
     struct Aid aidTerminal;
 

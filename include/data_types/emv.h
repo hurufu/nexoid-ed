@@ -162,3 +162,9 @@ union Cvm {
         enum CvmResults result;
     };
 };
+
+// FIXME: Consider better struct to represent DOL
+union Dol {
+    size_t s;
+    unsigned char a[100];
+};

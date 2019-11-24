@@ -353,7 +353,7 @@ enum PACKED CvmMagneticStripe {
   , CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES = 0x04 // aka 'SIGNATURE or ONLINE PIN'
 };
 
-enum IssuerCodeTableIndex {
+enum PACKED IssuerCodeTableIndex {
     ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
 };
 

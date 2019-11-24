@@ -127,3 +127,38 @@ union MagStripeCvmCapability {
 /*5-8*/ } e : 4;
     };
 };
+
+union CvmCode {
+    unsigned char raw;
+    struct {
+        enum PACKED {
+            CVM_SUCCESS = 0b000000,
+            CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC = 0b000001,
+            CVM_ENCIPHERED_PIN_VERIFIED_ONLINE = 0b000010,
+            CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC_AND_SIGNATURE = 0b000011,
+            CVM_ENCIPHERED_PIN_VERIFIED_BY_ICC = 0b000100,
+            CVM_ENCIPHERED_PIN_VERIFIED_BY_ICC_AND_SIGNATURE = 0b000101,
+            CVM_SIGNATURE = 0b011110,
+            CMV_NO_CVM_REQUIRED = 0b011111
+        } cvm : 6;
+        unsigned char applyRuleOnFail : 1;
+        unsigned char /* RFU */ : 1;
+    };
+};
+
+enum PACKED CvmResults {
+    CVM_RESULT_UNKNOWN = 0x00,
+    // Also if not CVM conditions were satisfied or CVM code was not
+    // recognised or not supported
+    CVM_RESULT_FAILED = 0x01,
+    CVM_RESULT_SUCCESS = 0x02
+};
+
+union Cvm {
+    unsigned char raw[3];
+    struct {
+        union CvmCode performed;
+        union CvmCode conditions;
+        enum CvmResults result;
+    };
+};

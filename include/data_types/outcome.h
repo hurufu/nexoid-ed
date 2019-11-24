@@ -34,7 +34,7 @@ enum OnlineResponseType {
   , ONLINE_RES_ANY
 };
 
-enum Cvm {
+enum CvmOutcome {
     CVM_NONE
   , CVM_ONLINE_PIN
   , CVM_CONFIRMATION_CODE_VERIFIED
@@ -56,7 +56,7 @@ enum Receipt {
 struct OutcomeParameters {
     enum Start Start;
     enum OnlineResponseType OnlineResponseType; // It's called Online Response Data in nexo
-    enum Cvm Cvm;
+    enum CvmOutcome Cvm;
     bool UiRequestOnOutcomePresent;
     bool UiRequestOnRestartPresent;
     bool DataRecordPresent;

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "utils.h"
+#include "emv.h"
+
 struct KernelData {
     enum AuthorisationResponseCode authorisationResponseCode;
     union TerminalVerificationResults tvr;
@@ -12,4 +15,6 @@ struct KernelData {
 
     // FIXME: IssuerCountry is actually a card data
     union Country* issuerCountry;
+
+    union Cvm cvmResults;
 };

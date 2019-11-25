@@ -4,6 +4,7 @@
 #include "common.h"
 
 #include <inttypes.h>
+#include <string.h>
 
 /* Configuration options defined once per terminal application
  * TODO: Consider generation of thise header file from ASN.1 sources
@@ -40,5 +41,12 @@ struct TerminalListOfAid {
     size_t l_entry;
     struct TerminalListOfAidEntry entry[50]; // 0xBF01
 };
+
+static inline bool Aid_eq(const struct Aid* const a, const struct Aid* const b) {
+    if (a->l_raw != b->l_raw) {
+        return false;
+    }
+    return memcmp(a->raw, b->raw, a->l_raw) == 0;
+}
 
 extern struct TerminalListOfAid* g_TerminalListOfAid; // 0xE5

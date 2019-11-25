@@ -20,3 +20,8 @@ struct string16 {
     char s[16];
     STRING_SENTINEL;
 };
+
+struct string8 {
+    char s[8];
+    STRING_SENTINEL;
+};

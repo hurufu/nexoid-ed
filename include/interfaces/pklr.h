@@ -50,3 +50,17 @@
  *      }
  */
 enum ProcedureResult PKLR_Build_Candidate_List(void);
+
+/**  Redirect to API that will complete EMV transaction
+ *
+ *  Redirect to API that will perform:
+ *    * issuer authentication
+ *    * 2nd GENERATE AC command
+ *    * script processing
+ */
+enum ProcedureResult pklr_Emv_Completion(void);
+
+/** Experimental API to hide all Kernel 1E related processing
+ *  @warning Probably it's not compatible with nexo, but it's useful as a dummy
+ */
+enum ProcedureResult pklr_Kernel_E_Processing(void);

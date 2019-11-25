@@ -1,6 +1,9 @@
 #include "common.h"
 #include "utils.h"
 #include <stdio.h>
+#include "global_data_elements.h"
+#include "e4_service_settings_table.h"
+#include "ec_combination_list_and_parameters.h"
 
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)
@@ -120,6 +123,11 @@ CardholderMessage_tostring(const enum CardholderMessage m) {
         case CRDHLDR_SSN_CARD_REMOVED: return "CRDHLDR_SSN_CARD_REMOVED";
         case CRDHLDR_SSN_REQUEST_SIGNATURE: return "CRDHLDR_SSN_REQUEST_SIGNATURE";
         case CRDHLDR_SSN_RECEIPT_PRINTING_FAILED: return "CRDHLDR_SSN_RECEIPT_PRINTING_FAILED";
+        case CRDHLDR_SRC_APPLICATION_LABEL_DISPLAYED: return "CRDHLDR_SRC_APPLICATION_LABEL_DISPLAYED";
+        case CRDHLDR_SRC_PAYMENT_AMOUNT: return "CRDHLDR_SRC_PAYMENT_AMOUNT";
+        case CRDHLDR_SRC_COMMAND_KEY_ENTER_LABEL: return "CRDHLDR_SRC_COMMAND_KEY_ENTER_LABEL";
+        case CRDHLDR_SRC_TRX_CURRENCY_ALPHA3: return "CRDHLDR_SRC_TRX_CURRENCY_ALPHA3";
+        case CRDHLDR_SRC_TRX_AMOUNT: return "CRDHLDR_SRC_TRX_AMOUNT";
     }
     return NULL;
 }
@@ -243,18 +251,6 @@ ServiceStartEvent_tostring(const union ServiceStartEvents s) {
     return byte_tostring(s.raw[0]);
 }
 
-void ctd_print(const struct CurrentTransactionData* const ctd) {
-    printf("CTD: "
-           "{ TransactionResult: %s"
-           ", NokReason: %s"
-           ", TerminalErrorReason: %s"
-           " }\n",
-        TransactionResult_tostring(ctd->TransactionResult),
-        NokReason_tostring(ctd->NokReason),
-        TerminalErrorReason_tostring(ctd->TerminalErrorReason)
-    );
-}
-
 bool isIssuerCountryExcludedForDcc(void) {
     return false;
 }
@@ -308,9 +304,9 @@ ServiceId_to_ConfiguredServices(const enum ServiceId s) {
     return ret;
 }
 
-struct CombinationsListAndParametersEntry*
-Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* const r) {
-    struct CombinationsListAndParametersEntry tmp = {
+struct CombinationListAndParameters*
+Copy_Combination_Lists_Entry(const struct CombinationListAndParameters* const r) {
+    struct CombinationListAndParameters tmp = {
         .terminalAid = r->terminalAid,
         .kernelId = r->kernelId,
         .terminalTransactionQualifiers = acpptr(r->terminalTransactionQualifiers),
@@ -322,7 +318,7 @@ Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry* co
         .extendedSelectionSupported = acpptr(r->extendedSelectionSupported),
         .next = NULL
     };
-    if (g_Ctd.TransactionAmountEntered) {
+    if (ttd.transactionAmountEntered) {
         tmp.statusCheckRequested = acpval(false);
         tmp.zeroAmount = acpval(false);
         tmp.ctlessApplicationNotAllowed = acpval(false);

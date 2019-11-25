@@ -3,10 +3,14 @@
 #include "utils.h"
 #include "mem.h"
 #include "termainal.h"
+#include "fci.h"
 #include "bool.h"
 #include "outcome.h"
 #include "emv_status.h"
 #include "pklr.h"
+#include "emv.h"
+#include "nexo_types.h"
+#include "types.h"
 
 #include <ptmalloc3.h>
 #include <stddef.h>
@@ -297,6 +301,11 @@ enum PACKED CardholderMessage {
   , CRDHLDR_SRC_CARDHOLDER_MESSAGE = 0x85
   , CRDHLDR_SRC_NOK_REASON = 0x86
   , CRDHLDR_SRC_UI_PARAMETERS_FOR_OUTCOME_STATUS_ONLY = 0x87
+  , CRDHLDR_SRC_APPLICATION_LABEL_DISPLAYED = 0x88
+  , CRDHLDR_SRC_PAYMENT_AMOUNT = 0x89
+  , CRDHLDR_SRC_COMMAND_KEY_ENTER_LABEL = 0x8A
+  , CRDHLDR_SRC_TRX_CURRENCY_ALPHA3 = 0x8B
+  , CRDHLDR_SRC_TRX_AMOUNT = 0x8C
 
   /* Sale system notification */
   , CRDHLDR_SSN_CARD_REMOVAL_REQUESTED = 0x90
@@ -344,17 +353,13 @@ enum PACKED CvmMagneticStripe {
   , CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES = 0x04 // aka 'SIGNATURE or ONLINE PIN'
 };
 
-enum IssuerCodeTableIndex {
+enum PACKED IssuerCodeTableIndex {
     ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
-};
-
-struct HoldTime {
-    uint8_t bcd[6];
 };
 
 union TerminalSettings {
     unsigned char raw[5];
-    struct {
+    struct PACKED {
         unsigned char hasPreReadCombinedReader : 1;
         unsigned char hasPostReadCombinedReader : 1;
         unsigned char hasCombinedReader : 1;
@@ -376,23 +381,8 @@ union TerminalSettings {
         unsigned char /* RFU */ : 2;
         unsigned char retrieveVoiceAuthFromTrxLog : 1;
 
-        unsigned char printApprovedCardholderReceipt : 1;
-        unsigned char printDeclinedCardholderReceipt : 1;
-        unsigned char printVoiceAuthCardholderReceipt : 1;
-        unsigned char printAbortedCardholderReceipt : 1;
-        unsigned char /* RFU */ : 1;
-        unsigned char printDolOnApprovedAndAbortedAndVoiceAuthCardholderReceipt : 1;
-        unsigned char printDolOnDeclinedAndAbortedCardholderReceipt : 1;
-        unsigned char /* RFU */ : 1;
-
-        unsigned char printApprovedMerchantReceipt : 1;
-        unsigned char printDeclinedMerchantReceipt : 1;
-        unsigned char printVoiceAuthMerchantReceipt : 1;
-        unsigned char printAbortedMerchantReceipt : 1;
-        unsigned char /* RFU */ : 1;
-        unsigned char printDolOnApprovedAndAbortedMerchantReceipt : 1;
-        unsigned char printDolOnDeclinedAndAbortedMerchantReceipt : 1;
-        unsigned char /* RFU */ : 1;
+        union ReceiptSettings cardholderReceipt;
+        union ReceiptSettings merchantReceipt;
     };
 };
 
@@ -402,53 +392,6 @@ union TerminalCapabilities {
         uint8_t signature: 1; // [2, 6]
     };
 } /* 9F33 */;
-
-union AdditionalTerminalCapabilities {
-    unsigned char raw[5];
-    struct {
-        struct TransactionTypeCapability {
-            unsigned char cash : 1;
-            unsigned char goods : 1;
-            unsigned char services : 1;
-            unsigned char cashback : 1;
-            unsigned char inquiry : 1;
-            unsigned char transfer : 1;
-            unsigned char payment : 1;
-            unsigned char administrative : 1;
-
-            unsigned char cashDeposit : 1;
-            unsigned char /* RFU */ : 1;
-        } TransactionType;
-
-        struct TransactionDataInputCapability {
-            unsigned char numericKeys : 1;
-            unsigned char alphabeticAndSpecialCharactersKeys : 1;
-            unsigned char commandKeys : 1;
-            unsigned char functionKeys : 1;
-            unsigned char /* RFU */ : 4;
-        } TerminalDataInput;
-
-        struct TransactionDataOutputCapability {
-            unsigned char printAttendant : 1;
-            unsigned char printCardholder : 1;
-            unsigned char displayAttendant : 1;
-            unsigned char displayCardholder : 1;
-            unsigned char /* RFU */ : 2;
-            // ISO/IEC 8859
-            unsigned char codeTable10 : 1;
-            unsigned char codeTable9 : 1;
-
-            unsigned char codeTable8 : 1;
-            unsigned char codeTable7 : 1;
-            unsigned char codeTable6 : 1;
-            unsigned char codeTable5 : 1;
-            unsigned char codeTable4 : 1;
-            unsigned char codeTable3 : 1;
-            unsigned char codeTable2 : 1;
-            unsigned char codeTable1 : 1;
-        } TerminalDataOutput;
-    };
-};
 
 union ServiceStartEvents {
     uint8_t raw[1];
@@ -572,19 +515,10 @@ union ServiceSettings {
 
         uint8_t deferredPaymentTrxAmountRequired : 1;
         uint8_t deferredPaymentAdditionalSalesInfo : 1;
-        uint8_t crdhlrConfirmationNotAllowed : 1;
-        uint8_t crdhlrConfirmationRequired : 1;
+        uint8_t crdhlrConfirmationByCardNotAllowed : 1;
+        uint8_t crdhlrConfirmationAlwaysRequired : 1;
         uint8_t preauthTrxAmountRequired : 1;
         uint8_t /* RFU */ : 3;
-    };
-};
-
-union ApplicationProfileSettings {
-    uint8_t raw[5];
-    struct {
-        uint8_t isDccAcceptorModeAllowed : 1;
-        uint8_t isMerchantSignatureRequiredForApprovedRefund : 1;
-        uint8_t performExceptionFileChecking : 1;
     };
 };
 
@@ -614,7 +548,7 @@ union Country {
     char Str[3];
 };
 
-union Currency {
+union CurrencyAlpha3 {
     enum {
         Currency_EUR = MULTICHAR('E','U','R'),
         Currency_PLN = MULTICHAR('P','L','N')
@@ -628,6 +562,9 @@ enum PACKED AuthorisationResponseCode {
   , ARC_UNABLE_TO_GO_ONLINE_OFFLINE_AUTHORISED = MULTICHAR('Y','3')
   , ARC_OFFLINE_APPROVED = MULTICHAR('Y','1')
   , ARC_OFFLINE_DECLINED = MULTICHAR('Z','1')
+  , ARC_VISA_SCA_REQUIRED_PIN_NOT_SUPPORTED = MULTICHAR('1','A')
+  , ARC_VISA_SCA_REQUIRED_SUPPORTED_ONLINE_PIN = MULTICHAR('7','0')
+  , ARC_MASTERCARD_SCA_REQUIRED = MULTICHAR('6','5')
   , ARC_NONE = 0xFF
 };
 
@@ -643,7 +580,7 @@ union LanguagePreference {
 struct UiParameters {
     enum CardholderMessage Id;
     enum CtlssIndicatorStatus Status;
-    struct HoldTime HoldTime;
+    struct bcd6 HoldTime;
     union LanguagePreference* LanguagePreference; // Not used in nexo
     enum ValueQualifier {
         UI_VALUE_QUALIFIER_NONE
@@ -651,7 +588,7 @@ struct UiParameters {
       , UI_VALUE_QUALIFIER_BALANCE
     } ValueQualifier;
     union Amount Value;
-    union Currency CurrencyCode;
+    union CurrencyAlpha3 CurrencyCode;
 };
 
 // NOTE: Strings in Track2 aren't null terminated
@@ -710,74 +647,19 @@ struct Track2 {
     } discretionaryData;
 };
 
-struct CombinationsListAndParametersEntry {
-    struct {
-        uint8_t size : 5;
-        unsigned char value[16];
-    } terminalAid;
-    unsigned char kernelId;
-    union ConfiguredServices supportingServices;
-    bool* cashbackPresent;
-    union TerminalTransactionQualifiers* terminalTransactionQualifiers;
-    bool* statusCheckSupportFlag;
-    bool* zeroAmountAllowedFlag;
-    union Amount* readerCtlessTransactionLimit;
-    union Amount* readerCtlessFloorLimit;
-    union Amount* readerCvmRequiredLimit;
-    bool* extendedSelectionSupported;
+struct Bid {
+    uint8_t size;
+    unsigned char value[16 + 1];
+} Bid;
 
-    // Predefined indicators
-    bool* statusCheckRequested;
-    bool* zeroAmount;
-    bool* ctlessApplicationNotAllowed;
-    bool* readerCtlessFloorLimitNotAllowed;
-    bool* readerCvmRequiredLimitExceeded;
-    bool* readerCtlessFloorLimitExceeded;
-
-    struct CombinationsListAndParametersEntry* next;
+struct Prefix {
+    uint8_t size;
+    unsigned char value[19];
 };
 
-struct TerminalListOfBid {
-    struct Bid {
-        uint8_t size;
-        unsigned char value[16 + 1];
-    } Bid;
-
-    struct MatchingPattern {
-        enum {
-            MATCH_PREFIX
-          , MATCH_RANGE
-        } type;
-        union {
-            struct Prefix {
-                uint8_t size;
-                unsigned char value[19];
-            } prefix;
-            struct PrefixRange {
-                uint8_t size;
-                unsigned char value[19];
-            } prefixRange;
-
-        };
-        struct MatchingPattern* next;
-    } matchingPattern;
-
-    struct TerminalListOfBid* next;
-};
-
-struct ApplicationProfileSelectionTableNonChip {
-    struct Bid Bid;
-    unsigned char ApplicationProfileNumber;
-    union ConfiguredServices SupportedServices;
-    unsigned char* ApplicationProfileAcquirerNumber;
-    struct {
-        struct Prefix value;
-        struct Prefix* next;
-    }* prefix;
-    struct Prefix* prefixMask;
-    enum TechnologySelected* TechnologyOfProfile; // WUT?
-
-    struct ApplicationProfileSelectionTableNonChip* next;
+struct PrefixRange {
+    uint8_t size;
+    unsigned char value[19];
 };
 
 union ProcessingStatus {
@@ -890,183 +772,33 @@ union TerminalType {
     };
 };
 
-struct AidPreference {
-    struct Aid PartialCardAid; // DF01
-    bool ApplicationSelectionIndicator; // DF02
-    struct {
-        size_t l_entry;
-        struct Aid entry[100]; // DF01
-    } SubordinatedApplications; // BF02
-}; // BF01
+enum InterfaceStatus {
+    INTERFACE_CHIP_READER = (1 << 0),
+    INTERFACE_MAGNETIC_STRIPE_READER = (1 << 1),
+    INTERFACE_ATTENDANT_NUMERIC_KEYPAD = (1 << 2),
+    INTERFACE_ATTENDANT_F_KEY_MANUAL_ENTRY = (1 << 3),
+    INTERFACE_ATTENDANT_F_KEY_REFERENCE_ENTRY = (1 << 4),
+    INTERFACE_ATTENDANT_F_KEY_ACCEPT = (1 << 5),
+    INTERFACE_CONTACTLESS_READER = (1 << 6),
 
-struct AidPreferenceTable {
-    size_t l_entry;
-    struct AidPreference entry[50];
-}; // EE
-
-struct CurrentTransactionData {
-    // Operations
-    bool AcquirerPreSelected;
-    bool CardholderLanguageIsSelected;
-    bool CardholderRequestedChoiceOfApplication;
-    bool CardholderRequestedChangeOfApplication;
-    unsigned char PreSelectedAcquirerNumber;
-    bool IsCardInReader; // TODO: Consider making IsCardInReader an atomic variable
-
-    // Service
-    bool ApplicationInitialised;
-    union ServiceSettings* SelectedServiceSettings;
-    union ServiceStartEvents* SelectedServiceStartEvents; // TODO: remove
-    union ServiceStartEvents ServiceStartEvents;
-
-    // Transaction
-    union Amount TransactionAmount;
-    bool TransactionAmountEntered;
-    enum TransactionType TransactionType;
-    enum TransactionResult TransactionResult;
-    enum NokReason NokReason;
-    enum ServiceId SelectedService;
-    union Currency TransactionCurrency;
-    enum AuthorisationResponseCode AuthorisationResponseCode;
-    bool AttendantForcedTransactionOnline;
-    char ReferenceData[35 + 1];
-    bool FallbackFlag;
-    unsigned char SelectedApplicationProfileNumber;
-    union ApplicationProfileSettings* SelectedApplicationProfileSettings; // FIXME: Delete?
-
-    // Online
-    bool UnableToGoOnline;
-
-    // EMV
-    enum Kernel KernelId;
-    enum KernelMode KernelMode;
-    enum Technology TechnologySelected;
-    union ProcessingStatus ProcessingStatus;
-    bool ExceptionFileCheckPerformed;
-    bool ExceptionFileMatch;
-    bool Continue;
-    bool ConfirmationByCard;
-    bool WasPresentOneCardOnlyMessageDisplayed;
-    bool CandidateListHasOneEntry;
-    unsigned char NumberOfRemainingChipTries;
-
-    // Hidden
-    union EmvStatus Sw1Sw2;
-    uint8_t ResponseData[256];
-
-    // Outcome
-    enum Outcome Outcome;
-    struct OutcomeParameters Out;
-
-    // UI
-    struct UiParameters UiParametersForOutcome;
-    struct UiParameters UiParametersForRestart;
-    struct UiParameters UiParametersForTrxCompletion;
-    bool UiRequestPostponed;
-    bool PrintCardholderReceipt;
-    bool PrintMerchantReceipt;
-    bool SignatureLine;
-    bool SignatureLineMerchant;
-    bool SignatureLineForVoiceAuthorisation;
-    char DeclineDisplayMessage[40 + 1];
-
-    // Cashback
-    union Amount CashbackAmount;
-
-    // Card data
-    union Country* IssuerCountry;
-    unsigned char (* PAN)[11];
-
-    // DCC
-    volatile bool isDccEligible;
-    bool DccPerformedOnce;
-
-    // Pre-Authorisation
-    bool* Minus;
-
-    // Service startup
-    bool SecurityPermission;
-    bool AmountDisplayed;
-    union Country SelectedLanguage;
-    struct EventTable {
-        bool Table[E_MAX];
-    } Event;
-    enum TerminalErrorReason TerminalErrorReason;
-    bool TerminalErrorIndicator;
-
-    // Magnetic stripe
-    bool InvalidSwipeOccured;
-    bool TransactionConfirmedByCardholder;
-    struct Track2 Track2;
-    union ServiceCodeMs* ServiceCodeMs;
-    const unsigned char (* Pan)[19];
-    const struct Bid* SelectedBid;
-    unsigned char PanMatchLength; // integer
-
-    // Manual Entry
-    bool PanEnteredManually;
-
-    // Contactless
-    struct CombinationsListAndParametersEntry* CombListWorkingTable;
-    bool TimeoutIndicator;
-
-    // Yes, there are actually two variables to control contactless in spec
-    bool NoContactlessAllowed;
-    bool ContactlessAllowed;
-
-    // IFR
-    bool ShowUpfrontButton;
+    INTERFACE_DISABLE_ALL = 0x0000,
+    INTERFACE_ENABLE_ALL = INTERFACE_CHIP_READER
+                         | INTERFACE_MAGNETIC_STRIPE_READER
+                         | INTERFACE_ATTENDANT_NUMERIC_KEYPAD
+                         | INTERFACE_ATTENDANT_F_KEY_MANUAL_ENTRY
+                         | INTERFACE_ATTENDANT_F_KEY_REFERENCE_ENTRY
+                         | INTERFACE_ATTENDANT_F_KEY_ACCEPT
+                         | INTERFACE_CONTACTLESS_READER
+                         ,
+    INTERFACE_NO_CONTACTLESS =  INTERFACE_ENABLE_ALL
+                             & ~INTERFACE_CONTACTLESS_READER
+                             ,
 };
 
-struct NexoConfiguration {
-    // Terminal configuration
-    union TerminalType TerminalType;
-    union TerminalSettings TerminalSettings;
-    union TerminalCapabilities TerminalCapabilities;
-    union AdditionalTerminalCapabilities AdditionalTerminalCapabilities;
-    union ConfiguredServices configuredServices;
-
-    // EMV configuration
-    unsigned char MaxNumberOfChipTries;
-
-    // Application configuration
-    enum ServiceId DefaultService;
-    union Currency* ApplicationCurrency;
-    union Country CardholderDefaultLanguage;
-
-    // Service configuration
-    union ServiceStartEvents ServiceStartEvents[S_MAX];
-    union ServiceSettings ServiceSettings[S_MAX];
-    union ApplicationProfileSettings ApplicationProfileSettings;
-
-    // CVC
-    union Amount* CvcDefaultAmount;
-
-    // DCC
-    union Amount DccMinimumAllowedAmount;
-
-    // Refund
-    union Amount RefundProtectionAmount;
-
-    // Contactless
-    struct CombinationsListAndParametersEntry* CombListsAndParams;
-
-    // MSR
-    struct TerminalListOfBid* TerminalListOfBid;
-    struct ApplicationProfileSelectionTableNonChip* ApplicationProfileSelectionTableNonChip;
-    enum FallbackParameterMagneticStripe FallbackParameterMagneticStripe; //TODO: Move to AP
-    enum CvmMagneticStripe CvmMagneticStripe; // TODO: Move to AP
-
-    // Application Profile
-    enum CardholderMessage CardholderInitialMessage;
-
-    // IFR
-    union EeaProcessSettings* EeaProcessSettings;
+union CommandTemplate {
+    uint8_t raw[2];
 };
 
-extern struct CurrentTransactionData g_Ctd;
-extern struct NexoConfiguration g_Nexo;
-extern struct AidPreferenceTable* g_AidPreferenceTable;
 extern enum PrinterStatus g_PrinterStatus;
 
 const char* NokReason_tostring(enum NokReason n);
@@ -1077,7 +809,6 @@ const char* TransactionResult_tostring(enum TransactionResult);
 const char* ServiceId_tostring(enum ServiceId s);
 struct small_string TerminalSettings_tostring(union TerminalSettings);
 struct small_string ServiceStartEvent_tostring(union ServiceStartEvents);
-void ctd_print(const struct CurrentTransactionData*);
 bool isIssuerCountryExcludedForDcc(void);
 union ConfiguredServices ServiceId_to_ConfiguredServices(enum ServiceId);
-struct CombinationsListAndParametersEntry* Copy_Combination_Lists_Entry(const struct CombinationsListAndParametersEntry*);
+struct CombinationListAndParameters* Copy_Combination_Lists_Entry(const struct CombinationListAndParameters*);

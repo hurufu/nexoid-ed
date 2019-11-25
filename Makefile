@@ -31,7 +31,7 @@ PREFIX       := /usr/local
 
 # Project config ##############################################################
 NAME         := nexoid
-INCLUDE_DIRS := . include
+INCLUDE_DIRS := . $(shell find include -type d)
 # TODO: Develop proper pkg-config for dependencies
 LIBRARIES    := ptmalloc3 pthread
 
@@ -39,6 +39,8 @@ LIBRARIES    := ptmalloc3 pthread
 CPPFLAGS     := $(addprefix -I,$(INCLUDE_DIRS))
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL) -fPIC
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
+CFLAGS       += -fplan9-extensions
+#CFLAGS       += -fdiagnostics-color=always
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 VERSION       = $(shell git describe --dirty --broken)
 
@@ -54,7 +56,7 @@ DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
 SOURCES      := $(sort $(wildcard *.c) $(DRAKON_CFILES))
-HEADERS      := $(sort $(wildcard $(addsuffix *.h,$(INCLUDE_DIRS)/) $(DRAKON_HFILES)))
+HEADERS      := $(sort $(wildcard $(addsuffix /*.h,$(INCLUDE_DIRS)) $(DRAKON_HFILES)))
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
 
@@ -99,12 +101,13 @@ profile_build: all profiling_build.pdb profiling_build.pq
 	$(TIME_PROC.$(TIME_FORMAT))
 endif
 
-.PHONY: all clean asm pp run index update static shared
+.PHONY: all clean asm pp index update static shared
 all: shared static index .syntastic_c_config cflow
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 index: $(CSCOPE_REF)
 update: $(DRAKON_FILES)
+	$(if $(strip $(shell lsof $^)),$(error Prior to proceed with '$@', close file(s): $^),)
 	$(SQLITE3) -batch $< '.dump' >$(DRAKON_SQL)
 shared: $(LIBNAME.so)
 static: $(LIBNAME.a)
@@ -117,12 +120,12 @@ $(LIBNAME.so): $(OBJECTS)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
-$(CSCOPE_REF): $(SOURCES) $(HEADERS) $(wildcard ptmalloc3/*.[ch])
-	$(CSCOPE) -f$@ -b $^
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(DRAKON_CFILES) $(DRAKON_HFILES) $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
+$(CSCOPE_REF): $(SOURCES) $(wildcard ptmalloc3/*.[ch]) $(HEADERS)
+	$(CSCOPE) -R -f $@ -b
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
-wipe: F += $(wildcard $(DRAKON_FILES) .syntastic_c_config *.d *.stackdump)
+wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config *.d *.stackdump)
 wipe: clean
 
 .PHONY: install
@@ -135,6 +138,16 @@ $(PREFIX)/lib/$(LIBNAME.so): $(LIBNAME.so)
 $(PREFIX)/include/$(NAME)/%.h: include/%.h
 	install -D $< $@
 $(PREFIX)/include/$(NAME)/%.h: %.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/data_types/%.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/interfaces/%.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/configuration/%.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/global_data_elements/%.h
+	install -D $< $@
+$(PREFIX)/include/$(NAME)/%.h: include/local_data_elements/%.h
 	install -D $< $@
 
 .PHONY: uninstall

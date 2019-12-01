@@ -102,3 +102,68 @@ struct TerminalTransactionData {
     enum Outcome outcome;
     struct OutcomeParameters out;
 };
+
+enum TerminalTransactionDataTag {
+    TTD_ACQUIRER_PRE_SELECTED,
+    TTD_AMOUNT_DISPLAYED,
+    TTD_APPLICATION_INITIALISED,
+    TTD_ATTENDANT_FORCED_TRANSACTIONONLINE,
+    TTD_CANDIDATE_LIST_HAS_ONE_ENTRY,
+    TTD_CARDHOLDER_ACCEPTED_SELECTED_APPLICATION,
+    TTD_CARDHOLDER_LANGUAGE_IS_SELECTED,
+    TTD_CARDHOLDER_REQUESTED_CHANGE_OF_APPLICATION,
+    TTD_CARDHOLDER_REQUESTED_CHOICE_OF_APPLICATION,
+    TTD_CDA_FAILED,
+    TTD_CONFIRMATION_BY_CARD,
+    TTD_CONTINUE_FLAG,
+    TTD_DCC_PERFORMED_ONCE,
+    TTD_EXCEPTION_FILE_CHECK_PERFORMED,
+    TTD_EXCEPTION_FILE_MATCH,
+    TTD_FALLBACK_FLAG,
+    TTD_IS_DCC_ELIGIBLE,
+    TTD_NO_CONTACTLESS_ALLOWED,
+    TTD_ONLINE_REQUIRED,
+    TTD_PAN_ENTERED_MANUALLY,
+    TTD_PIN_PAD_NOT_WORKING,
+    TTD_SIGNATURE_LINE,
+    TTD_SIGNATURE_LINE_FOR_VOICE_AUTHORISATION,
+    TTD_SIGNATURE_LINE_MERCHANT,
+    TTD_TERMINAL_ERROR_INDICATOR,
+    TTD_TIMEOUT_INDICATOR,
+    TTD_TRANSACTION_AMOUNT_ENTERED,
+    TTD_TRANSACTION_CONFIRMED_BY_CARDHOLDER,
+    TTD_UI_REQUEST_POSTPONED,
+    TTD_UNABLE_TO_GO_ONLINE,
+
+    TTD_MINUS,
+
+    TTD_PAN,
+
+    TTD_SELECTED_BID,
+
+    TTD_MAX
+};
+
+# if 0
+
+    const struct Bid* selectedBid;
+    enum Kernel kernelId;
+    struct UiParameters uiParametersForOutcome;
+    struct UiParameters uiParametersForRestart;
+    struct UiParameters uiParametersForTrxCompletion;
+    union Country selectedLanguage;
+    union CurrencyAlpha3 transactionCurrencyCodeAlpha3;
+    union ProcessingStatus processingStatus;
+    union ServiceStartEvents serviceStartEvents;
+
+    struct bcd2 preSelectedAcquirerNumber;
+    union Amount cashbackAmount;
+    union Amount transactionAmount;
+    enum KernelMode kernelMode;
+    enum NokReason nokReason;
+    enum Technology technologySelected;
+    enum TerminalErrorReason terminalErrorReason;
+    enum TransactionResult transactionResult;
+    struct Track2 track2Data; // FIXME: Use proper structure for Track 2
+    struct CombinationListAndParameters* combListWorkingTable;
+#endif

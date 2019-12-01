@@ -7,25 +7,25 @@
 static struct TagTypePointer ApplicationProfile_get_ttv(const struct ApplicationProfile* const p, const union TagExpanded t) {
     struct TagTypePointer ret;
     switch (t.i) {
-        case T(0xDF1B): ret = (struct TagTypePointer){ .type = TAG_BCD1, .value.bcd = &p->acquirerNumber }; break;
-        case T(0xDF19): ret = (struct TagTypePointer){ .type = TAG_BCD1, .value.bcd = &p->profileNumber }; break;
-        case T(0xDF26): ret = (struct TagTypePointer){ .type = TAG_TVR_PTR, .value.tvr = p->additionalRestrictionsForForcedAcceptance }; break;
-        case T(0x9F40): ret = (struct TagTypePointer){ .type = TAG_ATC_PTR, .value.atc = p->additionalTerminalCapabilities }; break;
-        case T(0x9F33): ret = (struct TagTypePointer){ .type = TAG_TC_PTR, .value.tc = p->terminalCapabilities }; break;
-        case T(0x9F1A): ret = (struct TagTypePointer){ .type = TAG_BCD2, .value.bcd2 = &p->terminalCountryCode }; break;
-        case T(0xDF41): ret = (struct TagTypePointer){ .type = TAG_ANS_16, .value.ans_16 = &p->applicationLabelDefault }; break;
-        case T(0xDF27): ret = (struct TagTypePointer){ .type = TAG_APS, .value.aps = &p->applicationProfileSettings }; break;
-        case T(0xDF28): ret = (struct TagTypePointer){ .type = TAG_APSC_PTR, .value.apsc = p->applicationProfileSettingsForCancellation }; break;
-        case T(0xDF29): ret = (struct TagTypePointer){ .type = TAG_AMOUNT_PTR, .value.amount = p->cashAdvanceMaximumAmount }; break;
-        case T(0xDF2A): ret = (struct TagTypePointer){ .type = TAG_AMOUNT_PTR, .value.amount = p->cashbackMaximumAmount }; break;
-        case T(0xDF8118): ret = (struct TagTypePointer){ .type = TAG_CVM_CAPABILITY_PTR, .value.cvmCapability = p->cvmCapabilityCvmRequired }; break;
-        case T(0xDF8119): ret = (struct TagTypePointer){ .type = TAG_CVM_CAPABILITY_PTR, .value.cvmCapability = p->cvmCapabilityNoCvmRequired }; break;
-        case T(0xDF42): ret = (struct TagTypePointer){ .type = TAG_MSR_CVM_CAPABILITY_PTR, .value.magstripeCvmCapability = p->magStripeCvmCapabilityCvmRequired }; break;
-        //case T(): ret = (struct TagTypePointer){ .type = TAG_MSR_CVM_CAPABILITY_PTR, .value.magstripeCvmCapability = p->magStripeCvmCapabilityNoCvmRequired }; break;
-        case T(0xDF58): ret = (struct TagTypePointer){ .type = TAG_AMOUNT_PTR, .value.amount = p->cvcDefaultAmount }; break;
-        case T(0xDF3C): ret = (struct TagTypePointer){ .type = TAG_AMOUNT, .value.amount = &p->refundProtectionAmount }; break;
-        case T(0xDF811B): ret = (struct TagTypePointer){ .type = TAG_KERNEL2_CONFIGURATION_PTR, .value.kernel2Configuration = p->kernel2Configuration}; break;
-        default: ret = (struct TagTypePointer){ .type = TAG_UNKNOWN }; break;
+        case T(0x9F1A):   ret = (struct TagTypePointer){ .type = TAG_BCD2,                      .value.bcd2                   = &p->terminalCountryCode                       }; break;
+        case T(0x9F33):   ret = (struct TagTypePointer){ .type = TAG_TC_PTR,                    .value.tc                     =  p->terminalCapabilities                      }; break;
+        case T(0x9F40):   ret = (struct TagTypePointer){ .type = TAG_ATC_PTR,                   .value.atc                    =  p->additionalTerminalCapabilities            }; break;
+        case T(0xDF19):   ret = (struct TagTypePointer){ .type = TAG_BCD1,                      .value.bcd                    = &p->profileNumber                             }; break;
+        case T(0xDF1B):   ret = (struct TagTypePointer){ .type = TAG_BCD1,                      .value.bcd                    = &p->acquirerNumber                            }; break;
+        case T(0xDF26):   ret = (struct TagTypePointer){ .type = TAG_TVR_PTR,                   .value.tvr                    =  p->additionalRestrictionsForForcedAcceptance }; break;
+        case T(0xDF27):   ret = (struct TagTypePointer){ .type = TAG_APS,                       .value.aps                    = &p->applicationProfileSettings                }; break;
+        case T(0xDF28):   ret = (struct TagTypePointer){ .type = TAG_APSC_PTR,                  .value.apsc                   =  p->applicationProfileSettingsForCancellation }; break;
+        case T(0xDF29):   ret = (struct TagTypePointer){ .type = TAG_AMOUNT_PTR,                .value.amount                 =  p->cashAdvanceMaximumAmount                  }; break;
+        case T(0xDF2A):   ret = (struct TagTypePointer){ .type = TAG_AMOUNT_PTR,                .value.amount                 =  p->cashbackMaximumAmount                     }; break;
+        case T(0xDF3C):   ret = (struct TagTypePointer){ .type = TAG_AMOUNT,                    .value.amount                 = &p->refundProtectionAmount                    }; break;
+        case T(0xDF41):   ret = (struct TagTypePointer){ .type = TAG_ANS_16,                    .value.ans_16                 = &p->applicationLabelDefault                   }; break;
+        case T(0xDF42):   ret = (struct TagTypePointer){ .type = TAG_MSR_CVM_CAPABILITY_PTR,    .value.magstripeCvmCapability =  p->magStripeCvmCapabilityCvmRequired         }; break;
+        case T(0xDF58):   ret = (struct TagTypePointer){ .type = TAG_AMOUNT_PTR,                .value.amount                 =  p->cvcDefaultAmount                          }; break;
+        case T(0xDF8118): ret = (struct TagTypePointer){ .type = TAG_CVM_CAPABILITY_PTR,        .value.cvmCapability          =  p->cvmCapabilityCvmRequired                  }; break;
+        case T(0xDF8119): ret = (struct TagTypePointer){ .type = TAG_CVM_CAPABILITY_PTR,        .value.cvmCapability          =  p->cvmCapabilityNoCvmRequired                }; break;
+        case T(0xDF811B): ret = (struct TagTypePointer){ .type = TAG_KERNEL2_CONFIGURATION_PTR, .value.kernel2Configuration   =  p->kernel2Configuration                      }; break;
+      //case T():         ret = (struct TagTypePointer){ .type = TAG_MSR_CVM_CAPABILITY_PTR,    .value.magstripeCvmCapability =  p->magStripeCvmCapabilityNoCvmRequired       }; break;
+        default:          ret = (struct TagTypePointer){ .type = TAG_UNKNOWN }; break;
     }
     return ret;
 }

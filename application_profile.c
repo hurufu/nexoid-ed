@@ -30,29 +30,29 @@ static struct TagTypePointer ApplicationProfile_get_ttv(const struct Application
     return ret;
 }
 
-uint8_t* ApplicationProfile_getv(const struct ApplicationProfile* const ap, const union TagExpanded tag) {
+struct TypeLengthValue* ApplicationProfile_get_tylv(const struct ApplicationProfile* const ap, const union TagExpanded tag) {
     const struct TagTypePointer t = ApplicationProfile_get_ttv(ap, tag);
     switch (t.type) {
-        case TAG_BOOLEAN: return getv_bool(t.value.b);
-        case TAG_BOOLEAN_PTR: return t.value.b ? getv_bool(t.value.b) : NULL;
-        case TAG_C19: return getv_c19(t.value.c19);
-        case TAG_BID: return getv_bid(t.value.bid);
-        case TAG_BCD1: return getv_bcd(t.value.bcd);
-        case TAG_BCD2: return getv_bcd2(t.value.bcd2);
-        case TAG_ANS_16: return getv_ans_16(t.value.ans_16);
-        case TAG_TVR: return getv_tvr(t.value.tvr);
-        case TAG_TVR_PTR: return t.value.tvr ? getv_tvr(t.value.tvr) : NULL;
-        case TAG_ATC: return getv_atc(t.value.atc);
-        case TAG_ATC_PTR: return t.value.atc ? getv_atc(t.value.atc) : NULL;
-        case TAG_TC: return getv_tc(t.value.tc);
-        case TAG_TC_PTR: return t.value.tc ? getv_tc(t.value.tc) : NULL;
-        case TAG_APS: return getv_aps(t.value.aps);
-        case TAG_APSC_PTR: return t.value.apsc ? getv_apsc(t.value.apsc) : NULL;
-        case TAG_AMOUNT: return getv_amount(t.value.amount);
-        case TAG_AMOUNT_PTR: return t.value.amount ? getv_amount(t.value.amount) : NULL;
-        case TAG_CVM_CAPABILITY_PTR: return t.value.cvmCapability ? getv_cvmCapability(t.value.cvmCapability) : NULL;
-        case TAG_MSR_CVM_CAPABILITY_PTR: return t.value.magstripeCvmCapability ? getv_msrCvmCapability(t.value.magstripeCvmCapability) : NULL;
-        case TAG_KERNEL2_CONFIGURATION_PTR: return t.value.kernel2Configuration ? getv_kernel2Configuration(t.value.kernel2Configuration) : NULL;
+        case TAG_BOOLEAN: return gettylv_bool(t.value.b);
+        case TAG_BOOLEAN_PTR: return t.value.b ? gettylv_bool(t.value.b) : NULL;
+        case TAG_C19: return gettylv_c19(t.value.c19);
+        case TAG_BID: return gettylv_bid(t.value.bid);
+        case TAG_BCD1: return gettylv_bcd(t.value.bcd);
+        case TAG_BCD2: return gettylv_bcd2(t.value.bcd2);
+        case TAG_ANS_16: return gettylv_ans_16(t.value.ans_16);
+        case TAG_TVR: return gettylv_tvr(t.value.tvr);
+        case TAG_TVR_PTR: return t.value.tvr ? gettylv_tvr(t.value.tvr) : NULL;
+        case TAG_ATC: return gettylv_atc(t.value.atc);
+        case TAG_ATC_PTR: return t.value.atc ? gettylv_atc(t.value.atc) : NULL;
+        case TAG_TC: return gettylv_tc(t.value.tc);
+        case TAG_TC_PTR: return t.value.tc ? gettylv_tc(t.value.tc) : NULL;
+        case TAG_APS: return gettylv_aps(t.value.aps);
+        case TAG_APSC_PTR: return t.value.apsc ? gettylv_apsc(t.value.apsc) : NULL;
+        case TAG_AMOUNT: return gettylv_amount(t.value.amount);
+        case TAG_AMOUNT_PTR: return t.value.amount ? gettylv_amount(t.value.amount) : NULL;
+        case TAG_CVM_CAPABILITY_PTR: return t.value.cvmCapability ? gettylv_cvmCapability(t.value.cvmCapability) : NULL;
+        case TAG_MSR_CVM_CAPABILITY_PTR: return t.value.magstripeCvmCapability ? gettylv_msrCvmCapability(t.value.magstripeCvmCapability) : NULL;
+        case TAG_KERNEL2_CONFIGURATION_PTR: return t.value.kernel2Configuration ? gettylv_kernel2Configuration(t.value.kernel2Configuration) : NULL;
         case TAG_UNKNOWN:
         case TAG_FORBIDDEN:
         default:

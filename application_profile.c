@@ -59,3 +59,36 @@ struct TypeLengthValue* ApplicationProfile_get_tylv(const struct ApplicationProf
             return NULL;
     }
 }
+
+void Append_Dol_Entry(const size_t Length, uint8_t Dol[const Length], const union TagExpanded tag) {
+    struct TypeLengthValue* const t = ApplicationProfile_get_tylv(&ap, tag);
+    if (!t) {
+        return;
+    }
+    if (Length < t->length) {
+        switch (t->type) {
+            case TAG_BCD:
+                memcpy(Dol, t->value + t->length - Length, t->length);
+                break;
+            case TAG_CBCD:
+            case TAG_NON_NUMERIC:
+                memcpy(Dol, t->value, t->length);
+                break;
+        }
+    } else if (Length > t->length) {
+        switch (t->type) {
+            case TAG_BCD:
+                memcpy(Dol + Length - t->length, t->value, t->length);
+                break;
+            case TAG_CBCD:
+                memcpy(Dol, t->value, t->length);
+                memset(Dol, 0xFF, Length - t->length);
+                break;
+            case TAG_NON_NUMERIC:
+                memcpy(Dol, t->value, t->length);
+                break;
+        }
+    } else {
+        memcpy(Dol, t->value, t->length);
+    }
+}

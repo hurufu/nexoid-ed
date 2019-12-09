@@ -6,6 +6,7 @@
 struct KernelData {
     enum AuthorisationResponseCode authorisationResponseCode;
     union TerminalVerificationResults tvr;
+    union TransactionStatusInformation tsi;
     // FIXME: I have no idea were to put commandTemplate
     union CommandTemplate commandTemplate;
 

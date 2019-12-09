@@ -19,6 +19,11 @@ struct ResponseData {
     unsigned char c[256];
 };
 
+struct DolData {
+    size_t s;
+    unsigned char c[1024];
+};
+
 struct CardData {
     union EmvStatus sw1Sw2;
     struct FileControlInformation* fci;
@@ -31,4 +36,6 @@ struct CardData {
     struct string8* languagePreference;
     enum IssuerCodeTableIndex* issuerCodeTableIndex;
     struct string16* applicationPreferredName;
+
+    struct DolData dolData;
 };

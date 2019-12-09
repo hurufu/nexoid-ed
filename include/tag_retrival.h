@@ -54,8 +54,24 @@ union TagExpanded {
                 } type : 2;
             };
         };
-        uint8_t tail[sizeof(tlv_tag_t) - sizeof(uint8_t)];
+        struct {
+            uint8_t value : 7;
+            uint8_t next : 1;
+        } tail[sizeof(tlv_tag_t) - sizeof(uint8_t)];
     };
+};
+
+union Length {
+    uint8_t raw[sizeof(tlv_size_t)];
+    tlv_size_t i;
+    struct {
+        uint8_t value : 7;
+        uint8_t isLong : 1;
+    } length;
+    struct {
+        uint8_t value : 7;
+        uint8_t isNext : 1;
+    } longLength[sizeof(tlv_size_t) - sizeof(uint8_t)];
 };
 
 struct TagTypePointer {
@@ -83,6 +99,11 @@ struct TypeLengthValue {
     enum TagType2 type;
     size_t length;
     uint8_t value[];
+};
+
+struct TagLength {
+    union TagExpanded tag;
+    size_t length;
 };
 
 static inline

@@ -168,3 +168,20 @@ union Dol {
     size_t s;
     unsigned char a[100];
 };
+
+// based on EMV 4.3 Book 3 Annex C6
+// [9B]
+union TransactionStatusInformation {
+    uint8_t raw[2];
+    struct {
+        uint8_t offlineDataAuthenticationWaPerformed : 1;
+        uint8_t cardholderVerificationWasPerformed : 1;
+        uint8_t cardRiskManagementWasPerformed : 1;
+        uint8_t issuerAuthenticationWasPerformed : 1;
+        uint8_t terminalRiskManagementsWasPerformed : 1;
+        uint8_t scriptProcessingWasPerformed : 1;
+        uint8_t /* RFU */ : 2;
+
+        uint8_t /* RFU */ : 8;
+    };
+};

@@ -2,7 +2,10 @@
 #include "e6_application_profile.h"
 #include "global_data_elements.h"
 
-#define T(T) T
+// FIXME: T() works only with 2-byte tags
+#define T(T) \
+    (T & (0xFF << 0)) << 8 | \
+    (T & (0xFF << 8)) >> 8
 
 static struct TagTypePointer ApplicationProfile_get_ttv(const struct ApplicationProfile* const p, const union TagExpanded t) {
     struct TagTypePointer ret;

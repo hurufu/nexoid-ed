@@ -41,10 +41,10 @@ enum TagType2 {
 union PACKED TagExpanded {
     uint8_t raw[sizeof(tlv_tag_t)];
     tlv_tag_t i;
-    struct {
-        union {
+    struct PACKED {
+        union PACKED {
             uint8_t head;
-            struct {
+            struct PACKED {
                 uint8_t nmbr : 5;
                 uint8_t constructed : 1;
                 enum {
@@ -55,9 +55,9 @@ union PACKED TagExpanded {
                 } type : 2;
             };
         };
-        union {
+        union PACKED {
             uint8_t c;
-            struct {
+            struct PACKED {
                 uint8_t value : 7;
                 uint8_t next : 1;
             } v;

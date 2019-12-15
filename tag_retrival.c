@@ -33,6 +33,7 @@ static struct Extracted_Tag extract_tag(const size_t s, const uint8_t c[static c
     for (i = 0; i < elementsof(t.tag.tail) && t.size > 0; t.size--, i++, t.cursor++) {
         t.tag.tail[i].c = *t.cursor;
         if (!t.tag.tail[i].v.next) {
+            t.size--, i++, t.cursor++;
             break;
         }
     }

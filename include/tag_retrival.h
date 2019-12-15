@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "c2.h"
+#include "e6_application_profile.h"
 
 typedef uintmax_t tlv_tag_t;
 typedef size_t tlv_size_t;
@@ -37,7 +38,7 @@ enum TagType2 {
   , TAG_NON_NUMERIC
 };
 
-union TagExpanded {
+union PACKED TagExpanded {
     uint8_t raw[sizeof(tlv_tag_t)];
     tlv_tag_t i;
     struct {
@@ -54,24 +55,28 @@ union TagExpanded {
                 } type : 2;
             };
         };
-        struct {
-            uint8_t value : 7;
-            uint8_t next : 1;
+        union {
+            uint8_t c;
+            struct {
+                uint8_t value : 7;
+                uint8_t next : 1;
+            } v;
         } tail[sizeof(tlv_tag_t) - sizeof(uint8_t)];
     };
 };
 
-union Length {
-    uint8_t raw[sizeof(tlv_size_t)];
-    tlv_size_t i;
+union PACKED Length {
+    uint8_t raw[sizeof(tlv_size_t) + 1];
     struct {
-        uint8_t value : 7;
-        uint8_t isLong : 1;
-    } length;
-    struct {
-        uint8_t value : 7;
-        uint8_t isNext : 1;
-    } longLength[sizeof(tlv_size_t) - sizeof(uint8_t)];
+        struct {
+            uint8_t value : 7;
+            uint8_t isLong : 1;
+        } length;
+        union {
+            tlv_size_t z;
+            uint8_t a[sizeof(tlv_size_t)];
+        } longLength;
+    };
 };
 
 struct TagTypePointer {
@@ -101,10 +106,18 @@ struct TypeLengthValue {
     uint8_t value[];
 };
 
-struct TagLength {
+// TODO: Consider moving Extract_Tag_And_Length_Pair() and struct Extracted_Tl away from this header
+struct Extracted_Tl {
     union TagExpanded tag;
     size_t length;
+    enum ProcedureResult result;
+    size_t size;
+    const uint8_t* cursor;
 };
+
+struct Extracted_Tl Extract_Tag_And_Length_Pair(size_t size, const uint8_t cursor[size]);
+
+enum ProcedureResult Append_Dol_Entry(const size_t Length, uint8_t Dol[const Length], const union TagExpanded tag, size_t length);
 
 static inline
 uint8_t* getv_bool(const bool* v) {
@@ -345,3 +358,5 @@ struct TypeLengthValue* gettylv_kernel2Configuration(const union Kernel2Configur
     memcpy(ret, v->raw, sizeof(v->raw));
     return ret;
 }
+
+struct TypeLengthValue* ApplicationProfile_get_tylv(const struct ApplicationProfile* ap, union TagExpanded tag);

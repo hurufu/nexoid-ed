@@ -35,7 +35,7 @@ struct FciProprietaryTemplate {
     union ApplicationPriorityIndicator* applicationPriorityIndicator;
 
     // [9F38]
-    union Dol* pdol;
+    struct Dol* pdol;
 
     // [5F2D]
     struct string8* languagePreference;

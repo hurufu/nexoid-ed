@@ -5462,7 +5462,7 @@ INSERT INTO items VALUES(9555,205,'branch','Nok',0,1990,-30,50,30,60,0,NULL,'',N
 INSERT INTO items VALUES(9556,205,'branch','End',0,2130,-30,70,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9557,205,'address','End',0,1990,630,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9558,205,'horizontal','',0,1020,-140,210,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9559,205,'action',replace('const union Dol* const dol\n\nreturns enum ProcedureResult','\n',char(10)),0,1260,-140,130,40,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9559,205,'action',replace('const struct Dol* const dol\n\nreturns enum ProcedureResult','\n',char(10)),0,1260,-140,130,40,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9560,205,'vertical','',0,1870,-80,0,760,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9561,205,'branch','Ok',0,1870,-30,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9562,205,'address','End',0,1870,630,50,30,60,0,NULL,'',NULL,'');

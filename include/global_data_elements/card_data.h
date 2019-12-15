@@ -32,7 +32,7 @@ struct CardData {
 
     struct string16 applicationLabel;
     union ApplicationPriorityIndicator* applicationPriorityIndicator;
-    union Dol* pdol;
+    struct Dol* pdol;
     struct string8* languagePreference;
     enum IssuerCodeTableIndex* issuerCodeTableIndex;
     struct string16* applicationPreferredName;

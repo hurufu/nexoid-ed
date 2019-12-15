@@ -164,7 +164,7 @@ union Cvm {
 };
 
 // FIXME: Consider better struct to represent DOL
-union Dol {
+struct Dol {
     size_t s;
     unsigned char a[100];
 };

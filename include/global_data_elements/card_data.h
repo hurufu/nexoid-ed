@@ -38,4 +38,5 @@ struct CardData {
     struct string16* applicationPreferredName;
 
     struct DolData dolData;
+    struct DolData cdaTransactionData;
 };

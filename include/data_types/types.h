@@ -13,7 +13,21 @@ struct bcd2 {
     bcd_t v[2];
 };
 
+struct bcd3 {
+    bcd_t v[3];
+};
+
 struct ans_16 {
     uint8_t l;
     char v[16];
+};
+
+struct ans_34 {
+    uint8_t l;
+    char v[34];
+};
+
+struct as_34 {
+    uint8_t l;
+    char v[34];
 };

@@ -325,6 +325,8 @@ enum PACKED Kernel {
   , KERNEL_C7 = 0x07
   , KERNEL_M = 0x3F
   , KERNEL_E = 0x3E
+
+  // May have size: 1 or 3~8
 };
 
 enum KernelMode {

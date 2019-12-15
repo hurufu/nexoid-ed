@@ -60,3 +60,8 @@ struct ApplicationProfile {
     enum FallbackParameterMagneticStripe fallbackParameterMagneticStripe;
     enum CvmMagneticStripe cvmMagneticStripe;
 };
+
+struct ApplicationProfileList {
+    struct ApplicationProfile entry;
+    struct ApplicationProfileList* next;
+};

@@ -185,3 +185,18 @@ union TransactionStatusInformation {
         uint8_t /* RFU */ : 8;
     };
 };
+
+struct BankIdentifierCode {
+    enum PACKED {
+        BIC_C8
+      , BIC_C11
+    } type;
+    union {
+        struct {
+            uint8_t a[8];
+        } c8;
+        struct {
+            uint8_t a[11];
+        } c11;
+    };
+};

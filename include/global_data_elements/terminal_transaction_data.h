@@ -5,7 +5,7 @@
 
 struct TerminalTransactionData {
     bool acquirerPreSelected;
-    struct bcd2 preSelectedAcquirerNumber;
+    bcd_t preSelectedAcquirerNumber;
     bool cardholderLanguageIsSelected;
     bool applicationInitialised;
     union Amount transactionAmount;
@@ -96,7 +96,7 @@ struct TerminalTransactionData {
 
     // FIXME: Consider different place for selectedApplicationProfileNumber or
     // even removal, because this information may be available in ServiceConfiguration
-    unsigned char selectedApplicationProfileNumber;
+    bcd_t selectedApplicationProfileNumber;
 
     // FIXME: Consider different place for Out and Outcome
     enum Outcome outcome;

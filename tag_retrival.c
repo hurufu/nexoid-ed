@@ -37,10 +37,20 @@ static struct Extracted_Tag extract_tag(const size_t s, const uint8_t c[static c
             break;
         }
     }
-    if (t.tag.tail[i-1].v.next || 0 == i) {
-        // Tag doesn't fit into internal type or input string ended
-        t.tag.i = 0;
+    if (0 == i) {
+        // Input string ended
         t.result = PR_NOK;
+    }
+    if (t.tag.tail[i-1].v.next) {
+        // Tag doesn't fit into internal type
+        for (size_t j = 0; t.size > 0; t.size--, j++, t.cursor++) {
+            if (!t.tag.tail[i+j].v.next) {
+                t.size--, j++, t.cursor++;
+                break;
+            }
+        }
+        t.tag.i = 0;
+        t.result = PR_SKIP;
     }
     return t;
 }

@@ -48,6 +48,7 @@ ProcedureResult_tostring(const enum ProcedureResult f) {
         case PR_E: return "PR_E";
         case PR_PARTIAL_MATCH: return "PR_PARTIAL_MATCH";
         case PR_EXACT_MATCH: return "PR_EXACT_MATCH";
+        case PR_SKIP: return "PR_SKIP";
         case PR_MAX:
             break;
     }

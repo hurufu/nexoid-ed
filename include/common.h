@@ -59,6 +59,7 @@ enum ProcedureResult {
   , PR_E // FIXME: Use better name
   , PR_PARTIAL_MATCH
   , PR_EXACT_MATCH
+  , PR_SKIP
 
   , PR_MAX
 };

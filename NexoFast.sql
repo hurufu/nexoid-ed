@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','718 140','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2049 138','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','2925 -12','',80.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','258 -236','',75.0);
@@ -82,7 +82,7 @@ INSERT INTO diagrams VALUES(106,'Perform_General_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(107,'Perform_Specific_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-266 0',NULL,75.0);
-INSERT INTO diagrams VALUES(110,'Kernel_Processing','898 -52','',75.0);
+INSERT INTO diagrams VALUES(110,'Kernel_Processing','564 -52','',75.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','1320 0',NULL,75.0);
 INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,75.0);
@@ -107,13 +107,13 @@ INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','5732 98',NULL,75
 INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','410 -96','',75.0);
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','-518 -178',NULL,75.0);
-INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','813 -11',NULL,80.0);
-INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','812 -120',NULL,85.0);
+INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','937 -10',NULL,80.0);
+INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','694 -120',NULL,85.0);
 INSERT INTO diagrams VALUES(141,'Build_Candidate_List','1098 -222','TODO: Move to separate module',75.0);
 INSERT INTO diagrams VALUES(142,'Ctlss_Application_Kernel_Profile_Selection','136 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(143,'Is_Fallback_To_Msr_Allowed','186 -182','nexo-FAST note 122-95',80.0);
 INSERT INTO diagrams VALUES(144,'Set_Outcomes_At_Fallback','0 0','nexo-FAST note 122-98',80.0);
-INSERT INTO diagrams VALUES(145,'Chip_Profile_Selection','2611 -66','',80.0);
+INSERT INTO diagrams VALUES(145,'Chip_Profile_Selection','110 -127','',80.0);
 INSERT INTO diagrams VALUES(146,'Reset_Transaction_Database','0 0','nexo-FAST note 126-05',75.0);
 INSERT INTO diagrams VALUES(148,'Eea_Specific_Process_On_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(149,'Process_On_Candidate_List','0 0',NULL,75.0);
@@ -125,7 +125,7 @@ INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(161,'Emv_Completion','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1522 -148','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','0 0','',75.0);
-INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','510 -1133','nexo-Fast fig. 158~160',75.0);
+INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','1242 -997','nexo-Fast fig. 158~160',75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','0 0','',75.0);
 INSERT INTO diagrams VALUES(170,'Determination_Of_Oda_Method','-518 -230','',75.0);
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','0 0','',75.0);
@@ -135,7 +135,7 @@ INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','0 0',N
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','0 0','',75.0);
-INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','3737 -836','',75.0);
+INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','4534 -700','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-237 -328','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-73 -41','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0);
@@ -162,7 +162,7 @@ INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1012 143','',8
 INSERT INTO diagrams VALUES(202,'Process_Event','2652 -158','',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Fci_Data_After_Gpo','0 68','',75.0);
-INSERT INTO diagrams VALUES(205,'Build_Dol_Data','908 -212','',75.0);
+INSERT INTO diagrams VALUES(205,'Build_Dol_Data','906 -212','',75.0);
 INSERT INTO diagrams VALUES(206,'Is_Tag_Ok','-398 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(207,'Match_Aid','0 -125',NULL,80.0);
 CREATE TABLE state
@@ -171,7 +171,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,145,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,205,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -216,7 +216,7 @@ INSERT INTO items VALUES(652,18,'if','PR_OK == result',0,300,820,120,20,70,1,NUL
 INSERT INTO items VALUES(653,18,'vertical','',0,490,820,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(654,18,'address','(H) Nok',0,490,910,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),0,680,650,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(656,18,'insertion',replace('result =\nApplication_Kernel_And_Profile_Selection();','\n',char(10)),1,1410,530,190,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(656,18,'insertion',replace('result =\nApplication_Kernel_And_Profile_Selection();','\n',char(10)),0,1410,530,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(657,18,'select','result',0,1410,600,190,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(658,18,'horizontal','',0,1410,640,880,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(659,18,'case','PR_OK',0,1410,680,190,20,60,0,NULL,'',NULL,'');
@@ -246,7 +246,7 @@ INSERT INTO items VALUES(682,18,'if','PR_DONE == result',0,2450,630,90,20,110,1,
 INSERT INTO items VALUES(683,18,'vertical','',0,2650,630,0,330,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(684,18,'address','(H) Nok',0,2650,910,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(685,18,'address',replace('(E) Outcome\nProcessing','\n',char(10)),0,2450,900,90,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(686,18,'insertion',replace('result =\nKernel_Processing();','\n',char(10)),0,2450,700,90,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(686,18,'insertion',replace('result =\nKernel_Processing();','\n',char(10)),1,2450,700,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(687,18,'if','PR_DONE == result',0,2450,770,90,20,110,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(688,18,'vertical','',0,3030,350,0,610,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(689,18,'insertion',replace('result =\nOutcome_Processing();','\n',char(10)),0,3030,690,150,30,60,0,NULL,'',NULL,'');
@@ -3563,7 +3563,7 @@ INSERT INTO items VALUES(6851,140,'shelf','PR_UNINITIALISED',0,900,80,140,40,40,
 INSERT INTO items VALUES(6855,140,'horizontal','',0,900,280,240,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6856,140,'insertion',replace('result =\nMsr_Kernel_Profile_Selection();','\n',char(10)),0,900,330,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6867,140,'insertion',replace('result =\nProcess_Application_Profile_Parameters();','\n',char(10)),0,2300,350,180,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(6868,140,'insertion',replace('result =\nChip_Application_Kernel_Profile_Selection();','\n',char(10)),1,1430,330,190,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(6868,140,'insertion',replace('result =\nChip_Application_Kernel_Profile_Selection();','\n',char(10)),0,1430,330,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6869,140,'vertical','',0,2640,-60,0,700,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6870,140,'branch','Try fallback',0,2640,-10,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6871,140,'address','End Application',0,2640,590,140,30,60,0,NULL,'',NULL,'');
@@ -3749,7 +3749,7 @@ INSERT INTO items VALUES(7114,139,'vertical','',0,2030,370,0,500,0,0,NULL,'',NUL
 INSERT INTO items VALUES(7115,139,'address','C',0,1910,820,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7116,139,'address','Bail',0,2030,820,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7117,139,'shelf','KERNEL_E',0,1390,490,140,40,40,0,NULL,'',NULL,'ttd.kernelId');
-INSERT INTO items VALUES(7118,139,'insertion',replace('result =\nChip_Profile_Selection();','\n',char(10)),1,1390,580,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(7118,139,'insertion',replace('result =\nChip_Profile_Selection();','\n',char(10)),0,1390,580,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7119,139,'address','Ok',0,1390,820,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7120,139,'select','result',0,1390,650,140,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7121,139,'horizontal','',0,1390,690,400,0,0,0,NULL,'',NULL,'');
@@ -4386,7 +4386,7 @@ INSERT INTO items VALUES(8302,178,'shelf',replace('(struct OutcomeParameters){\n
 INSERT INTO items VALUES(8303,178,'vertical','',0,4890,-630,0,700,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8304,178,'address',replace('Risk Managment\n(3)','\n',char(10)),0,4890,10,170,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8305,178,'branch','Init. application',0,4890,-580,170,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8306,178,'insertion',replace('result =\nKernel_E_Application_Initialisation();','\n',char(10)),0,4890,-500,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8306,178,'insertion',replace('result =\nKernel_E_Application_Initialisation();','\n',char(10)),1,4890,-500,170,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8307,178,'if','PR_OK == result',0,4890,-430,170,20,510,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8308,178,'vertical','',0,5570,-430,0,500,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8309,178,'if','N_GPO6985 == ttd.nokReason',0,5570,-390,130,20,80,1,NULL,'',NULL,'');
@@ -5446,41 +5446,41 @@ INSERT INTO items VALUES(9542,136,'insertion','Copy_Fci_Data_After_Gpo();',0,151
 INSERT INTO items VALUES(9543,136,'horizontal','',0,1220,480,290,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9544,168,'shelf','(union TransactionStatusInformation){ }',0,1100,-250,200,40,40,0,NULL,NULL,NULL,'kd.tsi');
 INSERT INTO items VALUES(9545,168,'insertion',replace('result =\nBuild_Dol_Data(cd.pdol);','\n',char(10)),0,1890,-640,110,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9546,205,'beginend','Build_Dol_Data',0,1050,-140,70,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9547,205,'beginend','End',0,2220,360,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9548,205,'vertical','',0,1050,-120,0,840,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9549,205,'vertical','',0,2080,-80,0,800,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9550,205,'vertical','',0,2220,-80,0,430,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9551,205,'horizontal','',0,1050,-80,1170,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9552,205,'arrow','',0,910,-80,140,800,1170,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(9553,205,'branch','branch 1',0,1050,-30,120,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9554,205,'address','branch 2',0,1050,670,120,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9555,205,'branch','Nok',0,2080,-30,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9556,205,'branch','End',0,2220,-30,70,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9557,205,'address','End',0,2080,670,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9558,205,'horizontal','',0,1050,-140,230,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9559,205,'action',replace('const struct Dol* const dol\n\nreturns enum ProcedureResult','\n',char(10)),0,1310,-140,130,40,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9560,205,'vertical','',0,1960,-80,0,800,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9561,205,'branch','Ok',0,1960,-30,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9562,205,'address','End',0,1960,670,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9566,205,'vertical','',0,1480,-80,0,800,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9567,205,'branch','branch 2',0,1480,-30,290,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9568,205,'address','Ok',0,1480,670,290,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9569,205,'action','return result;',0,2220,290,70,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9570,205,'shelf','PR_OK',0,1050,380,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(9571,205,'shelf','PR_OK',0,1960,150,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(9572,205,'shelf','PR_NOK',0,2080,150,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(9573,205,'shelf','(struct DolData){ }',0,1050,480,120,40,40,0,NULL,'',NULL,'cd.dolData');
-INSERT INTO items VALUES(9576,205,'vertical','',0,1820,200,0,180,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9582,205,'if','PR_OK == t.result',0,1480,140,290,20,70,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(9583,205,'vertical','',0,1840,140,0,580,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9584,205,'address','Nok',0,1840,670,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9608,205,'action','cd.dolData.s += t.length;',0,1480,540,290,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9546,205,'beginend','Build_Dol_Data',0,1100,-160,70,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9547,205,'beginend','End',0,2110,360,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9548,205,'vertical','',0,1100,-140,0,840,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9549,205,'vertical','',0,1970,-100,0,800,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9550,205,'vertical','',0,2110,-100,0,450,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9551,205,'horizontal','',0,1100,-100,1010,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9552,205,'arrow','',0,960,-100,140,800,1010,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9553,205,'branch','branch 1',0,1100,-50,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9554,205,'address','branch 2',0,1100,650,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9555,205,'branch','Nok',0,1970,-50,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9556,205,'branch','End',0,2110,-50,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9557,205,'address','End',0,1970,650,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9558,205,'horizontal','',0,1100,-160,190,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9559,205,'action',replace('const struct Dol* const dol\n\nreturns enum ProcedureResult','\n',char(10)),0,1320,-160,130,40,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9560,205,'vertical','',0,1850,-100,0,800,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9561,205,'branch','Ok',0,1850,-50,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9562,205,'address','End',0,1850,650,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9566,205,'vertical','',0,1450,-100,0,800,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9567,205,'branch','branch 2',0,1450,-50,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9568,205,'address','Ok',0,1450,650,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9569,205,'action','return result;',0,2110,290,70,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9570,205,'shelf','PR_OK',0,1100,250,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(9571,205,'shelf','PR_OK',0,1850,150,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(9572,205,'shelf','PR_NOK',0,1970,150,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(9573,205,'shelf','(struct DolData){ }',0,1100,350,120,40,40,0,NULL,'',NULL,'cd.dolData');
+INSERT INTO items VALUES(9576,205,'vertical','',0,1700,180,0,180,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9582,205,'if','PR_OK == t.result',0,1450,120,210,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9583,205,'vertical','',0,1730,120,0,580,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9584,205,'address','Nok',0,1730,650,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9608,205,'action','cd.dolData.s += t.length;',0,1450,520,210,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9644,138,'action','(void)aid;',0,170,200,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9652,205,'shelf',replace('Append_Dol_Entry(\n  sizeof(cd.dolData.c) - cd.dolData.s,\n  cd.dolData.c, t.tag, t.length);','\n',char(10)),0,1480,300,290,60,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(9653,205,'if','PR_OK == result',0,1480,420,290,20,70,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9656,205,'if','cd.dolData.s + t.length > sizeof(cd.dolData.c)',0,1480,480,290,20,70,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9659,205,'horizontal','',0,1480,380,340,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9652,205,'shelf',replace('Append_Dol_Entry(\n  sizeof(cd.dolData.c) - cd.dolData.s,\n  cd.dolData.c + cd.dolData.s, t.tag, t.length);','\n',char(10)),0,1450,280,210,60,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(9653,205,'if','PR_OK == result',0,1450,400,210,20,70,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9656,205,'if','cd.dolData.s + t.length > sizeof(cd.dolData.c)',0,1450,460,210,20,70,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9659,205,'horizontal','',0,1450,360,250,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9660,206,'beginend','Is_Tag_Ok',0,170,40,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9661,206,'beginend','End',0,170,640,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9662,206,'vertical',NULL,0,170,60,0,560,0,0,NULL,NULL,NULL,NULL);
@@ -5495,14 +5495,14 @@ INSERT INTO items VALUES(9670,206,'vertical','',0,320,220,0,320,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(9671,206,'shelf','false',0,170,140,80,40,40,0,NULL,NULL,NULL,'bool result');
 INSERT INTO items VALUES(9672,206,'horizontal','',0,170,540,150,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9673,206,'shelf','true',0,170,480,80,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(9674,205,'if','Is_Tag_Ok(t.tag)',0,1480,200,290,20,50,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(9675,205,'loopstart',replace('struct Extracted_Tl t = Extract_Tag_And_Length_Pair(dol->s, dol->a);\nt.size > 0;\nt = Extract_Tag_And_Length_Pair(t.size, t.cursor)','\n',char(10)),0,1480,60,290,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9676,205,'loopend','',0,1480,600,290,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9674,205,'if','Is_Tag_Ok(t.tag)',0,1450,180,210,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9675,205,'loopstart',replace('t = Extract_Tag_And_Length_Pair(dol->s, dol->a);\nt.result != PR_DONE;\nt = Extract_Tag_And_Length_Pair(t.size, t.cursor)','\n',char(10)),0,1450,40,210,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9676,205,'loopend','',0,1450,580,210,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9677,206,'commentout','Is tag known to the terminal?',0,-60,280,130,20,40,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9678,206,'commentout','Is tag optional and absent?',0,-50,340,120,20,40,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9679,206,'commentout','Is tag applicable to the current transaction?',0,-120,400,190,20,50,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9680,178,'insertion',replace('result =\nParse_Emv_Response_Data(COMMAND_SELECT_ADF);','\n',char(10)),0,4360,-120,190,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9681,168,'if','PR_OK == result',0,1890,-570,110,20,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9681,168,'if','PR_OK == result',0,1890,-570,110,20,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9682,168,'vertical','',0,2020,-570,0,460,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9683,168,'address','Nok',0,2020,-160,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9684,168,'shelf','cd.dolData',0,1720,-300,150,40,40,0,NULL,NULL,NULL,'cd.cdaTransactionData');
@@ -5575,6 +5575,7 @@ INSERT INTO items VALUES(9752,145,'vertical','',0,3320,390,0,290,0,0,NULL,NULL,N
 INSERT INTO items VALUES(9753,145,'address','Ok',0,3320,630,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9755,145,'shelf','l->entry',0,3320,530,50,40,40,0,NULL,NULL,NULL,'ap');
 INSERT INTO items VALUES(9756,145,'action','struct ApplicationProfileList* l;',0,480,250,220,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9757,205,'action','struct Extracted_Tl t;',0,1100,140,120,20,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

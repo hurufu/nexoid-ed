@@ -264,7 +264,7 @@ static inline
 struct TypeLengthValue* gettylv_bcd2(const struct bcd2* const v) {
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_BCD;
-    ret->length = 1;
+    ret->length = sizeof(v->v);
     memcpy(ret->value, v->v, sizeof(v->v));
     return ret;
 }
@@ -292,7 +292,7 @@ struct TypeLengthValue* gettylv_atc(const union AdditionalTerminalCapabilities* 
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_NON_NUMERIC;
     ret->length = sizeof(v->raw);
-    memcpy(ret, v->raw, sizeof(v->raw));
+    memcpy(ret->value, v->raw, sizeof(v->raw));
     return ret;
 }
 
@@ -301,7 +301,7 @@ struct TypeLengthValue* gettylv_tc(const union TerminalCapabilities* const v) {
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_NON_NUMERIC;
     ret->length = sizeof(v->raw);
-    memcpy(ret, v->raw, sizeof(v->raw));
+    memcpy(ret->value, v->raw, sizeof(v->raw));
     return ret;
 }
 
@@ -310,7 +310,7 @@ struct TypeLengthValue* gettylv_aps(const union ApplicationProfileSettings* cons
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_NON_NUMERIC;
     ret->length = sizeof(v->raw);
-    memcpy(ret, v->raw, sizeof(v->raw));
+    memcpy(ret->value, v->raw, sizeof(v->raw));
     return ret;
 }
 
@@ -319,7 +319,7 @@ struct TypeLengthValue* gettylv_apsc(const union ApplicationProfileSettingsForCa
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_NON_NUMERIC;
     ret->length = sizeof(v->raw);
-    memcpy(ret, v->raw, sizeof(v->raw));
+    memcpy(ret->value, v->raw, sizeof(v->raw));
     return ret;
 }
 
@@ -328,7 +328,7 @@ struct TypeLengthValue* gettylv_amount(const union Amount* const v) {
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_BCD;
     ret->length = sizeof(v->bcd);
-    memcpy(ret, v->bcd, sizeof(v->bcd));
+    memcpy(ret->value, v->bcd, sizeof(v->bcd));
     return ret;
 }
 
@@ -337,7 +337,7 @@ struct TypeLengthValue* gettylv_cvmCapability(const union CvmCapability* const v
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_NON_NUMERIC;
     ret->length = sizeof(v->raw);
-    memcpy(ret, v->raw, sizeof(v->raw));
+    memcpy(ret->value, v->raw, sizeof(v->raw));
     return ret;
 }
 
@@ -346,7 +346,7 @@ struct TypeLengthValue* gettylv_msrCvmCapability(const union MagStripeCvmCapabil
     struct TypeLengthValue* const ret = mempool_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_NON_NUMERIC;
     ret->length = sizeof(v->raw);
-    memcpy(ret, v->raw, sizeof(v->raw));
+    memcpy(ret->value, v->raw, sizeof(v->raw));
     return ret;
 }
 

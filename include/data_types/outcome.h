@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-#include <bool.h>
+#include "bool.h"
 
 enum Outcome {
     O_NONE

@@ -22,8 +22,9 @@ run: $(EXECUTABLE)
 	./$<
 
 .PHONY: clean
+clean: F := $(wildcard $(EXECUTABLE) $(SOURCES) tags)
 clean:
-	rm -- $(wildcard $(EXECUTABLE) $(SOURCES) tags)
+	$(if $(strip $F),$(RM) -- $F,)
 
 .PHONY: ddd
 ddd: $(EXECUTABLE)

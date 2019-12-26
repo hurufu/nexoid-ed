@@ -11,6 +11,9 @@ CFLAGS              += $(shell pkg-config --cflags check)
 
 LDFLAGS             := -Wl,--unresolved-symbols=ignore-in-shared-libs
 
+CTAGS               := ctags
+CHECKMK             := checkmk
+
 .PHONY: all
 all: $(EXECUTABLE)
 
@@ -29,10 +32,10 @@ clean:
 .PHONY: index
 index: tags
 tags: $(SOURCES)
-	ctags -f $@ -R . /usr/local/include
+	$(CTAGS) -f $@ -R . /usr/local/include
 
 %.c: %.t
-	checkmk $< >$@
+	$(CHECKMK) $< >$@
 
 %.i: %.c
 	$(CC) -E $(CPPFLAGS) -o $@ $<

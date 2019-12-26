@@ -1,8 +1,14 @@
 EXECUTABLE          := nexoid-ut
+
 CHECK_SOURCES       := $(wildcard *.t)
 SOURCES             := $(CHECK_SOURCES:.t=.c)
-LDLIBS              := -lnexoid -lcheck
+
+LDLIBS              := -lnexoid
+LDLIBS              += $(shell pkg-config --libs check)
+
 CFLAGS              := -ggdb3 -O0
+CFLAGS              += $(shell pkg-config --cflags check)
+
 LDFLAGS             := -Wl,--unresolved-symbols=ignore-in-shared-libs
 
 .PHONY: all

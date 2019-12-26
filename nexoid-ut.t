@@ -66,7 +66,6 @@ ck_assert_tl_impl(
     ck_assert_uint_eq(tl.length, length);
     ck_assert_mem_eq(tl.tag.raw, *tag, sizeof(*tag));
     ck_assert_uint_eq(tl.size, bytes_left);
-
     if (next_cursor) {
         ck_assert_ptr_nonnull(tl.cursor);
         ck_assert_ptr_eq(tl.cursor, next_cursor);

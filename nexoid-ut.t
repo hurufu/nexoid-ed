@@ -97,3 +97,7 @@ ck_assert_tl_impl(
 
 #test result_is_nok_if_input_is_empty_and_null
     ck_assert_tl(Extract_Tag_And_Length_Pair(0, NULL), PR_NOK, 0, 0, NULL);
+
+#test result_is_nok_if_input_is_zeroed
+    const uint8_t s[16] = { };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 0, 14, s + 2);

@@ -2,7 +2,6 @@ EXECUTABLE          := nexoid-ut
 CHECK_SOURCES       := $(wildcard *.t)
 SOURCES             := $(CHECK_SOURCES:.t=.c)
 LDLIBS              := -lnexoid -lcheck
-#CPPFLAGS            := -I/usr/local/include/nexoid
 CFLAGS              := -ggdb3 -O0
 LDFLAGS             := -Wl,--unresolved-symbols=ignore-in-shared-libs
 

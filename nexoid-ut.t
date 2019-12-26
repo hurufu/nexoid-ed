@@ -75,9 +75,6 @@ ck_assert_tl_impl(
     }
 }
 
-#test Dummy
-    ck_assert(1);
-
 #suite tag_retrival
 
 #test tl_is_extracted

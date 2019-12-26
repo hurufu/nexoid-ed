@@ -76,6 +76,18 @@ ck_assert_tl_impl(
 
 #suite tag_retrival
 
+#test tag_expanded_struct_is_consistent
+    const union TagExpanded t = { 0xDF, 0x81, 0x18 };
+    ck_assert_uint_eq(sizeof(t), sizeof(t.raw));
+    ck_assert_uint_eq(sizeof(t), sizeof(tlv_tag_t));
+    ck_assert_uint_eq(t.head, 0xDF);
+    ck_assert_uint_eq(t.nmbr, 0x1F);
+    ck_assert(!t.constructed);
+    ck_assert(TLV_CLASS_PRIVATE == t.type);
+    ck_assert_mem_eq(t.tail, ((uint8_t[sizeof(tlv_tag_t) - 1]){ 0x81, 0x18 }), sizeof(tlv_tag_t) - 1);
+    ck_assert(t.tail[0].v.next);
+    ck_assert(!t.tail[1].v.next);
+
 #test tl_is_extracted
     const uint8_t s[] = { 0x9F, 0x1A, 0x02, 0xDF, 0x27, 0x03 };
     ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 2, 3, s + 3, 0x9F, 0x1A);

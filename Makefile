@@ -36,3 +36,6 @@ tags: $(SOURCES)
 
 %.c: %.t
 	checkmk $< >$@
+
+%.i: %.c
+	$(CC) -E $(CPPFLAGS) -o $@ $<

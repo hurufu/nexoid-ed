@@ -26,10 +26,6 @@ clean: F := $(wildcard $(EXECUTABLE) $(SOURCES) tags)
 clean:
 	$(if $(strip $F),$(RM) -- $F,)
 
-.PHONY: ddd
-ddd: $(EXECUTABLE)
-	ddd --args $< $(SCENARIO)
-
 .PHONY: index
 index: tags
 tags: $(SOURCES)

@@ -33,7 +33,7 @@ ddd: $(EXECUTABLE)
 .PHONY: index
 index: tags
 tags: $(SOURCES)
-	ctags -R . /usr/local/include
+	ctags -f $@ -R . /usr/local/include
 
 %.c: %.t
 	checkmk $< >$@

@@ -58,6 +58,14 @@ static struct Extracted_Tag extract_tag(const size_t s, const uint8_t c[static c
 }
 
 static struct Extracted_Len extract_length(const size_t s, const uint8_t c[static const s]) {
+    if (0 == s) {
+        return (struct Extracted_Len){
+            .cursor = c,
+            .size = 0,
+            .result = PR_NOK,
+            .length = 0
+        };
+    }
     struct Extracted_Len ret = {
         .cursor = c + 1,
         .size = s - 1,

@@ -48,6 +48,10 @@
     const uint8_t s[] = { 0x9F, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x03 };
     ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_NOK, 3, 0, lastof(s) + 1);
 
+#test not_enough_input_bytes_for_tag
+    const uint8_t s[] = { 0x9F, 0x81, 0x82, 0x83, 0x84, 0x85 };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_NOK, 0, 0, lastof(s) + 1);
+
 #test length_has_two_bytes
     const uint8_t s[] = { 0xCA, 0x82, 0x01, 0x02 };
     ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 0x0102, 0, lastof(s) + 1, 0xCA);

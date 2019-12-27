@@ -1,12 +1,13 @@
 EXECUTABLE          := nexoid-ut
 
-CHECK_SOURCES       := $(wildcard *.t)
-SOURCES             := $(CHECK_SOURCES:.t=.c)
+CHECK_TEST_FILES    := $(wildcard *.t)
+GENERATED_SOURCES   := $(CHECK_TEST_FILES:.t=.c)
+SOURCES             := $(GENERATED_SOURCES) common.c
 
 LDLIBS              := -lnexoid
 LDLIBS              += $(shell pkg-config --libs check)
 
-CFLAGS              := -ggdb3 -O0
+CFLAGS              := -ggdb3 -O0 --pipe
 CFLAGS              += $(shell pkg-config --cflags check)
 
 LDFLAGS             := -Wl,--unresolved-symbols=ignore-in-shared-libs
@@ -25,7 +26,7 @@ run: $(EXECUTABLE)
 	./$<
 
 .PHONY: clean
-clean: F := $(wildcard $(EXECUTABLE) $(SOURCES) tags)
+clean: F := $(wildcard $(EXECUTABLE) $(GENERATED_SOURCES) tags)
 clean:
 	$(if $(strip $F),$(RM) -- $F,)
 

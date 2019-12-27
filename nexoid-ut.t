@@ -142,3 +142,21 @@ ck_assert_tl_impl(
 #test tag_is_too_large
     const uint8_t s[] = { OVER_MAX_TAG, 0x03 };
     ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_NOK, 3, 0, lastof(s) + 1);
+
+// FIXME: Swap endinannes in test cases for length
+
+#test length_has_two_bytes
+    const uint8_t s[] = { 0xCA, 0x82, 0x01, 0x02 };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 0x0102, 0, lastof(s) + 1, 0xCA);
+
+#test max_length
+    const uint8_t s[] = { 0xCA, 0x88, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 0x01020304050607080, 0, lastof(s) + 1, 0xCA);
+
+#test over_max_length
+    const uint8_t s[] = { 0xCA, 0x8A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_NOK, 0, 0, lastof(s) + 1, 0xCA);
+
+#test max_length_and_tag
+    const uint8_t s[] = { MAX_TAG, 0x88, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 0x0102030405060708, 0, lastof(s) + 1, MAX_TAG);

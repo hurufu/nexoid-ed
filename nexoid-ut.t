@@ -1,6 +1,7 @@
 #include <check.h>
 #include <nexoid/tag_retrival.h>
 #include <nexoid/global_data_elements.h>
+#include <limits.h>
 
 struct TerminalConfiguration tc;
 struct ApplicationProfile ap;
@@ -39,6 +40,30 @@ struct TerminalListOfAid* g_TerminalListOfAid;
 
 #define ck_assert_dol_result_neq(A, B)\
     ck_assert_dol_result(!=, A, B)
+
+#define TC_TAG_TAIL 0x0A
+#define TC_TAG_SUFFIX 0xDF
+#define TC_WORD_BIT_8
+#define TC_WORD_BIT_16 TC_WORD_BIT_8   0x9F
+#define TC_WORD_BIT_32 TC_WORD_BIT_16, 0x81, 0x82
+#define TC_WORD_BIT_64 TC_WORD_BIT_32, 0x83, 0x84, 0x85, 0x86
+
+//FIXME: Replace conditional macro with token concatenation and evaluation
+#if __WORDSIZE == 64
+#   define MAX_TAG                         TC_WORD_BIT_64, TC_TAG_TAIL
+#   define OVER_MAX_TAG     TC_TAG_SUFFIX, TC_WORD_BIT_64, TC_TAG_TAIL
+#elif __WORDSIZE == 32
+#   define MAX_TAG                         TC_WORD_BIT_32, TC_TAG_TAIL
+#   define OVER_MAX_TAG     TC_TAG_SUFFIX, TC_WORD_BIT_32, TC_TAG_TAIL
+#elif __WORDSIZE == 16
+#   define MAX_TAG                         TC_WORD_BIT_16, TC_TAG_TAIL
+#   define OVER_MAX_TAG     TC_TAG_SUFFIX, TC_WORD_BIT_16, TC_TAG_TAIL
+#elif __WORDSIZE == 8
+#   define MAX_TAG                         TC_WORD_BIT_8   TC_TAG_TAIL
+#   define OVER_MAX_TAG     TC_TAG_SUFFIX, TC_WORD_BIT_8   TC_TAG_TAIL
+#else
+#   error "Unsupported word size"
+#endif
 
 static
 const char*
@@ -109,3 +134,11 @@ ck_assert_tl_impl(
 #test result_is_nok_if_input_is_zeroed
     const uint8_t s[16] = { };
     ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 0, 14, s + 2);
+
+#test max_tag_length
+    const uint8_t s[] = { MAX_TAG, 0x01 };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_OK, 1, 0, lastof(s) + 1, MAX_TAG);
+
+#test tag_is_too_large
+    const uint8_t s[] = { OVER_MAX_TAG, 0x03 };
+    ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_NOK, 3, 0, lastof(s) + 1);

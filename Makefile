@@ -1,6 +1,6 @@
 EXECUTABLE          := nexoid-ut
 
-CHECK_TEST_FILES    := $(wildcard *.t)
+CHECK_TEST_FILES    := $(wildcard *-$(shell uname --machine).t)
 GENERATED_SOURCES   := $(CHECK_TEST_FILES:.t=.c)
 SOURCES             := $(GENERATED_SOURCES) common.c
 

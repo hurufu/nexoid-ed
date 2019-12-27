@@ -86,6 +86,8 @@ static struct Extracted_Len extract_length(const size_t s, const uint8_t c[stati
     memcpy(l.longLength.a, ret.cursor, l.length.value);
     // FIXME: Convert byte array to integer according to platform's endianness
     ret.length = l.longLength.z;
+    ret.size -= l.length.value;
+    ret.cursor += l.length.value;
 
     // OK - Length has multiple bytes
     return ret;
@@ -93,6 +95,9 @@ static struct Extracted_Len extract_length(const size_t s, const uint8_t c[stati
 
 struct Extracted_Tl
 Extract_Tag_And_Length_Pair(const size_t size, const uint8_t cursor[static const size]) {
+    if (!cursor) {
+        return (struct Extracted_Tl){ .result = PR_NOK };
+    }
     if (size == 0) {
         return (struct Extracted_Tl){ .result = PR_DONE, .cursor = cursor };
     }

@@ -79,10 +79,10 @@ static struct Extracted_Len extract_length(const size_t s, const uint8_t c[stati
     }
     if (s < l.length.value) {
         ret = (struct Extracted_Len){
-            ret.length = 0,
-            ret.result = PR_NOK,
-            ret.cursor = c + s,
-            ret.size = 0
+            .length = 0,
+            .result = PR_NOK,
+            .cursor = c + s,
+            .size = 0
         };
         // NOK - length is OK, but `c` doesn't contain enough bytes to read
         return ret;

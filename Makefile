@@ -60,6 +60,9 @@ HEADERS      := $(sort $(wildcard $(addsuffix /*.h,$(INCLUDE_DIRS)) $(DRAKON_HFI
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
 
+GRAPH_TARGETS := all install uninstall shared
+GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
+
 INSTALLED_FILES  := $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME).a $(LIBNAME).so))
 INSTALLED_FILES  += $(addprefix $(PREFIX)/include/$(NAME)/,$(notdir $(HEADERS)))
 
@@ -122,7 +125,7 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(wildcard ptmalloc3/*.[ch]) $(HEADERS)
 	$(CSCOPE) -R -f $@ -b
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand *.png $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config *.d *.stackdump)
@@ -198,3 +201,12 @@ cg.png:
 .PHONY: print-%
 print-%:
 	@:$(info $($*))
+
+.PHONY: graph
+graph: $(GRAPH_IMAGES)
+%.png: %.dot
+	dot -T png  $< >$@
+%.dot: export LC_ALL=C
+%.dot: $(lastword $(MAKEFILE_LIST))
+	make wipe
+	make -Bnd $* | make2graph -b | sed '2irankdir="RL"' >$@

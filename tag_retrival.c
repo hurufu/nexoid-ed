@@ -1,5 +1,7 @@
 #include "tag_retrival.h"
 #include "global_data_elements.h"
+#include <byteswap.h>
+#include <limits.h>
 
 struct Extracted_Tag {
     enum ProcedureResult result;
@@ -70,6 +72,8 @@ static struct Extracted_Len extract_length(const size_t s, const uint8_t c[stati
     if (l.length.value > elementsof(l.longLength.a)) {
         ret.length = SIZE_MAX;
         ret.result = PR_NOK;
+        ret.size -= l.length.value;
+        ret.cursor += l.length.value;
         // NOK - Length is larger then supported by the platform
         return ret;
     }
@@ -84,8 +88,17 @@ static struct Extracted_Len extract_length(const size_t s, const uint8_t c[stati
         return ret;
     }
     memcpy(l.longLength.a, ret.cursor, l.length.value);
-    // FIXME: Convert byte array to integer according to platform's endianness
-    ret.length = l.longLength.z;
+    // TODO: Refactor, optimize and make cross platform byte swapping
+    const uint_fast8_t most_significant_non_zero_byte =
+            l.longLength.a[7] ? 0 :
+            l.longLength.a[6] ? 1 :
+            l.longLength.a[5] ? 2 :
+            l.longLength.a[4] ? 3 :
+            l.longLength.a[3] ? 4 :
+            l.longLength.a[2] ? 5 :
+            l.longLength.a[1] ? 6 :
+            l.longLength.a[0] ? 7 : 8;
+    ret.length = bswap_64(l.longLength.z) >> (most_significant_non_zero_byte * CHAR_BIT);
     ret.size -= l.length.value;
     ret.cursor += l.length.value;
 

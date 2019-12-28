@@ -104,7 +104,7 @@ INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','191 -11
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','0 0','',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1253 -456',NULL,75.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','5732 98',NULL,75.0);
-INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','410 -96','',75.0);
+INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','408 -96',replace('There is no parsing per-se in the current implementation,\nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','-518 -178',NULL,75.0);
 INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','937 -10',NULL,80.0);
@@ -125,7 +125,7 @@ INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(161,'Emv_Completion','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1522 -148','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','0 0','',75.0);
-INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','1242 -997','nexo-Fast fig. 158~160',75.0);
+INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','2801 -994','nexo-Fast fig. 158~160',75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','0 0','',75.0);
 INSERT INTO diagrams VALUES(170,'Determination_Of_Oda_Method','-518 -230','',75.0);
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','0 0','',75.0);
@@ -162,7 +162,7 @@ INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1012 143','',8
 INSERT INTO diagrams VALUES(202,'Process_Event','2652 -158','',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Fci_Data_After_Gpo','0 68','',75.0);
-INSERT INTO diagrams VALUES(205,'Build_Dol_Data','906 -212','',75.0);
+INSERT INTO diagrams VALUES(205,'Build_Dol_Data','412 -450','',75.0);
 INSERT INTO diagrams VALUES(206,'Is_Tag_Ok','-398 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(207,'Match_Aid','0 -125',NULL,80.0);
 CREATE TABLE state
@@ -171,7 +171,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,205,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,136,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4206,7 +4206,7 @@ INSERT INTO items VALUES(8121,168,'vertical','',0,3410,-950,0,840,0,0,NULL,'',NU
 INSERT INTO items VALUES(8122,168,'branch','Parse Response Data',0,3410,-900,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8123,168,'address',replace('Decode and process AFL\n(1)','\n',char(10)),0,3410,-170,200,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8124,168,'horizontal','',0,2510,-210,330,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8125,168,'insertion',replace('result =\nParse_Emv_Response_Data(COMMAND_GPO);','\n',char(10)),0,3410,-740,200,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8125,168,'insertion',replace('result =\nParse_Emv_Response_Data(COMMAND_GPO);','\n',char(10)),1,3410,-740,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8126,168,'address','Nok',0,3700,-160,70,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8127,168,'if','true',0,3410,-810,200,20,90,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8128,168,'commentout',replace('TODO: Is 1ˢᵗ byte (tag) of\nResponse Data = 0x77 or 0x80','\n',char(10)),0,2800,-810,130,30,290,1,NULL,'',NULL,'');
@@ -5427,7 +5427,7 @@ INSERT INTO items VALUES(9521,136,'case','',0,1700,380,50,20,60,0,NULL,NULL,NULL
 INSERT INTO items VALUES(9522,136,'vertical','',0,1510,340,0,140,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9523,136,'vertical','',0,1700,340,0,240,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9525,136,'address','Not implemented',0,1700,530,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9526,136,'insertion','Copy_Fci_Data_After_Final_Select();',1,1220,440,150,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9526,136,'insertion','Copy_Fci_Data_After_Final_Select();',0,1220,440,150,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9527,203,'shelf','cd.fci->a5.applicationLabel',0,300,60,170,40,40,0,NULL,NULL,NULL,'cd.applicationLabel');
 INSERT INTO items VALUES(9528,203,'shelf','cd.fci->a5.applicationPriorityIndicator',0,300,160,170,40,40,0,NULL,'',NULL,'cd.applicationPriorityIndicator');
 INSERT INTO items VALUES(9529,203,'shelf','cd.fci->a5.pdol',0,300,260,170,40,40,0,NULL,'',NULL,'cd.pdol');

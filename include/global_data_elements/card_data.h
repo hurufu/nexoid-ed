@@ -45,6 +45,8 @@ struct CardData {
     struct string8* languagePreference;
     enum IssuerCodeTableIndex* issuerCodeTableIndex;
     struct string16* applicationPreferredName;
+    struct ApplicationFileLocator afl;
+    union ApplicationInterchangeProfile aip;
 
     struct DolData dolData;
     struct DolData cdaTransactionData;

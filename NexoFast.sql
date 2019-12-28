@@ -102,9 +102,9 @@ INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','
 INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
 INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','191 -1102','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',80.0);
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','0 0','',75.0);
-INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1253 -456',NULL,75.0);
+INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','2081 -460',NULL,75.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','5732 98',NULL,75.0);
-INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','741 -96',replace('There is no parsing per-se in the current implementation,\nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.','\n',char(10)),75.0);
+INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','273 -96',replace('There is no parsing per-se in the current implementation,\nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','-518 -178',NULL,75.0);
 INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','937 -10',NULL,80.0);
@@ -125,7 +125,7 @@ INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(161,'Emv_Completion','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1522 -148','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','0 0','',75.0);
-INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','2801 -994','nexo-Fast fig. 158~160',75.0);
+INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','2784 -826','nexo-Fast fig. 158~160',75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','0 0','',75.0);
 INSERT INTO diagrams VALUES(170,'Determination_Of_Oda_Method','-518 -230','',75.0);
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','0 0','',75.0);
@@ -135,7 +135,7 @@ INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','0 0',N
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','0 0','',75.0);
-INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','4534 -700','',75.0);
+INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','3672 -609','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-237 -328','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-73 -41','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0);
@@ -161,7 +161,7 @@ INSERT INTO diagrams VALUES(200,'Dsi_Check_Card_Service','315.09523809523813 62.
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1012 143','',85.0);
 INSERT INTO diagrams VALUES(202,'Process_Event','2652 -158','',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
-INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 68','',75.0);
+INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 201','',75.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','412 -450','',75.0);
 INSERT INTO diagrams VALUES(206,'Is_Tag_Ok','-398 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(207,'Match_Aid','0 -125',NULL,80.0);
@@ -171,7 +171,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,204,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,168,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4206,20 +4206,19 @@ INSERT INTO items VALUES(8121,168,'vertical','',0,3410,-950,0,840,0,0,NULL,'',NU
 INSERT INTO items VALUES(8122,168,'branch','Parse Response Data',0,3410,-900,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8123,168,'address',replace('Decode and process AFL\n(1)','\n',char(10)),0,3410,-170,200,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8124,168,'horizontal','',0,2510,-210,330,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8125,168,'insertion',replace('result =\nParse_Emv_Response_Data(COMMAND_GPO);','\n',char(10)),1,3410,-740,200,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8125,168,'insertion',replace('result =\nParse_Emv_Response_Data(COMMAND_GPO);','\n',char(10)),0,3410,-750,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8126,168,'address','Nok',0,3700,-160,70,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8127,168,'if','true',0,3410,-810,200,20,90,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8128,168,'commentout',replace('TODO: Is 1ˢᵗ byte (tag) of\nResponse Data = 0x77 or 0x80','\n',char(10)),0,2800,-810,130,30,290,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8129,168,'vertical','',0,3700,-810,0,700,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8127,168,'if','true',0,3410,-830,200,20,90,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8128,168,'commentout',replace('TODO: Is 1ˢᵗ byte (tag) of Response Data = 0x77 or 0x80\n-- This check should be handled by a lower layer','\n',char(10)),0,2800,-830,230,30,290,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8129,168,'vertical','',0,3700,-830,0,720,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8130,168,'shelf','N_DATA_ERROR',0,3700,-270,70,40,40,0,NULL,'',NULL,'ttd.nokReason');
-INSERT INTO items VALUES(8131,168,'if','true',0,3410,-550,200,20,90,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8131,168,'if','cd.afl.raw_size % 4 == 0',0,3410,-610,200,20,90,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8132,168,'address','Nok',0,2510,-160,150,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8133,168,'if','PR_OK == result',0,3410,-670,200,20,90,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8133,168,'if','PR_OK == result',0,3410,-680,200,20,90,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8134,168,'insertion','Determination_Of_Oda_Method();',0,3410,-370,200,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8135,168,'if','true',0,3410,-430,200,20,90,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8135,168,'if','true',0,3410,-440,200,20,90,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8136,168,'shelf','1',0,3410,-280,200,50,60,0,NULL,'',NULL,replace('ttd.processingStatus\n.appInitialisationFromFirstDecodeAflEntryForEmv','\n',char(10)));
-INSERT INTO items VALUES(8137,168,'commentin','TODO: Is AIP Available',0,3410,-490,200,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8138,168,'commentin','TODO: Is length of AFL a multiple of 4?',0,3410,-610,200,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8137,168,'commentin',replace('TODO: Is AIP Available\n-- Should be handled by a lower layer\n-- AIP is always available in internal struct','\n',char(10)),0,3410,-520,200,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8139,168,'vertical','',0,3970,-950,0,840,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8140,168,'branch',replace('Decode and process AFL\n(1)','\n',char(10)),0,3970,-890,180,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8141,168,'address',replace('Prepate Static Data\nto be Authenticated\n(2)','\n',char(10)),0,3970,-180,180,50,60,0,NULL,'',NULL,'');
@@ -4230,7 +4229,7 @@ INSERT INTO items VALUES(8145,168,'commentin',replace('Set ExpirationDate from\n
 INSERT INTO items VALUES(8146,168,'if',replace('ap\n.applicationProfileSettings\n.cardholderReceipt\n.specificPanProcessingForEmvChip','\n',char(10)),0,3970,-400,180,50,50,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8147,168,'vertical','',0,4200,-400,0,150,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8148,168,'horizontal','',0,3970,-250,230,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8149,168,'commentin',replace('TODO: Proprietary specific\nprocessing based on PAN','\n',char(10)),0,4200,-300,130,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8149,168,'commentin',replace('TODO: Proprietary specific\nprocessing based on PAN','\n',char(10)),0,4200,-300,128,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8150,168,'vertical','',0,4350,-950,0,840,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8151,168,'address','Ok',0,4350,-160,180,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8152,168,'branch',replace('Prepate Static Data\nto be Authenticated\n(2)','\n',char(10)),0,4350,-880,180,50,60,0,NULL,'',NULL,'');
@@ -4386,7 +4385,7 @@ INSERT INTO items VALUES(8302,178,'shelf',replace('(struct OutcomeParameters){\n
 INSERT INTO items VALUES(8303,178,'vertical','',0,4890,-630,0,700,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8304,178,'address',replace('Risk Managment\n(3)','\n',char(10)),0,4890,10,170,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8305,178,'branch','Init. application',0,4890,-580,170,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8306,178,'insertion',replace('result =\nKernel_E_Application_Initialisation();','\n',char(10)),1,4890,-500,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8306,178,'insertion',replace('result =\nKernel_E_Application_Initialisation();','\n',char(10)),0,4890,-500,170,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8307,178,'if','PR_OK == result',0,4890,-430,170,20,510,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8308,178,'vertical','',0,5570,-430,0,500,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8309,178,'if','N_GPO6985 == ttd.nokReason',0,5570,-390,130,20,80,1,NULL,'',NULL,'');
@@ -5439,9 +5438,9 @@ INSERT INTO items VALUES(9535,134,'shelf','NULL',0,6090,150,190,40,40,0,NULL,'',
 INSERT INTO items VALUES(9536,136,'if','cd.fci',0,820,440,100,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9537,136,'vertical','',0,990,440,0,140,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9538,136,'address','Nok',0,990,530,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9539,204,'beginend','Copy_Response_Data_After_Gpo',0,300,490,130,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9540,204,'beginend','End',0,300,720,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9541,204,'vertical','',0,300,500,0,200,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9539,204,'beginend','Copy_Response_Data_After_Gpo',0,300,480,130,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9540,204,'beginend','End',0,300,740,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9541,204,'vertical','',0,300,490,0,230,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9542,136,'insertion','Copy_Response_Data_After_Gpo();',0,1520,440,140,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9543,136,'horizontal','',0,1210,480,310,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9544,168,'shelf','(union TransactionStatusInformation){ }',0,1100,-250,200,40,40,0,NULL,NULL,NULL,'kd.tsi');
@@ -5501,7 +5500,7 @@ INSERT INTO items VALUES(9676,205,'loopend','',0,1450,580,210,20,60,0,NULL,NULL,
 INSERT INTO items VALUES(9677,206,'commentout','Is tag known to the terminal?',0,-60,280,130,20,40,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9678,206,'commentout','Is tag optional and absent?',0,-50,340,120,20,40,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9679,206,'commentout','Is tag applicable to the current transaction?',0,-120,400,190,20,50,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9680,178,'insertion',replace('result =\nParse_Emv_Response_Data(COMMAND_SELECT_ADF);','\n',char(10)),0,4360,-120,190,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9680,178,'insertion',replace('result =\nParse_Emv_Response_Data(COMMAND_SELECT_ADF);','\n',char(10)),1,4360,-120,190,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9681,168,'if','PR_OK == result',0,1890,-570,110,20,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9682,168,'vertical','',0,2020,-570,0,460,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9683,168,'address','Nok',0,2020,-160,50,30,60,0,NULL,NULL,NULL,NULL);
@@ -5576,6 +5575,8 @@ INSERT INTO items VALUES(9753,145,'address','Ok',0,3320,630,50,30,60,0,NULL,NULL
 INSERT INTO items VALUES(9755,145,'shelf','l->entry',0,3320,530,50,40,40,0,NULL,NULL,NULL,'ap');
 INSERT INTO items VALUES(9756,145,'action','struct ApplicationProfileList* l;',0,480,250,220,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9757,205,'action','struct Extracted_Tl t;',0,1100,140,120,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9758,204,'shelf','cd.responseMessageTemplate->afl',0,300,560,140,40,40,0,NULL,NULL,NULL,'cd.afl');
+INSERT INTO items VALUES(9759,204,'shelf','cd.responseMessageTemplate->aip',0,300,660,140,40,40,0,NULL,'',NULL,'cd.aip');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

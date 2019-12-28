@@ -27,7 +27,7 @@ union PACKED ApplicationInterchangeProfile {
 // EMV v.4.3 Book 3, section 10.2
 // [94]
 struct PACKED ApplicationFileLocator {
-    size_t s;
+    size_t raw_size;
     union {
         uint8_t raw[252];
         struct {
@@ -36,7 +36,7 @@ struct PACKED ApplicationFileLocator {
             uint8_t firstRecordNumber;
             uint8_t lastRecordNumber;
             uint8_t numberOfOdaAuthenticatedRecords;
-        };
+        } a[252 / 4];
     };
 };
 

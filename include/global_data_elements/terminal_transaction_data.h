@@ -21,6 +21,9 @@ struct TerminalTransactionData {
     bool cardholderRequestedChoiceOfApplication;
     bool cardholderRequestedChangeOfApplication;
     bool cardholderAcceptedSelectedApplication;
+    bool changeApplicationAllowed;
+    bool eeaIdentifiedCard;
+    bool cardholderSelectedApplicationOfChoice;
     enum TransactionResult transactionResult;
     enum NokReason nokReason;
     union CurrencyAlpha3 transactionCurrencyCodeAlpha3;

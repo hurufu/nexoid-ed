@@ -742,6 +742,8 @@ union EeaProcessSettings {
     unsigned char raw[2];
     struct {
         unsigned char upfrontButtonOnScreenSupported: 1;
+        uint8_t offerOverride: 1; // [1,6]
+        uint8_t doNotOfferOverrideWhenOnlyOneEntry: 1; // [1,5]
     };
 };
 

@@ -125,7 +125,7 @@ INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(161,'Emv_Completion','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1522 -148','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','0 0','',75.0);
-INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','2850 -1092','nexo-Fast fig. 158~160',75.0);
+INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','3049 -1025','nexo-Fast fig. 158~160',75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','0 0','',75.0);
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','0 0','',75.0);
 INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','0 0',NULL,75.0);
@@ -171,7 +171,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,208,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,168,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4215,7 +4215,7 @@ INSERT INTO items VALUES(8132,168,'address','Nok',0,2510,-160,150,30,60,0,NULL,'
 INSERT INTO items VALUES(8133,168,'if','PR_OK == result',0,3410,-680,200,20,90,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8134,168,'insertion','Determination_Of_Oda_Method();',0,3410,-370,200,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8135,168,'if','true',0,3410,-440,200,20,90,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8136,168,'shelf','1',0,3410,-280,200,50,60,0,NULL,'',NULL,replace('ttd.processingStatus\n.appInitialisationFromFirstDecodeAflEntryForEmv','\n',char(10)));
+INSERT INTO items VALUES(8136,168,'shelf','1 /* PS[1,2] */',0,3410,-280,200,50,60,0,NULL,'',NULL,replace('ttd.processingStatus\n.appInitialisationFromFirstDecodeAflEntryForEmv','\n',char(10)));
 INSERT INTO items VALUES(8137,168,'commentin',replace('TODO: Is AIP Available\n-- Should be handled by a lower layer\n-- AIP is always available in internal struct','\n',char(10)),0,3410,-520,200,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8139,168,'vertical','',0,3970,-950,0,840,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8140,168,'branch',replace('Decode and process AFL\n(1)','\n',char(10)),0,3970,-890,180,40,60,0,NULL,'',NULL,'');

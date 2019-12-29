@@ -389,10 +389,35 @@ union TerminalSettings {
     };
 };
 
+// nexo FAST v.3.2, section 13.1.136
+// EMV v.4.3 Book 4, annex A2
 union TerminalCapabilities {
     uint8_t raw[3];
     struct {
-        uint8_t signature: 1; // [2, 6]
+        struct {
+            uint8_t /* RFU */: 5;
+            uint8_t icWithContacts: 1;
+            uint8_t magneticStripe: 1;
+            uint8_t manualKeyEntry: 1;
+        } cardDataInputCapability;
+
+        struct {
+            uint8_t /* RFU */: 3;
+            uint8_t noCvmRequired: 1;
+            uint8_t encipheredPinForOfflineVerification: 1;
+            uint8_t signature: 1; // [2, 6]
+            uint8_t encipheredPinForOnlineVerification: 1;
+            uint8_t plainTextPinForIccVerification: 1;
+        } cvmCapability;
+
+        struct {
+            uint8_t /* RFU */: 3;
+            uint8_t cda: 1;
+            uint8_t /* RFU */: 1;
+            uint8_t cardCapture: 1;
+            uint8_t dda: 1;
+            uint8_t sda: 1;
+        } securityCapability;
     };
 } /* 9F33 */;
 

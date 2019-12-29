@@ -3,6 +3,13 @@
 #include "bool.h"
 #include "types.h"
 
+enum OdaMethod {
+    ODA_METHOD_NONE
+  , ODA_METHOD_SDA
+  , ODA_METHOD_DDA
+  , ODA_METHOD_CDA
+};
+
 struct TerminalTransactionData {
     bool acquirerPreSelected;
     bcd_t preSelectedAcquirerNumber;
@@ -57,6 +64,7 @@ struct TerminalTransactionData {
     bool timeoutIndicator;
     bool noContactlessAllowed;
     union ServiceStartEvents serviceStartEvents;
+    enum OdaMethod odaMethodToBePerformed;
 
     // FIXME: Consider moving to a different location
     struct EventTable {

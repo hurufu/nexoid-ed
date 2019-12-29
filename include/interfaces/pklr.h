@@ -70,3 +70,10 @@ enum ProcedureResult pklr_Kernel_E_Processing(void);
  *  @warning Expected behaviour isn't yet defined
  */
 enum ProcedureResult pklr_Process_Read_Record(void);
+
+/** Redirect to an API that will perform 1st GENERATE AC command and perform
+ *  Card Action Analysis
+ *
+ *  This function will be called usually after Terminal Action Analysis step
+ */
+enum ProcedureResult pklr_First_Generate_Ac_Processing(void);

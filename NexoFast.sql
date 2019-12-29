@@ -123,10 +123,10 @@ INSERT INTO diagrams VALUES(155,'Cardholder_Application_Confirmation','0 0',NULL
 INSERT INTO diagrams VALUES(156,'Check_Cardholder_Language','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(161,'Emv_Completion','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1437 20','',75.0);
+INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','-230 20','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','0 -133','',75.0);
 INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','3954 -1136',replace('nexo-Fast fig. 158~160\n\nTODO: Decoding and processing of AFL is implemented only for first AFL entry (see nexo-FAST fig. 159)','\n',char(10)),75.0);
-INSERT INTO diagrams VALUES(169,'Action_Analysis','0 0','',75.0);
+INSERT INTO diagrams VALUES(169,'Action_Analysis','390 -197','nexo-FAST v.3.2, section 8.2.2.2',75.0);
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','186 -60','',75.0);
 INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','-98 -138',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),75.0);
@@ -174,13 +174,14 @@ INSERT INTO diagrams VALUES(214,'Process_Cvm_Condition_Code','266 -66',replace('
 INSERT INTO diagrams VALUES(215,'Check_Cvm_Support','0 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(216,'Perform_Cvm','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(217,'Check_Change_Application_Eligibility','-37 -154','nexo-FAST v.3.2, section 6.6.12.2',75.0);
+INSERT INTO diagrams VALUES(218,'Terminal_Action_Analysis','0 0','TODO: Terminal Action Analysis isn''t implemented',75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,166,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,178,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4241,21 +4242,21 @@ INSERT INTO items VALUES(8154,168,'shelf','true',0,4570,-420,180,40,40,0,NULL,''
 INSERT INTO items VALUES(8155,168,'vertical','',0,1260,-1070,0,800,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8156,168,'branch','Initialise TVR, TSI',0,1260,-1020,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8157,168,'address','Try to build DOL Data',0,1260,-320,200,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8158,169,'beginend','Action_Analysis',0,170,60,70,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8159,169,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8160,169,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8161,169,'vertical','',0,420,120,0,480,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8162,169,'vertical','',0,660,120,0,380,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8163,169,'horizontal','',0,170,120,490,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8164,169,'arrow','',0,20,120,150,480,400,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8165,169,'branch','branch 1',0,170,170,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8166,169,'address','branch 2',0,170,550,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8167,169,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8168,169,'branch','branch 3',0,660,170,70,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8169,169,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8170,169,'horizontal','',0,170,60,200,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8171,169,'action','returns enum ProcedureResult',0,410,60,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8172,169,'action','return PR_OK;',0,660,400,70,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8158,169,'beginend','Action_Analysis',0,570,0,70,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8159,169,'beginend','End',0,3810,400,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8160,169,'vertical','',0,570,20,0,580,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8161,169,'vertical','',0,3670,40,0,560,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8162,169,'vertical','',0,3810,40,0,350,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8163,169,'horizontal','',0,570,40,3240,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8164,169,'arrow','',0,430,40,140,560,3240,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8165,169,'branch','branch 1',0,570,90,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8166,169,'address','AAC',0,570,550,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8167,169,'branch','Bail',0,3670,90,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8168,169,'branch','End',0,3810,90,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8169,169,'address','End',0,3670,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8170,169,'horizontal','',0,570,0,180,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8171,169,'action','returns enum ProcedureResult',0,790,0,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8172,169,'action','return result;',0,3810,340,70,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8176,171,'beginend','Cardholder_Verification',0,400,-20,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8177,171,'beginend','End',0,2360,440,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8178,171,'vertical','',0,400,0,0,830,0,0,NULL,'',NULL,'');
@@ -5979,6 +5980,83 @@ INSERT INTO items VALUES(10240,217,'if',replace('tc.eeaProcessSettings\n->doNotO
 INSERT INTO items VALUES(10243,217,'shelf','true',0,650,480,190,40,40,0,NULL,NULL,NULL,'ttd.changeApplicationAllowed');
 INSERT INTO items VALUES(10244,217,'vertical','',0,860,290,0,130,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10245,217,'horizontal','',0,650,420,210,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10246,169,'select','ttd.selectedService',0,570,270,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10247,169,'horizontal','',0,570,310,790,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10248,169,'case','S_REFUND',0,570,350,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10249,169,'case','S_CANCELLATION',0,780,350,70,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10250,169,'case','',0,1360,350,70,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10251,169,'vertical','',0,780,310,0,150,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10252,169,'vertical','',0,1360,310,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10253,169,'case','S_PAYMENT_COMPLETION',0,960,350,90,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10254,169,'case','S_VOICE_AUTHORISATION',0,1170,350,100,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10255,169,'vertical','',0,960,310,0,150,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10256,169,'vertical','',0,1170,310,0,150,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10257,169,'horizontal','',0,570,460,600,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10258,169,'vertical','',0,1600,40,0,560,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10259,169,'branch',replace('Termina Action\nAnalysis (TAA)','\n',char(10)),0,1600,100,150,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10260,169,'address','1ˢᵗ Generate AC',0,1600,550,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10261,169,'address',replace('Termina Action\nAnalysis (TAA)','\n',char(10)),0,1360,540,70,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10262,169,'vertical','',0,2950,40,0,560,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10263,169,'branch','1ˢᵗ Generate AC',0,2950,90,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10264,169,'address','Ok',0,2950,550,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10265,169,'vertical','',0,3550,40,0,560,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10266,169,'branch','Nok',0,3550,90,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10267,169,'address','End',0,3550,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10268,169,'vertical','',0,3430,40,0,560,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10269,169,'branch','Ok',0,3430,90,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10270,169,'address','End',0,3430,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10271,169,'shelf','PR_OK',0,3430,250,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(10272,169,'shelf','PR_NOK',0,3550,250,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10273,169,'shelf','PR_BAIL',0,3670,250,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10274,169,'select','result',0,2950,330,170,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10275,169,'horizontal','',0,2950,370,360,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10276,169,'case','PR_OK',0,2950,410,170,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10277,169,'case','PR_NOK',0,3190,410,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10278,169,'case','',0,3310,410,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10279,169,'vertical','',0,3190,370,0,230,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10280,169,'vertical','',0,3310,370,0,230,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10281,169,'address','Nok',0,3190,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10282,169,'address','Bail',0,3310,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10283,169,'shelf','PR_UNINITIALISED',0,570,190,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(10284,169,'vertical','',0,2350,40,0,560,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10285,169,'branch','ARQC',0,2350,90,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10286,169,'vertical','',0,2630,40,0,560,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10287,169,'branch','AAC',0,2630,90,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10288,169,'address','1ˢᵗ Generate AC',0,2350,550,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10289,169,'address','1ˢᵗ Generate AC',0,2630,550,130,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10290,169,'insertion','Terminal_Action_Analysis();',0,1600,180,150,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10296,169,'vertical','',0,2150,240,0,360,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10298,169,'if','false /* AmountOther > 0 */',0,1600,300,150,20,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10299,169,'if','false /* P₁ for GenAC == 0x40 */',0,1770,360,150,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10300,169,'vertical','',0,1770,300,0,120,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10301,169,'horizontal','',0,1600,420,170,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10302,169,'vertical','',0,1940,360,0,240,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10303,169,'address','ARQC',0,1940,550,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10304,169,'if',replace('tc.terminalType\n.operationalEnvironment\n==\nATTENDED_OFFLINE_ONLY','\n',char(10)),0,1940,450,140,50,70,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10305,169,'address','AAC',0,2150,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10306,169,'if','S_PAYMENT == ttd.selectedService',0,1600,240,150,20,400,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10307,169,'output',replace('result =\npklr_First_Generate_Ac_Processing();','\n',char(10)),0,2950,240,170,50,40,0,NULL,NULL,NULL,'PKLR');
+INSERT INTO items VALUES(10308,169,'shelf','0x80',0,2350,220,130,40,40,0,NULL,NULL,NULL,'cd.p1 /* P₁ for GenAC */');
+INSERT INTO items VALUES(10309,169,'shelf','0x00',0,2630,220,130,40,40,0,NULL,'',NULL,'cd.p1 /* P₁ for GenAC */');
+INSERT INTO items VALUES(10310,169,'shelf','ARC_NONE',0,2350,410,130,40,40,0,NULL,NULL,NULL,'ttd.authorisationResponseCode');
+INSERT INTO items VALUES(10311,169,'commentin',replace('What do they mean by\n"Re-initialise ARC (AQRC)"?','\n',char(10)),0,2350,320,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10312,169,'shelf','ARC_OFFLINE_DECLINED',0,2630,410,130,40,40,0,NULL,'',NULL,'ttd.authorisationResponseCode');
+INSERT INTO items VALUES(10313,218,'beginend','Terminal_Action_Analysis',0,170,60,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10314,218,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10315,218,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10316,218,'vertical','',0,420,120,0,480,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10317,218,'vertical','',0,660,120,0,380,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10318,218,'horizontal','',0,170,120,490,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10319,218,'arrow','',0,20,120,150,480,400,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(10320,218,'branch','branch 1',0,170,170,110,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10321,218,'address','branch 2',0,170,550,110,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10322,218,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10323,218,'branch','branch 3',0,660,170,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10324,218,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10325,218,'horizontal','',0,170,60,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10326,218,'action','returns enum ProcedureResult',0,440,60,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10327,218,'action','return PR_DONE;',0,660,380,70,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10328,218,'shelf','1 /* PS[2,5] */',0,170,270,110,50,60,0,NULL,'',NULL,replace('ttd.processingStatus\n.terminalActionAnalysis','\n',char(10)));
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -6193,6 +6271,8 @@ INSERT INTO tree_nodes VALUES(284,230,'item',NULL,214);
 INSERT INTO tree_nodes VALUES(285,230,'item',NULL,215);
 INSERT INTO tree_nodes VALUES(286,230,'item',NULL,216);
 INSERT INTO tree_nodes VALUES(287,30,'item',NULL,217);
+INSERT INTO tree_nodes VALUES(288,45,'folder','8.2.8 Terminal Action Analysis',NULL);
+INSERT INTO tree_nodes VALUES(289,288,'item','',218);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

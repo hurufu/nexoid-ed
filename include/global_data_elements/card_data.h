@@ -29,6 +29,39 @@ struct DolData {
     unsigned char c[1024];
 };
 
+// nexo-FAST v.3.2, section 13.1.39
+// TODO: Consider renaming to cvmTable
+// [8E]
+struct CvmList {
+    size_t s;
+    union {
+        uint8_t raw[252];
+        struct CvmListEntry {
+            uint8_t amountX[4];
+            uint8_t amountY[4];
+            union {
+                union {
+                    uint8_t cvRule[2];
+                    struct {
+                        uint8_t : 1;
+                        uint8_t applyNext: 1;
+
+                        uint8_t : 8;
+                    };
+                };
+                struct {
+                    uint8_t : 2;
+                    uint8_t cvmCode: 6; // 6 least significant bits
+
+                    enum PACKED CvmConditionCode {
+                        CVM_SUPPORTED = 0x03
+                    } cvmConditionCode;
+                };
+            };
+        } a[252 / 4];
+    };
+};
+
 struct CardData {
     /** @{ */
     /** Members populated with raw or parsed card responses */
@@ -47,6 +80,7 @@ struct CardData {
     struct string16* applicationPreferredName;
     struct ApplicationFileLocator afl;
     union ApplicationInterchangeProfile aip;
+    struct CvmList* cvmList;
 
     struct DolData dolData;
     /** @{ */

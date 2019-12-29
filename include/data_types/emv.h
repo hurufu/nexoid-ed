@@ -10,7 +10,7 @@ union TerminalVerificationResults {
         uint8_t cardNumberAppearsOnHotlist : 1;
         uint8_t iccDataMissing : 1;
         uint8_t sdaFailed : 1;
-        uint8_t offlineDataProcessingWasNotPerformed : 1;
+        uint8_t offlineDataAuthenticationWasNotPerformed : 1;
 
         uint8_t /* RFU */ : 3;
         uint8_t newCard : 1;

@@ -39,6 +39,16 @@ enum ProcedureResult {
   , PR_ACCEPT
   , PR_NOT_FOUND
   , PR_NOT_SUPPORTED
+  /** @{ */
+  /** Used only for CVM Processing
+   *  TODO: Move to separate enum
+   */
+  , PR_APPLICABLE
+  , PR_NOT_APPLICABLE
+  , PR_SUCCESSFUL
+  , PR_NOT_SUCCESSFUL
+  , PR_SUPPORTED
+  /** @} */
   , PR_MATCH
   , PR_NO_MATCH
   , PR_DONE

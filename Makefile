@@ -23,7 +23,7 @@ check_defined = $(call do_ifndef,warning,$1)
 assert_cmd = $(if $(shell which $1),$1,$(error "There is no $1 in $$PATH"))
 
 # User config #################################################################
-OL           := 0
+OL           := g
 DL           := gdb3
 STD          := gnu11
 WARNINGS     := all extra
@@ -41,6 +41,7 @@ CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL) -fPIC
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 CFLAGS       += -fplan9-extensions
 #CFLAGS       += -fdiagnostics-color=always
+CFLAGS       += -march=native -mtune=native
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 VERSION       = $(shell git describe --dirty --broken)
 

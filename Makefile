@@ -76,19 +76,19 @@ TIME_ARGS.pdb  := --format='pd(user(%U), system(%S), real(%e), command("%C")).' 
 
 # Commands ####################################################################
 TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS.$(TIME_FORMAT)),)
-CSCOPE       := $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
+CSCOPE        = $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)
 OBJCOPY      := $(TIME) objcopy $(if $(VERBOSE),-v,)
 ADDR2LINE    := $(TIME) addr2line
 SQLITE3      := $(TIME) $(call assert_cmd,sqlite3)
-DDD          := $(TIME) $(call assert_cmd,ddd)
+DDD           = $(TIME) $(call assert_cmd,ddd)
 ifdef USE_CCACHE
 CCACHE       := $(call assert_cmd,ccache)
 endif
 PROLOG        = $(TIME) $(call assert_cmd,gprolog)
 CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
-CFLOW        := $(TIME) $(call assert_cmd,cflow)
+CFLOW         = $(TIME) $(call assert_cmd,cflow)
 DRAKON_GEN   := $(TIME) '$(DRAKON_PATH)/drakon_gen.tcl'
 
 # Build time profiling

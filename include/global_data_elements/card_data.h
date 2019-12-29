@@ -49,5 +49,11 @@ struct CardData {
     union ApplicationInterchangeProfile aip;
 
     struct DolData dolData;
+    /** @{ */
+    /** Data objects that are expected to be sent to the card */
     struct DolData cdaTransactionData;
+    // TODO: Replace p1 and p2 type with some self-describing struct or enum
+    uint8_t p1;
+    uint8_t p2;
+    /** @} */
 };

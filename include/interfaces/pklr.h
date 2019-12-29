@@ -64,3 +64,9 @@ enum ProcedureResult pklr_Emv_Completion(void);
  *  @warning Probably it's not compatible with nexo, but it's useful as a dummy
  */
 enum ProcedureResult pklr_Kernel_E_Processing(void);
+
+/** Redirect to API that will perform all necessary READ RECORD commands
+ *
+ *  @warning Expected behaviour isn't yet defined
+ */
+enum ProcedureResult pklr_Process_Read_Record(void);

@@ -30,7 +30,7 @@ struct PACKED ApplicationFileLocator {
     size_t raw_size;
     union {
         uint8_t raw[252];
-        struct {
+        struct ApplicationFileLocatorEntry {
             uint8_t zero : 3;
             uint8_t sfi : 5;
             uint8_t firstRecordNumber;

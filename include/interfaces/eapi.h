@@ -22,6 +22,8 @@ enum ProcedureResult Select_Next_Application(const struct Aid*);
 
 enum ProcedureResult Generate_Ac(); // FIXME: Signature isn't yet defined
 
+enum ProcedureResult Read_Record(uint8_t p1, uint8_t p2);
+
 /* EMV L2 */
 
 /* Perform FINAL SELECT using AID from kd.aidTerminal or other data element

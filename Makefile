@@ -23,7 +23,7 @@ check_defined = $(call do_ifndef,warning,$1)
 assert_cmd = $(if $(shell which $1),$1,$(error "There is no $1 in $$PATH"))
 
 # User config #################################################################
-OL           := g
+OL           := 0
 DL           := gdb3
 STD          := gnu11
 WARNINGS     := all extra

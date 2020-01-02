@@ -107,6 +107,7 @@ profile_build: all profiling_build.pdb profiling_build.pq
 endif
 
 .PHONY: all clean asm pp index update static shared
+most_frequent: all install
 all: shared static index .syntastic_c_config cflow
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)

@@ -47,3 +47,9 @@ enum ProcedureResult eapi_Final_Application_Selection(void);
  * set in libnexoid
  */
 enum ProcedureResult Get_Processing_Options(void);
+
+/** Perform EXTERNAL AUTHENTICATE using `ord.issuerAuthenticationData`
+ *  @warning Signature if this function isn't yet established, consider passing
+ *      issuerAuthenticationData as an argument
+ */
+enum ProcedureResult External_Authenticate(void);

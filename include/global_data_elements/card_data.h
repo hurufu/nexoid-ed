@@ -86,8 +86,10 @@ struct CardData {
     /** @{ */
     /** Data objects that are expected to be sent to the card */
     struct DolData cdaTransactionData;
-    // TODO: Replace p1 and p2 type with some self-describing struct or enum
+    // TODO: Replace p1, p2 and p1ForGenAc type with some self-describing enum
+    // TODO: Consider removing p1ForGenAc
     uint8_t p1;
     uint8_t p2;
+    uint8_t p1ForGenAc;
     /** @} */
 };

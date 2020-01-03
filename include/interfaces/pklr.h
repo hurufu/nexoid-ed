@@ -77,3 +77,44 @@ enum ProcedureResult pklr_Process_Read_Record(void);
  *  This function will be called usually after Terminal Action Analysis step
  */
 enum ProcedureResult pklr_First_Generate_Ac_Processing(void);
+
+/** Redirect to an API that will perform issuer script processing before 2nd
+ *  GENERATE AC.
+ *
+ *  @return PR_OK on success regardless of script processing result, PR_NOK on
+ *          unrecoverable error
+ *
+ *  If `PR_NOK` is returned, then `ttd.nokReason` is expected to be set to
+ *
+ *  N_CARD_MISSING:
+ *   ~  If card was removed during chip processing
+ *  N_CHIP_ERROR:
+ *   ~  If error in communication with the chip occured
+ *
+ *  If `PR_OK` is returned and Template 71 or 72 were available in `ord`, then
+ *  Issuer Script Results should be present and pass internal sanity checks.
+ *
+ *  @warning If any of the above conditions will not be satisfied then it's
+ *  treated as an external interface contract violation.
+ *
+ *  It's expected that `ttd.tvr` and `kd.tsi` will be updated to reflect status
+ *  of the script that have been processed according to EMV Book 3 v.4.3,
+ *  section 10.10. Those values aren't subject to internal sanity checks,
+ *  because there is no way for nexoid to check factual correctness of these
+ *  bit fields.
+ *
+ *  If it's desireable to use nexoid L2 kernel, then simply redirect it's call
+ *  to Issuer_Script_Processing_1
+ */
+enum ProcedureResult pklr_First_Issuer_Script_Processing(void);
+
+/** Redirect to an API that will perform issuer script processing after 2nd
+ *  GENERATE AC.
+ *
+ *  Similar to pklr_Issuer_Script_Processing_1
+ */
+enum ProcedureResult pklr_Second_Issuer_Script_Processing(void);
+
+/** Redirect to an API that will perform 2st GENERATE AC command
+ */
+enum ProcedureResult pklr_Second_Generate_Ac_Processing(void);

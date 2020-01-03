@@ -174,7 +174,7 @@ INSERT INTO diagrams VALUES(215,'Check_Cvm_Support','0 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(216,'Perform_Cvm','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(217,'Check_Change_Application_Eligibility','-37 -154','nexo-FAST v.3.2, section 6.6.12.2',75.0);
 INSERT INTO diagrams VALUES(218,'Terminal_Action_Analysis','0 0','TODO: Terminal Action Analysis isn''t implemented',75.0);
-INSERT INTO diagrams VALUES(219,'Emv_Completion','354 -64','',75.0);
+INSERT INTO diagrams VALUES(219,'Emv_Completion','1686 -64','',75.0);
 INSERT INTO diagrams VALUES(220,'Issuer_Authentication','64 -128','',75.0);
 INSERT INTO diagrams VALUES(221,'First_Issuer_Script_Processing','0 0','In nexo spec there is one single procedure Issuer_Script_Processing with parameters 0x71 or 0x72, which is not useful, because it adds redundant complexity (additional "if" statements) to a simple function, that''s why it''s splitted here',75.0);
 INSERT INTO diagrams VALUES(222,'Second_Issuer_Script_Processing','0 0','In nexo spec there is one single procedure Issuer_Script_Processing with parameters 0x71 or 0x72, which is not useful, because it adds redundant complexity (additional "if" statements) to a simple function, that''s why it''s splitted here',75.0);
@@ -184,7 +184,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,178,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,219,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -6142,7 +6142,7 @@ INSERT INTO items VALUES(10452,220,'horizontal','',0,730,550,190,0,0,0,NULL,'',N
 INSERT INTO items VALUES(10453,220,'shelf','1 /* TVR[5,7] */',0,920,490,150,40,40,0,NULL,'',NULL,'ttd.tvr.issuerAuthenticationFailed');
 INSERT INTO items VALUES(10454,220,'shelf','1 /* TSI[1, 5] */',0,730,610,170,40,40,0,NULL,'',NULL,'kd.tsi.issuerAuthenticationWasPerformed');
 INSERT INTO items VALUES(10455,219,'insertion',replace('result =\nIssuer_Authentication();','\n',char(10)),0,1710,270,180,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10456,219,'if','PR_OK == result',0,1710,340,180,20,70,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10456,219,'if','PR_OK == result',0,1710,340,180,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10457,219,'vertical','',0,1960,340,0,450,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10458,219,'address','Assert Nok',0,1960,740,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10459,219,'vertical','',0,3100,90,0,700,0,0,NULL,NULL,NULL,NULL);
@@ -6151,7 +6151,7 @@ INSERT INTO items VALUES(10461,219,'address','Nok',0,3100,740,90,30,60,0,NULL,NU
 INSERT INTO items VALUES(10462,219,'if','PR_NOK == result',0,3100,430,90,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10463,219,'vertical','',0,3260,430,0,360,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10464,219,'address','Bail',0,3260,740,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10465,219,'if','PR_OK == result',0,2200,530,170,20,70,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10465,219,'if','PR_OK == result',0,2200,530,170,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10466,219,'vertical','',0,2440,530,0,260,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10468,219,'if','PR_OK == result',0,1710,530,180,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10474,219,'output',replace('result =\npklr_First_Issuer_Script_Processing();','\n',char(10)),0,1710,440,180,50,40,0,NULL,'',NULL,'PKLR');

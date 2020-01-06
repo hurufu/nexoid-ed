@@ -2,6 +2,7 @@
 
 union TerminalVerificationResults {
     uint8_t raw[5];
+    uint64_t u;
     struct {
         uint8_t /* RFU */ : 1;
         uint8_t sdaSelected : 1;

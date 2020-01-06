@@ -42,7 +42,6 @@ CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 CFLAGS       += -fplan9-extensions
 #CFLAGS       += -fdiagnostics-color=always
 CFLAGS       += -march=native -mtune=native
-CFLAGS       += $(if $(INSTRUMENT_FUNCTIONS),-finstrument-functions,)
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 VERSION       = $(shell git describe --dirty --broken)
 

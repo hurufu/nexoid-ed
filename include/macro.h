@@ -9,3 +9,10 @@
 #define MULTICHAR2(A, B)       (A | (B | (0 | (0 << 8) << 8) << 8) << 8)
 #define MULTICHAR3(A, B, C)    (A | (B | (C | (0 << 8) << 8) << 8) << 8)
 #define MULTICHAR4(A, B, C, D) (A | (B | (C | (D << 8) << 8) << 8) << 8)
+
+// TODO: Replace ONEOF macro with proper map/reduce equivalent
+#define ONEOF0(X)                 (((X)))
+#define ONEOF1(X, A1)             (((X) == (A1)))
+#define ONEOF2(X, A1, A2)         (((X) == (A1)) || ((X) == (A2)))
+#define ONEOF3(X, A1, A2, A3)     (((X) == (A1)) || ((X) == (A2)) || ((X) == (A3)))
+#define ONEOF4(X, A1, A2, A3, A4) (((X) == (A1)) || ((X) == (A2)) || ((X) == (A3)) || ((X) == (A4)))

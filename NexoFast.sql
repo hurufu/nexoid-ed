@@ -185,7 +185,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "common.h"\n\n=== c_header ===\n#include "nexo.h"\n','\n',char(10)));
+INSERT INTO state VALUES(1,18,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -335,9 +335,9 @@ INSERT INTO items VALUES(859,31,'insertion','Transaction_Dcc_Eligibility();',0,2
 INSERT INTO items VALUES(860,31,'if','ttd.isDccEligible',0,220,270,170,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(861,31,'vertical','',0,430,270,0,300,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(862,31,'horizontal','',0,220,570,210,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(863,31,'output','HAP_Online_Request_to_Dcc_Provider();',0,220,350,170,40,40,0,NULL,'',NULL,'HAP');
+INSERT INTO items VALUES(863,31,'output','hapi_Online_Request_to_Dcc_Provider();',0,220,350,170,40,40,0,NULL,'',NULL,'HAP');
 INSERT INTO items VALUES(864,31,'if','ttd.isDccEligible',0,220,430,170,20,40,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(865,31,'output','SCAP_Cardholder_Confirmation();',0,220,510,170,40,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(865,31,'output','scapi_Cardholder_Confirmation();',0,220,510,170,40,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(866,32,'beginend','Transaction_Dcc_Eligibility',0,-90,90,120,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(867,32,'beginend','End',0,1880,510,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(868,32,'vertical','',0,220,130,0,660,0,0,NULL,'',NULL,'');
@@ -487,14 +487,14 @@ INSERT INTO items VALUES(1044,34,'if','ttd.pan',0,90,740,160,20,70,1,NULL,NULL,N
 INSERT INTO items VALUES(1045,34,'vertical','',0,320,740,0,290,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1046,34,'address','Nok',0,320,980,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1047,34,'address','Search Outcome Handling',0,530,980,140,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1048,34,'output',replace('result =\nSCAP_Search_Transaction_Result_List();','\n',char(10)),0,1830,370,180,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(1048,34,'output',replace('result =\nscapi_Search_Transaction_Result_List();','\n',char(10)),0,1830,370,180,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(1049,34,'vertical','',0,1830,120,0,910,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1050,34,'branch','Transaction Selection',0,1830,170,180,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1052,34,'vertical','',0,2840,120,0,910,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1053,34,'branch','Amount Confirmation',0,2840,170,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1054,34,'address','Request setup',0,2840,980,160,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1055,34,'output',replace('result =\nSearchReservationsByRefData();','\n',char(10)),0,530,820,140,50,40,0,NULL,NULL,NULL,'HAP');
-INSERT INTO items VALUES(1056,34,'output',replace('result =\nSearchReservationsByPan();','\n',char(10)),0,90,820,160,50,40,0,NULL,NULL,NULL,'HAP');
+INSERT INTO items VALUES(1055,34,'output',replace('result =\nhapi_SearchReservationsByRefData();','\n',char(10)),0,530,820,140,50,40,0,NULL,NULL,NULL,'HAP');
+INSERT INTO items VALUES(1056,34,'output',replace('result =\nhapi_SearchReservationsByPan();','\n',char(10)),0,90,820,160,50,40,0,NULL,NULL,NULL,'HAP');
 INSERT INTO items VALUES(1057,34,'select','result',0,1000,460,110,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1058,34,'horizontal','',0,1000,500,520,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1059,34,'case','PR_OK',0,1000,540,110,20,60,0,NULL,NULL,NULL,NULL);
@@ -504,7 +504,7 @@ INSERT INTO items VALUES(1062,34,'vertical','',0,1270,500,0,530,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(1063,34,'vertical','',0,1520,500,0,360,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1064,34,'address','Amount Confirmation',0,1830,980,180,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1065,34,'shelf','N_ORIGINAL_TRX_NOT_FOUND',0,1270,730,140,40,40,0,NULL,NULL,NULL,'ttd.nokReason');
-INSERT INTO items VALUES(1066,34,'output','SCAP_NoOriginalTransaction();',0,1270,630,140,40,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(1066,34,'output','scapi_No_Original_Transaction();',0,1270,630,140,40,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(1067,34,'shelf','N_TECHNICAL_ERROR',0,1520,730,80,40,40,0,NULL,'',NULL,'ttd.nokReason');
 INSERT INTO items VALUES(1069,34,'address','Nok',0,2570,980,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1071,34,'if','PR_OK == result',0,1830,640,180,20,560,1,NULL,NULL,NULL,NULL);
@@ -518,9 +518,9 @@ INSERT INTO items VALUES(1085,34,'shelf','PR_NOK',0,4630,310,50,40,40,0,NULL,NUL
 INSERT INTO items VALUES(1087,34,'shelf','PR_OK',0,3980,870,120,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(1090,34,'if','ttd.transactionAmountEntered',0,2840,330,160,20,280,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1091,34,'vertical','',0,3280,330,0,700,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1093,34,'shelf','(union Amount){ .bcd = { 0 } }',0,3280,410,130,40,40,0,NULL,NULL,NULL,'ttd.transactionAmount');
-INSERT INTO items VALUES(1094,34,'output',replace('result =\nUpdatePreAuthAmountEntry();','\n',char(10)),0,3280,530,130,50,40,0,NULL,NULL,NULL,'SCAP');
-INSERT INTO items VALUES(1095,34,'output',replace('result =\nUpdatePreAuthAmountConfirmation();','\n',char(10)),0,2840,530,160,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(1093,34,'shelf','(struct bcd6){ }',0,3280,410,130,40,40,0,NULL,NULL,NULL,'ttd.transactionAmount');
+INSERT INTO items VALUES(1094,34,'output',replace('result =\nscapi_Update_Pre_Auth_Amount_Entry();','\n',char(10)),0,3280,530,130,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(1095,34,'output',replace('result =\nscapi_Update_Pre_Auth_Amount_Confirmation();','\n',char(10)),0,2840,530,160,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(1096,34,'if','PR_DONE == result',0,3280,620,130,20,80,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1097,34,'vertical','',0,3490,620,0,410,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1098,34,'shelf','true',0,3280,730,130,40,40,0,NULL,NULL,NULL,'ttd.transactionAmountEntered');
@@ -532,11 +532,11 @@ INSERT INTO items VALUES(1103,34,'address','Request setup',0,3280,980,130,30,60,
 INSERT INTO items VALUES(1104,34,'address','Nok',0,3490,980,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1105,34,'address','Nok',0,3070,980,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1106,34,'address','Return',0,3700,980,130,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1107,34,'action','SetUpdatePreAuthTotalAmount();',0,3700,240,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1107,34,'action','scapi_Set_Update_Pre_Auth_Total_Amount();',0,3700,240,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1108,34,'if',replace('ttd.serviceStartEvents\n.referenceEntry','\n',char(10)),0,3700,310,130,30,150,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1109,34,'vertical','',0,3980,310,0,620,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1110,34,'shelf','PR_ONLINE',0,3700,870,130,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(1111,34,'output',replace('result =\nOnlineApprovalRequest();','\n',char(10)),0,3980,370,120,50,40,0,NULL,NULL,NULL,'HAP');
+INSERT INTO items VALUES(1111,34,'output',replace('result =\nhapi_Online_Approval_Request();','\n',char(10)),0,3980,370,120,50,40,0,NULL,NULL,NULL,'HAP');
 INSERT INTO items VALUES(1112,34,'select','result',0,3980,450,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1113,34,'horizontal','',0,3980,490,510,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1114,34,'case','PR_DONE',0,3980,530,120,20,60,0,NULL,NULL,NULL,NULL);
@@ -554,7 +554,7 @@ INSERT INTO items VALUES(1139,34,'branch','Search Outcome Handling',0,1000,170,1
 INSERT INTO items VALUES(1140,34,'address','Transaction Selection',0,1000,980,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1141,34,'address','Nok',0,1270,980,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1142,34,'horizontal','',0,1270,860,250,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1143,34,'output',replace('result =\nLog_Entry_Data_Retrieval();','\n',char(10)),0,1830,550,180,50,40,0,NULL,NULL,NULL,'HAP');
+INSERT INTO items VALUES(1143,34,'output',replace('result =\nhapi_Log_Entry_Data_Retrieval();','\n',char(10)),0,1830,550,180,50,40,0,NULL,NULL,NULL,'HAP');
 INSERT INTO items VALUES(1144,34,'horizontal','',0,3980,810,290,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1145,34,'horizontal','',0,3700,930,280,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1146,36,'beginend','Main',0,-320,0,50,20,60,0,NULL,'',NULL,'');
@@ -588,7 +588,7 @@ INSERT INTO items VALUES(1178,36,'address',replace('Diagnostics\nMaintenance\nRe
 INSERT INTO items VALUES(1179,36,'vertical','',0,1550,60,0,1010,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1180,36,'branch','(B) Idle',0,1550,110,150,30,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1181,36,'address','Perform Service',0,1550,1020,150,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1182,36,'input',replace('result =\nWait_For_Event();','\n',char(10)),0,1550,250,150,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(1182,36,'input',replace('result =\nscapi_Wait_For_Event();','\n',char(10)),0,1550,250,150,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(1184,36,'select','result',0,1550,620,150,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1185,36,'horizontal','',0,1550,660,1360,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1186,36,'case','PR_OK',0,1550,700,150,20,60,0,NULL,NULL,NULL,NULL);
@@ -1061,7 +1061,7 @@ INSERT INTO items VALUES(2236,46,'vertical','',0,870,630,0,340,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(2237,46,'shelf','true',0,870,900,90,40,40,0,NULL,NULL,NULL,'ttd.amountDisplayed');
 INSERT INTO items VALUES(2238,46,'shelf','PR_DONE',0,270,1050,150,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(2239,46,'horizontal','',0,270,970,600,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(2460,36,'action','mempool_init();',0,-320,460,120,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2460,36,'action','dmapi_init();',0,-320,460,120,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2798,18,'case','PR_OK',0,1100,800,70,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2799,18,'vertical','',0,1240,760,0,200,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2800,18,'address','Bailout',0,1360,910,50,30,60,0,NULL,NULL,NULL,NULL);
@@ -1328,7 +1328,7 @@ INSERT INTO items VALUES(3250,72,'address','End',0,6540,730,50,30,60,0,NULL,'',N
 INSERT INTO items VALUES(3251,72,'vertical','',0,3820,20,0,760,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3252,72,'branch','No Amount',0,3820,70,130,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3253,72,'address','Contactless',0,3820,730,130,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3257,72,'shelf','(union Amount){ }',0,3820,520,130,40,40,0,NULL,'',NULL,'ttd.transactionAmount');
+INSERT INTO items VALUES(3257,72,'shelf','(struct bcd6){ }',0,3820,520,130,40,40,0,NULL,'',NULL,'ttd.transactionAmount');
 INSERT INTO items VALUES(3258,72,'shelf','true',0,3820,620,130,40,40,0,NULL,'',NULL,'ttd.transactionAmountEntered');
 INSERT INTO items VALUES(3263,72,'if',replace('sc.serviceSettings\n.deferredPaymentTrxAmountRequired','\n',char(10)),0,4520,610,170,30,20,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3266,72,'if',replace('sc.serviceSettings\n.preauthTrxAmountRequired','\n',char(10)),0,4950,610,130,30,110,0,NULL,'',NULL,'');
@@ -1420,7 +1420,7 @@ INSERT INTO items VALUES(3352,75,'if','true == *w->ctlessApplicationNotAllowed',
 INSERT INTO items VALUES(3353,75,'if','w->statusCheckSupportFlag',0,780,270,280,20,50,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3354,75,'vertical','',0,1110,270,0,300,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3355,75,'if','*w->statusCheckSupportFlag',0,1110,330,270,20,30,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3356,75,'if',replace('(union Amount){ { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00 } }.i\n==\nttd.transactionAmount.i\n/* TODO: Don''t assume that exponent will be always 2 */','\n',char(10)),0,1410,410,280,50,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3356,75,'if',replace('(struct bcd6){ { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00 } }.i\n==\nttd.transactionAmount.i\n/* TODO: Don''t assume that exponent will be always 2 */','\n',char(10)),0,1410,410,280,50,20,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3357,75,'vertical','',0,1410,330,0,240,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3358,75,'horizontal','',0,780,570,930,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3359,75,'vertical','',0,1710,410,0,160,0,0,NULL,'',NULL,'');
@@ -1694,7 +1694,7 @@ INSERT INTO items VALUES(3974,88,'if','ttd.cardholderRequestedChoiceOfApplicatio
 INSERT INTO items VALUES(3987,88,'vertical','',0,2000,-20,0,1200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3988,88,'branch','Display',0,2000,40,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3989,88,'address','End',0,2000,1130,100,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3993,88,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,2000,280,100,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(3993,88,'output',replace('result =\nscapi_Data_Output_Interaction(number, msg);','\n',char(10)),0,2000,280,100,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(3994,88,'action','return result;',0,2190,240,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3995,88,'vertical','',0,1520,-20,0,1200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3996,88,'branch','EEA IFR',0,1520,30,200,30,60,0,NULL,'',NULL,'');
@@ -1723,7 +1723,7 @@ INSERT INTO items VALUES(4019,88,'horizontal','',0,1520,990,460,0,0,0,NULL,NULL,
 INSERT INTO items VALUES(4020,88,'shelf','CRDHLDR_MSG_CHOOSE_APPLICATION',0,1750,930,190,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(4021,88,'vertical','',0,1980,680,0,310,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4023,88,'commentin',replace('For unattended PoI capable of, and configured for,\nprinting a receipt and if PoI knows in advance\nthat it cannot print a receipt it shall inform the\ncardholder that a receipt won''t be printed and\noffer a choice to continueFlag of abort','\n',char(10)),0,670,150,220,50,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4024,55,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,920,640,180,80,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(4024,55,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nscapi_Data_Output_Interaction(sizeof(msg), msg);','\n',char(10)),0,920,640,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4027,88,'if','PR_OK == result',0,2000,370,100,20,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4028,88,'vertical','',0,2120,370,0,150,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4029,88,'horizontal','',0,2000,520,120,0,0,0,NULL,NULL,NULL,NULL);
@@ -1744,7 +1744,7 @@ INSERT INTO items VALUES(4062,89,'shelf','N_DATA_ERROR',0,1110,110,70,40,40,0,NU
 INSERT INTO items VALUES(4063,89,'action','return result;',0,170,640,200,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4064,89,'shelf','PR_UNINITIALISED',0,170,-100,200,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(4065,89,'shelf','PR_OK',0,170,510,200,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(4069,89,'output',replace('result =\nOutput(1, (enum CardholderMessage[1]){ ch });','\n',char(10)),1,170,150,200,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(4069,89,'output',replace('result =\nscapi_Data_Output_Interaction(1, (enum CardholderMessage[1]){ ch });','\n',char(10)),1,170,150,200,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4074,89,'if','result == PR_DONE',0,170,240,200,20,110,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4075,89,'shelf','PR_NOK',0,480,510,80,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(4076,89,'commentin',replace('TODO: Check if UI Parameters are\ncorrect and supported','\n',char(10)),0,170,-20,200,30,60,0,NULL,NULL,NULL,NULL);
@@ -2011,7 +2011,7 @@ INSERT INTO items VALUES(4537,104,'address','Done',0,1240,1390,90,30,60,0,NULL,N
 INSERT INTO items VALUES(4538,104,'if','ttd.signatureLine',0,1240,670,90,20,190,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4539,104,'vertical','',0,1520,670,0,460,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4540,104,'horizontal','',0,1240,1130,580,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4541,104,'output',replace('enum CardholderMessage msg[] = {\n    CRDHLDR_SSN_REQUEST_SIGNATURE\n};\n\nresult =\nOutput(1, msg);','\n',char(10)),0,1520,770,160,80,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(4541,104,'output',replace('enum CardholderMessage msg[] = {\n    CRDHLDR_SSN_REQUEST_SIGNATURE\n};\n\nresult =\nscapi_Data_Output_Interaction(1, msg);','\n',char(10)),0,1520,770,160,80,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(4542,104,'select','result',0,1520,890,160,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4543,104,'horizontal','',0,1520,930,490,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4544,104,'case','PR_OK',0,1520,970,160,20,60,0,NULL,NULL,NULL,NULL);
@@ -2106,13 +2106,13 @@ INSERT INTO items VALUES(4640,104,'vertical','',0,3760,1050,0,290,0,0,NULL,NULL,
 INSERT INTO items VALUES(4641,102,'if','s_tc.printMerchantReceipt',0,650,210,210,20,620,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4642,102,'vertical','',0,1480,210,0,990,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4643,102,'horizontal','',0,650,1200,830,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4644,102,'output',replace('result =\nData_Print_Interaction(PRINT_MERCHANT_RECEIPT);','\n',char(10)),0,650,300,210,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(4644,102,'output',replace('result =\nscapi_Data_Print_Interaction(PRINT_MERCHANT_RECEIPT);','\n',char(10)),0,650,300,210,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(4645,102,'shelf','PR_UNINITIALISED',0,650,130,210,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(4646,102,'if','result == PR_OK',0,650,390,210,20,60,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4647,102,'output',replace('result =\nOutput(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_RECEIPT_PRINTING_FAILED\n      , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED\n    }\n);','\n',char(10)),0,920,510,200,90,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(4647,102,'output',replace('result =\nscapi_Data_Output_Interaction(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_RECEIPT_PRINTING_FAILED\n      , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED\n    }\n);','\n',char(10)),0,920,510,200,90,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4648,102,'if','result == PR_OK',0,920,640,200,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4649,102,'if','ttd.signatureLine',0,650,820,210,20,620,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4650,102,'output',replace('result =\nOutput(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_REQUEST_SIGNATURE\n      , CRDHLDR_MSG_REQUEST_SIGNATURE\n    }\n);','\n',char(10)),0,650,950,210,90,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(4650,102,'output',replace('result =\nscapi_Data_Output_Interaction(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_REQUEST_SIGNATURE\n      , CRDHLDR_MSG_REQUEST_SIGNATURE\n    }\n);','\n',char(10)),0,650,950,210,90,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(4651,102,'if','result == PR_OK',0,650,1080,210,20,160,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(4652,83,'insertion','Restore_Application_Profile_Defaults();',0,150,420,170,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4653,105,'beginend','Restore_Application_Profile_Defaults',0,300,60,160,20,60,0,NULL,NULL,NULL,NULL);
@@ -2696,7 +2696,7 @@ INSERT INTO items VALUES(5289,120,'address','Bailout',0,2190,1060,50,30,60,0,NUL
 INSERT INTO items VALUES(5290,120,'if','B == ttd.out.Start',0,1130,420,100,20,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5291,120,'if','B == ttd.out.Start',0,1250,480,100,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(5292,120,'vertical','',0,1250,420,0,100,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5293,120,'output',replace('result =\nOutput(1,\n(enum CardholderMessage[1]){\n    CRDHLDR_SRC_UI_PARAMETERS_FOR_OUTCOME_STATUS_ONLY\n});','\n',char(10)),1,1370,880,240,70,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(5293,120,'output',replace('result =\nscapi_Data_Output_Interaction(1,\n(enum CardholderMessage[1]){\n    CRDHLDR_SRC_UI_PARAMETERS_FOR_OUTCOME_STATUS_ONLY\n});','\n',char(10)),1,1370,880,240,70,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(5294,120,'if','PR_OK == result',0,1370,990,240,20,90,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5295,120,'vertical','',0,1700,990,0,120,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5296,120,'address','Nok',0,1700,1060,50,30,60,0,NULL,'',NULL,'');
@@ -3132,7 +3132,7 @@ INSERT INTO items VALUES(6186,129,'if',replace('result\n==\nPR_NEW_EVENT','\n',c
 INSERT INTO items VALUES(6187,129,'vertical','',0,6250,90,0,540,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6188,129,'address','Bailout',0,6180,680,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6189,129,'horizontal','',0,6180,630,70,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(6190,129,'input',replace('result =\nWait_For_Event();','\n',char(10)),0,3270,-20,120,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(6190,129,'input',replace('result =\nscapi_Wait_For_Event();','\n',char(10)),0,3270,-20,120,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(6191,129,'shelf','E_NONE',0,470,460,120,40,40,0,NULL,'',NULL,'enum IdleEvent event');
 INSERT INTO items VALUES(6192,129,'case','E_MANUAL_ENTRY',0,4520,330,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6193,129,'vertical','',0,4520,290,0,440,0,0,NULL,'',NULL,'');
@@ -3309,9 +3309,9 @@ INSERT INTO items VALUES(6363,129,'vertical','',0,10630,570,0,160,0,0,NULL,'',NU
 INSERT INTO items VALUES(6364,129,'vertical','',0,10750,570,0,160,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6365,129,'address','Bailout',0,10750,680,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6366,129,'address','Nok',0,10630,680,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(6367,129,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_CARD_ERROR\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,11120,260,180,80,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(6367,129,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_CARD_ERROR\n};\n\nresult =\nscapi_Data_Output_Interaction(sizeof(msg), msg);','\n',char(10)),0,11120,260,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(6368,129,'vertical','',0,7320,0,0,730,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(6369,129,'output',replace('result =\nActivate_Contacts_And_Reset_Chip();','\n',char(10)),0,6580,-390,160,50,40,0,NULL,'',NULL,'KERNEL E');
+INSERT INTO items VALUES(6369,129,'output',replace('result =\neapi_Activate_Contacts_And_Reset_Chip();','\n',char(10)),0,6580,-390,160,50,40,0,NULL,'',NULL,'KERNEL E');
 INSERT INTO items VALUES(6370,129,'commentout',replace('This action is not defined by nexo.\nIt shall be performed as defined in\nEMV Book 1 sections 5-9','\n',char(10)),0,6960,-390,150,40,130,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6371,129,'select','ttd.technologySelected',0,6580,-40,160,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6372,129,'horizontal','',0,6580,0,740,0,0,0,NULL,'',NULL,'');
@@ -3480,7 +3480,7 @@ INSERT INTO items VALUES(6758,133,'commentout',replace('Is this the first\nselec
 INSERT INTO items VALUES(6759,133,'shelf','N_CARD_BLOCKED',0,3280,80,110,40,40,0,NULL,'',NULL,'ttd.nokReason');
 INSERT INTO items VALUES(6760,133,'address','Nok',0,3280,280,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6762,133,'branch','A',0,2770,-300,130,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(6764,133,'output',replace('result =\nSelect_Next_Application(&FileName);','\n',char(10)),0,2170,-70,160,50,40,0,NULL,'',NULL,'KERNEL E');
+INSERT INTO items VALUES(6764,133,'output',replace('result =\neapi_Select_Next_Application(&FileName);','\n',char(10)),0,2170,-70,160,50,40,0,NULL,'',NULL,'KERNEL E');
 INSERT INTO items VALUES(6765,133,'select','result',0,2170,20,160,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6766,133,'horizontal','',0,2170,60,350,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6767,133,'case','PR_OK',0,2170,100,160,20,60,0,NULL,'',NULL,'');
@@ -3503,7 +3503,7 @@ INSERT INTO items VALUES(6783,133,'commentout',replace('TODO: Number of entries\
 INSERT INTO items VALUES(6784,133,'shelf','true',0,5390,170,130,40,40,0,NULL,NULL,NULL,'ttd.candidateListHasOneEntry');
 INSERT INTO items VALUES(6785,133,'branch',replace('SELECT\n(B)','\n',char(10)),0,1560,-290,190,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6786,133,'shelf','g_TerminalListOfAid->entry[i++].terminalAid',0,1560,-190,190,40,40,0,NULL,'',NULL,'FileName');
-INSERT INTO items VALUES(6787,133,'output',replace('result =\nSelect_Application(&FileName);','\n',char(10)),0,1560,-80,190,50,40,0,NULL,'',NULL,'KERNEL E');
+INSERT INTO items VALUES(6787,133,'output',replace('result =\neapi_Select_Application(&FileName);','\n',char(10)),0,1560,-80,190,50,40,0,NULL,'',NULL,'KERNEL E');
 INSERT INTO items VALUES(6788,133,'select','result',0,1560,10,190,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6789,133,'horizontal','',0,1560,50,380,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6790,133,'case','PR_OK',0,1560,90,190,20,60,0,NULL,'',NULL,'');
@@ -3537,7 +3537,7 @@ INSERT INTO items VALUES(6818,139,'address','End',0,2390,820,50,30,60,0,NULL,NUL
 INSERT INTO items VALUES(6819,139,'horizontal',NULL,0,560,40,270,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(6820,139,'action',replace('public\n\nreturns enum ProcedureResult','\n',char(10)),0,890,40,130,40,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6821,139,'action','return result;',0,2530,370,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(6822,139,'output',replace('result =\nPKLR_Build_Candidate_List();','\n',char(10)),0,840,410,140,50,40,0,NULL,'',NULL,'PKLR');
+INSERT INTO items VALUES(6822,139,'output',replace('result =\npklr_Build_Candidate_List();','\n',char(10)),0,840,410,140,50,40,0,NULL,'',NULL,'PKLR');
 INSERT INTO items VALUES(6823,79,'shelf','PR_INTERNAL_INCONSISTENCY',0,1010,710,110,40,40,0,NULL,'fg #aaaaaa bg #ffffff',NULL,'result');
 INSERT INTO items VALUES(6825,139,'shelf','PR_UNINITIALISED',0,560,290,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(6826,140,'beginend','Application_Kernel_And_Profile_Selection',0,900,-100,170,20,60,0,NULL,NULL,NULL,NULL);
@@ -3807,7 +3807,7 @@ INSERT INTO items VALUES(7172,134,'vertical','',0,3000,-130,0,1000,0,0,NULL,'',N
 INSERT INTO items VALUES(7173,134,'branch',replace('Try to select\nnext candidate\napplication\n(2)','\n',char(10)),0,3000,-50,160,60,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7174,134,'address','Auto selection?',0,3000,820,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7175,134,'address',replace('Perform cardholder\napplication selection\n(4)','\n',char(10)),0,1950,800,130,50,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7176,134,'output',replace('result =\nReset_Chip();','\n',char(10)),0,1950,300,130,50,40,0,NULL,NULL,NULL,'KERNEL E');
+INSERT INTO items VALUES(7176,134,'output',replace('result =\neapi_Reset_Chip();','\n',char(10)),0,1950,300,130,50,40,0,NULL,NULL,NULL,'KERNEL E');
 INSERT INTO items VALUES(7177,134,'insertion',replace('result =\nReset_Transaction_Database();','\n',char(10)),0,1950,540,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7178,146,'beginend','Reset_Transaction_Database',0,170,60,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7179,146,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
@@ -4027,7 +4027,7 @@ INSERT INTO items VALUES(7488,134,'vertical','',0,7140,120,0,750,0,0,NULL,NULL,N
 INSERT INTO items VALUES(7489,134,'address','Nok',0,7140,820,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7490,134,'shelf','KERNEL_E',0,6890,230,180,40,40,0,NULL,NULL,NULL,'ttd.kernelId');
 INSERT INTO items VALUES(7491,134,'shelf','Check_Cardholder_Language()',0,6890,330,180,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(7492,134,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_PLEASE_WAIT\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,6890,530,180,80,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(7492,134,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_PLEASE_WAIT\n};\n\nresult =\nscapi_Data_Output_Interaction(sizeof(msg), msg);','\n',char(10)),0,6890,530,180,80,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(7493,134,'if','PR_DONE == result',0,6890,410,180,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7494,134,'if','PR_OK == result',0,6890,650,180,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(7495,134,'vertical','',0,7260,-130,0,1000,0,0,NULL,'',NULL,'');
@@ -4165,7 +4165,7 @@ INSERT INTO items VALUES(8092,168,'vertical','',0,5210,-1070,0,800,0,0,NULL,'',N
 INSERT INTO items VALUES(8093,168,'branch','Ok',0,5210,-1020,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8094,168,'address','End',0,5210,-320,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8095,168,'shelf','PR_OK',0,5210,-660,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(8096,168,'output',replace('result =\nGet_Processing_Options();','\n',char(10)),0,2130,-900,120,50,40,0,NULL,'',NULL,'KERNEL E');
+INSERT INTO items VALUES(8096,168,'output',replace('result =\neapi_Get_Processing_Options();','\n',char(10)),0,2130,-900,120,50,40,0,NULL,'',NULL,'KERNEL E');
 INSERT INTO items VALUES(8097,168,'vertical','',0,5330,-1070,0,800,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8098,168,'branch','Nok',0,5330,-1020,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8099,168,'address','End',0,5330,-320,50,30,60,0,NULL,'',NULL,'');
@@ -4555,8 +4555,8 @@ INSERT INTO items VALUES(8497,183,'beginend','End',0,360,690,50,20,60,0,NULL,NUL
 INSERT INTO items VALUES(8498,183,'vertical',NULL,0,360,-70,0,740,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8499,183,'horizontal',NULL,0,360,-90,170,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8500,183,'action','returns enum ProcedureResult',0,610,-90,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8501,183,'process',replace('hap_result =\nOnlineApprovalRequest();','\n',char(10)),0,360,200,150,50,40,0,NULL,'',NULL,'HAP');
-INSERT INTO items VALUES(8502,183,'output',replace('result =\nOutput(1,\n    (enum CardholderMessage[1]){\n        CRDHLDR_EMV_PLEASE_WAIT\n    }\n);','\n',char(10)),0,360,350,150,80,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8501,183,'process',replace('hap_result =\nhapi_Online_Approval_Request();','\n',char(10)),0,360,200,150,50,40,0,NULL,'',NULL,'HAP');
+INSERT INTO items VALUES(8502,183,'output',replace('result =\nscapi_Data_Output_Interaction(1,\n    (enum CardholderMessage[1]){\n        CRDHLDR_EMV_PLEASE_WAIT\n    }\n);','\n',char(10)),0,360,350,150,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8503,183,'if','PR_OK == result',0,360,470,150,20,30,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8504,183,'insertion',replace('result =\nWait_For_Hap_Response(hap_result);','\n',char(10)),0,360,540,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8516,183,'vertical','',0,540,470,0,120,0,0,NULL,NULL,NULL,NULL);
@@ -4677,7 +4677,7 @@ INSERT INTO items VALUES(8655,188,'case','T_DECLINED',0,1340,420,150,20,60,0,NUL
 INSERT INTO items VALUES(8656,188,'vertical','',0,1340,380,0,440,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8658,188,'vertical','',0,1650,380,0,440,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8659,188,'horizontal','',0,270,820,1380,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8661,188,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,270,890,160,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8661,188,'output',replace('result =\nscapi_Data_Output_Interaction(number, msg);','\n',char(10)),0,270,890,160,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8662,188,'if','ttd.uiRequestPostponed',0,270,680,160,20,130,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8663,188,'vertical','',0,560,680,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8664,188,'shelf','CRDHLDR_SRC_SELECTED_SERVICE',0,270,500,160,40,40,0,NULL,'',NULL,'msg[number++]');
@@ -4700,10 +4700,10 @@ INSERT INTO items VALUES(8681,189,'vertical',NULL,0,180,-40,0,1250,0,0,NULL,NULL
 INSERT INTO items VALUES(8684,189,'if','ttd.isCardInReader',0,180,300,150,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8685,189,'vertical','',0,370,300,0,510,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8686,189,'horizontal','',0,180,810,190,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8687,189,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,180,980,150,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8687,189,'output',replace('result =\nscapi_Data_Output_Interaction(number, msg);','\n',char(10)),0,180,980,150,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8688,189,'shelf','CRDHLDR_SSN_CARD_REMOVED',0,180,870,150,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(8689,189,'shelf','0',0,180,1090,150,40,40,0,NULL,'',NULL,'number');
-INSERT INTO items VALUES(8690,189,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,180,580,150,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8690,189,'output',replace('result =\nscapi_Data_Output_Interaction(number, msg);','\n',char(10)),0,180,580,150,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8691,189,'shelf','CRDHLDR_EMV_REMOVE_CARD',0,180,380,150,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(8692,189,'shelf','CRDHLDR_SSN_CARD_REMOVAL_REQUESTED',0,180,480,150,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(8693,189,'commentin','TODO: Wait For Card Removal',0,180,670,150,20,60,0,NULL,'',NULL,'');
@@ -4715,7 +4715,7 @@ INSERT INTO items VALUES(8698,185,'insertion','Print_Transaction_Receipt();',0,2
 INSERT INTO items VALUES(8699,190,'beginend','Tc_Transaction_Finalisation',0,150,120,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8700,190,'beginend','End',0,150,680,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8701,190,'vertical',NULL,0,150,140,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8710,190,'output',replace('result =\nTransaction_Finalisation();','\n',char(10)),0,150,310,130,50,40,0,NULL,'',NULL,'HAP');
+INSERT INTO items VALUES(8710,190,'output',replace('result =\nhapi_Transaction_Finalisation();','\n',char(10)),0,150,310,130,50,40,0,NULL,'',NULL,'HAP');
 INSERT INTO items VALUES(8711,190,'commentin',replace('nexo doesn''t define any\naction in case when HAP\ntransaction finalisation\nfails','\n',char(10)),0,420,570,118,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8712,190,'select','result',0,150,400,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8713,190,'horizontal','',0,150,440,500,0,0,0,NULL,'',NULL,'');
@@ -4798,7 +4798,7 @@ INSERT INTO items VALUES(8799,96,'commentin',replace('TODO: The data element\n''
 INSERT INTO items VALUES(8800,96,'if','TERMINAL_TYPE_UNATTENDED(tc.terminalType)',0,2590,290,190,20,120,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8801,96,'vertical','',0,2900,290,0,440,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8802,96,'horizontal','',0,2590,730,310,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8803,96,'output',replace('result =\nDate_Entry_Interaction(\n/* FORCE TRANSACTION APPROVAL? */\n);','\n',char(10)),0,2900,400,160,70,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(8803,96,'output',replace('result =\nscapi_Data_Entry_Interaction(\n/* FORCE TRANSACTION APPROVAL? */\n);','\n',char(10)),0,2900,400,160,70,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(8804,96,'vertical','',0,3290,170,0,740,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8805,96,'branch','Approve',0,3290,220,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8806,96,'address','End',0,3290,860,100,30,60,0,NULL,'',NULL,'');
@@ -4886,7 +4886,7 @@ INSERT INTO items VALUES(8887,192,'address','Nok',0,2570,540,50,30,60,0,NULL,NUL
 INSERT INTO items VALUES(8888,192,'shelf','{ }',0,720,30,170,40,40,0,NULL,'',NULL,'enum CardholderMessage msg[20]');
 INSERT INTO items VALUES(8889,192,'shelf','0',0,720,-70,170,40,40,0,NULL,'',NULL,'size_t number');
 INSERT INTO items VALUES(8891,192,'horizontal','',0,1160,490,880,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8892,192,'output',replace('result =\nOutput(number, msg);','\n',char(10)),0,2350,340,150,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8892,192,'output',replace('result =\nscapi_Data_Output_Interaction(number, msg);','\n',char(10)),0,2350,340,150,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8893,192,'if','ttd.minus',0,1440,50,130,20,90,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8894,192,'if','*ttd.minus',0,1660,90,60,20,30,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8895,192,'vertical','',0,1660,50,0,80,0,0,NULL,NULL,NULL,NULL);
@@ -4906,7 +4906,7 @@ INSERT INTO items VALUES(8910,192,'shelf','CRDHLDR_SRC_TRX_CURRENCY_ALPHA3',0,23
 INSERT INTO items VALUES(8911,192,'shelf','CRDHLDR_MSG_ENTER',0,2350,130,150,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(8912,192,'shelf','true',0,2780,-50,140,50,60,0,NULL,NULL,NULL,replace('ttd.\ntransactionConfirmedByCardholder','\n',char(10)));
 INSERT INTO items VALUES(8913,192,'commentin','TODO: Add Cashback/Tip amount',0,2040,350,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8914,99,'output',replace('result =\nTransaction_Data_Storage();','\n',char(10)),0,430,180,130,50,40,0,NULL,NULL,NULL,'HAP');
+INSERT INTO items VALUES(8914,99,'output',replace('result =\nhapi_Transaction_Data_Storage();','\n',char(10)),0,430,180,130,50,40,0,NULL,NULL,NULL,'HAP');
 INSERT INTO items VALUES(8915,99,'if','PR_DONE == result',0,430,270,130,20,90,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8916,99,'vertical','',0,650,270,0,240,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8917,99,'horizontal','',0,430,510,220,0,0,0,NULL,NULL,NULL,NULL);
@@ -4916,11 +4916,11 @@ INSERT INTO items VALUES(8920,99,'shelf','PR_OK',0,430,450,130,40,40,0,NULL,'',N
 INSERT INTO items VALUES(8921,99,'commentin',replace('TODO: Save Transaction for\nReceipt Copy','\n',char(10)),0,430,360,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8922,103,'shelf','PR_UNINITIALISED',0,660,-140,220,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(8923,103,'if','s_tc.printCardholderReceipt',0,660,-60,220,20,390,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8924,103,'output',replace('result =\nData_Print_Interaction(PRINT_CARDHOLDER_RECEIPT);','\n',char(10)),0,660,30,220,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8924,103,'output',replace('result =\nscapi_Data_Print_Interaction(PRINT_CARDHOLDER_RECEIPT);','\n',char(10)),0,660,30,220,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8925,103,'vertical','',0,1270,-60,0,600,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8926,103,'horizontal','',0,660,540,610,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8927,103,'if','result == PR_OK',0,660,120,220,20,30,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8928,103,'output',replace('result =\nOutput(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_RECEIPT_PRINTING_FAILED\n      , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED\n    }\n);','\n',char(10)),0,910,270,200,90,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8928,103,'output',replace('result =\nscapi_Data_Output_Interaction(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_RECEIPT_PRINTING_FAILED\n      , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED\n    }\n);','\n',char(10)),0,910,270,200,90,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8929,103,'vertical','',0,910,120,0,420,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8930,103,'if','result == PR_OK',0,910,400,200,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8931,103,'vertical','',0,1130,400,0,140,0,0,NULL,'',NULL,'');
@@ -4980,7 +4980,7 @@ INSERT INTO items VALUES(9018,195,'action',replace('const enum InterfaceStatus s
 INSERT INTO items VALUES(9020,195,'action','return result;',0,450,620,150,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9021,195,'shelf','PR_UNINITIALISED',0,450,-40,150,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(9024,195,'horizontal','',0,450,580,490,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9028,195,'output',replace('result =\nscap_Update_Interfaces(status);','\n',char(10)),0,450,70,150,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(9028,195,'output',replace('result =\nscapi_Update_Interfaces(status);','\n',char(10)),0,450,70,150,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(9029,195,'select','result',0,450,160,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9030,195,'horizontal','',0,450,200,490,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9031,195,'case','PR_OK',0,450,240,150,20,60,0,NULL,'',NULL,'');
@@ -5131,7 +5131,7 @@ INSERT INTO items VALUES(9232,201,'shelf','e1.cardholderDefaultLanguage',0,1620,
 INSERT INTO items VALUES(9233,201,'insertion','Initialise_Basic_Data();',0,1620,400,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9234,201,'address',replace('Payment Service\ninitialisation','\n',char(10)),0,650,630,120,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9235,201,'shelf','S_NONE',0,1170,130,180,40,40,0,NULL,'',NULL,'ttd.selectedService');
-INSERT INTO items VALUES(9236,201,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nOutput(sizeof(msg), msg);','\n',char(10)),0,1170,410,180,80,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(9236,201,'output',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nscapi_Data_Output_Interaction(sizeof(msg), msg);','\n',char(10)),0,1170,410,180,80,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(9237,201,'if','PR_DONE == result',0,1170,530,180,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9238,201,'vertical','',0,1420,290,0,400,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9239,201,'address','Nok',0,1420,640,50,30,60,0,NULL,'',NULL,'');
@@ -5266,11 +5266,11 @@ INSERT INTO items VALUES(9378,202,'vertical','',0,940,260,0,500,0,0,NULL,'',NULL
 INSERT INTO items VALUES(9379,202,'action',replace('result =\nProcess_Amount_Entry();','\n',char(10)),0,940,430,160,30,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9380,202,'if','PR_DONE == result',0,940,500,160,20,340,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9381,202,'vertical','',0,1440,500,0,490,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9382,202,'output',replace('result =\nOutputAmountError();','\n',char(10)),0,1440,640,100,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(9382,202,'output',replace('result =\nscapi_Output_Amount_Error();','\n',char(10)),0,1440,640,100,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(9383,202,'if','PR_DONE == result',0,1440,720,100,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9384,202,'if','ttd.transactionAmount.i == 0',0,940,560,160,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9385,202,'vertical','',0,1120,560,0,200,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9386,202,'output',replace('result =\nOutputTransactionAmount();','\n',char(10)),0,1120,640,130,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(9386,202,'output',replace('result =\nscapi_Output_Transaction_Amount();','\n',char(10)),0,1120,640,130,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(9387,202,'if','PR_DONE == result',0,1120,720,130,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9388,202,'vertical','',0,1270,720,0,270,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9389,202,'horizontal','',0,750,760,370,0,0,0,NULL,'',NULL,'');
@@ -5644,7 +5644,7 @@ INSERT INTO items VALUES(9849,210,'branch','branch 2',0,690,160,130,30,60,0,NULL
 INSERT INTO items VALUES(9850,210,'address','Processing',0,690,590,130,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9851,210,'shelf','PR_OK',0,2870,270,50,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(9852,210,'shelf','PR_BAIL',0,3110,270,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(9854,210,'output',replace('result =\nRead_Record(cd.p1, cd.p2);','\n',char(10)),0,690,260,130,50,40,0,NULL,NULL,NULL,'EAPI');
+INSERT INTO items VALUES(9854,210,'output',replace('result =\neapi_Read_Record(cd.p1, cd.p2);','\n',char(10)),0,690,260,130,50,40,0,NULL,NULL,NULL,'EAPI');
 INSERT INTO items VALUES(9862,210,'address','Assert Nok',0,1150,590,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9864,210,'vertical','',0,2160,110,0,530,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9865,210,'branch',replace('Proprietary\nprocessing','\n',char(10)),0,2160,170,140,40,60,0,NULL,NULL,NULL,NULL);
@@ -6132,7 +6132,7 @@ INSERT INTO items VALUES(10445,220,'vertical','',0,1210,310,0,440,0,0,NULL,'',NU
 INSERT INTO items VALUES(10446,220,'address','Ok',0,730,700,170,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10447,220,'address','Nok',0,1090,700,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10448,220,'address','Bail',0,1210,700,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10449,220,'output',replace('result =\nExternal_Authenticate();','\n',char(10)),0,730,180,170,50,40,0,NULL,'',NULL,'EAPI');
+INSERT INTO items VALUES(10449,220,'output',replace('result =\neapi_External_Authenticate();','\n',char(10)),0,730,180,170,50,40,0,NULL,'',NULL,'EAPI');
 INSERT INTO items VALUES(10450,220,'if','I_COMMAND_OK == cd.sw1Sw2.e',0,730,410,170,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10451,220,'vertical','',0,920,410,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10452,220,'horizontal','',0,730,550,190,0,0,0,NULL,'',NULL,'');

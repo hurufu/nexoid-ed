@@ -1,9 +1,9 @@
-#include "common.h"
-#include "utils.h"
+#include "bool.h"
+#include "local.h"
+#include "gtd.h"
+#include "dmapi.h"
+
 #include <stdio.h>
-#include "global_data_elements.h"
-#include "e4_service_settings_table.h"
-#include "ec_combination_list_and_parameters.h"
 
 #define TRACE(Fmt, ...)\
     printf(Fmt"\t%s\t%d\t%s\n", ##__VA_ARGS__, __FILE__, __LINE__, __func__)

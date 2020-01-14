@@ -43,8 +43,6 @@ enum ScapiResult scapi_Data_Print_Interaction(enum PrintMessage);
  */
 enum ScapiResult scapi_Data_Entry_Interaction(void);
 
-enum ScapiResult Entry(int) __attribute__(( deprecated("Use Date_Entry_Interaction instead") ));
-
 /* Called before strting protected service during Service_Initialisation
  *
  * TODO: Consider changing return value to `enum ScapiResult`

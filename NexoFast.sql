@@ -1299,7 +1299,7 @@ INSERT INTO items VALUES(3220,72,'if',replace('S_REFUND\n==\nttd.selectedService
 INSERT INTO items VALUES(3221,72,'vertical','',0,3100,180,0,500,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3222,72,'if',replace('ttd.transactionAmount.i\n>\nap.refundProtectionAmount.i','\n',char(10)),0,3100,280,140,40,40,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3223,72,'vertical','',0,3280,280,0,400,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(3225,72,'output',replace('result =\nEntry(0x11);','\n',char(10)),0,3280,390,150,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(3225,72,'output',replace('result =\nscapi_Data_Entry_Interaction(/*0x11*/);','\n',char(10)),0,3280,390,150,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(3226,72,'select','result',0,3280,480,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3227,72,'horizontal','',0,3280,520,340,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3228,72,'case','PR_DONE',0,3280,560,150,20,60,0,NULL,'',NULL,'');

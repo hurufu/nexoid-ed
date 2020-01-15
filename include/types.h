@@ -19,6 +19,14 @@
 
 typedef uint8_t bcd_t;
 
+union PACKED bcd {
+    uint8_t raw;
+    struct PACKED {
+        uint8_t low: 4;
+        uint8_t high: 4;
+    };
+};
+
 struct n6 {
     uint8_t bcd[6];
 };
@@ -1967,7 +1975,7 @@ struct TerminalTransactionData {
     bcd_t preSelectedAcquirerNumber;
     bool cardholderLanguageIsSelected;
     bool applicationInitialised;
-    bcd_t transactionCurrencyExponent;
+    union bcd transactionCurrencyExponent;
     union bcd6 transactionAmount;
     union bcd6 cashbackAmount;
     bool transactionAmountEntered;

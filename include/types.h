@@ -36,12 +36,10 @@ struct bcd4 {
     bcd_t v[4];
 };
 
-struct bcd6 {
+union bcd6 {
     bcd_t v[6];
-#   if 1
-    // FIXME: Remove `i` member
-    int i;
-#   endif
+    int64_t i;
+    uint64_t u;
 };
 
 struct ans_16 {
@@ -918,14 +916,14 @@ union LanguagePreference {
 struct UiParameters {
     enum CardholderMessage Id;
     enum CtlssIndicatorStatus Status;
-    struct bcd6 HoldTime;
+    union bcd6 HoldTime;
     union LanguagePreference* LanguagePreference; // Not used in nexo
     enum ValueQualifier {
         UI_VALUE_QUALIFIER_NONE
       , UI_VALUE_QUALIFIER_AMOUNT
       , UI_VALUE_QUALIFIER_BALANCE
     } ValueQualifier;
-    struct bcd6 Value;
+    union bcd6 Value;
     union CurrencyAlpha3 CurrencyCode;
 };
 
@@ -1226,7 +1224,7 @@ struct ApplicationProfileSelectionTable {
     struct IssuerIdentificationMaskList* iinMask;
     struct IbanComparisonValueList* ibanComparisonValue;
     struct as_34* ibanMask;
-    struct bcd6* applicationProfileAmount;
+    union bcd6* applicationProfileAmount;
     bool* cashBackPresent;
     enum TechnologySelected* technologyOfProfile;
     struct KernelIdList* applicationProfileKernelId;
@@ -1324,7 +1322,7 @@ struct ApplicationProfile {
     bcd_t acquirerNumber;
 
     // Application Profile Parameters:
-    struct bcd6 acquirerIdentifier;
+    union bcd6 acquirerIdentifier;
     void* additionalDataElements; // TODO: Define EF template
     union TerminalVerificationResults* additionalRestrictionsForForcedAcceptance;
     union AdditionalTerminalCapabilities* additionalTerminalCapabilities; // FIXME: Not mentioned in nexo-FAST 13.1.2
@@ -1333,15 +1331,15 @@ struct ApplicationProfile {
     struct ans_16 applicationLabelDefault;
     union ApplicationProfileSettings applicationProfileSettings;
     union ApplicationProfileSettingsForCancellation* applicationProfileSettingsForCancellation;
-    struct bcd6* cashAdvanceMaximumAmount;
-    struct bcd6* cashbackMaximumAmount;
+    union bcd6* cashAdvanceMaximumAmount;
+    union bcd6* cashbackMaximumAmount;
     union CvmCapability* cvmCapabilityCvmRequired;
     union CvmCapability* cvmCapabilityNoCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityNoCvmRequired;
-    struct bcd6* cvcDefaultAmount;
-    struct bcd6* dccMinimumAllowedAmount;
-    struct bcd6 refundProtectionAmount; // FIXME: Make refundProtectionAmount optional
+    union bcd6* cvcDefaultAmount;
+    union bcd6* dccMinimumAllowedAmount;
+    union bcd6 refundProtectionAmount; // FIXME: Make refundProtectionAmount optional
 
     // missing Default DDA DOL (DF1A)
     bcd_t holdTimeValue;
@@ -1445,9 +1443,9 @@ struct CombinationListAndParameters {
     union TerminalTransactionQualifiers* terminalTransactionQualifiers;
     bool* statusCheckSupportFlag;
     bool* zeroAmountAllowedFlag;
-    struct bcd6* readerCtlessTransactionLimit;
-    struct bcd6* readerCtlessFloorLimit;
-    struct bcd6* readerCvmRequiredLimit;
+    union bcd6* readerCtlessTransactionLimit;
+    union bcd6* readerCtlessFloorLimit;
+    union bcd6* readerCvmRequiredLimit;
     bool* extendedSelectionSupported;
 
     // Predefined indicators
@@ -1969,8 +1967,9 @@ struct TerminalTransactionData {
     bcd_t preSelectedAcquirerNumber;
     bool cardholderLanguageIsSelected;
     bool applicationInitialised;
-    struct bcd6 transactionAmount;
-    struct bcd6 cashbackAmount;
+    bcd_t transactionCurrencyExponent;
+    union bcd6 transactionAmount;
+    union bcd6 cashbackAmount;
     bool transactionAmountEntered;
     bool cardholderRequestedChoiceOfApplication;
     bool cardholderRequestedChangeOfApplication;
@@ -2122,8 +2121,8 @@ enum TerminalTransactionDataTag {
     union ServiceStartEvents serviceStartEvents;
 
     struct bcd2 preSelectedAcquirerNumber;
-    struct bcd6 cashbackAmount;
-    struct bcd6 transactionAmount;
+    union bcd6 cashbackAmount;
+    union bcd6 transactionAmount;
     enum KernelMode kernelMode;
     enum NokReason nokReason;
     enum Technology technologySelected;

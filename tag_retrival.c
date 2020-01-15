@@ -145,7 +145,7 @@ uint8_t* getv_apsc(const union ApplicationProfileSettingsForCancellation* const 
 }
 
 static inline
-uint8_t* getv_amount(const struct bcd6* const v) {
+uint8_t* getv_amount(const union bcd6* const v) {
     uint8_t* const ret = dmapi_malloc(sizeof(*v));
     memcpy(ret, v->v, sizeof(v->v));
     return ret;
@@ -272,7 +272,7 @@ struct TypeLengthValue* gettylv_apsc(const union ApplicationProfileSettingsForCa
 }
 
 static inline
-struct TypeLengthValue* gettylv_amount(const struct bcd6* const v) {
+struct TypeLengthValue* gettylv_amount(const union bcd6* const v) {
     struct TypeLengthValue* const ret = dmapi_malloc(sizeof(struct TypeLengthValue) + sizeof(*v));
     ret->type = TAG_BCD;
     ret->length = sizeof(v->v);

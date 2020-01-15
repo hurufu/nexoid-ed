@@ -48,7 +48,7 @@ struct TransactionCompletion {
     bool printCardholderReceipt;
     bool printMerchantReceipt;
     enum DeliveryResult deliveryResult;
-    struct bcd6 reducedAmount;
+    union bcd6 reducedAmount;
 };
 
 static struct ApplicationKernelAndAppProfileSelection s_akps;

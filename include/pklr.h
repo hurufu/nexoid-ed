@@ -23,7 +23,9 @@
  */
 enum PklrResult {
     PKLR_OK = 50
+  , PKLR_DONE
   , PKLR_NOK
+  , PKLR_BAIL
 };
 
 /** Redirect to API that will perform Building of Candidate List as specified

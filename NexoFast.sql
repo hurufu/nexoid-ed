@@ -71,7 +71,7 @@ INSERT INTO diagrams VALUES(95,'Initialise_Kernel_M','0 0','',75.0);
 INSERT INTO diagrams VALUES(96,'Forcing_Transaction_Acceptance','2068 20','nexo-FAST v.3.2 par. 6.4.2.3',75.0);
 INSERT INTO diagrams VALUES(97,'Check_Cardholder_Confirmation','782 90',NULL,75.0);
 INSERT INTO diagrams VALUES(98,'Request_Partially_Approved_Trx_Confirmation','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(99,'Save_Transaction','-66 -132',NULL,75.0);
+INSERT INTO diagrams VALUES(99,'Save_Transaction','9 -208',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(101,'Print_Transaction_Receipt','-337 -180',NULL,85.0);
 INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','183 199',NULL,70.0);
@@ -179,15 +179,16 @@ INSERT INTO diagrams VALUES(221,'First_Issuer_Script_Processing','0 0','In nexo 
 INSERT INTO diagrams VALUES(222,'Second_Issuer_Script_Processing','0 0','In nexo spec there is one single procedure Issuer_Script_Processing with parameters 0x71 or 0x72, which is not useful, because it adds redundant complexity (additional "if" statements) to a simple function, that''s why it''s splitted here',75.0);
 INSERT INTO diagrams VALUES(223,'Terminal_Action_Analysis_Unable_To_Go_Online','185 0',NULL,75.0);
 INSERT INTO diagrams VALUES(224,'Data_Output_Interaction','-97 -368','',75.0);
-INSERT INTO diagrams VALUES(225,'Online_Approval_Request','-388 -240','',75.0);
+INSERT INTO diagrams VALUES(225,'Online_Approval_Request','-98 -58','',75.0);
 INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,75.0);
+INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','-17 -297',NULL,75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,34,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,227,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1933,12 +1934,12 @@ INSERT INTO items VALUES(4336,98,'vertical',NULL,0,230,80,0,290,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(4337,98,'horizontal',NULL,0,170,60,360,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4338,98,'action','returns enum ProcedureResult',0,600,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4339,98,'action','return PR_OK;',0,230,280,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4340,99,'beginend','Save_Transaction',0,430,-10,80,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4341,99,'beginend','End',0,430,610,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4342,99,'vertical',NULL,0,430,10,0,580,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4343,99,'horizontal',NULL,0,430,-10,190,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4344,99,'action','returns enum ProcedureResult',0,660,-10,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4345,99,'action','return result;',0,430,550,150,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4340,99,'beginend','Save_Transaction',0,460,-20,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4341,99,'beginend','End',0,460,500,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4342,99,'vertical',NULL,0,460,0,0,480,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4343,99,'horizontal',NULL,0,460,-20,190,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4344,99,'action','returns enum ProcedureResult',0,690,-20,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4345,99,'action','return result;',0,460,440,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4347,100,'beginend','Sale_System_Notification',0,170,60,110,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4348,100,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4349,100,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
@@ -4856,14 +4857,11 @@ INSERT INTO items VALUES(8910,192,'shelf','CRDHLDR_SRC_TRX_CURRENCY_ALPHA3',0,24
 INSERT INTO items VALUES(8911,192,'shelf','CRDHLDR_MSG_ENTER',0,2430,140,160,40,40,0,NULL,'',NULL,'msg[number++]');
 INSERT INTO items VALUES(8912,192,'shelf','true',0,2910,-50,140,50,60,0,NULL,NULL,NULL,replace('ttd.\ntransactionConfirmedByCardholder','\n',char(10)));
 INSERT INTO items VALUES(8913,192,'commentin','TODO: Add Cashback/Tip amount',0,2040,350,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8914,99,'output',replace('result =\nhapi_Transaction_Data_Storage();','\n',char(10)),0,430,180,150,50,40,0,NULL,NULL,NULL,'HAP');
-INSERT INTO items VALUES(8915,99,'if','PR_DONE == result',0,430,270,150,20,70,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8916,99,'vertical','',0,650,270,0,240,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8917,99,'horizontal','',0,430,510,220,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8918,99,'shelf','PR_UNINITIALISED',0,430,70,150,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(8919,99,'shelf','PR_NOK',0,650,450,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(8920,99,'shelf','PR_OK',0,430,450,150,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(8921,99,'commentin',replace('TODO: Save Transaction for\nReceipt Copy','\n',char(10)),0,430,360,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8915,99,'if','PR_DONE == result',0,460,180,130,20,60,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8916,99,'vertical','',0,650,180,0,220,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8917,99,'horizontal','',0,460,400,190,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8920,99,'shelf','PR_OK',0,460,340,130,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(8921,99,'commentin',replace('TODO: Save Transaction for\nReceipt Copy','\n',char(10)),0,460,250,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8922,103,'shelf','PR_UNINITIALISED',0,660,-140,240,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(8923,103,'if','s_tc.printCardholderReceipt',0,660,-60,240,20,380,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8924,103,'output',replace('result =\nscapi_Data_Print_Interaction(PRINT_CARDHOLDER_RECEIPT);','\n',char(10)),0,660,30,240,50,40,0,NULL,'',NULL,'SCAP');
@@ -6264,27 +6262,26 @@ INSERT INTO items VALUES(10658,89,'insertion',replace('result =\nData_Output_Int
 INSERT INTO items VALUES(10659,89,'commentout','TODO: Check does nexo specify DONE or OK',0,-300,250,170,20,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10660,88,'insertion',replace('result =\nData_Output_Interaction(number, msg);','\n',char(10)),0,2010,170,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10661,224,'action','return result;',0,290,410,190,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10662,225,'beginend','Online_Approval_Request',0,300,50,110,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10663,225,'beginend','End',0,300,610,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10664,225,'vertical','',0,300,70,0,520,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10665,225,'horizontal','',0,300,50,200,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10666,225,'action','returns enum ProcedureResult',0,560,50,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10667,225,'action','return result;',0,300,550,160,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10668,225,'action','enum ProcedureResult result;',0,300,110,160,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10669,225,'output',replace('const enum HapiResult hapi_result =\nhapi_Online_Approval_Request();','\n',char(10)),0,300,200,160,50,40,0,NULL,'',NULL,'HAPI');
+INSERT INTO items VALUES(10662,225,'beginend','Online_Approval_Request',0,300,40,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10663,225,'beginend','End',0,300,580,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10664,225,'vertical','',0,300,60,0,500,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10665,225,'horizontal','',0,300,40,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10666,225,'action','returns enum ProcedureResult',0,560,40,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10667,225,'action','return result;',0,300,520,160,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10668,225,'action','enum ProcedureResult result;',0,300,100,160,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10670,183,'insertion',replace('result =\nOnline_Approval_Request();','\n',char(10)),0,390,90,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10671,183,'if','PR_OK == result',0,390,160,200,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10672,183,'shelf','{ CRDHLDR_EMV_PLEASE_WAIT }',0,390,-140,200,40,40,0,NULL,NULL,NULL,'const enum CardholderMessage msg[]');
-INSERT INTO items VALUES(10673,225,'select','hapi_result',0,300,290,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10674,225,'horizontal','',0,300,330,680,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10675,225,'case','HAPI_OK',0,300,370,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10676,225,'case','HAPI_UNABLE_TO_GO_ONLINE',0,590,370,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10677,225,'case','',0,980,370,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10678,225,'vertical','',0,590,330,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10679,225,'vertical','',0,980,330,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10680,225,'horizontal','',0,300,510,680,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10681,225,'case','HAPI_NOK',0,770,370,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10682,225,'vertical','',0,770,330,0,180,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10673,225,'select','hapi_result',0,300,260,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10674,225,'horizontal','',0,300,300,680,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10675,225,'case','HAPI_OK',0,300,340,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10676,225,'case','HAPI_UNABLE_TO_GO_ONLINE',0,590,340,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10677,225,'case','',0,980,340,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10678,225,'vertical','',0,590,300,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10679,225,'vertical','',0,980,300,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10680,225,'horizontal','',0,300,480,680,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10681,225,'case','HAPI_NOK',0,770,340,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10682,225,'vertical','',0,770,300,0,180,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10683,226,'beginend','Interface_Contract_Violation',0,240,90,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10684,226,'beginend','End',0,240,410,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10685,226,'vertical',NULL,0,240,80,0,310,0,0,NULL,NULL,NULL,NULL);
@@ -6293,14 +6290,36 @@ INSERT INTO items VALUES(10687,226,'action','returns enum ProcedureResult',0,520
 INSERT INTO items VALUES(10689,226,'shelf','true',0,240,170,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorIndicator');
 INSERT INTO items VALUES(10690,226,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,240,270,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorReason');
 INSERT INTO items VALUES(10691,226,'action','return PR_BAIL;',0,240,350,140,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10694,225,'shelf','PR_OK',0,300,450,160,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(10695,225,'shelf','PR_UNABLE_TO_GO_ONLINE',0,590,450,110,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10696,225,'shelf','PR_NOK',0,770,450,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10697,225,'shelf','Interface_Contract_Violation();',0,980,450,140,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(10694,225,'shelf','PR_OK',0,300,420,160,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(10695,225,'shelf','PR_UNABLE_TO_GO_ONLINE',0,590,420,110,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10696,225,'shelf','PR_NOK',0,770,420,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10697,225,'shelf','Interface_Contract_Violation();',0,980,420,140,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(10698,224,'shelf','Interface_Contract_Violation();',0,760,310,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10699,183,'insertion',replace('result =\nCheck_Minimal_Response_Tags();','\n',char(10)),0,390,230,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10700,125,'shelf','Interface_Contract_Violation();',0,2170,760,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10701,34,'insertion',replace('result =\nOnline_Approval_Request();','\n',char(10)),0,4190,380,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10702,227,'beginend','Transaction_Data_Storage',0,270,30,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10703,227,'beginend','End',0,270,590,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10704,227,'vertical',NULL,0,270,50,0,520,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10705,227,'horizontal',NULL,0,270,30,180,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10706,227,'action','returns enum ProcedureResult',0,530,30,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10708,227,'output',replace('const enum HapiResult hapi_result =\nhapi_Transaction_Data_Storage();','\n',char(10)),0,270,180,160,50,40,0,NULL,'',NULL,'HAPI');
+INSERT INTO items VALUES(10709,227,'select','hapi_result',0,270,270,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10710,227,'horizontal','',0,270,310,440,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10711,227,'case','HAPI_OK',0,270,350,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10712,227,'case','HAPI_NOK',0,500,350,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10713,227,'case','',0,710,350,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10714,227,'vertical','',0,500,310,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10715,227,'vertical','',0,710,310,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10716,227,'horizontal','',0,270,490,440,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10717,227,'shelf','PR_OK',0,270,430,160,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(10718,227,'action','enum ProcedureResult result;',0,270,90,160,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10719,227,'shelf','PR_NOK',0,500,430,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10720,227,'action','return result;',0,270,530,160,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10722,225,'output',replace('const enum HapiResult hapi_result =\nhapi_Online_Approval_Request();','\n',char(10)),0,300,180,160,40,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10723,99,'insertion',replace('result =\nTransaction_Data_Storage();','\n',char(10)),0,460,110,130,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10724,227,'shelf','Interface_Contract_Violation();',0,710,430,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10725,99,'action','enum ProcedureResult result;',0,460,40,130,20,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -6529,6 +6548,7 @@ INSERT INTO tree_nodes VALUES(300,298,'folder','12.1 HAPI',NULL);
 INSERT INTO tree_nodes VALUES(301,299,'item','',224);
 INSERT INTO tree_nodes VALUES(302,300,'item','',225);
 INSERT INTO tree_nodes VALUES(303,175,'item',NULL,226);
+INSERT INTO tree_nodes VALUES(304,300,'item',NULL,227);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

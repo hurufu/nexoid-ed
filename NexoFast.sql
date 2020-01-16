@@ -181,14 +181,14 @@ INSERT INTO diagrams VALUES(223,'Terminal_Action_Analysis_Unable_To_Go_Online','
 INSERT INTO diagrams VALUES(224,'Data_Output_Interaction','-97 -368','',75.0);
 INSERT INTO diagrams VALUES(225,'Online_Approval_Request','-98 -58','',75.0);
 INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,75.0);
-INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','-17 -297',NULL,75.0);
+INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','774 -132','',75.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,227,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,225,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -6298,28 +6298,69 @@ INSERT INTO items VALUES(10698,224,'shelf','Interface_Contract_Violation();',0,7
 INSERT INTO items VALUES(10699,183,'insertion',replace('result =\nCheck_Minimal_Response_Tags();','\n',char(10)),0,390,230,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10700,125,'shelf','Interface_Contract_Violation();',0,2170,760,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10701,34,'insertion',replace('result =\nOnline_Approval_Request();','\n',char(10)),0,4190,380,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10702,227,'beginend','Transaction_Data_Storage',0,270,30,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10703,227,'beginend','End',0,270,590,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10704,227,'vertical',NULL,0,270,50,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10705,227,'horizontal',NULL,0,270,30,180,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10706,227,'action','returns enum ProcedureResult',0,530,30,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10708,227,'output',replace('const enum HapiResult hapi_result =\nhapi_Transaction_Data_Storage();','\n',char(10)),0,270,180,160,50,40,0,NULL,'',NULL,'HAPI');
-INSERT INTO items VALUES(10709,227,'select','hapi_result',0,270,270,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10710,227,'horizontal','',0,270,310,440,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10711,227,'case','HAPI_OK',0,270,350,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10712,227,'case','HAPI_NOK',0,500,350,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10713,227,'case','',0,710,350,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10714,227,'vertical','',0,500,310,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10715,227,'vertical','',0,710,310,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10716,227,'horizontal','',0,270,490,440,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10717,227,'shelf','PR_OK',0,270,430,160,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(10718,227,'action','enum ProcedureResult result;',0,270,90,160,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10719,227,'shelf','PR_NOK',0,500,430,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10720,227,'action','return result;',0,270,530,160,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10722,225,'output',replace('const enum HapiResult hapi_result =\nhapi_Online_Approval_Request();','\n',char(10)),0,300,180,160,40,20,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10723,99,'insertion',replace('result =\nTransaction_Data_Storage();','\n',char(10)),0,460,110,130,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10724,227,'shelf','Interface_Contract_Violation();',0,710,430,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10725,99,'action','enum ProcedureResult result;',0,460,40,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10726,227,'beginend','Transaction_Data_Storage',0,1020,30,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10727,227,'beginend','End',0,3770,360,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10728,227,'vertical','',0,1020,50,0,620,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10729,227,'vertical','',0,3770,70,0,280,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10730,227,'horizontal','',0,1020,70,2750,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10731,227,'arrow','',0,840,70,180,600,2700,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(10732,227,'branch','branch 1',0,1020,120,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10733,227,'address','Validate Ok',0,1020,620,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10734,227,'branch','End',0,3770,120,70,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10735,227,'horizontal','',0,1020,30,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10736,227,'output',replace('const enum HapiResult hapi_result =\nhapi_Transaction_Data_Storage();','\n',char(10)),0,1020,320,160,50,40,0,NULL,'',NULL,'HAPI');
+INSERT INTO items VALUES(10737,227,'select','hapi_result',0,1020,410,160,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10738,227,'horizontal','',0,1020,450,410,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10739,227,'case','HAPI_OK',0,1020,490,160,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10740,227,'case','HAPI_NOK',0,1260,490,60,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10741,227,'case','',0,1430,490,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10742,227,'vertical','',0,1260,450,0,220,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10743,227,'vertical','',0,1430,450,0,220,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10744,227,'action','enum ProcedureResult result;',0,1020,220,160,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10745,227,'action','returns enum ProcedureResult',0,1310,30,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10746,227,'address','Interface violation',0,1430,620,90,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10747,227,'address','Validate Nok',0,1260,620,60,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10748,227,'vertical','',0,1700,70,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10749,227,'vertical','',0,2230,70,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10750,227,'address','Ok',0,1700,620,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10751,227,'address','Nok',0,2230,620,150,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10752,227,'branch','Validate Ok',0,1700,120,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10753,227,'branch','Validate Nok',0,2230,120,150,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10754,227,'vertical','',0,3330,70,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10755,227,'branch','Nok',0,3330,120,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10756,227,'address','End',0,3330,620,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10757,227,'vertical','',0,3210,70,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10758,227,'branch','Ok',0,3210,120,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10759,227,'address','End',0,3210,620,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10760,227,'action','return result;',0,3770,300,70,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10761,227,'if','ttd.terminalErrorIndicator',0,1700,310,160,20,110,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10762,227,'vertical','',0,1970,230,0,440,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10763,227,'if','TE_NONE == ttd.terminalErrorReason',0,1700,230,160,20,110,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(10764,227,'address','Interface violation',0,1970,620,90,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10765,227,'if','ttd.terminalErrorIndicator',0,2230,550,150,20,670,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(10766,227,'select','ttd.terminalErrorReason',0,2230,210,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10767,227,'horizontal','',0,2230,250,820,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10768,227,'case','TE_LOG_LIMIT_EXCEEDED',0,2230,290,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10769,227,'case','TE_NEXO_FAST_FAILURE',0,2530,290,130,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10770,227,'case','',0,3050,290,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10771,227,'vertical','',0,2530,250,0,260,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10772,227,'vertical','',0,3050,250,0,420,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10773,227,'commentin',replace('No more transactions can be\nstored on the device. nexo-FAST,\nsection 12.1.3.3 tells that it''s\na configurable option, but\nnexo-IS v.4.0, figure 3, tell\nthat this should be some\ninternal limit and shouldn''t be\nconfigurable','\n',char(10)),0,2230,410,150,80,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10774,227,'commentin',replace('Some of the mandatory data\nwere missing in `ttd`','\n',char(10)),0,2530,360,130,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10775,227,'horizontal','',0,2230,510,580,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10776,227,'case','TE_MEMORY_FAILURE',0,2810,290,130,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10777,227,'commentin',replace('Storing of new transaction\nisn''t possible due to other\nreasons','\n',char(10)),0,2810,370,130,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10778,227,'vertical','',0,2810,250,0,260,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10779,227,'address','Interface violation',0,3050,620,90,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10780,227,'vertical','',0,3540,70,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10781,227,'branch','Interface violation',0,3540,120,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10782,227,'address','End',0,3540,620,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10783,227,'shelf','Interface_Contract_Violation();',0,3540,220,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10784,227,'shelf','PR_NOK',0,3330,220,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10785,227,'shelf','PR_OK',0,3210,220,50,40,40,0,NULL,'',NULL,'result');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -6548,7 +6589,7 @@ INSERT INTO tree_nodes VALUES(300,298,'folder','12.1 HAPI',NULL);
 INSERT INTO tree_nodes VALUES(301,299,'item','',224);
 INSERT INTO tree_nodes VALUES(302,300,'item','',225);
 INSERT INTO tree_nodes VALUES(303,175,'item',NULL,226);
-INSERT INTO tree_nodes VALUES(304,300,'item',NULL,227);
+INSERT INTO tree_nodes VALUES(308,300,'item','',227);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

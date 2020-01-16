@@ -24,7 +24,7 @@ enum PapiResult {
  *
  *  nexo-FAST v.3.2, figure 15
  */
-enum ProcedureResult Proprietary_Startup_Sequence(void);
+enum PapiResult papi_Proprietary_Startup_Sequence(void);
 
 /* Perform any actions required to handle error conditions
  *

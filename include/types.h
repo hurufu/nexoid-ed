@@ -1151,16 +1151,15 @@ union TerminalType {
 
     union {
         struct {
+            uint8_t : 4;
             enum PACKED {
                 OPERATED_BY_FINANCIAL_INSTITUTION = 0x1
               , OPERATED_BY_MERCHANT = 0x2
               , OPERATED_BY_CARDHOLDER = 0x3
             } operationalControl : 4;
-            uint8_t : 4;
         };
 
         struct {
-            uint8_t : 4;
             enum PACKED {
                 ATTENDED_ONLINE_ONLY = 0x1
               , ATTENDED_OFFLINE_AND_ONLINE = 0x2
@@ -1169,6 +1168,7 @@ union TerminalType {
               , UNATTENDED_OFFLINE_AND_ONLINE = 0x5
               , UNATTENDED_OFFLINE_ONLY = 0x6
             } operationalEnvironment : 4;
+            uint8_t : 4;
         };
 
         enum PACKED {

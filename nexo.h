@@ -1,22 +1,56 @@
-#include "common.h"
-#include "hapi.h"
+#pragma once
+
+#include "dmapi.h"
 #include "papi.h"
 #include "scapi.h"
-#include "tmapi.h"
 #include "eapi.h"
-#include "candidate_list.h"
-#include "global_data_elements.h"
-#include "application_kernel_and_app_profile_selection.h"
-#include "technology_selection.h"
-#include "transaction_completion.h"
-#include "e2_application_profile_selection_table.h"
-#include "e4_service_settings_table.h"
-#include "e7_terminal_list_of_bid.h"
-#include "e8_application_selection_table_non_chip.h"
-#include "ec_combination_list_and_parameters.h"
+#include "hapi.h"
+#include "pklr.h"
+#include "tmapi.h"
+#include "gtd.h"
+#include "local.h"
+#include "bool.h"
+
 #include "tag_retrival.h"
 
 #include <string.h>
+#include <stdlib.h>
+
+// FIXME: Definition of ApplicationLabelList is probably wrong
+struct ApplicationLabelList {
+    struct Aid adf;
+    struct string16 applicationLabel;
+    struct string16 applicationPreferredName;
+    enum IssuerCodeTableIndex issuerCodeTableIndex;
+    struct ApplicationLabelList* next;
+};
+
+struct ApplicationKernelAndAppProfileSelection {
+    bool cardholderConfirmedOnce;
+    struct ApplicationLabelList* applicationLabelList;
+    unsigned char panMatchLength; // integer
+};
+
+struct TechnologySelection {
+    unsigned char numberOfRemainingChipTries;
+    bool invalidSwipeOccured;
+    union ServiceCodeMs* serviceCodeMs;
+    bool contactlessAllowed;
+    bool showUpfrontButton;
+};
+
+enum DeliveryResult {
+    DELIVERY_OK,
+    DELIVERY_NOK,
+    DELIVERY_PARTIAL
+};
+
+struct TransactionCompletion {
+    bool printCardholderReceipt;
+    bool printMerchantReceipt;
+    enum DeliveryResult deliveryResult;
+    union bcd6 reducedAmount;
+};
 
 static struct ApplicationKernelAndAppProfileSelection s_akps;
 static struct TechnologySelection s_ts;

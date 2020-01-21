@@ -1324,6 +1324,7 @@ union ApplicationProfileSettings {
 // source nexo-IS 4.0
 // configuration: Application Profile
 // presence: M
+// [E6]
 struct ApplicationProfile {
     // Unique Application Profile ID:
     bcd_t profileNumber;

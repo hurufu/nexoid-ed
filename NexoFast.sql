@@ -37,7 +37,6 @@ INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',75.0);
 INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
-INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-90 37',NULL,80.0);
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 96','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','353 384','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
@@ -182,19 +181,21 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','1252 -60','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','418 -60','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','304 -212','',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(236,'Proprietary_Startup_Sequence','316 127','',90.0);
 INSERT INTO diagrams VALUES(237,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',90.0);
+INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','-90 -275','',80.0);
+INSERT INTO diagrams VALUES(239,'Check_Configured_Services','-432 -185',NULL,80.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,129,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,238,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -619,10 +620,6 @@ INSERT INTO items VALUES(1501,51,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'
 INSERT INTO items VALUES(1502,52,'beginend','Process_AdditionalTrxData',0,170,60,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1503,52,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1504,52,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1506,53,'beginend','Financial_Application_Startup',0,240,0,130,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1507,53,'beginend','End',0,240,740,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1508,53,'vertical',NULL,0,240,20,0,700,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1509,53,'commentin',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),0,670,150,158,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1516,54,'beginend','Initialise_Transaction_Database',0,120,-80,140,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1517,54,'beginend','End',0,890,240,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1518,54,'vertical','',0,120,-60,0,1050,0,0,NULL,'',NULL,'');
@@ -852,9 +849,6 @@ INSERT INTO items VALUES(1860,32,'vertical','',0,1220,580,0,80,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(1861,32,'horizontal','',0,1020,660,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1862,32,'commentout','Shall be implemented',0,1220,480,90,20,50,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1863,33,'shelf','PR_UNINITIALISED',0,-150,330,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(1864,53,'horizontal','',0,310,0,150,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1865,53,'action','returns enum ProcedureResult',0,520,0,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1866,53,'action','return result;',0,240,680,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1902,38,'vertical','',0,1290,-40,0,760,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1903,38,'branch','Bail',0,1290,10,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1904,38,'address','Return',0,1290,670,120,30,60,0,NULL,NULL,NULL,NULL);
@@ -4923,11 +4917,6 @@ INSERT INTO items VALUES(9167,104,'if','ap.additionalTerminalCapabilities',0,430
 INSERT INTO items VALUES(9168,104,'vertical','',0,630,990,0,260,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9169,104,'horizontal','',0,430,1250,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9171,104,'commentin',replace('FIXME: Temporary workaround to\nuse data from tc if in ap it''s\nmissing. Probably, proper\nsolution should be to copy it\nduring AKPS','\n',char(10)),0,630,1080,150,50,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9174,53,'if','ttd.terminalErrorIndicator',0,240,500,130,20,100,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9175,53,'vertical','',0,470,240,0,400,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9176,53,'horizontal','',0,240,640,230,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9177,53,'shelf','PR_NOK',0,470,560,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(9179,53,'shelf','PR_OK',0,240,580,130,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(9212,200,'beginend','Dsi_Check_Card_Service',0,510,230,100,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9213,200,'beginend','End',0,510,950,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9214,200,'vertical','',0,510,230,0,700,0,0,NULL,'',NULL,'');
@@ -6261,7 +6250,6 @@ INSERT INTO items VALUES(10808,185,'horizontal','',0,290,620,170,0,0,0,NULL,NULL
 INSERT INTO items VALUES(10809,185,'shelf','PR_DONE',0,290,560,150,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(10810,185,'action','enum ProcedureResult result;',0,290,-640,150,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10811,54,'shelf','TE_NONE',0,620,840,190,40,40,0,NULL,NULL,NULL,'ttd.terminalErrorReason');
-INSERT INTO items VALUES(10832,53,'insertion',replace('result =\nStatus();','\n',char(10)),0,240,170,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10833,230,'beginend','Status',0,330,50,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10834,230,'beginend','End',0,330,610,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10835,230,'vertical',NULL,0,330,70,0,520,0,0,NULL,NULL,NULL,NULL);
@@ -6280,8 +6268,6 @@ INSERT INTO items VALUES(10848,230,'horizontal','',0,330,510,440,0,0,0,NULL,NULL
 INSERT INTO items VALUES(10849,230,'shelf','PR_NOK',0,560,450,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10850,230,'shelf','Interface_Contract_Violation();',0,770,450,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10851,230,'action','return result;',0,330,550,160,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10852,53,'if','PR_OK == result',0,240,240,130,20,100,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(10853,53,'action','enum ProcedureResult result;',0,240,90,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10854,230,'action','enum ProcedureResult result;',0,320,110,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10860,232,'beginend','Main',0,-40,0,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10861,232,'beginend','End',0,5380,340,50,20,60,0,NULL,'',NULL,'');
@@ -6469,7 +6455,7 @@ INSERT INTO items VALUES(11063,236,'horizontal','',0,570,700,450,0,0,0,NULL,'',N
 INSERT INTO items VALUES(11064,236,'action','return result;',0,570,740,170,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11065,236,'shelf','PR_OK',0,570,640,170,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11066,236,'shelf','PR_NOK',0,810,640,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(11067,236,'shelf','Interface_Contract_Violation();',1,1020,640,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11067,236,'shelf','Interface_Contract_Violation();',0,1020,640,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11068,233,'shelf','Not_Implemented();',0,1570,250,90,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11069,232,'vertical','',0,2440,300,0,410,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11070,232,'case','PR_CONTACT_TMS',0,2440,340,70,20,60,0,NULL,NULL,NULL,NULL);
@@ -6502,6 +6488,45 @@ INSERT INTO items VALUES(11096,232,'if','PR_OK == result',0,4050,430,160,20,80,1
 INSERT INTO items VALUES(11097,232,'vertical','',0,4290,430,0,280,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11098,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,4290,640,60,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11099,129,'insertion',replace('result =\nScap_Event_Handling();','\n',char(10)),0,3270,-10,130,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11100,238,'beginend','Financial_Application_Startup',0,240,-90,130,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11101,238,'beginend','End',0,240,740,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11102,238,'vertical','',0,240,-70,0,790,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11103,238,'commentin',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),0,700,150,158,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11104,238,'horizontal','',0,310,-90,150,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11105,238,'action','returns enum ProcedureResult',0,520,-90,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11106,238,'action','return result;',0,240,680,140,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11107,238,'if','ttd.terminalErrorIndicator',0,240,350,140,20,140,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11108,238,'vertical','',0,520,110,0,530,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11109,238,'horizontal','',0,240,640,280,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11110,238,'shelf','PR_NOK',0,520,580,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11111,238,'shelf','PR_OK',0,240,580,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11112,238,'insertion',replace('result =\nStatus();','\n',char(10)),0,240,40,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11113,238,'if','PR_OK == result',0,240,110,140,20,140,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(11114,238,'action','enum ProcedureResult result;',0,240,-30,140,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11115,238,'commentin','TODO: Contact TMS',0,240,170,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11116,238,'commentin','TODO: Validate config E0 ~ FE',0,240,230,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11117,238,'commentin','TODO: Initialise printerStatus',0,240,290,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11118,238,'insertion',replace('result =\nCheck_Configured_Services();','\n',char(10)),0,240,420,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11119,239,'beginend','Check_Configured_Services',0,250,-50,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11120,239,'beginend','End',0,250,630,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11121,239,'vertical',NULL,0,250,-30,0,640,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11122,239,'horizontal',NULL,0,250,-50,200,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11123,239,'action','returns enum ProcedureResult',0,510,-50,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11124,239,'action','enum ProcedureResult result;',0,250,10,190,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11125,239,'action','return result;',0,250,570,190,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11126,239,'if','TERMINAL_TYPE_UNATTENDED(tc.terminalType)',0,250,70,190,20,40,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11127,239,'vertical','',0,480,70,0,340,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11128,239,'horizontal','',0,250,530,450,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11129,239,'commentout','FIXME: Use proper E0 or E1 field instead of `tc`',0,-170,70,210,20,30,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11130,239,'if','tc.configuredServices.refund',0,480,130,180,20,40,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11131,239,'vertical','',0,700,130,0,400,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11132,239,'shelf','PR_NOK',0,700,470,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(11133,239,'horizontal','',0,250,410,230,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11134,239,'shelf','PR_OK',0,250,470,190,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11135,239,'if','tc.configuredServices.cancellation',0,480,190,180,20,40,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11136,239,'if','tc.configuredServices.cashAdvance',0,480,250,180,20,40,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11137,239,'if','tc.configuredServices.voiceAuthorisation',0,480,310,180,20,40,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11138,239,'if','tc.configuredServices.noShow',0,480,370,180,20,40,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -6550,7 +6575,6 @@ INSERT INTO tree_nodes VALUES(77,70,'item','',48);
 INSERT INTO tree_nodes VALUES(78,70,'item','',49);
 INSERT INTO tree_nodes VALUES(80,70,'item','',51);
 INSERT INTO tree_nodes VALUES(81,70,'item','',52);
-INSERT INTO tree_nodes VALUES(82,24,'item',NULL,53);
 INSERT INTO tree_nodes VALUES(83,0,'folder','04 Data Model',NULL);
 INSERT INTO tree_nodes VALUES(84,83,'item','',54);
 INSERT INTO tree_nodes VALUES(85,24,'item',NULL,55);
@@ -6740,6 +6764,8 @@ INSERT INTO tree_nodes VALUES(318,175,'folder','PAPI',NULL);
 INSERT INTO tree_nodes VALUES(319,318,'item','',236);
 INSERT INTO tree_nodes VALUES(320,175,'folder','TMAPI',NULL);
 INSERT INTO tree_nodes VALUES(321,175,'item',NULL,237);
+INSERT INTO tree_nodes VALUES(322,313,'item','',238);
+INSERT INTO tree_nodes VALUES(323,313,'item',NULL,239);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

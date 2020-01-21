@@ -37,7 +37,7 @@ INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',75.0);
 INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
-INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-91 -150',NULL,80.0);
+INSERT INTO diagrams VALUES(53,'Financial_Application_Startup','-90 37',NULL,80.0);
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-68 96','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','353 384','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
@@ -98,7 +98,7 @@ INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','-120 -8
 INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','141 66',NULL,75.0);
 INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','',75.0);
 INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
-INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','10472 -29','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
+INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','2581 -430','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','0 0','',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1252 -85',NULL,75.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','6232 250',NULL,75.0);
@@ -181,10 +181,10 @@ INSERT INTO diagrams VALUES(225,'Online_Approval_Request','-98 -58','',75.0);
 INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,75.0);
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
-INSERT INTO diagrams VALUES(230,'Status','-90 -88',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','364 -60','',90.0);
+INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
+INSERT INTO diagrams VALUES(232,'Main','1252 -60','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','304 -212','',100.0);
-INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -188',NULL,75.0);
+INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(236,'Proprietary_Startup_Sequence','316 127','',90.0);
 INSERT INTO diagrams VALUES(237,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',90.0);
@@ -194,7 +194,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,53,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,129,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2988,7 +2988,6 @@ INSERT INTO items VALUES(6186,129,'if',replace('result\n==\nPR_NEW_EVENT','\n',c
 INSERT INTO items VALUES(6187,129,'vertical','',0,6250,90,0,540,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6188,129,'address','Bailout',0,6180,680,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6189,129,'horizontal','',0,6180,630,70,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(6190,129,'input',replace('result =\nscapi_Wait_For_Event();','\n',char(10)),0,3270,-20,120,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(6191,129,'shelf','E_NONE',0,470,460,130,40,40,0,NULL,'',NULL,'enum IdleEvent event');
 INSERT INTO items VALUES(6192,129,'case','E_MANUAL_ENTRY',0,4520,330,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6193,129,'vertical','',0,4520,290,0,440,0,0,NULL,'',NULL,'');
@@ -6329,7 +6328,7 @@ INSERT INTO items VALUES(10902,232,'branch','Perform Service',0,3480,110,90,30,6
 INSERT INTO items VALUES(10903,232,'address',replace('Default Service\ninitialisation','\n',char(10)),0,3480,650,90,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10904,232,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,3660,640,70,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10905,232,'address','(B) Idle',0,2090,660,120,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10906,232,'insertion',replace('result =\nFinancial_Application_Startup();','\n',char(10)),1,810,350,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10906,232,'insertion',replace('result =\nFinancial_Application_Startup();','\n',char(10)),0,810,350,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10907,232,'action','return result;',0,5380,280,80,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10909,232,'horizontal','',0,-30,0,60,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10910,232,'action',replace('public\n\nreturns enum ProcedureResult','\n',char(10)),0,160,0,130,40,0,0,NULL,'',NULL,'');
@@ -6502,6 +6501,7 @@ INSERT INTO items VALUES(11095,232,'insertion',replace('result =\nPerform_Termin
 INSERT INTO items VALUES(11096,232,'if','PR_OK == result',0,4050,430,160,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(11097,232,'vertical','',0,4290,430,0,280,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11098,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,4290,640,60,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11099,129,'insertion',replace('result =\nScap_Event_Handling();','\n',char(10)),0,3270,-10,130,30,60,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

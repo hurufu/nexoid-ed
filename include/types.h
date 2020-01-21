@@ -65,6 +65,16 @@ struct as_34 {
     char v[34];
 };
 
+struct string5 {
+    char s[5];
+    STRING_SENTINEL;
+};
+
+struct string6 {
+    char s[6];
+    STRING_SENTINEL;
+};
+
 struct string16 {
     char s[16];
     STRING_SENTINEL;
@@ -94,12 +104,16 @@ enum PACKED Kernel {
   // May have size: 1 or 3~8
 };
 
+struct Rid {
+    uint8_t v[5];
+};
+
 struct Aid {
     size_t l_raw;
     union {
         uint8_t raw[16];
         struct {
-            uint8_t rid[5];
+            struct Rid rid;
             uint8_t pix[];
         };
     };
@@ -893,11 +907,19 @@ struct small_string {
     char hex[sizeof(int)];
 };
 
+enum PACKED CountryAlpha2 {
+    COUNTRY_PL = MULTICHAR('p','l')
+};
+
+// TODO: Remouve union Country
 union Country {
-    enum {
-        Country_pl = MULTICHAR('p','l')
-    } Code;
+    enum CountryAlpha2 Code;
     char Str[3];
+};
+
+union Iso639_1 {
+    enum CountryAlpha2 e;
+    uint8_t c[2];
 };
 
 union CurrencyAlpha3 {
@@ -1052,6 +1074,53 @@ union ProcessingStatus {
     };
 };
 
+union AdditionalTerminalCapabilities {
+    unsigned char raw[5];
+    struct {
+        struct TransactionTypeCapability {
+            unsigned char cash : 1;
+            unsigned char goods : 1;
+            unsigned char services : 1;
+            unsigned char cashback : 1;
+            unsigned char inquiry : 1;
+            unsigned char transfer : 1;
+            unsigned char payment : 1;
+            unsigned char administrative : 1;
+
+            unsigned char cashDeposit : 1;
+            unsigned char /* RFU */ : 1;
+        } transactionType;
+
+        struct TransactionDataInputCapability {
+            unsigned char numericKeys : 1;
+            unsigned char alphabeticAndSpecialCharactersKeys : 1;
+            unsigned char commandKeys : 1;
+            unsigned char functionKeys : 1;
+            unsigned char /* RFU */ : 4;
+        } terminalDataInput;
+
+        struct TransactionDataOutputCapability {
+            unsigned char printAttendant : 1;
+            unsigned char printCardholder : 1;
+            unsigned char displayAttendant : 1;
+            unsigned char displayCardholder : 1;
+            unsigned char /* RFU */ : 2;
+            // ISO/IEC 8859
+            unsigned char codeTable10 : 1;
+            unsigned char codeTable9 : 1;
+
+            unsigned char codeTable8 : 1;
+            unsigned char codeTable7 : 1;
+            unsigned char codeTable6 : 1;
+            unsigned char codeTable5 : 1;
+            unsigned char codeTable4 : 1;
+            unsigned char codeTable3 : 1;
+            unsigned char codeTable2 : 1;
+            unsigned char codeTable1 : 1;
+        } terminalDataOutput;
+    };
+};
+
 union EeaProcessSettings {
     unsigned char raw[2];
     struct {
@@ -1149,20 +1218,83 @@ enum InterfaceStatus {
                              ,
 };
 
+// FIXME: Rename to Table
+struct TerminalApplicationVersionList {
+    size_t s;
+    struct TerminalApplicationVersionEntry {
+        struct Rid rid;
+        struct bcd2 applicationVersionNumber;
+    } entry[50];
+};
+
+// TODO: Rename list to table
+struct TerminalSupportedLanguageList {
+    size_t l;
+    union Iso639_1 a[30];
+};
+
+
 union CommandTemplate {
     uint8_t raw[2];
 };
 
-// source nexo-IS v.4.0
-
+// source nexo-IS v.4.0, section 4.5.3.3
 // E0
 struct PermanentTerminalSpecificData {
+    // 9F1E
+    struct string8* ifdSerialNumber;
+    // DF50
+    struct string6* commandKeyBypassPinLabel;
+    // DF14
+    struct string5 commandKeyClearLabel;
+    // DF15
+    struct string5 commandKeyEnterLabel;
+    // DF16
+    struct string5 commandKeyScrollLabel;
+    // DF53
+    struct string5 commandKeyChangeApplicationLabel;
 };
 
+// source: nexo-IS v.4.0, section 4.5.3.3
 // E1
 struct TerminalSpecificData {
+    // 9F40
+    union AdditionalTerminalCapabilities additionalTerminalCapabilities;
+    // DF13
+    union ConfiguredServices configuredServices;
+    // DF17
     enum ServiceId defaultCardService;
+    // DF12
     union Country cardholderDefaultLanguage;
+    // DF18
+    union bcd maxNumberOfChipTries; // WARNING: Set default value to 0x01
+    // DF40
+    struct TerminalApplicationVersionList terminalApplicationVersionListContact;
+    // DF49
+    struct TerminalApplicationVersionList* terminalApplicationVersionListCtlss;
+    // 9F33
+    union TerminalCapabilities terminalCapabilities;
+    // 9F1A
+    // TODO: Add terminalCountryCode
+    // 9F1C
+    // TODO: Consider replacing string8 with an8
+    struct string8 tid;
+    // DF34
+    union TerminalSettings terminalSettings;
+    // DF33
+    struct TerminalSupportedLanguageList terminalSupportedLanguageList;
+    // 9F35
+    union TerminalType terminalType;
+    // DF35
+    // TODO: Add terminalTransactionCurrencyCode
+    // DF47
+    union CurrencyAlpha3 currencyCodeAlpha3;
+    // DF36
+    union bcd terminalTransactionCurrencyExponent;
+    // DF46
+    union bcd* unpredictableNumberRange;
+    // DF52
+    union EeaProcessSettings* eeaProcessSettings; // FIXME: shouldn't be a pointer
 };
 
 //E2
@@ -1579,53 +1711,6 @@ union TerminalVerificationResults {
     };
 };
 
-union AdditionalTerminalCapabilities {
-    unsigned char raw[5];
-    struct {
-        struct TransactionTypeCapability {
-            unsigned char cash : 1;
-            unsigned char goods : 1;
-            unsigned char services : 1;
-            unsigned char cashback : 1;
-            unsigned char inquiry : 1;
-            unsigned char transfer : 1;
-            unsigned char payment : 1;
-            unsigned char administrative : 1;
-
-            unsigned char cashDeposit : 1;
-            unsigned char /* RFU */ : 1;
-        } transactionType;
-
-        struct TransactionDataInputCapability {
-            unsigned char numericKeys : 1;
-            unsigned char alphabeticAndSpecialCharactersKeys : 1;
-            unsigned char commandKeys : 1;
-            unsigned char functionKeys : 1;
-            unsigned char /* RFU */ : 4;
-        } terminalDataInput;
-
-        struct TransactionDataOutputCapability {
-            unsigned char printAttendant : 1;
-            unsigned char printCardholder : 1;
-            unsigned char displayAttendant : 1;
-            unsigned char displayCardholder : 1;
-            unsigned char /* RFU */ : 2;
-            // ISO/IEC 8859
-            unsigned char codeTable10 : 1;
-            unsigned char codeTable9 : 1;
-
-            unsigned char codeTable8 : 1;
-            unsigned char codeTable7 : 1;
-            unsigned char codeTable6 : 1;
-            unsigned char codeTable5 : 1;
-            unsigned char codeTable4 : 1;
-            unsigned char codeTable3 : 1;
-            unsigned char codeTable2 : 1;
-            unsigned char codeTable1 : 1;
-        } terminalDataOutput;
-    };
-};
-
 union CvmCapability {
     uint8_t raw[1];
     struct {
@@ -1955,21 +2040,6 @@ struct TerminalListOfAidEntry {
 struct TerminalListOfAid {
     size_t l_entry;
     struct TerminalListOfAidEntry entry[50]; // 0xBF01
-};
-
-// or nexo-IS v.4.0 section 4.5.1
-
-// FIXME: Probably should be replaced with E1 and E0
-struct TerminalConfiguration {
-    union TerminalType terminalType;
-    union TerminalSettings terminalSettings;
-    union TerminalCapabilities terminalCapabilities;
-    union AdditionalTerminalCapabilities additionalTerminalCapabilities;
-    union ConfiguredServices configuredServices;
-    unsigned char maxNumberOfChipTries;
-    union CurrencyAlpha3* applicationCurrency; // FIXME: not specified by nexo
-    union Country cardholderDefaultLanguage;
-    union EeaProcessSettings* eeaProcessSettings; // FIXME: shouldn't be a pointer
 };
 
 enum OdaMethod {

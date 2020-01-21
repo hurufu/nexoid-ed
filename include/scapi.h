@@ -12,6 +12,7 @@
 enum ScapiResult {
     SCAPI_OK = 60
   , SCAPI_NOK
+  , SCAPI_NEW_EVENT
 };
 
 enum ScapiResult scapi_Cardholder_Confirmation(void);

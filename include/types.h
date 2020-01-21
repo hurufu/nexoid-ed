@@ -349,6 +349,13 @@ struct CardData {
     /** @} */
 };
 
+enum TmsContactLevel {
+    CALL_TMS_NONE
+  , CALL_TMS_ASAP
+  , CALL_TMS_CRITICAL
+  , CALL_TMS_DATE_TIME
+};
+
 enum ProcedureResult {
     PR_UNINITIALISED = 239
   , PR_NOT_IMPLEMENTED
@@ -357,6 +364,7 @@ enum ProcedureResult {
   , PR_TERMINATE
   , PR_SHUTDOWN
   , PR_STARTUP_SEQUENCE
+  , PR_CONTACT_TMS
   , PR_BAIL
 
   , PR_OK
@@ -2030,6 +2038,8 @@ struct TerminalTransactionData {
     bool noContactlessAllowed;
     union ServiceStartEvents serviceStartEvents;
     enum OdaMethod odaMethodToBePerformed;
+
+    enum TmsContactLevel callTms; // Defined only in nexo-IS
 
     // FIXME: Consider moving to a different location
     struct EventTable {

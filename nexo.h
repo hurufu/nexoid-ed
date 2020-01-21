@@ -6,6 +6,7 @@
 #include "eapi.h"
 #include "hapi.h"
 #include "pklr.h"
+#include "tmapi.h"
 #include "gtd.h"
 #include "local.h"
 #include "bool.h"

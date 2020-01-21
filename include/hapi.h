@@ -40,6 +40,13 @@ enum HapiResult hapi_Online_Request_to_Dcc_Provider(void);
  */
 enum HapiResult hapi_Online_Approval_Request(void);
 
+/* Perform status check
+ *
+ * nexo-FAST v.3.2, section 12.1.3.1
+ * nexo-IS v.4.0, section 3.1
+ */
+enum HapiResult hapi_Status(void);
+
 enum HapiResult hapi_SearchReservationsByRefData(void);
 
 enum HapiResult hapi_SearchReservationsByPan(void);

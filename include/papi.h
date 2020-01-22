@@ -42,7 +42,7 @@ enum PapiResult papi_Proprietary_Startup_Sequence(void);
  *
  *  nexo-FAST v.3.2, figure 15
  */
-enum ProcedureResult Diagnostics_Maintenance_Recovery(void);
+enum ProcedureResult papi_Diagnostics_Maintenance_Recovery(void);
 
 /* Prepare system to reboot.
  *
@@ -51,7 +51,7 @@ enum ProcedureResult Diagnostics_Maintenance_Recovery(void);
  *
  * TODO: Specify if it's allowed to reboot the device inside this function
  */
-void Force_Reboot(void);
+void papi_Force_Reboot(void);
 
 /* Prepare system for premature nexo shutdown.
  *
@@ -59,4 +59,4 @@ void Force_Reboot(void);
  * TERMINATE event during main waiting loop. It will be called just before exiting
  * from `Main()`
  */
-void Force_Termination(void);
+void papi_Force_Termination(void);

@@ -6326,7 +6326,7 @@ INSERT INTO items VALUES(10915,232,'case','',0,3810,400,60,20,60,0,NULL,'',NULL,
 INSERT INTO items VALUES(10916,232,'vertical','',0,3660,360,0,350,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10917,232,'vertical','',0,3810,360,0,350,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10918,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,3810,640,60,50,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10919,232,'output',replace('result =\nDiagnostics_Maintenance_Recovery();','\n',char(10)),0,4530,250,160,50,40,0,NULL,'',NULL,'PROPRIETARY');
+INSERT INTO items VALUES(10919,232,'output',replace('result =\npapi_Diagnostics_Maintenance_Recovery();','\n',char(10)),0,4530,250,160,50,40,0,NULL,'',NULL,'PROPRIETARY');
 INSERT INTO items VALUES(10920,232,'select','result',0,1800,480,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10921,232,'horizontal','',0,1800,520,490,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10922,232,'case','PR_CONDITIONS_SATISFIED',0,1800,560,150,20,60,0,NULL,'',NULL,'');
@@ -6352,8 +6352,8 @@ INSERT INTO items VALUES(10947,232,'vertical','',0,3130,300,0,410,0,0,NULL,'',NU
 INSERT INTO items VALUES(10948,232,'vertical','',0,5090,60,0,650,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10949,232,'branch','Reboot',0,5090,110,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10950,232,'address','Return',0,5090,660,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10951,232,'output','Force_Termination();',0,3130,420,100,40,40,0,NULL,'',NULL,'PROPRIETARY');
-INSERT INTO items VALUES(10952,232,'output','Force_Reboot();',0,2930,420,80,40,40,0,NULL,'',NULL,'PROPRIETARY');
+INSERT INTO items VALUES(10951,232,'output','papi_Force_Termination();',0,3130,420,100,40,40,0,NULL,'',NULL,'PROPRIETARY');
+INSERT INTO items VALUES(10952,232,'output','papi_Force_Reboot();',0,2930,420,80,40,40,0,NULL,'',NULL,'PROPRIETARY');
 INSERT INTO items VALUES(10953,232,'select','result',0,4530,340,160,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10954,232,'horizontal','',0,4530,380,490,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10955,232,'case','PR_STARTUP_SEQUENCE',0,4530,420,160,20,60,0,NULL,'',NULL,'');

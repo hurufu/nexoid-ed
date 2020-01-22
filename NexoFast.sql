@@ -181,7 +181,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','4248 -2','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','470 -1','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','304 -212','',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -195,7 +195,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,232,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,239,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -6314,7 +6314,7 @@ INSERT INTO items VALUES(10902,232,'branch','Perform Service',0,3560,110,90,30,6
 INSERT INTO items VALUES(10903,232,'address',replace('Default Service\ninitialisation','\n',char(10)),0,3560,650,90,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10904,232,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,3740,640,70,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10905,232,'address','(B) Idle',0,2090,660,120,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10906,232,'insertion',replace('result =\nFinancial_Application_Startup();','\n',char(10)),0,810,350,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10906,232,'insertion',replace('result =\nFinancial_Application_Startup();','\n',char(10)),1,810,350,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10907,232,'action','return result;',0,5500,280,80,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10909,232,'horizontal','',0,-30,0,60,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10910,232,'action',replace('public\n\nreturns enum ProcedureResult','\n',char(10)),0,160,0,130,40,0,0,NULL,'',NULL,'');
@@ -6505,7 +6505,7 @@ INSERT INTO items VALUES(11114,238,'action','enum ProcedureResult result;',0,240
 INSERT INTO items VALUES(11115,238,'commentin','TODO: Contact TMS',0,240,90,140,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11116,238,'commentin','TODO: Validate config E0 ~ FE',0,240,150,140,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11117,238,'commentin','TODO: Initialise printerStatus',0,240,210,140,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(11118,238,'insertion',replace('result =\nCheck_Configured_Services();','\n',char(10)),0,240,340,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11118,238,'insertion',replace('result =\nCheck_Configured_Services();','\n',char(10)),1,240,340,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11119,239,'beginend','Check_Configured_Services',0,250,-50,110,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11120,239,'beginend','End',0,250,630,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11121,239,'vertical',NULL,0,250,-30,0,640,0,0,NULL,NULL,NULL,NULL);
@@ -6516,7 +6516,6 @@ INSERT INTO items VALUES(11125,239,'action','return result;',0,250,570,190,20,0,
 INSERT INTO items VALUES(11126,239,'if','TERMINAL_TYPE_UNATTENDED(e1.terminalType)',0,250,70,190,20,40,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11127,239,'vertical','',0,480,70,0,340,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11128,239,'horizontal','',0,250,530,450,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11129,239,'commentout','FIXME: Use proper E0 or E1 field instead of `e1`',0,-170,70,210,20,30,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11130,239,'if','e1.configuredServices.refund',0,480,130,180,20,40,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11131,239,'vertical','',0,700,130,0,400,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11132,239,'shelf','PR_NOK',0,700,470,50,40,40,0,NULL,NULL,NULL,'result');

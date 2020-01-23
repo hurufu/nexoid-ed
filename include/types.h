@@ -738,10 +738,10 @@ union TerminalCapabilities {
     uint8_t raw[3];
     struct {
         struct {
-            uint8_t /* RFU */: 5;
-            uint8_t icWithContacts: 1;
-            uint8_t magneticStripe: 1;
             uint8_t manualKeyEntry: 1;
+            uint8_t magneticStripe: 1;
+            uint8_t icWithContacts: 1;
+            uint8_t /* RFU */: 5;
         } cardDataInputCapability;
 
         struct {
@@ -1397,9 +1397,19 @@ struct CertificationAuthorityPublicKeyTable {
 // configuration: Terminal
 // presence: M
 struct ServiceSettingsEntry {
-    enum CardholderMessage cardholderInitialMessage;
+    // DF01
+    enum ServiceId serviceIdentifier;
+    // DF10
     union ServiceSettings serviceSettings;
-    union ServiceStartEvents serviceStartEvents;
+    // DF02
+    enum CardholderMessage cardholderInitialMessage;
+    // DF11
+    union ServiceStartEvents allowedServiceStartEvents;
+    // DF0F
+    struct MinimumServiceStartConditionsTable {
+        size_t s;
+        union ServiceStartEvents a[10];
+    } minimumServiceStartConditions;
 };
 
 // [E4]

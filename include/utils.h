@@ -9,3 +9,9 @@
 #define MULTICHAR(...) NUMBERED_MACRO(MULTICHAR, __VA_ARGS__)
 
 #define ONEOF(...) NUMBERED_MACRO(ONEOF, __VA_ARGS__)
+
+// A → B
+#define IMPLY(A, B) (~(A) | (B))
+
+// A ↛ B
+#define NIMPLY(A, B) (~IMPLY(A, B))

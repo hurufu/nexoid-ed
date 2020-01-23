@@ -1396,13 +1396,13 @@ struct CertificationAuthorityPublicKeyTable {
 // size: up to 20
 // configuration: Terminal
 // presence: M
-
 struct ServiceSettingsEntry {
     enum CardholderMessage cardholderInitialMessage;
     union ServiceSettings serviceSettings;
     union ServiceStartEvents serviceStartEvents;
 };
 
+// [E4]
 struct ServiceSettingsTable {
     size_t s;
     struct ServiceSettingsEntry a[20];

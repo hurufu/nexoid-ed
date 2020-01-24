@@ -18,6 +18,8 @@ enum TmapiResult {
  * WARNING: This function isn't used in libnexoid and will be considered for
  * removal.
  *
+ * It's expected that ttd.callTms will be set apropriately inside this function
+ *
  * nexo-IS v.4.0, section 4.2
  */
 enum TmapiResult tmapi_Perform_Terminal_Managment_Session(void);

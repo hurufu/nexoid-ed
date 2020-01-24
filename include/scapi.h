@@ -50,4 +50,4 @@ enum ScapiResult scapi_Data_Entry_Interaction(void);
  *
  * nexo-FAST v.3.2, figure 21
  */
-bool Authorise_Service(void);
+bool scapi_Authorise_Service(void);

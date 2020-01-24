@@ -677,7 +677,7 @@ INSERT INTO items VALUES(1589,55,'branch','Ok',0,2250,350,50,30,60,0,NULL,NULL,N
 INSERT INTO items VALUES(1590,55,'address','Return',0,2250,960,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1591,55,'shelf','PR_OK',0,2250,530,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(1592,55,'if','PR_OK == result',0,1900,660,160,20,70,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1593,55,'output',replace('SecurityPermission =\nAuthorise_Service();','\n',char(10)),0,1440,610,120,50,40,0,NULL,NULL,NULL,'SCAP');
+INSERT INTO items VALUES(1593,55,'output',replace('SecurityPermission =\nscapi_Authorise_Service();','\n',char(10)),0,1440,610,120,50,40,0,NULL,NULL,NULL,'SCAP');
 INSERT INTO items VALUES(1594,55,'if','SecurityPermission',0,1440,700,120,20,90,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1595,55,'shelf','N_NO_PERMISSION',0,1650,770,70,40,40,0,NULL,NULL,NULL,'ttd.nokReason');
 INSERT INTO items VALUES(1596,55,'vertical','',0,1650,700,0,310,0,0,NULL,NULL,NULL,NULL);
@@ -5179,7 +5179,7 @@ INSERT INTO items VALUES(9475,55,'commentin',replace('TODO: Selected proper entr
 INSERT INTO items VALUES(9476,55,'if',replace('sc.serviceSettings\n.ServiceProtected','\n',char(10)),0,230,820,150,30,100,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9477,55,'vertical','',0,480,820,0,190,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9478,55,'shelf','PR_NOK',0,1650,870,70,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(9479,55,'commentin',replace('TODO: Consider returning\nenum ProcedureResult from\nAuthorise_Service(), to\navoid explicit setting\nof `result` variable','\n',char(10)),0,1440,480,120,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(9479,55,'commentin',replace('TODO: Consider returning\nenum ProcedureResult from\nscapi_Authorise_Service(), to\navoid explicit setting\nof `result` variable','\n',char(10)),0,1440,480,120,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9480,55,'commentout',replace('nexo-FAST v.3.2\nnote 21-20','\n',char(10)),0,500,700,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9483,66,'shelf','PR_NOK',0,530,350,80,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(9484,66,'shelf','N_NOT_IMPLEMENTED',0,530,250,80,40,40,0,NULL,NULL,NULL,'ttd.nokReason');

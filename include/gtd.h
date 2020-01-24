@@ -13,6 +13,7 @@ extern struct TerminalConfiguration tc;
 extern struct OnlineResponseData ord;
 extern struct ServiceSettingsEntry sc;
 
+extern struct PermanentTerminalSpecificData e0;
 extern struct TerminalSpecificData e1;
 extern struct ApplicationProfileSelectionTable* e2;
 extern struct ServiceSettingsTable e4;

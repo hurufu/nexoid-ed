@@ -144,15 +144,15 @@ INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-467 579',NULL,70.
 INSERT INTO diagrams VALUES(189,'Tc_Remove_Card','-554 -18',NULL,70.0);
 INSERT INTO diagrams VALUES(191,'Tc_Save_Transaction','0 0',NULL,70.0);
 INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','1742 60',replace('TODO: Consider redesign of cardholder messages format, so it can be possible to signal that some informations should be displayed on one line, like:\nPAYMENT: <Transaction Amount> <Currency>','\n',char(10)),75.0);
-INSERT INTO diagrams VALUES(193,'Update_Interfaces_Disable_All','-377 -226','',75.0);
+INSERT INTO diagrams VALUES(193,'Update_Interfaces_Disable_All','-176 -292','',75.0);
 INSERT INTO diagrams VALUES(194,'Update_Interfaces_Disable_Other','1251 -558','Based on nexo-FAST v.3.2 note 120-10 and table 11',60.0);
-INSERT INTO diagrams VALUES(195,'Update_Interfaces','30 -208','NOTE: Function Update_Interfaces has different interface then defined by nexo, which is arguably better',75.0);
+INSERT INTO diagrams VALUES(195,'Update_Interfaces','81 -170','NOTE: Function Update_Interfaces has different interface then defined by nexo, which is arguably better',75.0);
 INSERT INTO diagrams VALUES(196,'Update_Interfaces_Enable_All','112 126',NULL,75.0);
 INSERT INTO diagrams VALUES(197,'Update_Interfaces_No_Contactless','-448 -185',NULL,75.0);
 INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -160','',75.0);
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-168 362','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Dsi_Check_Card_Service','315.09523809523813 62.190476190476204','Based on nexo-FAST v.3.2 note 20-10',75.0);
-INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','603 154','',85.0);
+INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','778 -81','',85.0);
 INSERT INTO diagrams VALUES(202,'Process_Event','652 134','',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 201','',75.0);
@@ -181,13 +181,13 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','3523 0','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','743 -54','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','304 -362','',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(236,'Proprietary_Startup_Sequence','316 127','',90.0);
 INSERT INTO diagrams VALUES(237,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',90.0);
-INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','35 -820',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),80.0);
+INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','35 -570',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),80.0);
 INSERT INTO diagrams VALUES(239,'Check_Configured_Services','-55 -122',NULL,80.0);
 INSERT INTO diagrams VALUES(240,'Check_Payment_Service_Configuration','-110 -242',NULL,80.0);
 INSERT INTO diagrams VALUES(241,'Configuration_Error','-133 -133','',75.0);
@@ -202,7 +202,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,238,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,201,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4795,26 +4795,26 @@ INSERT INTO items VALUES(9010,194,'action',replace('status |=\nINTERFACE_CHIP_RE
 INSERT INTO items VALUES(9011,194,'action',replace('status |=\nINTERFACE_MAGNETIC_STRIPE_READER;','\n',char(10)),0,2220,-50,150,30,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9012,194,'action',replace('status |=\nINTERFACE_ATTENDANT_F_KEY_MANUAL_ENTRY;','\n',char(10)),0,2710,-50,170,30,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9013,194,'commentout','Same as `status = 0`',0,1770,-300,90,20,20,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9014,195,'beginend','Update_Interfaces',0,450,-120,80,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9015,195,'beginend','End',0,450,680,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9016,195,'vertical','',0,450,-120,0,780,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9017,195,'horizontal','',0,460,-120,260,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9018,195,'action',replace('const enum InterfaceStatus status\n\nreturns enum ProcedureResult','\n',char(10)),0,770,-120,150,40,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9020,195,'action','return result;',0,450,620,150,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9021,195,'shelf','PR_UNINITIALISED',0,450,-40,150,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(9024,195,'horizontal','',0,450,580,490,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9028,195,'output',replace('result =\nscapi_Update_Interfaces(status);','\n',char(10)),0,450,70,150,50,40,0,NULL,'',NULL,'SCAP');
-INSERT INTO items VALUES(9029,195,'select','result',0,450,160,150,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9030,195,'horizontal','',0,450,200,490,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9031,195,'case','PR_OK',0,450,240,150,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9032,195,'case','PR_NOK',0,700,240,80,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9033,195,'case','',0,940,240,140,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9034,195,'vertical','',0,700,200,0,380,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9035,195,'vertical','',0,940,200,0,380,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9036,195,'shelf','N_TECHNICAL_ERROR',0,700,520,80,40,40,0,NULL,'',NULL,'ttd.nokReason');
-INSERT INTO items VALUES(9037,195,'shelf','PR_BAIL',0,940,520,140,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(9038,195,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,940,420,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorReason');
-INSERT INTO items VALUES(9039,195,'shelf','true',0,940,320,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorIndicator');
+INSERT INTO items VALUES(9014,195,'beginend','Update_Interfaces',0,450,-130,80,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9015,195,'beginend','End',0,450,670,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9016,195,'vertical','',0,450,-130,0,780,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9017,195,'horizontal','',0,460,-130,280,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9018,195,'action',replace('const enum InterfaceStatus status\n\nreturns enum ProcedureResult','\n',char(10)),0,790,-130,150,40,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9020,195,'action','return result;',0,450,610,170,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9021,195,'shelf','PR_UNINITIALISED',0,450,-50,170,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(9024,195,'horizontal','',0,450,570,510,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9028,195,'output',replace('const enum ScapiResult scapi_result =\nscapi_Update_Interfaces(status);','\n',char(10)),0,450,60,170,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(9029,195,'select','scapi_result',0,450,150,170,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9030,195,'horizontal','',0,450,190,510,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9031,195,'case','SCAPI_OK',0,450,230,170,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9032,195,'case','SCAPI_NOK',0,720,230,80,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9033,195,'case','',0,960,230,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9034,195,'vertical','',0,720,190,0,380,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9035,195,'vertical','',0,960,190,0,380,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9036,195,'shelf','N_TECHNICAL_ERROR',0,720,410,80,40,40,0,NULL,'',NULL,'ttd.nokReason');
+INSERT INTO items VALUES(9037,195,'shelf','PR_BAIL',0,960,510,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(9038,195,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,960,410,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorReason');
+INSERT INTO items VALUES(9039,195,'shelf','true',0,960,310,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorIndicator');
 INSERT INTO items VALUES(9040,194,'insertion',replace('result =\nUpdate_Interfaces(status);','\n',char(10)),0,1530,50,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9043,193,'insertion',replace('result =\nUpdate_Interfaces(INTERFACE_DISABLE_ALL);','\n',char(10)),0,310,130,180,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9044,196,'beginend','Update_Interfaces_Enable_All',0,600,-340,130,20,60,0,NULL,NULL,NULL,NULL);
@@ -4960,7 +4960,7 @@ INSERT INTO items VALUES(9249,201,'action','returns enum ProcedureResult',0,980,
 INSERT INTO items VALUES(9250,201,'shelf','PR_UNINITIALISED',0,650,150,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(9251,201,'action','return result;',0,2410,280,70,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9252,201,'insertion',replace('result =\nUpdate_Interfaces_Disable_All();','\n',char(10)),0,1210,220,180,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9253,201,'if','PR_DONE == result',0,1210,290,180,20,110,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9253,201,'if','PR_OK == result',0,1210,290,180,20,110,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9254,201,'vertical','',0,1210,-80,0,770,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9255,201,'branch','Cardholder detection',0,1210,-30,180,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9256,201,'address','Cardholder detection',0,880,640,90,30,60,0,NULL,'',NULL,'');
@@ -6291,7 +6291,7 @@ INSERT INTO items VALUES(10871,232,'address',replace('Proprietary\nstartup seque
 INSERT INTO items VALUES(10872,232,'if','PR_OK == result',0,370,420,140,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10873,232,'vertical','',0,590,420,0,290,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10874,232,'vertical','',0,810,60,0,650,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10875,232,'branch',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,810,120,140,50,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10875,232,'branch',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,810,130,140,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10876,232,'address',replace('Default Service\ninitialisation','\n',char(10)),0,810,650,140,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10877,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,590,640,60,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10878,232,'if','PR_OK == result',0,810,420,140,20,80,1,NULL,'',NULL,'');
@@ -6741,6 +6741,8 @@ INSERT INTO items VALUES(11429,238,'horizontal','',0,410,-390,270,0,0,0,NULL,NUL
 INSERT INTO items VALUES(11430,238,'horizontal','',0,410,-290,620,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11431,238,'if','PR_OK == result',0,410,-250,170,20,610,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(11432,238,'shelf','PR_NOK',0,1190,560,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11433,195,'shelf','PR_NOK',0,720,500,80,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11434,195,'shelf','PR_OK',0,450,500,170,40,40,0,NULL,'',NULL,'result');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

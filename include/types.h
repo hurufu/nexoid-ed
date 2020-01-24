@@ -780,7 +780,7 @@ union ServiceStartEvents {
 
 union ConfiguredServices {
     uint8_t raw[2];
-    uint16_t i;
+    uint16_t u;
     struct {
         uint8_t payment : 1;
         uint8_t refund : 1;

@@ -63,8 +63,9 @@ DEPENDS      := $(SOURCES:.c=.d)
 GRAPH_TARGETS := all install uninstall shared
 GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
 
-INSTALLED_FILES  := $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME).a $(LIBNAME).so))
-INSTALLED_FILES  += $(addprefix $(PREFIX)/include/$(NAME)/,$(notdir $(HEADERS)))
+HEADERS_INSTALL_DIR := $(PREFIX)/include/$(NAME)
+INSTALLED_FILES    := $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME).a $(LIBNAME).so))
+INSTALLED_FILES    += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(HEADERS)))
 
 CSCOPE_REF   := cscope.out
 
@@ -136,27 +137,20 @@ wipe: clean
 install: $(INSTALLED_FILES)
 
 $(PREFIX)/lib/$(LIBNAME.a): $(LIBNAME.a)
-	install -D $< $@
+	install -D -m444 $< $@
 $(PREFIX)/lib/$(LIBNAME.so): $(LIBNAME.so)
-	install -D $< $@
+	install -D -m555 $< $@
 $(PREFIX)/include/$(NAME)/%.h: include/%.h
-	install -D $< $@
+	install -D -m444 $< $@
 $(PREFIX)/include/$(NAME)/%.h: %.h
-	install -D $< $@
-$(PREFIX)/include/$(NAME)/%.h: include/data_types/%.h
-	install -D $< $@
-$(PREFIX)/include/$(NAME)/%.h: include/interfaces/%.h
-	install -D $< $@
-$(PREFIX)/include/$(NAME)/%.h: include/configuration/%.h
-	install -D $< $@
-$(PREFIX)/include/$(NAME)/%.h: include/global_data_elements/%.h
-	install -D $< $@
-$(PREFIX)/include/$(NAME)/%.h: include/local_data_elements/%.h
-	install -D $< $@
+	install -D -m444 $< $@
 
 .PHONY: uninstall
+uninstall: F := $(sort $(wildcard $(INSTALLED_FILES)))
+uninstall: D := $(sort $(wildcard $(HEADERS_INSTALL_DIR)))
 uninstall:
-	rm -- $(INSTALLED_FILES)
+	$(if $(strip $F),$(RM) -f -- $F,)
+	$(if $(strip $D),rmdir -- $D,)
 
 .PRECIOUS: %.c %.h
 %.c %.h: %.drn

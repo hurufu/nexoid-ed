@@ -163,6 +163,7 @@ uninstall:
 %.i: %.c
 	$(CC) $(CPPFLAGS) -E -o $@ $<
 %.drn: DropTables.sql %.sql
+	$(if $(strip $(shell lsof $^)),$(error Prior to proceed with '$@', close file(s): $^),)
 	cat $^ | $(SQLITE3) -batch $@
 	chmod a-x $@
 

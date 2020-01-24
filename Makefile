@@ -168,8 +168,8 @@ uninstall:
 	$(CC) $(CPPFLAGS) $(CFLAGS) -S -o $@ $<
 %.i: %.c
 	$(CC) $(CPPFLAGS) -E -o $@ $<
-%.drn: %.sql
-	$(SQLITE3) -batch $@ <$<
+%.drn: DropTables.sql %.sql
+	cat $^ | $(SQLITE3) -batch $@
 	chmod a-x $@
 
 .syntastic_c_config: Makefile

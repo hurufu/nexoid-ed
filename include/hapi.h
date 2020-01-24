@@ -42,6 +42,11 @@ enum HapiResult hapi_Online_Approval_Request(void);
 
 /* Perform status check
  *
+ * If HAP will determine that contacting TMS is needed then ttd.callTms is
+ * expected to be in this function. It's not defined in nexo, but may be
+ * implicitly deduced, because during Financial Startup contact to TMS should
+ * be somehow triggered after hapi_Status.
+ *
  * nexo-FAST v.3.2, section 12.1.3.1
  * nexo-IS v.4.0, section 3.1
  */

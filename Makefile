@@ -180,13 +180,6 @@ csv: $(DRAKON_FILES:.drn=.csv)
 %.csv: %.drn SelectItemMsg.sql
 	$(SQLITE3) -batch -csv $< <SelectItemMsg.sql >$@
 
-.PHONY: trace
-trace: trace.log
-	$(ADDR2LINE) -spf -e $(EXECUTABLE) <$< | paste $< -
-trace.log: $(EXECUTABLE) adjust_addr.awk
-	./$<
-	awk --non-decimal-data -f $(word 2,$^) $@ | sponge $@
-
 .PHONY: cflow
 cflow: $(NAME).cflow
 $(NAME).cflow:

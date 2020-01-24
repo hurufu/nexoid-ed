@@ -135,7 +135,7 @@ INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','ne
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-168 22','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0);
 INSERT INTO diagrams VALUES(182,'Initialise_Kernel_E','-65 -66','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
-INSERT INTO diagrams VALUES(183,'Authorisation_Request','-298 -200','nexo-FAST v.3.2 fig. 58 notes 10 and 20',75.0);
+INSERT INTO diagrams VALUES(183,'Authorisation_Request','-298 -340','nexo-FAST v.3.2 fig. 58 notes 10 and 20',75.0);
 INSERT INTO diagrams VALUES(184,'Pin_Entry','92 -58',NULL,75.0);
 INSERT INTO diagrams VALUES(185,'Transaction_Completion','-112 -121',NULL,70.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',70.0);
@@ -152,7 +152,7 @@ INSERT INTO diagrams VALUES(197,'Update_Interfaces_No_Contactless','-448 -185',N
 INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -160','',75.0);
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-168 362','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Dsi_Check_Card_Service','315.09523809523813 62.190476190476204','Based on nexo-FAST v.3.2 note 20-10',75.0);
-INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','778 -81','',85.0);
+INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','718 -80','',85.0);
 INSERT INTO diagrams VALUES(202,'Process_Event','652 134','',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 201','',75.0);
@@ -175,7 +175,7 @@ INSERT INTO diagrams VALUES(220,'Issuer_Authentication','-2 5','',75.0);
 INSERT INTO diagrams VALUES(221,'First_Issuer_Script_Processing','0 0','In nexo spec there is one single procedure Issuer_Script_Processing with parameters 0x71 or 0x72, which is not useful, because it adds redundant complexity (additional "if" statements) to a simple function, that''s why it''s splitted here',75.0);
 INSERT INTO diagrams VALUES(222,'Second_Issuer_Script_Processing','0 0','In nexo spec there is one single procedure Issuer_Script_Processing with parameters 0x71 or 0x72, which is not useful, because it adds redundant complexity (additional "if" statements) to a simple function, that''s why it''s splitted here',75.0);
 INSERT INTO diagrams VALUES(223,'Terminal_Action_Analysis_Unable_To_Go_Online','185 0',NULL,75.0);
-INSERT INTO diagrams VALUES(224,'Data_Output_Interaction','-97 -368','',75.0);
+INSERT INTO diagrams VALUES(224,'Data_Output_Interaction','-362 -368','',75.0);
 INSERT INTO diagrams VALUES(225,'Online_Approval_Request','-98 -58','',75.0);
 INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,75.0);
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
@@ -202,7 +202,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,201,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,224,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4948,7 +4948,7 @@ INSERT INTO items VALUES(9232,201,'shelf','e1.cardholderDefaultLanguage',0,1700,
 INSERT INTO items VALUES(9233,201,'insertion','Initialise_Basic_Data();',0,1700,400,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9234,201,'address',replace('Payment Service\ninitialisation','\n',char(10)),0,650,630,120,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9235,201,'shelf','S_NONE',0,1210,130,180,40,40,0,NULL,'',NULL,'ttd.selectedService');
-INSERT INTO items VALUES(9237,201,'if','PR_DONE == result',0,1210,530,180,20,110,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9237,201,'if','PR_OK == result',0,1210,530,180,20,110,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9238,201,'vertical','',0,1500,290,0,400,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9239,201,'address','Nok',0,1500,640,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9243,201,'shelf','PR_BAIL',0,2340,160,50,40,40,0,NULL,'',NULL,'result');
@@ -6117,7 +6117,7 @@ INSERT INTO items VALUES(10641,224,'shelf','PR_OK',0,290,310,190,40,40,0,NULL,''
 INSERT INTO items VALUES(10642,224,'action','enum ProcedureResult result;',0,290,-30,190,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10645,103,'insertion',replace('result =\nData_Output_Interaction(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_RECEIPT_PRINTING_FAILED\n      , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED\n    }\n);','\n',char(10)),0,920,280,190,70,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10646,104,'insertion',replace('enum CardholderMessage msg[] = {\n    CRDHLDR_SSN_REQUEST_SIGNATURE\n};\n\nresult =\nData_Output_Interaction(1, msg);','\n',char(10)),0,1500,790,150,60,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10647,201,'insertion',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nData_Output_Interaction(sizeof(msg), msg);','\n',char(10)),0,1210,400,180,60,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10647,201,'insertion',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_ACT_NONE\n};\n\nresult =\nData_Output_Interaction(sizeof(msg), msg);','\n',char(10)),1,1210,400,180,60,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10648,134,'insertion',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_PLEASE_WAIT\n};\n\nresult =\nData_Output_Interaction(sizeof(msg), msg);','\n',char(10)),0,6920,540,180,60,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10649,102,'insertion',replace('result =\nData_Output_Interaction(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_REQUEST_SIGNATURE\n      , CRDHLDR_MSG_REQUEST_SIGNATURE\n    }\n);','\n',char(10)),0,650,950,240,70,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10650,102,'insertion',replace('result =\nData_Output_Interaction(2,\n    (enum CardholderMessage[2]){\n        CRDHLDR_SSN_RECEIPT_PRINTING_FAILED\n      , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED\n    }\n);','\n',char(10)),0,920,510,190,70,60,0,NULL,NULL,NULL,NULL);
@@ -6743,6 +6743,7 @@ INSERT INTO items VALUES(11431,238,'if','PR_OK == result',0,410,-250,170,20,610,
 INSERT INTO items VALUES(11432,238,'shelf','PR_NOK',0,1190,560,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11433,195,'shelf','PR_NOK',0,720,500,80,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11434,195,'shelf','PR_OK',0,450,500,170,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11435,224,'commentout',replace('NEXO: Spec is inconsistent in return\nvalue for Data Output Interaction.\nIt mixes DONE and OK.','\n',char(10)),0,-110,310,160,40,60,1,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

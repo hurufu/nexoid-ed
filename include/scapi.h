@@ -47,6 +47,18 @@ enum ScapiResult scapi_Set_Update_Pre_Auth_Total_Amount(void);
  *   ~ ttd.preSelectedAcquirerNumber
  * E_CHOICE_OF_APPLICATION:
  *   ~ nothing
+ * E_CARD_INSERTED:
+ *   ~ nothing
+ * E_CARD_SWIPED:
+ *   ~ ttd.pan // Nexo specifies different place
+ *   ~ ttd.expiryDate // Nexo specifies different place
+ * E_MANUAL_ENTRY:
+ *   ~ ttd.pan
+ *   ~ ttd.expiryDate
+ * E_ACCEPT:
+ *   ~ nothing
+ * E_REFERENCE_ENTRY:
+ *   ~ ttd.referenceData
  *
  * @returns SCAPI_NEW_EVENT if new event was received, or SCAPI_NOK if an error occured.
  */

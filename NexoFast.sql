@@ -26,7 +26,7 @@ INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-134 -148','',75.0
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','-436 72','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3502 90',NULL,75.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-328 -192',NULL,75.0);
-INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','92 -30','nexo-FAST v.3.2 note 15-50',75.0);
+INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','1149 -360','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -295','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
@@ -97,7 +97,7 @@ INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','-120 -8
 INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','141 66',NULL,75.0);
 INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','',75.0);
 INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
-INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','3038 -232','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
+INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','1037 34','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','0 0','',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1252 -85',NULL,75.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','6232 250',NULL,75.0);
@@ -153,7 +153,7 @@ INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 890','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','505 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1237 -129','',85.0);
-INSERT INTO diagrams VALUES(202,'Process_Event','-497 -329','FIXME: Refactor Process Event to make it more linear',75.0);
+INSERT INTO diagrams VALUES(202,'Process_Event','-430 -328','FIXME: Refactor Process Event to make it more linear',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 201','',75.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','412 -450','',75.0);
@@ -181,7 +181,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','1394 -50','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','1891 -50','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -192,7 +192,7 @@ INSERT INTO diagrams VALUES(239,'Check_Configured_Services','-55 -122',NULL,80.0
 INSERT INTO diagrams VALUES(240,'Check_Payment_Service_Configuration','-110 -242',NULL,80.0);
 INSERT INTO diagrams VALUES(241,'Configuration_Error','-133 -133','',75.0);
 INSERT INTO diagrams VALUES(242,'Check_Service_Settings','-245 -308',NULL,80.0);
-INSERT INTO diagrams VALUES(244,'Check_Single_Service_Settings','-367 30',NULL,80.0);
+INSERT INTO diagrams VALUES(244,'Check_Single_Service_Settings','2571 30',NULL,80.0);
 INSERT INTO diagrams VALUES(245,'Check_E4','-370 -740','',80.0);
 INSERT INTO diagrams VALUES(246,'Check_Config','-107 -73','TODO: Validate all config tables',80.0);
 INSERT INTO diagrams VALUES(247,'Check_E0','-60 -187',NULL,80.0);
@@ -202,7 +202,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,202,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,40,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -585,18 +585,18 @@ INSERT INTO items VALUES(1226,38,'address','Ok',0,150,670,130,30,60,0,NULL,NULL,
 INSERT INTO items VALUES(1227,38,'branch','Nok',0,1090,10,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1228,38,'branch','Return',0,1510,10,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1229,38,'address','Return',0,1090,670,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1246,40,'beginend','Check_Service_Start_Conditions',0,520,-20,130,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1247,40,'beginend','End',0,1930,410,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1248,40,'vertical','',0,520,0,0,600,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1249,40,'vertical','',0,1730,20,0,580,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1250,40,'vertical','',0,1930,20,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1251,40,'horizontal','',0,520,20,1410,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1252,40,'arrow','',0,380,20,140,580,1350,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1253,40,'branch','Local',0,520,70,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1254,40,'address',replace('Check if service\nselected','\n',char(10)),0,520,540,120,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1255,40,'branch','Satisfied',0,1730,70,110,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1256,40,'branch','End',0,1930,70,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1257,40,'address','End',0,1730,550,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1246,40,'beginend','Check_Service_Start_Conditions',0,610,-50,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1247,40,'beginend','End',0,2280,290,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1248,40,'vertical','',0,610,-30,0,440,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1249,40,'vertical','',0,2080,-10,0,420,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1250,40,'vertical','',0,2280,-10,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1251,40,'horizontal','',0,610,-10,1670,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1252,40,'arrow','',0,470,-10,140,420,1610,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1253,40,'branch','Local',0,610,40,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1254,40,'address',replace('Check if service\nselected','\n',char(10)),0,610,350,120,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1255,40,'branch','Satisfied',0,2080,40,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1256,40,'branch','End',0,2280,40,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1257,40,'address','End',0,2080,360,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1470,42,'beginend','Process_Language_Selection',0,170,-20,120,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1471,42,'beginend','End',0,170,620,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1472,42,'vertical','',0,170,0,0,600,0,0,NULL,'',NULL,'');
@@ -751,7 +751,7 @@ INSERT INTO items VALUES(1713,38,'insertion',replace('result =\nUpdate_Pre_Autho
 INSERT INTO items VALUES(1714,38,'horizontal','',0,150,360,250,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1715,38,'if','ttd.terminalErrorIndicator',0,150,560,130,20,70,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1716,38,'shelf','PR_OK',0,970,320,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(1717,40,'shelf','PR_CONDITIONS_SATISFIED',0,1730,250,110,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(1717,40,'shelf','PR_CONDITIONS_SATISFIED',0,2080,150,110,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(1729,18,'shelf','PR_UNINITIALISED',0,650,570,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(1730,18,'action','return result;',0,5920,710,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1731,18,'horizontal','',0,660,310,100,0,0,0,NULL,NULL,NULL,NULL);
@@ -768,10 +768,10 @@ INSERT INTO items VALUES(1762,19,'action','return result;',0,7660,350,70,20,0,0,
 INSERT INTO items VALUES(1763,22,'action','return result;',0,600,570,160,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1764,22,'horizontal','',0,610,-110,110,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1765,22,'action','returns enum ProcedureResult',0,850,-110,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1771,40,'horizontal','',0,520,-20,150,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1772,40,'action','returns enum ProcedureResult',0,800,-20,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1773,40,'action','return result;',0,1930,350,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1774,40,'shelf','PR_UNINITIALISED',0,520,170,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(1771,40,'horizontal','',0,610,-50,150,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1772,40,'action','returns enum ProcedureResult',0,890,-50,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1773,40,'action','return result;',0,2280,230,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1774,40,'shelf','PR_UNINITIALISED',0,610,130,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(1779,55,'horizontal','',0,50,270,120,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1780,55,'action','returns enum ProcedureResult',0,300,270,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1781,55,'shelf','PR_UNINITIALISED',0,50,490,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
@@ -2789,20 +2789,19 @@ INSERT INTO items VALUES(5577,102,'commentin',replace('NEXO doesn''t specify\nan
 INSERT INTO items VALUES(5578,102,'commentout','In nexo spec only one message is sent',0,1310,510,160,20,40,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5579,102,'commentout','In nexo spec only one message is sent',0,1110,950,160,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5580,102,'vertical','',0,1020,1080,0,120,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5581,40,'vertical','',0,1480,20,0,580,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5582,40,'branch','Not satisfied',0,1480,70,120,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5583,40,'address','End',0,1480,550,120,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5584,40,'shelf','PR_CONDITIONS_NOT_SATISFIED',0,1480,250,120,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(5585,40,'vertical','',0,780,20,0,580,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5586,40,'branch',replace('Check if service\nselected','\n',char(10)),0,780,80,110,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5587,40,'address',replace('Match minimal\nstart conditions','\n',char(10)),0,780,540,110,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5588,40,'if',replace('S_NONE\n==\nttd.selectedService','\n',char(10)),0,780,260,110,40,100,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5589,40,'vertical','',0,990,260,0,340,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5590,40,'address','Not satisfied',0,990,550,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5591,40,'vertical','',0,1210,20,0,580,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5592,40,'branch',replace('Match minimal\nstart conditions','\n',char(10)),0,1210,80,130,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5593,40,'address','Satisfied',0,1210,550,130,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(5594,40,'commentin',replace('TODO: Not implemented until\nproper configuration is\navailable','\n',char(10)),0,1210,250,130,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5581,40,'vertical','',0,1830,-10,0,420,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5582,40,'branch','Not satisfied',0,1830,40,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5583,40,'address','End',0,1830,360,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5584,40,'shelf','PR_CONDITIONS_NOT_SATISFIED',0,1830,150,120,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(5585,40,'vertical','',0,860,-10,0,420,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5586,40,'branch',replace('Check if service\nselected','\n',char(10)),0,860,50,110,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5587,40,'address',replace('Match minimal\nstart conditions','\n',char(10)),0,860,350,110,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5588,40,'if',replace('S_NONE\n==\nttd.selectedService','\n',char(10)),0,860,190,110,40,90,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5589,40,'vertical','',0,1060,190,0,220,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5590,40,'address','Not satisfied',0,1060,360,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5591,40,'vertical','',0,1360,-10,0,420,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5592,40,'branch',replace('Match minimal\nstart conditions','\n',char(10)),0,1360,50,210,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(5593,40,'address','Satisfied',0,1640,360,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(5631,70,'if',replace('ttd.serviceStartEvents\n.cardInserted','\n',char(10)),0,410,270,160,30,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5632,70,'vertical','',0,590,270,0,250,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5633,70,'horizontal','',0,410,520,180,0,0,0,NULL,NULL,NULL,NULL);
@@ -6809,6 +6808,12 @@ INSERT INTO items VALUES(11554,51,'shelf','PR_DONE',0,400,520,170,40,40,0,NULL,'
 INSERT INTO items VALUES(11555,51,'shelf','PR_REINITIALISE',0,660,520,70,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11556,51,'shelf','1',0,400,420,170,40,40,0,NULL,'',NULL,'ttd.serviceStartEvents.accept');
 INSERT INTO items VALUES(11557,52,'commentout',replace('NEXO: This function is really underdefined\nby the spec, basically in the spec it does\nnothing, so here it also does nothing.','\n',char(10)),0,410,160,180,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11559,40,'loopend','',0,1360,290,210,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11561,40,'action','size_t i;',0,610,210,120,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11562,40,'loopstart','i = 0; i < sc.minimumServiceStartConditions.s; i++',0,1360,130,210,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11564,40,'if',replace('sc.minimumServiceStartConditions.a[i].u\n==\nttd.serviceStartEvents.u','\n',char(10)),0,1360,210,210,40,70,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11565,40,'vertical','',0,1640,210,0,200,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11566,40,'address','Not satisfied',0,1360,360,210,30,60,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

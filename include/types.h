@@ -767,6 +767,7 @@ union TerminalCapabilities {
 
 union ServiceStartEvents {
     uint8_t raw[1];
+    uint8_t u;
     struct {
         uint8_t cardInserted : 1;
         uint8_t cardSwiped : 1;

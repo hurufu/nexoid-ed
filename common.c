@@ -2,7 +2,6 @@
 
 #include <check.h>
 
-struct TerminalConfiguration tc;
 struct ApplicationProfile ap;
 struct ServiceSettingsEntry sc;
 struct TerminalTransactionData ttd;
@@ -10,6 +9,7 @@ struct KernelData kd;
 struct CardData cd;
 struct OnlineResponseData ord;
 
+struct PermanentTerminalSpecificData e0;
 struct TerminalSpecificData e1;
 struct ApplicationProfileSelectionTable* e2;
 struct ServiceSettingsTable e4;
@@ -21,6 +21,7 @@ struct AidPreferenceTable* ee;
 
 struct CandidateList* g_CandidateList;
 enum PrinterStatus g_PrinterStatus;
+enum TmsContactLevel g_callTms;
 struct TerminalListOfAid* g_TerminalListOfAid;
 
 static

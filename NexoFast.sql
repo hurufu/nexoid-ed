@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','4990 192','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','4912 350','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','6578 -10','',80.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','-88 -240','',75.0);
@@ -137,7 +137,7 @@ INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0)
 INSERT INTO diagrams VALUES(182,'Initialise_Kernel_E','-65 -66','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(183,'Authorisation_Request','-298 -340','nexo-FAST v.3.2 fig. 58 notes 10 and 20',75.0);
 INSERT INTO diagrams VALUES(184,'Pin_Entry','92 -58',NULL,75.0);
-INSERT INTO diagrams VALUES(185,'Transaction_Completion','-112 -121',NULL,70.0);
+INSERT INTO diagrams VALUES(185,'Transaction_Completion','-111 -691',replace('Nexo specifies to execute each step of Transaction Completion regardles of any error conditions, but this implementation has an addtional error: Interface Contract Violation, it''s the hardest possible error, and default hadling is to immediately go to Main and execute Diagnostics and Maintenance and terminate nexo application. Here this handling is relaxed and bailing out will occur after\nall steps of Transaction Completion.','\n',char(10)),70.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',70.0);
 INSERT INTO diagrams VALUES(187,'Tc_Additional_Confirmation','-185 -38',NULL,80.0);
 INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-467 579',NULL,70.0);
@@ -202,7 +202,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,224,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,185,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,

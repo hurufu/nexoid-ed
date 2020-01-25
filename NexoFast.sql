@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','4912 350','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1044 216','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','6578 -10','',80.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','-88 -240','',75.0);
@@ -45,11 +45,11 @@ INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','322 -1
 INSERT INTO diagrams VALUES(66,'Technology_Selection','-150 -240','',75.0);
 INSERT INTO diagrams VALUES(70,'Is_Card_In_Chip_Reader','-138 -168','',75.0);
 INSERT INTO diagrams VALUES(71,'Is_Card_In_Magnetic_Stripe_Reader','-190 -104','',75.0);
-INSERT INTO diagrams VALUES(72,'Pre_Processing','2543 169','',70.0);
+INSERT INTO diagrams VALUES(72,'Pre_Processing','328 -115','',70.0);
 INSERT INTO diagrams VALUES(73,'Copy_Combination_Lists','172 192','',75.0);
-INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-17 -205','',75.0);
-INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','233 -151','',70.0);
-INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-150 -557','FIXME: This function handles only single event at a time',59.0);
+INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-16 -337','',75.0);
+INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','518 1564','',70.0);
+INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-149 -471','FIXME: This function handles only single event at a time',59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -64','',75.0);
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','132 235','',75.0);
@@ -97,15 +97,15 @@ INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','-120 -8
 INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','141 66',NULL,75.0);
 INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','',75.0);
 INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
-INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','1037 34','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
+INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','297 -30','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','0 0','',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1252 -85',NULL,75.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','6232 250',NULL,75.0);
 INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','1269 -96',replace('There is no parsing per-se in the current implementation,\nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','-518 -178',NULL,75.0);
-INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','205 138',NULL,80.0);
-INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','694 -120',NULL,85.0);
+INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','580 12',NULL,80.0);
+INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','750 -177',NULL,85.0);
 INSERT INTO diagrams VALUES(141,'Build_Candidate_List','1098 -222','TODO: Move to separate module',75.0);
 INSERT INTO diagrams VALUES(142,'Ctlss_Application_Kernel_Profile_Selection','136 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(143,'Is_Fallback_To_Msr_Allowed','186 -182','nexo-FAST note 122-95',80.0);
@@ -186,7 +186,6 @@ INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle Sta
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(236,'Proprietary_Startup_Sequence','316 127','',90.0);
-INSERT INTO diagrams VALUES(237,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',90.0);
 INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','35 -570',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),80.0);
 INSERT INTO diagrams VALUES(239,'Check_Configured_Services','-55 -122',NULL,80.0);
 INSERT INTO diagrams VALUES(240,'Check_Payment_Service_Configuration','-110 -242',NULL,80.0);
@@ -196,13 +195,14 @@ INSERT INTO diagrams VALUES(244,'Check_Single_Service_Settings','2571 30',NULL,8
 INSERT INTO diagrams VALUES(245,'Check_E4','-370 -740','',80.0);
 INSERT INTO diagrams VALUES(246,'Check_Config','-107 -73','TODO: Validate all config tables',80.0);
 INSERT INTO diagrams VALUES(247,'Check_E0','-60 -187',NULL,80.0);
+INSERT INTO diagrams VALUES(248,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',90.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,129,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,248,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -247,7 +247,7 @@ INSERT INTO items VALUES(652,18,'if','PR_OK == result',0,650,820,120,20,70,1,NUL
 INSERT INTO items VALUES(653,18,'vertical','',0,840,820,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(654,18,'address','Assert Nok',0,840,910,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(655,18,'insertion',replace('result = \nTechnology_Selection();','\n',char(10)),0,1020,650,110,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(656,18,'insertion',replace('result =\nApplication_Kernel_And_Profile_Selection();','\n',char(10)),0,1740,530,190,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(656,18,'insertion',replace('result =\nApplication_Kernel_And_Profile_Selection();','\n',char(10)),1,1740,530,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(657,18,'select','result',0,1740,600,190,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(658,18,'horizontal','',0,1740,640,880,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(659,18,'case','PR_OK',0,1740,680,190,20,60,0,NULL,'',NULL,'');
@@ -6420,25 +6420,6 @@ INSERT INTO items VALUES(11072,232,'vertical','',0,4170,60,0,650,0,0,NULL,NULL,N
 INSERT INTO items VALUES(11073,232,'address','(B) Idle',0,4170,660,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11074,232,'branch','Contact TMS',0,4170,110,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11075,232,'commentout',replace('This isn''t defined in Main\nfunction flow, but it''s\nimplied in different places.\nSee:\nnexo-IS v.4.0, lines 523~527,\nand section 4.2','\n',char(10)),0,3800,160,130,60,240,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11076,237,'beginend','Perform_Terminal_Managment_Session',0,370,-20,150,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11077,237,'beginend','End',0,370,540,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11078,237,'vertical',NULL,0,370,0,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11079,237,'horizontal',NULL,0,370,-20,180,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11080,237,'action','returns enum ProcedureResult',0,670,-20,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11081,237,'action','enum ProcedureResult result;',0,370,40,200,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11082,237,'action','return result;',0,370,480,200,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11083,237,'output',replace('const enum TmapiResult tmapi_result =\ntmapi_Perform_Terminal_Managment_Session();','\n',char(10)),0,370,130,200,50,40,0,NULL,NULL,NULL,'TMAPI');
-INSERT INTO items VALUES(11084,237,'select','tmapi_result',0,370,220,200,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11085,237,'horizontal','',0,370,260,480,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11086,237,'case','TMAPI_OK',0,370,300,200,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11087,237,'case','TMAPI_NOK',0,640,300,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11088,237,'case','',0,850,300,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11089,237,'vertical','',0,640,260,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11090,237,'vertical','',0,850,260,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11091,237,'shelf','Interface_Contract_Violation();',0,850,380,140,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(11092,237,'horizontal','',0,370,440,480,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11093,237,'shelf','PR_OK',0,370,380,200,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(11094,237,'shelf','PR_NOK',0,640,380,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11095,232,'insertion',replace('result =\nPerform_Terminal_Managment_Session();','\n',char(10)),0,4170,360,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11096,232,'if','PR_OK == result',0,4170,430,200,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(11097,232,'vertical','',0,4450,430,0,280,0,0,NULL,'',NULL,'');
@@ -6814,6 +6795,25 @@ INSERT INTO items VALUES(11562,40,'loopstart','i = 0; i < sc.minimumServiceStart
 INSERT INTO items VALUES(11564,40,'if',replace('sc.minimumServiceStartConditions.a[i].u\n==\nttd.serviceStartEvents.u','\n',char(10)),0,1360,210,210,40,70,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11565,40,'vertical','',0,1640,210,0,200,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11566,40,'address','Not satisfied',0,1360,360,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11567,248,'beginend','Perform_Terminal_Managment_Session',0,370,-20,150,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11568,248,'beginend','End',0,370,540,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11569,248,'vertical','',0,370,0,0,520,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11570,248,'horizontal','',0,370,-20,180,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11571,248,'action','returns enum ProcedureResult',0,670,-20,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11572,248,'action','enum ProcedureResult result;',0,370,40,200,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11573,248,'action','return result;',0,370,480,200,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11574,248,'output',replace('const enum TmapiResult tmapi_result =\ntmapi_Perform_Terminal_Managment_Session();','\n',char(10)),0,370,130,200,50,40,0,NULL,'',NULL,'TMAPI');
+INSERT INTO items VALUES(11575,248,'select','tmapi_result',0,370,220,200,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11576,248,'horizontal','',0,370,260,480,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11577,248,'case','TMAPI_OK',0,370,300,200,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11578,248,'case','TMAPI_NOK',0,640,300,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11579,248,'case','',0,850,300,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11580,248,'vertical','',0,640,260,0,180,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11581,248,'vertical','',0,850,260,0,180,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11582,248,'shelf','Interface_Contract_Violation();',0,850,380,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11583,248,'horizontal','',0,370,440,480,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11584,248,'shelf','PR_OK',0,370,380,200,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11585,248,'shelf','PR_NOK',0,640,380,50,40,40,0,NULL,'',NULL,'result');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -7050,7 +7050,6 @@ INSERT INTO tree_nodes VALUES(317,175,'item',NULL,235);
 INSERT INTO tree_nodes VALUES(318,175,'folder','PAPI',NULL);
 INSERT INTO tree_nodes VALUES(319,318,'item','',236);
 INSERT INTO tree_nodes VALUES(320,175,'folder','TMAPI',NULL);
-INSERT INTO tree_nodes VALUES(321,175,'item',NULL,237);
 INSERT INTO tree_nodes VALUES(322,313,'item','',238);
 INSERT INTO tree_nodes VALUES(323,313,'item',NULL,239);
 INSERT INTO tree_nodes VALUES(324,313,'item',NULL,240);
@@ -7061,6 +7060,7 @@ INSERT INTO tree_nodes VALUES(330,313,'folder','Check Config',NULL);
 INSERT INTO tree_nodes VALUES(331,330,'item','',245);
 INSERT INTO tree_nodes VALUES(332,330,'item',NULL,246);
 INSERT INTO tree_nodes VALUES(333,330,'item',NULL,247);
+INSERT INTO tree_nodes VALUES(334,320,'item','',248);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

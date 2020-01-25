@@ -1135,6 +1135,7 @@ union EeaProcessSettings {
 enum PrinterStatus {
     PRINTER_UNAVAILABLE
   , PRINTER_OPERATIONAL
+  , PRINTER_PERMANENT_FAILURE // Not defined in nexo
 };
 
 #define TERMINAL_TYPE_ATTENDED(T)\

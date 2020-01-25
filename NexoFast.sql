@@ -73,7 +73,7 @@ INSERT INTO diagrams VALUES(99,'Save_Transaction','9 -208',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(101,'Print_Transaction_Receipt','-277 -297',NULL,85.0);
 INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','181 -14',NULL,70.0);
-INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','275 -2',NULL,80.0);
+INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','15 -418',NULL,80.0);
 INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','812 586',NULL,75.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(106,'Perform_General_Checks','0 0',NULL,75.0);
@@ -204,7 +204,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,250,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,103,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4716,18 +4716,18 @@ INSERT INTO items VALUES(8916,99,'vertical','',0,650,180,0,220,0,0,NULL,NULL,NUL
 INSERT INTO items VALUES(8917,99,'horizontal','',0,460,400,190,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8920,99,'shelf','PR_OK',0,460,340,130,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(8921,99,'commentin',replace('TODO: Save Transaction for\nReceipt Copy','\n',char(10)),0,460,250,130,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8922,103,'shelf','PR_UNINITIALISED',0,660,-140,240,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(8923,103,'if','s_tc.printCardholderReceipt',0,660,-60,240,20,380,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8924,103,'output',replace('result =\nscapi_Data_Print_Interaction(PRINT_CARDHOLDER_RECEIPT);','\n',char(10)),0,660,30,240,50,40,0,NULL,'',NULL,'SCAP');
+INSERT INTO items VALUES(8922,103,'shelf','PR_UNINITIALISED',0,660,-140,220,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(8923,103,'if','s_tc.printCardholderReceipt',0,660,-60,220,20,400,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8924,103,'output',replace('result =\nData_Print_Interaction(PRINT_CARDHOLDER_RECEIPT);','\n',char(10)),0,660,30,220,50,40,0,NULL,'',NULL,'SCAP');
 INSERT INTO items VALUES(8925,103,'vertical','',0,1280,-60,0,600,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8926,103,'horizontal','',0,660,540,620,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8927,103,'if','result == PR_OK',0,660,120,240,20,20,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(8927,103,'if','result == PR_OK',0,660,120,220,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8929,103,'vertical','',0,920,120,0,420,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8930,103,'if','result == PR_OK',0,920,400,190,20,30,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8931,103,'vertical','',0,1140,400,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8932,103,'commentin',replace('NEXO doesn''t specify\nany action on error\nat this point','\n',char(10)),0,1140,480,98,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8933,103,'action','return result;',0,660,680,240,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8934,103,'shelf','PR_DONE',0,660,600,240,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(8933,103,'action','return result;',0,660,680,220,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8934,103,'shelf','PR_DONE',0,660,600,220,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(8935,103,'commentout','In nexo spec only one message is sent',0,1100,140,160,20,20,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8936,103,'action','returns enum ProcedureResult',0,940,-220,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8937,103,'horizontal','',0,660,-220,270,0,0,0,NULL,NULL,NULL,NULL);

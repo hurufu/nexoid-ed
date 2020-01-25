@@ -22,3 +22,16 @@ extern struct TerminalListOfBid* e7;
 extern struct ApplicationProfileSelectionTableNonChip* e8;
 extern struct CombinationListAndParameters* ec;
 extern struct AidPreferenceTable* ee;
+
+// Controls if TMS should be contacted
+//
+// It's defined only in nexo-IS, and this document is sometimes inconsistent
+// with nexo-FAST. Like here, in IS it's written that this variable may be
+// set during Authorisation Request, but may be handled only in Idle, FAST
+// defines what Idle is, and Default Service Initialisation will always preceed
+// it, so if this variable will be part of ttd, then it will be always reset
+// and won't trigger anything, if implement it according to the specification.
+// That's why it's move outside of ttd as a separated free global variable
+//
+// TODO: Figure out something better
+extern enum TmsContactLevel g_callTms;

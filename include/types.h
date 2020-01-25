@@ -2120,8 +2120,6 @@ struct TerminalTransactionData {
     union ServiceStartEvents serviceStartEvents;
     enum OdaMethod odaMethodToBePerformed;
 
-    enum TmsContactLevel callTms; // Defined only in nexo-IS
-
     // FIXME: Consider moving to a different location
     struct EventTable {
         bool Table[E_MAX];

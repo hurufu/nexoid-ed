@@ -27,6 +27,29 @@ enum ScapiResult scapi_Update_Pre_Auth_Amount_Entry(void);
 
 enum ScapiResult scapi_Set_Update_Pre_Auth_Total_Amount(void);
 
+/* Blocks until an event from SCAP is received
+ *
+ * This is the most complex function to implement, consider some simplifications.
+ *
+ * Global tags that are expected to be set for each event (if applicable):
+ *
+ * E_AMOUNT_ENTRY:
+ *   ~ ttd.transactionAmount
+ *   ~ ttd.cashbackAmount
+ *   ~ ttd.supplementaryAmount
+ *   ~ ttd.supplementaryAmountConfirmed
+ *   ~ ttd.minus
+ * E_SERVICE_SELECTION:
+ *   ~ ttd.selectedService
+ * E_LANGUAGE_SELECTION:
+ *   ~ ttd.selectedLanguage
+ * E_ACQUIRER_PRESELECTION:
+ *   ~ ttd.preSelectedAcquirerNumber
+ * E_CHOICE_OF_APPLICATION:
+ *   ~ nothing
+ *
+ * @returns SCAPI_NEW_EVENT if new event was received, or SCAPI_NOK if an error occured.
+ */
 enum ScapiResult scapi_Wait_For_Event(void);
 
 enum ScapiResult scapi_Update_Interfaces(enum InterfaceStatus);

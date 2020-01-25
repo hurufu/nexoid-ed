@@ -49,7 +49,7 @@ INSERT INTO diagrams VALUES(72,'Pre_Processing','2543 169','',70.0);
 INSERT INTO diagrams VALUES(73,'Copy_Combination_Lists','172 192','',75.0);
 INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-17 -205','',75.0);
 INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','233 -151','',70.0);
-INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-154 -729',NULL,59.0);
+INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-150 -557','FIXME: This function handles only single event at a time',59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -64','',75.0);
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','132 235','',75.0);
@@ -97,7 +97,7 @@ INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','-120 -8
 INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','141 66',NULL,75.0);
 INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','',75.0);
 INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
-INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','2581 -430','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
+INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','3038 -232','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','0 0','',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1252 -85',NULL,75.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','6232 250',NULL,75.0);
@@ -202,7 +202,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,44,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,202,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1387,7 +1387,7 @@ INSERT INTO items VALUES(3491,76,'if','ttd.event.Table[E_CHOICE_OF_APPLICATION]'
 INSERT INTO items VALUES(3492,76,'vertical','',0,1070,20,0,540,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3493,76,'shelf','E_CHOICE_OF_APPLICATION',0,1070,80,110,40,40,0,NULL,NULL,NULL,'event');
 INSERT INTO items VALUES(3495,76,'shelf','(struct EventTable){ }',0,340,620,190,40,40,0,NULL,'',NULL,'ttd.event');
-INSERT INTO items VALUES(3496,76,'commentout','Clearing of event table is not descibed in the spec',0,810,620,220,20,50,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3496,76,'commentout','Clearing of event table is not descibed in the spec',0,800,620,220,20,50,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3549,76,'commentout',replace('Reject event if it''s not configured\nin ServiceSettings','\n',char(10)),0,720,-360,150,30,50,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3674,76,'action','return event;',0,340,700,190,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3675,77,'beginend','Manual_Entry_Process',0,170,60,90,20,60,0,NULL,NULL,NULL,NULL);
@@ -5048,7 +5048,7 @@ INSERT INTO items VALUES(9359,202,'if','PR_OK == result',0,340,0,130,20,40,1,NUL
 INSERT INTO items VALUES(9360,202,'if','ttd.event.Table[E_CHOICE_OF_APPLICATION]',0,110,90,180,20,40,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9361,202,'vertical','',0,330,90,0,160,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9362,202,'horizontal','',0,110,250,220,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9363,202,'insertion',replace('result =\nProcess_Choice_of_Application();','\n',char(10)),1,330,150,140,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(9363,202,'insertion',replace('result =\nProcess_Choice_of_Application();','\n',char(10)),0,330,150,140,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9364,202,'if','PR_OK == result',0,330,210,140,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9365,202,'vertical','',0,510,0,0,990,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9366,202,'address','Nok',0,510,940,50,30,60,0,NULL,'',NULL,'');

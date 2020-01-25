@@ -28,9 +28,9 @@ INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3502 90',NULL,75.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-328 -192',NULL,75.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','92 -30','nexo-FAST v.3.2 note 15-50',75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
-INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -185','',90.0);
+INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -295','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
-INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','0 0','',75.0);
+INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','-198 -266','',75.0);
 INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-118 -50','',75.0);
 INSERT INTO diagrams VALUES(47,'Process_Card_Inserted','130 -133','',75.0);
 INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',75.0);
@@ -38,7 +38,7 @@ INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 296','',75.0);
-INSERT INTO diagrams VALUES(55,'Service_Initialisation','-230 217','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
+INSERT INTO diagrams VALUES(55,'Service_Initialisation','1300 216','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1081.6666666666665 -152.0',NULL,60.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','322 -14','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
@@ -153,7 +153,7 @@ INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 890','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','505 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1237 -129','',85.0);
-INSERT INTO diagrams VALUES(202,'Process_Event','3524 -262','',75.0);
+INSERT INTO diagrams VALUES(202,'Process_Event','-209 138','',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 201','',75.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','412 -450','',75.0);
@@ -181,7 +181,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','1451 -50','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','1394 -50','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -606,9 +606,9 @@ INSERT INTO items VALUES(1475,43,'vertical','',0,330,-280,0,760,0,0,NULL,'',NULL
 INSERT INTO items VALUES(1476,44,'beginend','Process_Choice_of_Application',0,170,-180,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1477,44,'beginend','End',0,170,560,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1478,44,'vertical','',0,170,-160,0,700,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1481,45,'beginend','Process_Acquirer_Preselection',0,170,60,130,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1481,45,'beginend','Process_Acquirer_Preselection',0,170,50,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1482,45,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1483,45,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1483,45,'vertical','',0,170,70,0,300,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1484,46,'beginend','Process_Amount_Entry',0,270,20,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1485,46,'beginend','End',0,270,1210,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1486,46,'vertical','',0,270,40,0,1150,0,0,NULL,'',NULL,'');
@@ -785,10 +785,10 @@ INSERT INTO items VALUES(1790,44,'action','return result;',0,170,500,300,20,0,0,
 INSERT INTO items VALUES(1791,43,'horizontal','',0,330,-280,130,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1792,43,'action','returns enum ProcedureResult',0,590,-280,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1796,43,'action','return result;',0,330,420,190,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1797,45,'horizontal','',0,170,60,130,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1798,45,'action','returns enum ProcedureResult',0,460,60,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1799,45,'action','return PR_NOT_IMPLEMENTED;',0,170,260,120,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1800,45,'horizontal','',0,170,60,250,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1797,45,'horizontal','',0,170,50,130,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1798,45,'action','returns enum ProcedureResult',0,460,50,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1799,45,'action','return PR_OK;',0,170,330,180,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1800,45,'horizontal','',0,170,50,250,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1801,46,'action','returns enum ProcedureResult',0,550,20,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1802,46,'horizontal','',0,270,20,240,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1803,46,'action','return result;',0,270,1150,150,20,0,0,NULL,NULL,NULL,NULL);
@@ -6765,6 +6765,8 @@ INSERT INTO items VALUES(11493,202,'if','PR_NOK == result',0,4200,-90,90,20,70,1
 INSERT INTO items VALUES(11494,202,'vertical','',0,4360,-90,0,150,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11495,202,'horizontal','',0,4200,60,160,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11496,202,'shelf','PR_BAIL',0,4360,-10,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(11497,45,'shelf','true',0,170,250,180,40,40,0,NULL,NULL,NULL,'ttd.acquirerPreSelected');
+INSERT INTO items VALUES(11498,45,'commentin',replace('WARNING: ttd.preSelectedAcquirerNumber\nis assumed to be set properly by the\nTrusted Layer.\nFIXME: Consider changing this.','\n',char(10)),0,170,140,180,50,60,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

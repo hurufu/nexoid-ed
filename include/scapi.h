@@ -29,10 +29,6 @@ enum ScapiResult scapi_Set_Update_Pre_Auth_Total_Amount(void);
 
 enum ScapiResult scapi_Wait_For_Event(void);
 
-enum ScapiResult scapi_Output_Amount_Error(void);
-
-enum ScapiResult scapi_Output_Transaction_Amount(void);
-
 enum ScapiResult scapi_Update_Interfaces(enum InterfaceStatus);
 
 enum ScapiResult scapi_Data_Output_Interaction(size_t size, const enum CardholderMessage msg[size]);

@@ -2069,6 +2069,7 @@ struct TerminalTransactionData {
     union bcd transactionCurrencyExponent;
     union bcd6 transactionAmount;
     union bcd6 cashbackAmount;
+    union bcd6 supplementaryAmount;
     bool transactionAmountEntered;
     bool cardholderRequestedChoiceOfApplication;
     bool cardholderRequestedChangeOfApplication;

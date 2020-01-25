@@ -59,6 +59,18 @@ enum ScapiResult scapi_Set_Update_Pre_Auth_Total_Amount(void);
  *   ~ nothing
  * E_REFERENCE_ENTRY:
  *   ~ ttd.referenceData
+ * E_PRINTER_STATUS:
+ *   ~ g_PrinterStatus
+ * E_ATTENDANT_FORCED_ONLINE:
+ *   ~ nothing
+ * E_CARD_REMOVAL:
+ *   ~ nothing
+ * E_CANCEL:
+ *   ~ nothing
+ * E_REBOOT_REQUESTED:
+ *   ~ nothing
+ * E_TERMINATION_REQUESTED:
+ *   ~ nothing
  *
  * @returns SCAPI_NEW_EVENT if new event was received, or SCAPI_NOK if an error occured.
  */

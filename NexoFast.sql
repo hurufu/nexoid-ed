@@ -36,11 +36,11 @@ INSERT INTO diagrams VALUES(47,'Process_Card_Inserted','130 -133','',75.0);
 INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',75.0);
 INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 -330','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','66 -133','',75.0);
-INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
+INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','-200 -133','',75.0);
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 296','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','1300 216','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
-INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1246 -151',NULL,60.0);
+INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-578 -150',NULL,60.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','322 -14','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','-150 -240','',75.0);
 INSERT INTO diagrams VALUES(70,'Is_Card_In_Chip_Reader','-72 -102','',75.0);
@@ -153,7 +153,7 @@ INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 890','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','505 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1237 -129','',85.0);
-INSERT INTO diagrams VALUES(202,'Process_Event','1372 269','',75.0);
+INSERT INTO diagrams VALUES(202,'Process_Event','-497 -329','FIXME: Refactor Process Event to make it more linear',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 201','',75.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','412 -450','',75.0);
@@ -6808,6 +6808,7 @@ INSERT INTO items VALUES(11553,51,'horizontal','',0,400,580,260,0,0,0,NULL,NULL,
 INSERT INTO items VALUES(11554,51,'shelf','PR_DONE',0,400,520,170,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11555,51,'shelf','PR_REINITIALISE',0,660,520,70,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11556,51,'shelf','1',0,400,420,170,40,40,0,NULL,'',NULL,'ttd.serviceStartEvents.accept');
+INSERT INTO items VALUES(11557,52,'commentout',replace('NEXO: This function is really underdefined\nby the spec, basically in the spec it does\nnothing, so here it also does nothing.','\n',char(10)),0,410,160,180,40,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

@@ -38,7 +38,7 @@ INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 0','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','0 0','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','0 0','',75.0);
 INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 296','',75.0);
-INSERT INTO diagrams VALUES(55,'Service_Initialisation','-216 224','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
+INSERT INTO diagrams VALUES(55,'Service_Initialisation','725 223','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1081.6666666666665 -152.0',NULL,60.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','322 -14','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
@@ -181,7 +181,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','963 -52','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','4793 -50','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','304 -362','',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -202,7 +202,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,55,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,232,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -6261,17 +6261,17 @@ INSERT INTO items VALUES(10850,230,'shelf','Interface_Contract_Violation();',0,7
 INSERT INTO items VALUES(10851,230,'action','return result;',0,330,550,160,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10854,230,'action','enum ProcedureResult result;',0,320,110,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10860,232,'beginend','Main',0,-40,0,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10861,232,'beginend','End',0,5500,340,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10861,232,'beginend','End',0,5580,340,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10862,232,'vertical','',0,370,60,0,650,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10863,232,'vertical','',0,4630,60,0,650,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10864,232,'vertical','',0,5500,60,0,270,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10865,232,'horizontal','',0,-40,60,5540,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10866,232,'arrow','',0,-190,60,150,650,5530,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(10863,232,'vertical','',0,4710,60,0,650,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10864,232,'vertical','',0,5580,60,0,270,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10865,232,'horizontal','',0,-40,60,5620,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10866,232,'arrow','',0,-190,60,150,650,5610,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10867,232,'branch',replace('Proprietary\nstartup sequence','\n',char(10)),0,370,120,140,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10868,232,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,370,640,140,50,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10869,232,'branch',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,4630,130,180,50,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10870,232,'branch','Return',0,5500,110,80,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10871,232,'address',replace('Proprietary\nstartup sequence','\n',char(10)),0,4630,650,180,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10869,232,'branch',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,4710,130,180,50,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10870,232,'branch','Return',0,5580,110,80,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10871,232,'address',replace('Proprietary\nstartup sequence','\n',char(10)),0,4710,650,180,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10872,232,'if','PR_OK == result',0,370,420,140,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10873,232,'vertical','',0,590,420,0,290,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10874,232,'vertical','',0,810,60,0,650,0,0,NULL,'',NULL,'');
@@ -6306,7 +6306,7 @@ INSERT INTO items VALUES(10903,232,'address',replace('Default Service\ninitialis
 INSERT INTO items VALUES(10904,232,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,3740,640,70,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10905,232,'address','(B) Idle',0,2090,660,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10906,232,'insertion',replace('result =\nFinancial_Application_Startup();','\n',char(10)),0,810,350,140,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10907,232,'action','return result;',0,5500,280,80,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10907,232,'action','return result;',0,5580,280,80,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10909,232,'horizontal','',0,-30,0,60,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10910,232,'action',replace('public\n\nreturns enum ProcedureResult','\n',char(10)),0,160,0,130,40,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10911,232,'select','result',0,3560,320,90,20,60,0,NULL,'',NULL,'');
@@ -6317,7 +6317,7 @@ INSERT INTO items VALUES(10915,232,'case','',0,3890,400,60,20,60,0,NULL,'',NULL,
 INSERT INTO items VALUES(10916,232,'vertical','',0,3740,360,0,350,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10917,232,'vertical','',0,3890,360,0,350,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10918,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,3890,640,60,50,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10919,232,'output',replace('result =\npapi_Diagnostics_Maintenance_Recovery();','\n',char(10)),0,4630,250,180,50,40,0,NULL,'',NULL,'PROPRIETARY');
+INSERT INTO items VALUES(10919,232,'output',replace('result =\npapi_Diagnostics_Maintenance_Recovery();','\n',char(10)),0,4710,250,180,50,40,0,NULL,'',NULL,'PROPRIETARY');
 INSERT INTO items VALUES(10920,232,'select','result',0,1800,480,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10921,232,'horizontal','',0,1800,520,490,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10922,232,'case','PR_CONDITIONS_SATISFIED',0,1800,560,150,20,60,0,NULL,'',NULL,'');
@@ -6333,29 +6333,29 @@ INSERT INTO items VALUES(10937,232,'case','PR_REBOOT',0,2950,340,100,20,60,0,NUL
 INSERT INTO items VALUES(10938,232,'case','PR_TERMINATE',0,3190,340,120,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10939,232,'address','Terminate',0,3190,660,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10940,232,'address','Reboot',0,2950,660,100,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10941,232,'shelf','PR_TERMINATE',0,5340,280,60,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10942,232,'shelf','PR_REBOOT',0,5210,280,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10943,232,'vertical','',0,5340,60,0,650,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10944,232,'branch','Terminate',0,5340,110,60,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10945,232,'address','Return',0,5340,660,60,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10941,232,'shelf','PR_TERMINATE',0,5420,280,60,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10942,232,'shelf','PR_REBOOT',0,5290,280,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10943,232,'vertical','',0,5420,60,0,650,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10944,232,'branch','Terminate',0,5420,110,60,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10945,232,'address','Return',0,5420,660,60,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10946,232,'vertical','',0,2950,300,0,410,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10947,232,'vertical','',0,3190,300,0,410,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10948,232,'vertical','',0,5210,60,0,650,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10949,232,'branch','Reboot',0,5210,110,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10950,232,'address','Return',0,5210,660,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10948,232,'vertical','',0,5290,60,0,650,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10949,232,'branch','Reboot',0,5290,110,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10950,232,'address','Return',0,5290,660,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10951,232,'output','papi_Force_Termination();',0,3190,420,120,40,40,0,NULL,'',NULL,'PROPRIETARY');
 INSERT INTO items VALUES(10952,232,'output','papi_Force_Reboot();',0,2950,420,100,40,40,0,NULL,'',NULL,'PROPRIETARY');
-INSERT INTO items VALUES(10953,232,'select','result',0,4630,340,180,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10954,232,'horizontal','',0,4630,380,510,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10955,232,'case','PR_STARTUP_SEQUENCE',0,4630,420,180,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10956,232,'case','PR_REBOOT',0,4880,420,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10957,232,'case','PR_TERMINATE',0,5010,420,60,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10958,232,'vertical','',0,4880,380,0,330,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10959,232,'vertical','',0,5010,380,0,80,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10960,232,'address','Return',0,4880,660,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10961,232,'vertical','',0,5140,380,0,80,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10962,232,'case','',0,5140,420,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10963,232,'horizontal','',0,4880,460,260,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10953,232,'select','result',0,4710,340,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10954,232,'horizontal','',0,4710,380,510,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10955,232,'case','PR_STARTUP_SEQUENCE',0,4710,420,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10956,232,'case','PR_REBOOT',0,4960,420,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10957,232,'case','PR_TERMINATE',0,5090,420,60,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10958,232,'vertical','',0,4960,380,0,330,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10959,232,'vertical','',0,5090,380,0,80,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10960,232,'address','Return',0,4960,660,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10961,232,'vertical','',0,5220,380,0,80,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10962,232,'case','',0,5220,420,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10963,232,'horizontal','',0,4960,460,260,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10964,232,'vertical','',0,-40,0,0,710,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10965,232,'branch',replace('Runtime\nInitialisation','\n',char(10)),0,-40,120,130,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10966,232,'address',replace('Proprietary\nstartup sequence','\n',char(10)),0,-40,650,130,40,60,0,NULL,'',NULL,'');
@@ -6405,7 +6405,7 @@ INSERT INTO items VALUES(11022,232,'vertical','',0,160,440,0,270,0,0,NULL,NULL,N
 INSERT INTO items VALUES(11023,232,'address','Terminate',0,160,660,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11024,232,'action','enum DmapiResult dmapi_result;',0,-40,260,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11025,232,'action','enum ProcedureResult result;',0,-40,200,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11026,232,'output','dmapi_dtor();',0,5500,200,80,40,40,0,NULL,'',NULL,'DMAPI');
+INSERT INTO items VALUES(11026,232,'output','dmapi_dtor();',0,5580,200,80,40,40,0,NULL,'',NULL,'DMAPI');
 INSERT INTO items VALUES(11027,233,'select','g_callTms',0,580,-90,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11028,233,'horizontal','',0,580,-50,1150,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11029,233,'case','CALL_TMS_NONE',0,580,-10,130,20,60,0,NULL,NULL,NULL,NULL);
@@ -6451,10 +6451,10 @@ INSERT INTO items VALUES(11068,233,'shelf','Not_Implemented();',0,1570,250,90,40
 INSERT INTO items VALUES(11069,232,'vertical','',0,2440,300,0,410,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11070,232,'case','PR_CONTACT_TMS',0,2440,340,70,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11071,232,'address','Contact TMS',0,2440,660,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11072,232,'vertical','',0,4130,60,0,650,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11073,232,'address','(B) Idle',0,4130,660,160,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11074,232,'branch','Contact TMS',0,4130,110,160,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11075,232,'commentout',replace('This isn''t defined in Main\nfunction flow, but it''s\nimplied in different places.\nSee:\nnexo-IS v.4.0, lines 523~527,\nand section 4.2','\n',char(10)),0,3800,160,130,60,200,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11072,232,'vertical','',0,4170,60,0,650,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11073,232,'address','(B) Idle',0,4170,660,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11074,232,'branch','Contact TMS',0,4170,110,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11075,232,'commentout',replace('This isn''t defined in Main\nfunction flow, but it''s\nimplied in different places.\nSee:\nnexo-IS v.4.0, lines 523~527,\nand section 4.2','\n',char(10)),0,3800,160,130,60,240,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11076,237,'beginend','Perform_Terminal_Managment_Session',0,370,-20,150,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11077,237,'beginend','End',0,370,540,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11078,237,'vertical',NULL,0,370,0,0,520,0,0,NULL,NULL,NULL,NULL);
@@ -6474,10 +6474,10 @@ INSERT INTO items VALUES(11091,237,'shelf','Interface_Contract_Violation();',0,8
 INSERT INTO items VALUES(11092,237,'horizontal','',0,370,440,480,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11093,237,'shelf','PR_OK',0,370,380,200,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(11094,237,'shelf','PR_NOK',0,640,380,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(11095,232,'insertion',replace('result =\nPerform_Terminal_Managment_Session();','\n',char(10)),0,4130,360,160,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11096,232,'if','PR_OK == result',0,4130,430,160,20,80,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(11097,232,'vertical','',0,4370,430,0,280,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(11098,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,4370,640,60,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11095,232,'insertion',replace('result =\nPerform_Terminal_Managment_Session();','\n',char(10)),0,4170,360,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11096,232,'if','PR_OK == result',0,4170,430,200,20,80,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(11097,232,'vertical','',0,4450,430,0,280,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11098,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,4450,640,60,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11099,129,'insertion',replace('result =\nScap_Event_Handling();','\n',char(10)),0,3270,-10,130,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11100,238,'beginend','Financial_Application_Startup',0,410,-780,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11101,238,'beginend','End',0,410,720,50,20,60,0,NULL,'',NULL,'');
@@ -6749,6 +6749,7 @@ INSERT INTO items VALUES(11455,245,'commentout',replace('Consider creating some 
 INSERT INTO items VALUES(11456,55,'commentout',replace('TODO: Wrap it to check\nfor unexpected behaviour','\n',char(10)),0,1740,540,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11457,199,'action',replace('status |=\nINTERFACE_CARDHOLDER_DETECT;','\n',char(10)),0,250,1450,190,30,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11458,199,'commentout','Not supported by nexo',0,-60,1450,100,20,30,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11459,232,'insertion',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_EMV_PLEASE_WAIT\n  , CRDHLDR_MSG_TERMINAL_MANAGMENT_IN_PROGRESS\n};\n\nresult =\nData_Output_Interaction(sizeof(msg), msg);','\n',char(10)),0,4170,240,200,70,60,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

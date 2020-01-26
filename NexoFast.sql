@@ -73,7 +73,7 @@ INSERT INTO diagrams VALUES(99,'Save_Transaction','9 -208',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(101,'Print_Transaction_Receipt','-277 -297',NULL,85.0);
 INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','181 -14',NULL,70.0);
-INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','15 -418',NULL,80.0);
+INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','327 -105',NULL,80.0);
 INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','812 586',NULL,75.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(106,'Perform_General_Checks','0 0',NULL,75.0);
@@ -4725,7 +4725,7 @@ INSERT INTO items VALUES(8927,103,'if','result == PR_OK',0,660,120,220,20,40,1,N
 INSERT INTO items VALUES(8929,103,'vertical','',0,920,120,0,420,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8930,103,'if','result == PR_OK',0,920,400,190,20,30,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8931,103,'vertical','',0,1140,400,0,140,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8932,103,'commentin',replace('NEXO doesn''t specify\nany action on error\nat this point','\n',char(10)),0,1140,480,98,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8932,103,'commentin',replace('NEXO does not specify\nany action on error\nat this point','\n',char(10)),0,1140,480,108,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8933,103,'action','return result;',0,660,680,220,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8934,103,'shelf','PR_DONE',0,660,600,220,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(8935,103,'commentout','In nexo spec only one message is sent',0,1100,140,160,20,20,0,NULL,'',NULL,'');

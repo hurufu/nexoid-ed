@@ -13,6 +13,7 @@ enum PapiResult {
   , PAPI_STARTUP_SEQUENCE
   , PAPI_REBOOT
   , PAPI_TERMINATE
+  , PAPI_DONE
 };
 
 /* Perform any actions required by the platform prior to nexo app startup
@@ -60,3 +61,12 @@ void papi_Force_Reboot(void);
  * from `Main()`
  */
 void papi_Force_Termination(void);
+
+/* Performs an unspecified process during EMV Application Initialisation
+ *
+ * @return PAPI_DONE always, any other value is an ICV, no other sanity checks
+ * are peformed.
+ *
+ * nexo-FAST v.3.2, note 159-29
+ */
+enum PapiResult papi_Specific_Processing_Based_On_Pan(void);

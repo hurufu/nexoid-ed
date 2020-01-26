@@ -17,16 +17,16 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1110 216','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2109 216','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','6578 -10','',80.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','-88 -240','',75.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-134 -148','',75.0);
-INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','-436 72','',100.0);
-INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','3502 90',NULL,75.0);
-INSERT INTO diagrams VALUES(38,'Perform_Service','-328 -192',NULL,75.0);
-INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','414 -360','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
+INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','-386 22','',100.0);
+INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','-298 22',NULL,75.0);
+INSERT INTO diagrams VALUES(38,'Perform_Service','-261 -192',NULL,75.0);
+INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','546 -360','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -295','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
@@ -73,16 +73,16 @@ INSERT INTO diagrams VALUES(99,'Save_Transaction','9 -208',NULL,75.0);
 INSERT INTO diagrams VALUES(100,'Sale_System_Notification','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(101,'Print_Transaction_Receipt','-277 -297',NULL,85.0);
 INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','181 -14',NULL,70.0);
-INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','327 -105',NULL,80.0);
+INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','326 -230',NULL,80.0);
 INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','812 586',NULL,75.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(106,'Perform_General_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(107,'Perform_Specific_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-266 0',NULL,75.0);
-INSERT INTO diagrams VALUES(110,'Kernel_Processing','952 16','',75.0);
+INSERT INTO diagrams VALUES(110,'Kernel_Processing','752 -117','',75.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','1320 0',NULL,75.0);
+INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','521 0',NULL,75.0);
 INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(114,'Full_Magnetic_Stripe_Processing','-248 -508',NULL,75.0);
 INSERT INTO diagrams VALUES(115,'Full_Manual_Entry_Processing','0 0','',75.0);
@@ -181,7 +181,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','1390 -50','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','3332 3','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -204,7 +204,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,103,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,112,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2186,7 +2186,7 @@ INSERT INTO items VALUES(4862,115,'beginend','End',0,170,390,50,20,60,0,NULL,'',
 INSERT INTO items VALUES(4863,115,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4864,115,'horizontal','',0,170,60,200,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4865,115,'action','returns enum ProcedureResult',0,470,60,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4866,115,'action','return PR_OK;',0,170,310,70,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4866,115,'action','return Not_Implemented();',0,170,310,110,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4868,114,'insertion',replace('result =\nCheck_Magnetic_Stripe_Fallback();','\n',char(10)),0,440,60,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4869,114,'shelf','PR_UNINITIALISED',0,440,-130,150,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(4870,114,'if','PR_OK == result',0,440,130,150,20,70,1,NULL,NULL,NULL,NULL);

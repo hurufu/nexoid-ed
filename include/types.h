@@ -19,6 +19,9 @@
 
 typedef uint8_t bcd_t;
 
+typedef uintmax_t tlv_tag_t;
+typedef size_t tlv_size_t;
+
 union PACKED bcd {
     uint8_t raw;
     struct PACKED {
@@ -84,6 +87,84 @@ struct string8 {
     char s[8];
     STRING_SENTINEL;
 };
+
+struct binary {
+    size_t l;
+    uint8_t r[1024];
+};
+
+// FIXME: CAST_TAG() works only with 2-byte tags
+#define CAST_TAG(TagV) \
+    (TagV & (0xFF << 0)) << 8 | \
+    (TagV & (0xFF << 8)) >> 8
+
+// EMV - Data elements defined by EMV or ISO and used by nexo-FAST (section 13.1)
+// ENU - Data elements defined by EMV and not used by nexo-FAST (section 13.2)
+// NXO - Data elements defined by nexo-FAST for use outside of kernel processing (section 13.3)
+// NXE - Data elements defined by nexo-FAST for use in kernel E (section 13.4)
+// NNA - Not known, not applicable
+// NIS - Defined by nIS only
+
+enum Tag {
+    // Unique Application Profile ID:
+    T_NNA_PROFILE_NUMBER = CAST_TAG(0xDF19)
+  , T_NNA_ACQUIRER_NUMBER = CAST_TAG(0xDF1B)
+
+    // Application Profile Parameters:
+  , T_NIS_APPLICATION_PROFILE = CAST_TAG(0xE6)
+  , T_EMV_ACQUIRER_IDENTIFIER = CAST_TAG(0x9F10)
+  , T_NNA_ADDITIONAL_DATA_ELEMENTS = CAST_TAG(0xEF)
+  , T_NXO_ADDITIONAL_RESTRICTIONS_OF_FORCED_ACCEPTANCE = CAST_TAG(0xDF26)
+  , T_EMV_ADDITIONAL_TERMINAL_CAPABILITIES = CAST_TAG(0x9F40)
+  , T_EMV_TERMINAL_COUNTRY_CODE = CAST_TAG(0x9F1A)
+  , T_NXO_APPLICATION_LABEL_DEFAULT = CAST_TAG(0xDF41)
+  , T_NXO_APPLICATION_PROFILE_SETTINGS = CAST_TAG(0xDF27)
+  , T_NXO_APPLICATION_PROFILE_SETINGS_FOR_CANCELLATION = CAST_TAG(0xDF28)
+  , T_NXO_CASH_ADVANCE_MAXIMUM_AMOUNT = CAST_TAG(0xDF29)
+  , T_EMV_CVM_CAPABILITY_CVM_REQUIRED = CAST_TAG(0xDF8118)
+  , T_EMV_CVM_CAPABILITY_NO_CVM_REQUIRED = CAST_TAG(0xDF8119)
+  , T_EMV_DDOL = CAST_TAG(0xDF1A)
+  , T_EMV_HOLD_TIME_VALUE = CAST_TAG(0xDF8130)
+  , T_EMV_KERNEL_2_CONFIGURATION = CAST_TAG(0xDF811B)
+  , T_EMV_KERNEL_4_READER_CAPABILITIES = CAST_TAG(0x9F6D)
+  , T_EMV_TERMINAL_CAPABILITIES = CAST_TAG(0x9F33)
+  , T_NXO_CASHBACK_MAXIMUM_AMOUNT = CAST_TAG(0xDF2A)
+  , T_NXO_REFUND_PROTECTION_AMOUNT = CAST_TAG(0xDF3C)
+  , T_NXO_CVM_MAGNETIC_STRIPE = CAST_TAG(0xDF42)
+  , T_NXO_CARD_VALIDITY_CHECK_DEFAULT_AMOUNT = CAST_TAG(0xDF58)
+
+  // Chip card
+  , T_EMV_APPLICATION_INTERCHANGE_PROFILE = CAST_TAG(0x82) // a.k.a. AIP
+};
+
+union PACKED TagExpanded {
+    uint8_t raw[sizeof(tlv_tag_t)];
+    tlv_tag_t i;
+    enum Tag e;
+    struct PACKED {
+        union PACKED {
+            uint8_t head;
+            struct PACKED {
+                uint8_t nmbr : 5;
+                uint8_t constructed : 1;
+                enum {
+                    TLV_CLASS_UNIVERSAL = 0b00,
+                    TLV_CLASS_APPLICATION = 0b01,
+                    TLV_CLASS_CONTEXT_SPECIFIC = 0b10,
+                    TLV_CLASS_PRIVATE = 0b11
+                } type : 2;
+            };
+        };
+        union PACKED {
+            uint8_t c;
+            struct PACKED {
+                uint8_t value : 7;
+                uint8_t next : 1;
+            } v;
+        } tail[sizeof(tlv_tag_t) - sizeof(uint8_t)];
+    };
+};
+
 
 enum PACKED IssuerCodeTableIndex {
     ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
@@ -337,6 +418,7 @@ struct CardData {
     union EmvStatus sw1Sw2;
     struct FileControlInformation* fci;
     struct ResponseMessageTemplate* responseMessageTemplate;
+    struct ReadRecordResponseMessageTemplate* readRecordResponeMessageTemplate;
     struct ResponseData responseData;
     /** @} */
     bool responseDataParsed; // non-NEXO
@@ -348,6 +430,7 @@ struct CardData {
     enum IssuerCodeTableIndex* issuerCodeTableIndex;
     struct string16* applicationPreferredName;
     struct ApplicationFileLocator afl;
+    struct StaticDataAuthenticationTagList* staticDataAuthenticationTagList;
     union ApplicationInterchangeProfile aip;
     struct CvmList* cvmList;
 
@@ -568,6 +651,7 @@ enum TerminalErrorReason {
   // Not specified in NEXO
   , TER_NOT_IMPLEMENTED
   , TER_INTERFACE_CONTRACT_VIOLATION
+  , TER_INTERNAL_ERROR
 
   , TER_MAX
 };
@@ -1892,6 +1976,8 @@ struct KernelData {
     uint8_t responseData[256];
     struct Aid aidTerminal;
 
+    struct binary staticDataToBeAuthenticated;
+
     // FIXME: IssuerCountry is actually a card data
     union Country* issuerCountry;
 
@@ -2025,6 +2111,19 @@ struct ResponseMessageTemplate {
     struct ApplicationFileLocator afl;
 
     // TODO: Additional proprietary data objects
+};
+
+// [9F4A]
+struct StaticDataAuthenticationTagList {
+    union TagExpanded tag;
+    struct StaticDataAuthenticationTagList* next;
+};
+
+// nexo-FAST v.3.2, section 13.1.121
+// EMV v.4.3 Book 3, table 33 and secion 6.5.11.4
+// [70]
+struct ReadRecordResponseMessageTemplate {
+    struct StaticDataAuthenticationTagList* staticDataAuthenticationTagList;
 };
 
 /* Configuration options defined once per terminal application

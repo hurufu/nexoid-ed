@@ -54,8 +54,12 @@ enum EapiResult eapi_Read_Record(uint8_t p1, uint8_t p2);
 enum EapiResult eapi_Final_Application_Selection(void);
 
 /* Perform GET PROCESSING OPTIONS using all tags that were specified in PDOL
- * nexo also aadditionally requires kd.commandTemplate to be used as it is
+ * nexo also additionally requires kd.commandTemplate to be used as it is
  * set in libnexoid
+ *
+ * On success `cd.responseMessageTemplate` is expected to be populated
+ *
+ * TODO: Replace with pklr_Application_Initialisation
  */
 enum EapiResult eapi_Get_Processing_Options(void);
 

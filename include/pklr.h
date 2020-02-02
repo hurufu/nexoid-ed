@@ -26,6 +26,9 @@ enum PklrResult {
   , PKLR_DONE
   , PKLR_NOK
   , PKLR_BAIL
+  , PKLR_SKIP
+  , PKLR_SUCCESSFUL
+  , PKLR_UNSUCCESSFUL
 };
 
 /** Redirect to API that will perform Building of Candidate List as specified
@@ -77,6 +80,20 @@ enum PklrResult pklr_Kernel_E_Processing(void);
  *  @warning Expected behaviour isn't yet defined
  */
 enum PklrResult pklr_Process_Read_Record(void);
+
+/** Redirect to API that will perform SDA or DDA
+ *
+ *  @return PKLR_SUCCESSFUL if SDA or DDA succeeded, PKLR_UNSUCCESSFUL if SDA
+ *  or DDA didn't succeed, PKLR_SKIP if CDA is selected, PKLR_NOK if an error
+ *  occured.
+ *
+ *  In case of error it's expected that ttd.terminalErrorIndicator is enabled
+ *  and `ttd.terminalErrorReason` is set to an appropriate value.
+ *
+ *  EMV v.4.3 Book 3, section 10.3
+ *  nexo-FAST v.3.2, figure 164
+ */
+enum PklrResult pklr_Offline_Data_Authentication(void);
 
 /** Redirect to an API that will perform 1st GENERATE AC command and perform
  *  Card Action Analysis

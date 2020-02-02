@@ -1880,7 +1880,7 @@ struct Dol {
 union TransactionStatusInformation {
     uint8_t raw[2];
     struct {
-        uint8_t offlineDataAuthenticationWaPerformed : 1;
+        uint8_t offlineDataAuthenticationWasPerformed : 1;
         uint8_t cardholderVerificationWasPerformed : 1;
         uint8_t cardRiskManagementWasPerformed : 1;
         uint8_t issuerAuthenticationWasPerformed : 1;

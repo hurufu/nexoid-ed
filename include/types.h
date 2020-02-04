@@ -292,37 +292,19 @@ struct DolData {
     unsigned char c[1024];
 };
 
-// nexo-FAST v.3.2, section 13.1.39
-// TODO: Consider renaming to cvmTable
-// [8E]
-struct CvmList {
-    size_t s;
-    union {
-        uint8_t raw[252];
-        struct CvmListEntry {
-            uint8_t amountX[4];
-            uint8_t amountY[4];
-            union {
-                union {
-                    uint8_t cvRule[2];
-                    struct {
-                        uint8_t : 1;
-                        uint8_t applyNext: 1;
-
-                        uint8_t : 8;
-                    };
-                };
-                struct {
-                    uint8_t : 2;
-                    uint8_t cvmCode: 6; // 6 least significant bits
-
-                    enum PACKED CvmConditionCode {
-                        CVM_SUPPORTED = 0x03
-                    } cvmConditionCode;
-                };
-            };
-        } a[252 / 4];
-    };
+enum PACKED CvmConditionCode {
+    CVM_IF_ALWAYS = 0x00,
+    CVM_IF_UNATTENDED_CASH = 0x01,
+    CVM_IF_NO_CASH = 0x02, // If not unattended cash and not manual cash and not purchase with cashback
+    CVM_IF_SUPPORTED = 0x03,
+    CVM_IF_MANUAL_CASH = 0x04,
+    CVM_IF_PURCHASE_WITH_CASHBACK = 0x05,
+    CVM_IF_TRX_IS_IN_APP_CURRENCY_AND_UNDER_X = 0x06,
+    CVM_IF_TRX_IS_IN_APP_CURRENCY_AND_OVER_X = 0x07,
+    CVM_IF_TRX_IS_IN_APP_CURRENCY_AND_UNDER_Y = 0x08,
+    CVM_IF_TRX_IS_IN_APP_CURRENCY_AND_OVER_Y = 0x09,
+    // 0x0A~0x7F - RFU
+    // 0x80~0xFF - Reserved for use by individual payment systems
 };
 
 // TODO: Clean up naming, make this header a complete documentation of EMV status codes
@@ -1869,6 +1851,26 @@ union Cvm {
     };
 };
 
+// EMV v.4.3 Book 3, annex C3
+struct PACKED CvRule {
+    union CvmCode cvmCode;
+    enum CvmConditionCode cvmConditionCode;
+};
+
+struct CvRuleTable {
+    size_t l;
+    struct CvRule a[123];
+};
+
+// nexo-FAST v.3.2, section 13.1.39
+// EMV v.4.3 Book 3, section 10.5
+// [8E]
+struct CvmList {
+    uint32_t amountX;
+    uint32_t amountY;
+    struct CvRuleTable cvRule;
+};
+
 // FIXME: Consider better struct to represent DOL
 struct Dol {
     size_t s;
@@ -2111,6 +2113,7 @@ struct ResponseMessageTemplate {
     struct ApplicationFileLocator afl;
 
     // TODO: Additional proprietary data objects
+    // TODO: Add CVM List
 };
 
 // [9F4A]
@@ -2124,6 +2127,7 @@ struct StaticDataAuthenticationTagList {
 // [70]
 struct ReadRecordResponseMessageTemplate {
     struct StaticDataAuthenticationTagList* staticDataAuthenticationTagList;
+    struct CvmList* cvmList;
 };
 
 /* Configuration options defined once per terminal application

@@ -497,6 +497,7 @@ enum CvmResult {
   , PR_CVM_SUCCESSFUL
   , PR_CVM_NOT_SUCCESSFUL
   , PR_CVM_SUPPORTED
+  , PR_CVM_BAIL
 };
 
 enum ProcedureResultOk {

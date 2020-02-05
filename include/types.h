@@ -415,6 +415,7 @@ struct CardData {
     struct StaticDataAuthenticationTagList* staticDataAuthenticationTagList;
     union ApplicationInterchangeProfile aip;
     struct CvmList* cvmList;
+    union CurrencyCode* applicationCurrencyCode;
 
     struct DolData dolData;
     /** @{ */
@@ -488,6 +489,14 @@ enum ProcedureResult {
   , PR_SKIP
 
   , PR_MAX
+};
+
+enum CvmResult {
+    PR_CVM_APPLICABLE
+  , PR_CVM_NOT_APPLICABLE
+  , PR_CVM_SUCCESSFUL
+  , PR_CVM_NOT_SUCCESSFUL
+  , PR_CVM_SUPPORTED
 };
 
 enum ProcedureResultOk {
@@ -996,6 +1005,15 @@ union CurrencyAlpha3 {
         Currency_PLN = MULTICHAR('P','L','N')
     } Code;
     char Str[4];
+};
+
+union CurrencyCode {
+    uint8_t raw[2];
+    enum PACKED {
+        // FIXME: Use proper macro
+        CURRENCY_CODE_EUR = 0x7809
+      , CURRENCY_CODE_PLN = 0x8509
+    } e;
 };
 
 enum PACKED AuthorisationResponseCode {
@@ -2128,6 +2146,9 @@ struct StaticDataAuthenticationTagList {
 struct ReadRecordResponseMessageTemplate {
     struct StaticDataAuthenticationTagList* staticDataAuthenticationTagList;
     struct CvmList* cvmList;
+
+    // [9F42]
+    union CurrencyCode* applicationCurrencyCode;
 };
 
 /* Configuration options defined once per terminal application
@@ -2173,6 +2194,8 @@ struct TerminalTransactionData {
     bool applicationInitialised;
     union bcd transactionCurrencyExponent;
     union bcd6 transactionAmount;
+    union bcd6 amountAuthorisedNumeric;
+    uint32_t amountAuthorisedBinary;
     union bcd6 cashbackAmount;
     union bcd6 supplementaryAmount;
     bool supplementaryAmountConfirmed;

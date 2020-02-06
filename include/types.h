@@ -351,6 +351,9 @@ union EmvStatus {
         W_NVRM_NOT_CHANGED_NO_INFORMATION_GIVEN = MULTICHAR(0x62, 0x00)
       , W_SELECTED_FILE_INVALIDATED = MULTICHAR(0x62, 0x83)
       , W_PART_OF_RETURNED_DATA_MAY_BE_CORRUPTED = MULTICHAR(0x62, 0x81)
+      , W_VERIFY_FAILED_NO_TRIES_LEFT = MULTICHAR(0x63, 0xC0)
+      , E_AUTHENTICATION_METHOD_BLOCKED = MULTICHAR(0x69, 0x83)
+      , E_REFERENCED_DATA_REVERSIBLY_BLOCKED = MULTICHAR(0x69, 0x84) // Invalidated
       , E_CONDITIONS_OF_USE_NOT_SATISFIED = MULTICHAR(0x69, 0x85)
       , E_FUNCTION_NOT_SUPPORTED = MULTICHAR(0x6A, 0x81)
       , I_COMMAND_OK = MULTICHAR(0x90, 0x00)
@@ -394,6 +397,11 @@ union PACKED ApplicationInterchangeProfile {
     };
 };
 
+union PinData {
+    void* offlinePinBlock;
+    void* encipheredPinData;
+};
+
 struct CardData {
     /** @{ */
     /** Members populated with raw or parsed card responses */
@@ -416,6 +424,16 @@ struct CardData {
     union ApplicationInterchangeProfile aip;
     struct CvmList* cvmList;
     union CurrencyCode* applicationCurrencyCode;
+
+    // [9F17]
+    uint8_t* pinTryCounter;
+
+    // [-]
+    // NEXO: Tag [99] is not used by nexo-FAST
+    union PinData pinData;
+
+    void* offlinePinBlock;
+    void* encipheredPinData;
 
     struct DolData dolData;
     /** @{ */
@@ -496,7 +514,10 @@ enum CvmResult {
   , PR_CVM_NOT_APPLICABLE
   , PR_CVM_SUCCESSFUL
   , PR_CVM_NOT_SUCCESSFUL
+  , PR_CVM_UNSUCCESSFUL
   , PR_CVM_SUPPORTED
+  , PR_CVM_RETRY
+  , PR_CVM_NOK
   , PR_CVM_BAIL
 };
 
@@ -1861,15 +1882,6 @@ enum PACKED CvmResults {
     CVM_RESULT_SUCCESS = 0x02
 };
 
-union Cvm {
-    unsigned char raw[3];
-    struct {
-        union CvmCode performed;
-        union CvmCode conditions;
-        enum CvmResults result;
-    };
-};
-
 // EMV v.4.3 Book 3, annex C3
 struct PACKED CvRule {
     union CvmCode cvmCode;
@@ -1879,6 +1891,14 @@ struct PACKED CvRule {
 struct CvRuleTable {
     size_t l;
     struct CvRule a[123];
+};
+
+union Cvm {
+    unsigned char raw[3];
+    struct {
+        struct CvRule cvRule;
+        enum CvmResults result;
+    };
 };
 
 // nexo-FAST v.3.2, section 13.1.39
@@ -2251,6 +2271,8 @@ struct TerminalTransactionData {
     bool noContactlessAllowed;
     union ServiceStartEvents serviceStartEvents;
     enum OdaMethod odaMethodToBePerformed;
+    bool pinEntryBypassed;
+    bool chipPinEntered;
 
     // FIXME: Consider moving to a different location
     struct EventTable {

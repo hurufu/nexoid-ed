@@ -52,6 +52,11 @@ struct TransactionCompletion {
     union bcd6 reducedAmount;
 };
 
+struct CardholderVerification {
+    uint8_t* pinTryCounter;
+};
+
 static struct ApplicationKernelAndAppProfileSelection s_akps;
 static struct TechnologySelection s_ts;
 static struct TransactionCompletion s_tc;
+static struct CardholderVerification s_cv;

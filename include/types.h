@@ -494,17 +494,9 @@ enum ProcedureResult {
   , PR_REFERENCE_ENTRY
   , PR_ACCEPT
   , PR_NOT_FOUND
-  , PR_NOT_SUPPORTED
-  /** @{ */
-  /** Used only for CVM Processing
-   *  TODO: Move to separate enum
-   */
-  , PR_APPLICABLE
-  , PR_NOT_APPLICABLE
   , PR_SUCCESSFUL
   , PR_NOT_SUCCESSFUL
-  , PR_SUPPORTED
-  /** @} */
+  , PR_NOT_SUPPORTED
   , PR_MATCH
   , PR_NO_MATCH
   , PR_DONE
@@ -527,19 +519,15 @@ enum ProcedureResult {
   , PR_EXACT_MATCH
   , PR_SKIP
 
-  , PR_MAX
-};
-
-enum CvmResult {
-    PR_CVM_APPLICABLE
+  , PR_CVM_APPLICABLE
   , PR_CVM_NOT_APPLICABLE
   , PR_CVM_SUCCESSFUL
-  , PR_CVM_NOT_SUCCESSFUL
   , PR_CVM_UNSUCCESSFUL
   , PR_CVM_SUPPORTED
+  , PR_CVM_NOT_SUPPORTED
   , PR_CVM_RETRY
-  , PR_CVM_NOK
-  , PR_CVM_BAIL
+
+  , PR_MAX
 };
 
 enum ProcedureResultOk {

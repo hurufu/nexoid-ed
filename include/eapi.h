@@ -34,6 +34,8 @@ enum EapiResult eapi_Generate_Ac(); // FIXME: Signature isn't yet defined
 
 enum EapiResult eapi_Read_Record(uint8_t p1, uint8_t p2);
 
+enum EapiResult eapi_Verify_Pin_Block(void);
+
 /* EMV L2
  */
 

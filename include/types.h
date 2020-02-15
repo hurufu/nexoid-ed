@@ -542,7 +542,7 @@ enum ProcedureResultMatch {
   , PR4_NO_MATCH
 };
 
-enum ServiceId {
+enum PACKED ServiceId {
     S_NONE = 0x00
   , S_PAYMENT = 0x01
   , S_REFUND = 0x02
@@ -559,7 +559,7 @@ enum ServiceId {
   , S_NO_SHOW = 0x13
 
   , S_MAX
-} __attribute__((__packed__));
+};
 
 enum NokReason {
     N_NONE = PR_MAX + 2364

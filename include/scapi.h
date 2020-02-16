@@ -85,7 +85,7 @@ enum ScapiResult scapi_Data_Print_Interaction(enum PrintMessage);
 /*
  * TODO: Function signature isn't yet defined
  */
-enum ScapiResult scapi_Data_Entry_Interaction(void);
+enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum CardholderMessage msg[size]);
 
 /* Called before strting protected service during Service_Initialisation
  *

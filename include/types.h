@@ -760,6 +760,7 @@ enum PACKED CardholderMessage {
   , CRDHLDR_MSG_REQUEST_SIGNATURE = 0x32
   , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED = 0x33
   , CRDHLDR_MSG_TERMINAL_MANAGMENT_IN_PROGRESS = 0x34
+  , CRDHLDR_MSG_FORCE_TRANSACTION_APPROVAL = 0x35
 
   /* Extended messages */
   , CRDHLDR_SRC_UI_PARAMETERS_FOR_OUTCOME = 0x80
@@ -2266,6 +2267,7 @@ struct TerminalTransactionData {
     char (* pan)[19]; // FIXME: Use proper structure for PAN
     bool isDccEligible;
     bool dccPerformedOnce;
+    bool pinBypassAllowed;
     bool* minus; // FIXME: Consider making minus a value, and not a pointer
     bool amountDisplayed;
     union Country selectedLanguage;

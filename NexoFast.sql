@@ -164,7 +164,7 @@ INSERT INTO diagrams VALUES(209,'Decode_Afl_Entry','0 -262',NULL,75.0);
 INSERT INTO diagrams VALUES(210,'Process_Read_Record','128 -185',replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(211,'Copy_Response_Data_After_Read_Record','-200 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(212,'Cvm_List_Processing','1085 -260',NULL,75.0);
-INSERT INTO diagrams VALUES(213,'Try_Performing_Cvm','2142 -81',NULL,80.0);
+INSERT INTO diagrams VALUES(213,'Try_Performing_Cvm','2453 -80',NULL,80.0);
 INSERT INTO diagrams VALUES(214,'Process_Cvm_Condition_Code','7267 -48',replace('nexo-FAST v.3.2, section 8.2.5.2.3\n\nTODO: Not implemented','\n',char(10)),90.0);
 INSERT INTO diagrams VALUES(215,'Check_Cvm_Support','185 -168',NULL,75.0);
 INSERT INTO diagrams VALUES(217,'Check_Change_Application_Eligibility','-37 -154','nexo-FAST v.3.2, section 6.6.12.2',75.0);
@@ -210,7 +210,7 @@ INSERT INTO diagrams VALUES(260,'Is_Cvm_Offline_Pin','-333 -397',NULL,75.0);
 INSERT INTO diagrams VALUES(263,'Perform_Cvm','1197 -129',NULL,75.0);
 INSERT INTO diagrams VALUES(264,'Perform_Cvm_Offline_Pin','1472 212','',75.0);
 INSERT INTO diagrams VALUES(265,'Prepare_Offline_Pin_Block','632 -258','',75.0);
-INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','2785 1','',75.0);
+INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','3984 0','',75.0);
 INSERT INTO diagrams VALUES(267,'Perform_Cvm_Online_Pin','-84 -168','',75.0);
 INSERT INTO diagrams VALUES(268,'Request_Pin_Entry_For_Emv_Chip','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(269,'Verify_Pin_Block','-61 -125','',80.0);
@@ -221,7 +221,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,213,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,266,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -7232,7 +7232,7 @@ INSERT INTO items VALUES(12287,263,'action',replace('const struct CvRule cvRule\
 INSERT INTO items VALUES(12288,263,'vertical','',0,1810,320,0,120,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12289,263,'horizontal','',0,1540,440,270,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12291,263,'action','return result;',0,1540,480,140,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(12292,263,'insertion',replace('result =\nPerform_Cvm_Offline_Pin(cvRule);','\n',char(10)),0,1540,390,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(12292,263,'insertion',replace('result =\nPerform_Cvm_Offline_Pin(cvRule);','\n',char(10)),1,1540,390,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12293,263,'insertion',replace('result =\nPerform_Cvm_Online_Pin();','\n',char(10)),0,1810,390,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12294,264,'beginend','Perform_Cvm_Offline_Pin',0,1130,480,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12295,264,'beginend','End',0,2840,850,50,20,60,0,NULL,'',NULL,'');
@@ -7366,7 +7366,7 @@ INSERT INTO items VALUES(12477,266,'address',replace('Nok\n(B)','\n',char(10)),0
 INSERT INTO items VALUES(12478,266,'address','Bail',0,3530,860,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12479,266,'vertical','',0,3690,290,0,620,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12480,266,'branch','Verify PIN',0,3690,340,90,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(12482,264,'insertion',replace('result =\nOffline_Pin_Entry(cvRule);','\n',char(10)),0,1980,890,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(12482,264,'insertion',replace('result =\nOffline_Pin_Entry(cvRule);','\n',char(10)),1,1980,890,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12489,266,'vertical','',0,5460,290,0,620,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12490,266,'branch','Successful',0,5460,340,80,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12491,266,'address','End',0,5460,860,80,30,60,0,NULL,'',NULL,'');
@@ -7399,7 +7399,7 @@ INSERT INTO items VALUES(12560,266,'case','E_REFERENCED_DATA_REVERSIBLY_BLOCKED'
 INSERT INTO items VALUES(12561,266,'vertical','',0,4500,450,0,90,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12562,266,'shelf','0',0,4180,730,140,40,40,0,NULL,'',NULL,'*s_cv.pinTryCounter');
 INSERT INTO items VALUES(12563,266,'shelf','N_CHIP_ERROR',0,5290,720,70,40,40,0,NULL,'',NULL,'ttd.nokReason');
-INSERT INTO items VALUES(12564,266,'address','End',0,4740,860,60,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(12564,266,'address','Successful',0,4740,860,60,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12565,266,'address','End',0,5290,860,70,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12566,266,'address','Update PTC',0,3690,860,90,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12569,266,'action','return result;',0,6100,550,70,20,0,0,NULL,NULL,NULL,NULL);

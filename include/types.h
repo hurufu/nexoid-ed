@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdalign.h>
 
 #define MAX_CARDHOLDER_MESSAGES (6)
 
@@ -45,6 +46,16 @@ struct bcd3 {
 
 struct bcd4 {
     bcd_t v[4];
+};
+
+// Packed BCD max n12 padded with 0xF to the left
+struct cbcd6 {
+    bcd_t v[6];
+};
+
+struct cbcd_6 {
+    uint8_t l;
+    struct cbcd6 v;
 };
 
 union bcd6 {
@@ -418,8 +429,23 @@ union PACKED ApplicationInterchangeProfile {
     };
 };
 
+// EMV Book 3 v.4.3, section 6.5.12.2
+union PACKED PlainTextPinBlock {
+    uint8_t raw[8];
+    struct {
+        struct {
+            uint8_t length : 4;
+            enum PACKED {
+                PIN_BLOCK_CONTROL = 0x2
+            } control : 4;
+        };
+        struct cbcd6 pin;
+        uint8_t padding[1];
+    };
+};
+
 union PinData {
-    void* offlinePinBlock;
+    union PlainTextPinBlock* offlinePinBlock;
     void* encipheredPinData;
 };
 
@@ -453,7 +479,7 @@ struct CardData {
     // NEXO: Tag [99] is not used by nexo-FAST
     union PinData pinData;
 
-    void* offlinePinBlock;
+    union PlainTextPinBlock* offlinePinBlock;
     void* encipheredPinData;
 
     struct DolData dolData;
@@ -2288,6 +2314,7 @@ struct TerminalTransactionData {
     enum OdaMethod odaMethodToBePerformed;
     bool pinEntryBypassed;
     bool chipPinEntered;
+    struct cbcd_6* plainTextPin; // FIXME
 
     // FIXME: Consider moving to a different location
     struct EventTable {

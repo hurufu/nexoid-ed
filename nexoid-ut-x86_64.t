@@ -2,6 +2,7 @@
 
 #include <check.h>
 #include <nexoid/tag_retrival.h>
+#include <nexoid/local.h>
 #include <limits.h>
 
 #suite tag_retrival
@@ -71,3 +72,35 @@
 #test not_enough_input_bytes_for_length
     const uint8_t s[] = { 0x07, 0x85, 0xA1, 0xA2 };
     ck_assert_tl(Extract_Tag_And_Length_Pair(sizeof(s), s), PR_NOK, 0, 0, lastof(s) + 1, 0x07);
+
+#suite utils
+
+#test cbcd6_is_converted_from_even_number_of_digits
+    const struct cbcd6 converted = String_To_Cbcd6("1234");
+    const struct cbcd6 expected = { .v = { 0x12, 0x34, 0xFF, 0xFF, 0xFF, 0xFF } };
+    ck_assert_mem_eq(converted.v, expected.v, 6);
+
+#test cbcd6_conversion_handles_null_input
+    const struct cbcd6 converted = String_To_Cbcd6(NULL);
+    const struct cbcd6 expected = { .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
+    ck_assert_mem_eq(converted.v, expected.v, 6);
+
+#test cbcd6_conversion_handles_empty_input
+    const struct cbcd6 converted = String_To_Cbcd6("");
+    const struct cbcd6 expected = { .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
+    ck_assert_mem_eq(converted.v, expected.v, 6);
+
+#test cbcd6_is_converted_from_odd_number_of_digits
+    const struct cbcd6 converted = String_To_Cbcd6("12345");
+    const struct cbcd6 expected = { .v = { 0x12, 0x34, 0x5F, 0xFF, 0xFF, 0xFF } };
+    ck_assert_mem_eq(converted.v, expected.v, 6);
+
+#test cbcd6_handles_too_big_input
+    const struct cbcd6 converted = String_To_Cbcd6("1234567890123");
+    const struct cbcd6 expected = { .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
+    ck_assert_mem_eq(converted.v, expected.v, 6);
+
+#test cbcd6_handles_non_numeric_input
+    const struct cbcd6 converted = String_To_Cbcd6("123ab23");
+    const struct cbcd6 expected = { .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
+    ck_assert_mem_eq(converted.v, expected.v, 6);

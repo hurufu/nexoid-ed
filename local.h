@@ -23,3 +23,5 @@ union ConfiguredServices ServiceId_to_ConfiguredServices(enum ServiceId);
 union ServiceStartEvents ServiceId_to_AllowedServiceStartEvents(enum ServiceId s);
 struct CombinationListAndParameters* Copy_Combination_Lists_Entry(const struct CombinationListAndParameters* r);
 bool isIssuerCountryExcludedForDcc(void);
+
+struct cbcd6 String_To_Cbcd6(const char* str);

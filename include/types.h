@@ -31,6 +31,14 @@ union PACKED bcd {
     };
 };
 
+union PACKED zbcd {
+    char raw;
+    struct {
+        uint8_t v : 4;
+        uint8_t p : 4;
+    };
+};
+
 struct n6 {
     uint8_t bcd[6];
 };

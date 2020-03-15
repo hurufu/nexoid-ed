@@ -129,3 +129,28 @@ Copy_Combination_Lists_Entry(const struct CombinationListAndParameters* const r)
     }
     return acpval(tmp);
 }
+
+struct cbcd6 String_To_Cbcd6(const char* const str) {
+    struct cbcd6 ret = { .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
+
+    const size_t len = str ? strlen(str) : 0;
+    if (len > 12 || len < 1) {
+        return ret;
+    }
+
+    const union zbcd (*const num)[][2] = (const union zbcd (*)[][2])str;
+
+    for (size_t i = 0; i < len/2; i++) {
+        for (size_t j = 0; j < 2; j++) {
+            if (!((*num)[i][j].p == (const union zbcd){ .raw = '0' }.p)) {
+                return (const struct cbcd6){ .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
+            }
+        }
+        ret.v[i] = ((*num)[i][0].v << 4) | (*num)[i][1].v;
+    }
+    if (len % 2 != 0) {
+        ret.v[len/2] = ((*num)[len/2][0].v << 4) | 0x0F;
+    }
+
+    return ret;
+}

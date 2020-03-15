@@ -1908,7 +1908,7 @@ union CvmCode {
     unsigned char raw;
     struct {
         enum PACKED {
-            CVM_SUCCESS = 0b000000,
+            CVM_SUCCESS = 0b000000, // It's called "Fail CVM in nexo-FAST v.3.2, figure 172
             CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC = 0b000001,
             CVM_ENCIPHERED_PIN_VERIFIED_ONLINE = 0b000010,
             CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC_AND_SIGNATURE = 0b000011,

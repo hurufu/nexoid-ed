@@ -21,6 +21,8 @@ enum PapiResult {
 enum PapiCvmResult {
     PAPI_CVM_APPLICABLE = 80
   , PAPI_CVM_NOT_APPLICABLE
+  , PAPI_CVM_SUPPORTED
+  , PAPI_CVM_NOT_SUPPORTED
 };
 
 /* Perform any actions required by the platform prior to nexo app startup
@@ -86,3 +88,5 @@ enum PapiResult papi_Specific_Processing_Based_On_Pan(void);
  * nexo-FAST v.3.2, figure 171
  */
 enum PapiCvmResult papi_Proprietary_Cvm_Condition_Code_Processing(struct CvRule cvRule);
+
+enum PapiCvmResult papi_Proprietary_Cvm_Support_Check(struct CvRule cvRule);

@@ -452,7 +452,7 @@ union PACKED PlainTextPinBlock {
     };
 };
 
-union PinData {
+union PinBlock {
     union PlainTextPinBlock* offlinePinBlock;
     void* encipheredPinData;
 };
@@ -485,7 +485,7 @@ struct CardData {
 
     // [-]
     // NEXO: Tag [99] is not used by nexo-FAST
-    union PinData pinData;
+    union PinBlock pinData;
 
     union PlainTextPinBlock* offlinePinBlock;
     void* encipheredPinData;
@@ -2055,6 +2055,30 @@ struct FileControlInformation {
     struct FciProprietaryTemplate a5;
 };
 
+// Definition pf OpaquePinData should be provided by the Trusted Layer
+struct OpaquePinData;
+
+// Struct is used instead of union to avoid accidental mixup of plain text PIN
+// (mainly used for debugging) with OpaquePinData
+struct PinData {
+    struct OpaquePinData* opaquePinData;
+    char* plainTextPin;
+};
+
+union PACKED KeySerialNumber {
+    uint8_t raw[10];
+    struct KeySetId {
+        uint8_t issuerId[3];
+        uint8_t merchantId;
+        uint8_t groupId;
+    } ksi;
+    struct {
+        uint64_t /* ignored */ : 8 * sizeof(uint64_t) - 19 - 21;
+        uint64_t counter: 21;
+        uint64_t deviceId: 19;
+    };
+};
+
 struct KernelData {
     enum AuthorisationResponseCode authorisationResponseCode;
     union TerminalVerificationResults tvr;
@@ -2071,6 +2095,9 @@ struct KernelData {
     union Country* issuerCountry;
 
     union Cvm cvmResults;
+
+    struct PinData pinData;
+    union KeySerialNumber* ksn;
 };
 
 // Based on nexo-FAST section 13.3
@@ -2322,7 +2349,6 @@ struct TerminalTransactionData {
     enum OdaMethod odaMethodToBePerformed;
     bool pinEntryBypassed;
     bool chipPinEntered;
-    struct cbcd_6* plainTextPin; // FIXME
 
     // FIXME: Consider moving to a different location
     struct EventTable {

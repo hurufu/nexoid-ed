@@ -54,6 +54,7 @@ struct TransactionCompletion {
 
 struct CardholderVerification {
     uint8_t* pinTryCounter;
+    struct CvRule* cvRule;
 };
 
 static struct ApplicationKernelAndAppProfileSelection s_akps;

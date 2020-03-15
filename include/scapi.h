@@ -94,3 +94,16 @@ enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum Cardholder
  * nexo-FAST v.3.2, figure 21
  */
 bool scapi_Authorise_Service(void);
+
+/* 
+ * TODO: Consider moving to separate API
+ */
+enum ScapiResult sped_Generate_Enciphered_Pin_Data(struct CvRule);
+
+/* Generate PIN Block for Offline Authentication
+ *
+ * On success kd.offlinePinBlock should not be NULL
+ *
+ * TODO: Consider moving to separate API
+ */
+enum ScapiResult sped_Generate_Offline_Pin_Block(struct CvRule);

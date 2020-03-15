@@ -15,15 +15,15 @@ LDFLAGS             := -Wl,--unresolved-symbols=ignore-in-shared-libs
 CTAGS               := ctags
 CHECKMK             := checkmk
 
+.PHONY: run
+run: $(EXECUTABLE)
+	./$<
+
 .PHONY: all
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(SOURCES)
 	$(CC) -o $@ $(CPPFLAGS) $(CFLAGS) $(ASMFLAGS) $(LDFLAGS) $^ $(LDLIBS)
-
-.PHONY: run
-run: $(EXECUTABLE)
-	./$<
 
 .PHONY: clean
 clean: F := $(wildcard $(EXECUTABLE) $(GENERATED_SOURCES) tags)

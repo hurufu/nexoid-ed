@@ -25,3 +25,5 @@ struct CombinationListAndParameters* Copy_Combination_Lists_Entry(const struct C
 bool isIssuerCountryExcludedForDcc(void);
 
 struct cbcd6 String_To_Cbcd6(const char* str);
+
+int yymmdd_cmp(union yymmdd lhs, union yymmdd rhs);

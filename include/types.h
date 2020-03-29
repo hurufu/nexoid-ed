@@ -117,6 +117,16 @@ union binary2 {
     uint16_t u;
 };
 
+union yymmdd {
+    struct bcd3 bcd;
+    struct PACKED {
+        bcd_t y;
+        bcd_t m;
+        bcd_t d;
+    };
+    uint32_t u;
+};
+
 // FIXME: CAST_TAG() works only with 2-byte tags
 #define CAST_TAG(TagV) \
     (TagV & (0xFF << 0)) << 8 | \
@@ -485,6 +495,12 @@ struct CardData {
     struct CvmList* cvmList;
     union CurrencyCode* applicationCurrencyCode;
     union binary2* applicationVersionNumber_Card; // 0x9F08
+
+    // [5F25]
+    union yymmdd* applicationEffectiveDate;
+
+    // [5F24]
+    union yymmdd* applicationExpirationDate;
 
     // [9F17]
     uint8_t* pinTryCounter;
@@ -2359,6 +2375,7 @@ struct TerminalTransactionData {
     enum OdaMethod odaMethodToBePerformed;
     bool pinEntryBypassed;
     bool chipPinEntered;
+    union yymmdd transactionDate;
 
     // FIXME: Consider moving to a different location
     struct EventTable {

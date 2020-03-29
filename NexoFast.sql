@@ -127,7 +127,7 @@ INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1053 -160','nexo-FAST
 INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','101 -136',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-65 -265',NULL,75.0);
-INSERT INTO diagrams VALUES(175,'Dates_Restriction','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(175,'Dates_Restriction','-465 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','0 0','',75.0);
 INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5834 -669','',75.0);
@@ -229,7 +229,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,173,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,175,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4130,9 +4130,9 @@ INSERT INTO items VALUES(8213,174,'beginend','Application_Version_Number_Restric
 INSERT INTO items VALUES(8214,174,'beginend','End',0,420,450,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8215,174,'vertical',NULL,0,420,0,0,450,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8216,173,'insertion','Application_Version_Number_Restriction();',0,290,240,180,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8217,175,'beginend','Dates_Restriction',1,170,60,80,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8218,175,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8219,175,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8217,175,'beginend','Dates_Restriction',0,230,-20,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8218,175,'beginend','End',0,230,640,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8219,175,'vertical',NULL,0,230,0,0,620,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8220,173,'insertion','Dates_Restriction();',0,290,300,180,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8221,176,'beginend','Application_Usage_Control',0,170,60,110,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8222,176,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
@@ -4146,7 +4146,7 @@ INSERT INTO items VALUES(8229,176,'address','branch 2',0,170,550,50,30,60,0,NULL
 INSERT INTO items VALUES(8230,176,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8231,176,'branch','branch 3',0,660,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8232,176,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8233,173,'insertion','Application_Usage_Control();',0,290,360,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8233,173,'insertion','Application_Usage_Control();',1,290,360,180,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8234,177,'beginend','Terminal_Risk_Management',0,170,60,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8235,177,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8236,177,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
@@ -7867,6 +7867,20 @@ INSERT INTO items VALUES(13300,174,'if',replace('cd.applicationVersionNumber_Car
 INSERT INTO items VALUES(13301,174,'vertical','',0,670,240,0,170,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13303,174,'shelf','1',0,420,140,190,40,40,0,NULL,NULL,NULL,'ttd.processingStatus.processingRestrictions');
 INSERT INTO items VALUES(13304,174,'shelf','1',0,670,350,230,40,40,0,NULL,NULL,NULL,'ttd.tvr.cardAndTerminalHaveDifferentApplicationVersions');
+INSERT INTO items VALUES(13305,175,'if','cd.applicationEffectiveDate',0,230,140,290,20,190,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13306,175,'vertical','',0,710,140,0,200,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13307,175,'horizontal','',0,230,340,480,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13308,175,'shelf','1',0,230,60,290,40,40,0,NULL,'',NULL,'ttd.processingStatus.processingRestrictions');
+INSERT INTO items VALUES(13309,175,'if','yymmdd_cmp(*cd.applicationEffectiveDate, ttd.transactionDate) > 0',0,230,200,290,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13310,175,'vertical','',0,540,200,0,140,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13311,175,'shelf','1',0,540,280,150,40,40,0,NULL,'',NULL,'ttd.tvr.applicationNotYetEffective');
+INSERT INTO items VALUES(13312,175,'if','yymmdd_cmp(ttd.transactionDate, *cd.applicationExpirationDate) > 0',0,230,460,290,20,20,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13313,175,'vertical','',0,540,460,0,140,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13314,175,'shelf','1',0,540,540,150,40,40,0,NULL,'',NULL,'ttd.tvr.expiredApplication');
+INSERT INTO items VALUES(13315,175,'horizontal','',0,230,600,480,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13316,175,'if','cd.applicationExpirationDate',0,230,390,290,20,190,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13317,175,'vertical','',0,710,390,0,210,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13318,175,'commentout',replace('FIXME: Do not ignore expiry date if it is missing\nNEXO: Nexo does not specify this condition','\n',char(10)),0,-300,390,210,30,60,1,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

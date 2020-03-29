@@ -154,3 +154,7 @@ struct cbcd6 String_To_Cbcd6(const char* const str) {
 
     return ret;
 }
+
+int yymmdd_cmp(const union yymmdd lhs, const union yymmdd rhs) {
+    return lhs.u > rhs.u;
+}

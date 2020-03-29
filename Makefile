@@ -71,11 +71,11 @@ CSCOPE_REF   := cscope.out
 
 TIME_FORMAT    ?= pdb
 TIME_RESULT    := time.$(TIME_FORMAT)
-TIME_ARGS.yaml := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
-TIME_ARGS.pdb  := --format='pd(user(%U), system(%S), real(%e), command("%C")).' --append --output $(TIME_RESULT)
+TIME_ARGS_yaml := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
+TIME_ARGS_pdb  := --format='pd(user(%U), system(%S), real(%e), command("%C")).' --append --output $(TIME_RESULT)
 
 # Commands ####################################################################
-TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS.$(TIME_FORMAT)),)
+TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS_$(TIME_FORMAT)),)
 CSCOPE        = $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)

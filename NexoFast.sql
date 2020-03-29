@@ -6374,7 +6374,7 @@ INSERT INTO items VALUES(11071,232,'address','Contact TMS',0,2440,660,70,30,60,0
 INSERT INTO items VALUES(11072,232,'vertical','',0,4170,60,0,650,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11073,232,'address','(B) Idle',0,4170,660,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11074,232,'branch','Contact TMS',0,4170,110,200,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11075,232,'commentout',replace('This isn''t defined in Main\nfunction flow, but it''s\nimplied in different places.\nSee:\nnexo-IS v.4.0, lines 523~527,\nand section 4.2','\n',char(10)),0,3800,160,130,60,240,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11075,232,'commentout',replace('This is not defined in Main\nfunction flow, but it is\nimplied in different places.\nSee:\nnexo-IS v.4.0, lines 523~527,\nand section 4.2','\n',char(10)),0,3800,160,130,60,240,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11095,232,'insertion',replace('result =\nPerform_Terminal_Managment_Session();','\n',char(10)),0,4170,360,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11096,232,'if','PR_OK == result',0,4170,430,200,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(11097,232,'vertical','',0,4450,430,0,280,0,0,NULL,'',NULL,'');

@@ -112,6 +112,11 @@ struct binary {
     uint8_t r[1024];
 };
 
+union binary2 {
+    uint8_t r[2];
+    uint16_t u;
+};
+
 // FIXME: CAST_TAG() works only with 2-byte tags
 #define CAST_TAG(TagV) \
     (TagV & (0xFF << 0)) << 8 | \
@@ -479,6 +484,7 @@ struct CardData {
     union ApplicationInterchangeProfile aip;
     struct CvmList* cvmList;
     union CurrencyCode* applicationCurrencyCode;
+    union binary2* applicationVersionNumber_Card; // 0x9F08
 
     // [9F17]
     uint8_t* pinTryCounter;
@@ -1381,7 +1387,7 @@ struct TerminalApplicationVersionList {
     size_t s;
     struct TerminalApplicationVersionEntry {
         struct Rid rid;
-        struct bcd2 applicationVersionNumber;
+        union binary2 applicationVersionNumber;
     } entry[50];
 };
 
@@ -2093,6 +2099,10 @@ struct KernelData {
 
     // FIXME: IssuerCountry is actually a card data
     union Country* issuerCountry;
+
+    // Application version number for selected ICC application, specific to the terminal
+    // Selected from DF40/DF49
+    union binary2 applicationVersionNumber_Terminal; // 9F09
 
     union Cvm cvmResults;
 

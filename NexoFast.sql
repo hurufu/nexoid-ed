@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2374 82','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2440 81','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','2450 -47','',80.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','-88 -240','',75.0);
@@ -25,7 +25,7 @@ INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-134 -148','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','-386 22','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','-298 22',NULL,75.0);
-INSERT INTO diagrams VALUES(38,'Perform_Service','-261 -192',NULL,75.0);
+INSERT INTO diagrams VALUES(38,'Perform_Service','-326 -192',NULL,75.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','1392 -438','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -295','',90.0);
@@ -54,7 +54,7 @@ INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -64','',75.0);
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','132 235','',75.0);
 INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-26 -104','First best match is selected',75.0);
-INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','-41 -72','',75.0);
+INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','26 -72','',75.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-297 -188',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
@@ -80,7 +80,7 @@ INSERT INTO diagrams VALUES(106,'Perform_General_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(107,'Perform_Specific_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-266 0',NULL,75.0);
-INSERT INTO diagrams VALUES(110,'Kernel_Processing','1085 -116','',75.0);
+INSERT INTO diagrams VALUES(110,'Kernel_Processing','1084 -49','',75.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','521 0',NULL,75.0);
 INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,75.0);
@@ -119,18 +119,18 @@ INSERT INTO diagrams VALUES(152,'Sort_Candidate_List_By_Priority','66 -66',NULL,
 INSERT INTO diagrams VALUES(155,'Cardholder_Application_Confirmation','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(156,'Check_Cardholder_Language','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
-INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1704 -108','',75.0);
-INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','1210 -100','',75.0);
+INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','1569 -108','',75.0);
+INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','3474 -100','',75.0);
 INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','4992 -938',replace('nexo-Fast fig. 158~160\n\nTODO: Decoding and processing of AFL is implemented only for first AFL entry (see nexo-FAST fig. 159)','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','2594 -21','nexo-FAST v.3.2, section 8.2.2.2',75.0);
-INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1054 -160','nexo-FAST v.3.2, figure 168',75.0);
-INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','102 -137',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),75.0);
+INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1053 -160','nexo-FAST v.3.2, figure 168',75.0);
+INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','101 -136',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),75.0);
-INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-65 -265',NULL,75.0);
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','0 0','',75.0);
-INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5768 -736','',75.0);
+INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5834 -669','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-168 22','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0);
@@ -162,10 +162,10 @@ INSERT INTO diagrams VALUES(208,'Determination_Of_Oda_Method','12 -224','nexo-FA
 INSERT INTO diagrams VALUES(209,'Decode_Afl_Entry','0 -262',NULL,75.0);
 INSERT INTO diagrams VALUES(210,'Process_Read_Record','128 -185',replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(211,'Copy_Response_Data_After_Read_Record','-200 -133',NULL,75.0);
-INSERT INTO diagrams VALUES(212,'Cvm_List_Processing','405 -188',NULL,75.0);
-INSERT INTO diagrams VALUES(213,'Try_Performing_Cvm','612 -140',NULL,80.0);
-INSERT INTO diagrams VALUES(214,'Process_Cvm_Condition_Code','6985 4',replace('nexo-FAST v.3.2, section 8.2.5.2.3\n\nTODO: Not implemented','\n',char(10)),90.0);
-INSERT INTO diagrams VALUES(215,'Check_Cvm_Support','705 -272',NULL,75.0);
+INSERT INTO diagrams VALUES(212,'Cvm_List_Processing','537 -188',NULL,75.0);
+INSERT INTO diagrams VALUES(213,'Try_Performing_Cvm','2422 -140',NULL,80.0);
+INSERT INTO diagrams VALUES(214,'Process_Cvm_Condition_Code','984 3',replace('nexo-FAST v.3.2, section 8.2.5.2.3\n\nTODO: Not implemented','\n',char(10)),90.0);
+INSERT INTO diagrams VALUES(215,'Check_Cvm_Support','837 -272',NULL,75.0);
 INSERT INTO diagrams VALUES(217,'Check_Change_Application_Eligibility','-36 -353','nexo-FAST v.3.2, section 6.6.12.2',75.0);
 INSERT INTO diagrams VALUES(218,'Terminal_Action_Analysis','0 0','TODO: Terminal Action Analysis isn''t implemented',75.0);
 INSERT INTO diagrams VALUES(219,'Emv_Completion','1112 312','',75.0);
@@ -179,7 +179,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','3332 3','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','3108 1','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -203,24 +203,24 @@ INSERT INTO diagrams VALUES(254,'Presence_Check_Of_Icc_Data_For_Oda','0 0',NULL,
 INSERT INTO diagrams VALUES(255,'Public_Key_Retrieval_For_Oda','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(256,'Signature_Processing','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(257,'Offline_Data_Authentication','132 -400',NULL,75.0);
-INSERT INTO diagrams VALUES(258,'s_Offline_Data_Authentication','25 -38',NULL,80.0);
+INSERT INTO diagrams VALUES(258,'s_Offline_Data_Authentication','25 -100',NULL,80.0);
 INSERT INTO diagrams VALUES(259,'Proprietary_Cvm_Condition_Code_Processing','84 -195',NULL,90.0);
 INSERT INTO diagrams VALUES(260,'Is_Cvm_Offline_Pin','-265 -396',NULL,75.0);
 INSERT INTO diagrams VALUES(263,'Perform_Cvm','1197 -129',NULL,75.0);
-INSERT INTO diagrams VALUES(264,'Perform_Cvm_Offline_Pin','1435 430','',90.0);
-INSERT INTO diagrams VALUES(265,'Prepare_Offline_Pin_Block','289 -512','',75.0);
-INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','3012 40','',75.0);
+INSERT INTO diagrams VALUES(264,'Perform_Cvm_Offline_Pin','1601 430','',90.0);
+INSERT INTO diagrams VALUES(265,'Prepare_Offline_Pin_Block','153 -644','',75.0);
+INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','3144 40','',75.0);
 INSERT INTO diagrams VALUES(267,'Perform_Cvm_Online_Pin','-84 -168','',75.0);
 INSERT INTO diagrams VALUES(268,'Request_Pin_Entry_For_Emv_Chip','0 -266',NULL,75.0);
 INSERT INTO diagrams VALUES(269,'Verify_Pin_Block','-60 0','',80.0);
 INSERT INTO diagrams VALUES(270,'Pin_Encipherment','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(272,'Pin_Entry_Done','212 -1137','nexo FAST v.3.2, figure 90',75.0);
-INSERT INTO diagrams VALUES(273,'Pin_Entry','1490 -710',replace('NEXO: Flow described in the spec is brain-dead, there are a lot of duplications it looks like the author just copy-pasted from different PIN Entry variant. It hides similarities and doesn''t highlight differences in PIN Entry variants. That''s why here it''s reimplemented differently\nFIXME: This procedure is implemented in non-conformant way','\n',char(10)),60.0);
+INSERT INTO diagrams VALUES(272,'Pin_Entry_Done','212 -869','nexo FAST v.3.2, figure 90',75.0);
+INSERT INTO diagrams VALUES(273,'Pin_Entry','1490 121',replace('NEXO: Flow described in the spec is brain-dead, there are a lot of duplications it looks like the author just copy-pasted from different PIN Entry variant. It hides similarities and doesn''t highlight differences in PIN Entry variants. That''s why here it''s reimplemented differently\nFIXME: This procedure is implemented in non-conformant way','\n',char(10)),60.0);
 INSERT INTO diagrams VALUES(274,'Data_Entry_Interaction','332 65',NULL,75.0);
 INSERT INTO diagrams VALUES(275,'Generate_Enciphered_Pin_Data','110 -520','',75.0);
 INSERT INTO diagrams VALUES(277,'Generate_Offline_Pin_Block','416 -208',NULL,75.0);
 INSERT INTO diagrams VALUES(278,'Validate_Plain_Text_Pin_String','-285 -210',replace('NEXO: This function is not decirbed in nexo. It is needed as a support function\nfor plainText PIN entry mode, which is used mainly for debugging','\n',char(10)),75.0);
-INSERT INTO diagrams VALUES(279,'Check_Cvm_Code_Support','898 -232',NULL,75.0);
+INSERT INTO diagrams VALUES(279,'Check_Cvm_Code_Support','964 -232',NULL,75.0);
 INSERT INTO diagrams VALUES(280,'Is_Cvm_Code_Recognised','0 0','NEXO: This procedure isn''t specified by nexo',75.0);
 INSERT INTO diagrams VALUES(282,'Proprietary_Cvm_Support_Check','-111 0',NULL,90.0);
 CREATE TABLE state
@@ -229,7 +229,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,166,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,173,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -3955,7 +3955,7 @@ INSERT INTO items VALUES(8020,166,'address',replace('Processing Restrictions &\n
 INSERT INTO items VALUES(8021,166,'insertion',replace('result =\nApplication_And_Transaction_Amount_Confirmation();','\n',char(10)),0,1570,270,210,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8022,166,'if','PR_OK == result',0,1570,350,210,20,190,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8023,166,'address','Assert Nok',0,1970,560,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8024,166,'insertion',replace('result =\nProcessing_Restrictions();','\n',char(10)),0,2160,260,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8024,166,'insertion',replace('result =\nProcessing_Restrictions();','\n',char(10)),1,2160,260,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8025,166,'if','PR_DONE == result',0,2160,330,120,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8026,166,'insertion',replace('result =\nTerminal_Risk_Management();','\n',char(10)),0,2160,410,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8027,166,'if','PR_DONE == result',0,2160,490,120,20,70,0,NULL,'',NULL,'');
@@ -4126,9 +4126,9 @@ INSERT INTO items VALUES(8208,173,'vertical','',0,290,200,0,260,0,0,NULL,'',NULL
 INSERT INTO items VALUES(8209,173,'horizontal','',0,290,180,200,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8210,173,'action','returns enum ProcedureResult',0,550,180,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8211,173,'action','return PR_DONE;',0,290,420,180,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8213,174,'beginend','Application_Version_Number_Restriction',0,170,60,170,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8214,174,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8215,174,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8213,174,'beginend','Application_Version_Number_Restriction',0,420,0,170,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8214,174,'beginend','End',0,420,450,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8215,174,'vertical',NULL,0,420,0,0,450,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8216,173,'insertion','Application_Version_Number_Restriction();',0,290,240,180,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8217,175,'beginend','Dates_Restriction',1,170,60,80,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8218,175,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
@@ -4208,7 +4208,7 @@ INSERT INTO items VALUES(8291,178,'address',replace('Try fallback\n(2, A)','\n',
 INSERT INTO items VALUES(8292,178,'address',replace('Outcome:\nSelect next','\n',char(10)),0,5620,150,130,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8293,178,'address','Init. application',0,4420,160,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8294,178,'branch',replace('Check and init.\nkernel data','\n',char(10)),0,4420,-600,190,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8295,178,'insertion',replace('result =\nAuthentication_Processing_And_Risk_Management();','\n',char(10)),0,6120,-480,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8295,178,'insertion',replace('result =\nAuthentication_Processing_And_Risk_Management();','\n',char(10)),1,6120,-480,210,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8296,178,'if','PR_OK == result',0,6120,-410,210,20,310,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8297,178,'vertical','',0,6640,-410,0,620,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8298,178,'address',replace('Try fallback\n(2, A)','\n',char(10)),0,6640,150,90,40,60,0,NULL,'',NULL,'');
@@ -7216,7 +7216,7 @@ INSERT INTO items VALUES(12287,263,'action',replace('const struct CvRule cvRule\
 INSERT INTO items VALUES(12288,263,'vertical','',0,1810,320,0,120,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12289,263,'horizontal','',0,1540,440,270,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12291,263,'action','return result;',0,1540,480,140,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(12292,263,'insertion',replace('result =\nPerform_Cvm_Offline_Pin(cvRule);','\n',char(10)),1,1540,390,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(12292,263,'insertion',replace('result =\nPerform_Cvm_Offline_Pin(cvRule);','\n',char(10)),0,1540,390,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12293,263,'insertion',replace('result =\nPerform_Cvm_Online_Pin();','\n',char(10)),0,1810,390,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12294,264,'beginend','Perform_Cvm_Offline_Pin',0,1130,480,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12295,264,'beginend','End',0,2840,850,50,20,60,0,NULL,'',NULL,'');
@@ -7335,7 +7335,7 @@ INSERT INTO items VALUES(12462,266,'horizontal','',0,2780,680,230,0,0,0,NULL,'',
 INSERT INTO items VALUES(12463,266,'vertical','',0,3380,280,0,630,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12464,266,'branch','Prepare PIN block',0,3380,330,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12465,266,'address','Verify PIN',0,3380,860,150,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(12466,266,'insertion',replace('result =\nPrepare_Offline_Pin_Block(cvRule);','\n',char(10)),1,3380,430,150,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(12466,266,'insertion',replace('result =\nPrepare_Offline_Pin_Block(cvRule);','\n',char(10)),0,3380,430,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12467,266,'select','result',0,3380,500,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12468,266,'horizontal','',0,3380,540,540,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12469,266,'case','PR_CVM_SUCCESSFUL',0,3380,580,150,20,60,0,NULL,'',NULL,'');
@@ -7350,7 +7350,7 @@ INSERT INTO items VALUES(12477,266,'address',replace('Nok\n(B)','\n',char(10)),0
 INSERT INTO items VALUES(12478,266,'address','Bail',0,3920,860,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12479,266,'vertical','',0,4080,280,0,630,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12480,266,'branch','Verify PIN',0,4080,330,90,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(12482,264,'insertion',replace('result =\nOffline_Pin_Entry(cvRule);','\n',char(10)),1,1980,890,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(12482,264,'insertion',replace('result =\nOffline_Pin_Entry(cvRule);','\n',char(10)),0,1980,890,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(12489,266,'vertical','',0,5850,280,0,630,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12490,266,'branch','Successful',0,5850,330,80,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(12491,266,'address','End',0,5850,860,80,30,60,0,NULL,'',NULL,'');
@@ -7860,6 +7860,13 @@ INSERT INTO items VALUES(13286,282,'action',replace('const struct CvRule cvRule\
 INSERT INTO items VALUES(13287,279,'insertion',replace('result =\nProprietary_Cvm_Support_Check(cvRule);','\n',char(10)),0,5450,280,170,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13288,279,'shelf','PR_CVM_NOT_SUPPORTED',0,5910,110,90,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(13296,215,'insertion',replace('result =\nCheck_Cvm_Code_Support(cvRule);','\n',char(10)),0,1050,420,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13297,174,'if','cd.applicationVersionNumber_Card',0,420,60,190,20,310,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13298,174,'vertical','',0,920,60,0,350,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13299,174,'horizontal','',0,420,410,500,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13300,174,'if',replace('cd.applicationVersionNumber_Card->u\n==\nkd.applicationVersionNumber_Terminal.u','\n',char(10)),0,420,240,190,40,60,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13301,174,'vertical','',0,670,240,0,170,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13303,174,'shelf','1',0,420,140,190,40,40,0,NULL,NULL,NULL,'ttd.processingStatus.processingRestrictions');
+INSERT INTO items VALUES(13304,174,'shelf','1',0,670,350,230,40,40,0,NULL,NULL,NULL,'ttd.tvr.cardAndTerminalHaveDifferentApplicationVersions');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

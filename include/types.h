@@ -452,6 +452,59 @@ union PACKED ApplicationInterchangeProfile {
     };
 };
 
+// nexo-FAST v.3.2, section 13.1.26
+// EMV v.4.3 Book 3, annex C3
+// [9F07]
+union PACKED ApplicationUsageControl {
+    uint8_t a[2];
+    struct {
+        uint8_t validAtTerminalsOtherThanAtms : 1;
+        uint8_t validAtAtms : 1;
+        uint8_t validForInternationalServices : 1;
+        uint8_t validForDomesticServices : 1;
+        uint8_t validForInternationalGoods : 1;
+        uint8_t validForDomesticGoods : 1;
+        uint8_t validForInternationalCash : 1;
+        uint8_t validForDomesticCash : 1;
+
+        uint8_t /* RFU */ : 6;
+        uint8_t validForInternationalCashback : 1;
+        uint8_t validForDomesticCashback : 1;
+    };
+};
+
+// Custom tag, not defined anywhere
+union PACKED ApplicationProcurementControl {
+    uint8_t a;
+    struct {
+        uint8_t /* RFU */ : 4;
+        uint8_t services : 1;
+        uint8_t goods : 1;
+        uint8_t cash : 1;
+        uint8_t cashback : 1;
+    };
+};
+
+// Custom tag, not defined anywhere
+union PACKED ApplicationLocationControl {
+    uint8_t a;
+    struct {
+        uint8_t /* RFU */ : 6;
+        uint8_t otherThenAtm : 1;
+        uint8_t atm : 1;
+    };
+};
+
+// Custom tag, not defined anywhere
+union PACKED ApplicationContextControl {
+    uint8_t a[3];
+    struct {
+        union ApplicationLocationControl location;
+        union ApplicationProcurementControl international;
+        union ApplicationProcurementControl domestic;
+    };
+};
+
 // EMV Book 3 v.4.3, section 6.5.12.2
 union PACKED PlainTextPinBlock {
     uint8_t raw[8];
@@ -470,6 +523,11 @@ union PACKED PlainTextPinBlock {
 union PinBlock {
     union PlainTextPinBlock* offlinePinBlock;
     void* encipheredPinData;
+};
+
+union CountryCode {
+    struct bcd2 bcd;
+    uint16_t u;
 };
 
 struct CardData {
@@ -495,6 +553,12 @@ struct CardData {
     struct CvmList* cvmList;
     union CurrencyCode* applicationCurrencyCode;
     union binary2* applicationVersionNumber_Card; // 0x9F08
+
+    // [9F07]
+    union ApplicationUsageControl* auc;
+
+    // [5F28]
+    union CountryCode* issuerCountryCode;
 
     // [5F25]
     union yymmdd* applicationEffectiveDate;
@@ -1666,7 +1730,7 @@ struct ApplicationProfile {
     union TerminalVerificationResults* additionalRestrictionsForForcedAcceptance;
     union AdditionalTerminalCapabilities* additionalTerminalCapabilities; // FIXME: Not mentioned in nexo-FAST 13.1.2
     union TerminalCapabilities* terminalCapabilities;
-    struct bcd2 terminalCountryCode;
+    union CountryCode terminalCountryCode;
     struct ans_16 applicationLabelDefault;
     union ApplicationProfileSettings applicationProfileSettings;
     union ApplicationProfileSettingsForCancellation* applicationProfileSettingsForCancellation;

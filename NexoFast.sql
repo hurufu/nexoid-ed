@@ -127,8 +127,8 @@ INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1053 -160','nexo-FAST
 INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','101 -136',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-65 -265',NULL,75.0);
-INSERT INTO diagrams VALUES(175,'Dates_Restriction','-465 -65',NULL,75.0);
-INSERT INTO diagrams VALUES(176,'Application_Usage_Control','0 0',NULL,75.0);
+INSERT INTO diagrams VALUES(175,'Dates_Restriction','-464 -130',NULL,75.0);
+INSERT INTO diagrams VALUES(176,'Application_Usage_Control','558 170',NULL,80.0);
 INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','0 0','',75.0);
 INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5834 -669','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','nexo-FAST note 152-20',75.0);
@@ -229,7 +229,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,175,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,176,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -4134,19 +4134,19 @@ INSERT INTO items VALUES(8217,175,'beginend','Dates_Restriction',0,230,-20,80,20
 INSERT INTO items VALUES(8218,175,'beginend','End',0,230,640,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8219,175,'vertical',NULL,0,230,0,0,620,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8220,173,'insertion','Dates_Restriction();',0,290,300,180,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8221,176,'beginend','Application_Usage_Control',0,170,60,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8222,176,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8223,176,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8224,176,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8225,176,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8226,176,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8227,176,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8228,176,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8229,176,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8230,176,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8231,176,'branch','branch 3',0,660,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8232,176,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8233,173,'insertion','Application_Usage_Control();',1,290,360,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8221,176,'beginend','Application_Usage_Control',0,370,280,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8222,176,'beginend','End',0,4100,670,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8223,176,'vertical','',0,370,300,0,620,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8224,176,'vertical','',0,2460,320,0,600,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8225,176,'vertical','',0,4100,320,0,340,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8226,176,'horizontal','',0,370,320,3730,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8227,176,'arrow','',0,150,320,220,600,3680,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8228,176,'branch','branch 1',0,370,370,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8229,176,'address','Check Location',0,370,870,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8230,176,'branch','Check Procurement Validity',0,2460,370,120,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8231,176,'branch','End',0,4100,370,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8232,176,'address','Set TVR',0,2650,870,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(8233,173,'insertion','Application_Usage_Control();',0,290,360,180,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8234,177,'beginend','Terminal_Risk_Management',0,170,60,110,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8235,177,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8236,177,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
@@ -7881,6 +7881,62 @@ INSERT INTO items VALUES(13315,175,'horizontal','',0,230,600,480,0,0,0,NULL,NULL
 INSERT INTO items VALUES(13316,175,'if','cd.applicationExpirationDate',0,230,390,290,20,190,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(13317,175,'vertical','',0,710,390,0,210,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13318,175,'commentout',replace('FIXME: Do not ignore expiry date if it is missing\nNEXO: Nexo does not specify this condition','\n',char(10)),0,-300,390,210,30,60,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13319,176,'shelf','Auc_to_Acc(*cd.auc)',0,370,780,200,40,40,0,NULL,NULL,NULL,'acc');
+INSERT INTO items VALUES(13320,176,'if','cd.auc',0,370,600,200,20,70,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13321,176,'vertical','',0,640,600,0,320,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13322,176,'address','End',0,640,870,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13323,176,'vertical','',0,890,320,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13324,176,'branch','Check Location',0,890,370,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13325,176,'address','International/Domestic?',0,890,870,170,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13326,176,'vertical','',0,1820,320,0,600,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13327,176,'branch','International/Domestic?',0,1820,370,230,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13328,176,'address','Check Procurement Validity',0,1820,870,230,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13329,176,'if','cd.issuerCountryCode',0,1820,540,230,20,220,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13330,176,'vertical','',0,2270,540,0,380,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13332,176,'shelf','NULL',0,370,460,200,40,40,0,NULL,NULL,NULL,'const union ApplicationProcurementControl* apc');
+INSERT INTO items VALUES(13333,176,'address','End',0,2270,870,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13334,176,'if','ap.terminalCountryCode.u == cd.issuerCountryCode->u',0,1820,600,230,20,110,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13335,176,'vertical','',0,2160,600,0,140,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13336,176,'horizontal','',0,1820,740,340,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13337,176,'shelf','&acc.domestic',0,1820,680,230,40,40,0,NULL,NULL,NULL,'apc');
+INSERT INTO items VALUES(13338,176,'shelf','&acc.international',0,2160,670,90,40,40,0,NULL,'',NULL,'apc');
+INSERT INTO items VALUES(13339,176,'action','union ApplicationContextControl acc;',0,370,540,200,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13344,176,'select','ttd.transactionType',0,2460,540,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13345,176,'horizontal','',0,2460,580,900,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13346,176,'case','TRX_DEBIT_CASH',0,2460,620,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13347,176,'case','TRX_DEBIT_GOODS_AND_SERVICES_WITH_CASH_DISBURSEMENT',0,2940,620,220,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13348,176,'case','',0,3360,620,60,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13349,176,'vertical','',0,2940,580,0,340,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13350,176,'vertical','',0,3360,580,0,340,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13351,176,'if','apc->cash',0,2460,680,120,20,70,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13352,176,'if','apc->cashback',0,2940,680,220,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13353,176,'if','apc->goods',0,3360,680,60,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13354,176,'if','apc->services',0,3460,740,80,20,20,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13355,176,'vertical','',0,3830,320,0,600,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13356,176,'branch','Set TVR',0,3830,370,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13357,176,'address','End',0,3830,870,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13358,176,'vertical','',0,2650,680,0,240,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13359,176,'address','End',0,2940,870,220,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13360,176,'address','End',0,2460,870,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13361,176,'vertical','',0,3230,680,0,240,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13362,176,'address','Set TVR',0,3230,870,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13363,176,'vertical','',0,3460,680,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13364,176,'horizontal','',0,3360,780,100,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13365,176,'vertical','',0,3560,740,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13366,176,'address','End',0,3360,870,60,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13367,176,'address','Set TVR',0,3560,870,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13368,176,'shelf','1',0,3830,570,200,40,40,0,NULL,NULL,NULL,'kd.tvr.requestedServiceNotAllowedForCardProduct');
+INSERT INTO items VALUES(13369,176,'shelf','1',0,370,680,200,40,40,0,NULL,NULL,NULL,'ttd.processingStatus.processingRestrictions');
+INSERT INTO items VALUES(13370,176,'if',replace('OPERATED_BY_FINANCIAL_INSTITUTION\n==\ne1.terminalType.operationalControl','\n',char(10)),0,890,490,170,40,270,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13371,176,'vertical','',0,1330,490,0,430,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13373,176,'if','acc.location.otherThenAtm',0,1330,710,120,20,70,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13374,176,'vertical','',0,1520,710,0,210,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13375,176,'address','Set TVR',0,1520,870,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13376,176,'address','International/Domestic?',0,1330,870,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13377,176,'if',replace('e1.additionalTerminalCapabilities\n.transactionType.cash','\n',char(10)),0,890,590,170,30,270,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13378,176,'if','acc.location.atm',0,890,710,170,20,80,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13379,176,'vertical','',0,1140,710,0,210,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13380,176,'address','Set TVR',0,1140,870,50,30,60,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

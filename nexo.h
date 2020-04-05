@@ -59,7 +59,7 @@ struct CardholderVerification {
 
 struct TerminalRiskManagement {
     // NEXO: More optimal checkedAmount is used instean of lastTransactionAmount
-    union bcd randomNumberforBsr;
+    union bcd randomNumberForBrs;
     union bcd trxTargetPercentage;
 };
 

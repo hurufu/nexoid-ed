@@ -82,6 +82,11 @@ struct ans_34 {
     char v[34];
 };
 
+struct ans_35 {
+    uint8_t l;
+    char v[35];
+};
+
 struct as_34 {
     uint8_t l;
     char v[34];
@@ -1134,17 +1139,86 @@ union ServiceSettings {
 };
 
 struct SearchLogCriteria {
-    bool closed;
-    char* referenceData;
-    struct {
+    bool* onlyLastTransaction;
+    bool* mostRecent;
+    bool* closed;
+    bool* cancellable;
+
+    char (* pan)[19]; // FIXME: Use proper type for PAN
+    struct ans_35* referenceData;
+
+    struct SlcServiceId {
         size_t s;
         enum ServiceId v[];
-    }* selectedService;
-    enum TransactionResult tRes;
+    }* sid;
+
+    struct SlcTransactionResult {
+        size_t s;
+        enum TransactionResult v[];
+    }* trxResult;
 };
 
 struct small_string {
     char hex[sizeof(int)];
+};
+
+/** Transaction log search results
+ *
+ * nexo-FAST, v.3.2, section 13.3.114
+ */
+struct SearchTransactionResult {
+    // [DF01]
+    union bcd entryReference;
+
+    // [DF02]
+    enum ServiceId selectedService;
+
+    // [DF03]
+    union bcd6 transactionAmount;
+
+    // [DF04]
+    union yymmdd transactionDate;
+
+    // [DF05]
+    // transactionTime;
+
+    // [DF06]
+    enum TransactionResult transactionResult;
+
+    // [DF07]
+    // panMasked;
+
+    // [DF08]
+    // * panSequenceNumber;
+
+    // [DF09]
+    // * authorisationCode;
+
+    // [DF0A]
+    // * preauthorisationValidityNumberOfDays;
+
+    // [DF0B]
+    bool* cancellationHasToBeOnline;
+
+    // [DF0C]
+    bcd_t profileNumber;
+
+    // [DF0D]
+    bool* entryExpired;
+
+    // [DF56]
+    union bcd6* updatePreAuthTotalAmount;
+};
+
+/* NEXO: In the spec tag value isn't specified for this struct, but it's
+ * actually needed, because this struct is required to be shared between FAST
+ * and HAP.
+ *
+ *  TODO: Specify globally unique tag number
+ */
+struct SearchTransactionResultList {
+    struct SearchTransactionResult v;
+    struct SearchTransactionResultList* next;
 };
 
 enum PACKED CountryAlpha2 {
@@ -1527,6 +1601,9 @@ struct TerminalSpecificData {
     union TerminalCapabilities terminalCapabilities;
     // 9F1A
     // TODO: Add terminalCountryCode
+    // 9F1B
+    // FIXME: Check if terminalFloorLimit can be present in E1
+    union bcd6* terminalFloorLimit;
     // 9F1C
     // TODO: Consider replacing string8 with an8
     struct string8 tid;
@@ -1750,6 +1827,7 @@ struct ApplicationProfile {
     union bcd6* cvcDefaultAmount;
     union bcd6* dccMinimumAllowedAmount;
     union bcd6 refundProtectionAmount; // FIXME: Make refundProtectionAmount optional
+    union bcd6* terminalFloorLimit;
 
     // missing Default DDA DOL (DF1A)
     bcd_t holdTimeValue;

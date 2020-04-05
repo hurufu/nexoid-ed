@@ -52,6 +52,17 @@ enum HapiResult hapi_Online_Approval_Request(void);
  */
 enum HapiResult hapi_Status(void);
 
+/* Perform search of previous tansactions in the log and prepare for consecutive data retrieval
+ *
+ * It's expected that global `sl` pointer will hold actual search results after
+ * this functions exits with HAPI_OK. If that pointer is NULL, then result is
+ * treated as if this function returned HAPI_NOK. Any other return value is an ICV.
+ *
+ * nexo-FAST v.3.2, section 12.1.3.5
+ * nexo-IS v.4.0, section 3.5
+ */
+enum HapiResult hapi_Search_Transactions(const struct SearchLogCriteria* slc);
+
 enum HapiResult hapi_SearchReservationsByRefData(void);
 
 enum HapiResult hapi_SearchReservationsByPan(void);

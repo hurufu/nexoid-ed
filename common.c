@@ -130,6 +130,25 @@ Copy_Combination_Lists_Entry(const struct CombinationListAndParameters* const r)
     return acpval(tmp);
 }
 
+struct SearchLogCriteria* alloc_SearchLogCriteria_For_FloorLimit(void) {
+    struct SearchLogCriteria* const ret = dmapi_malloc(sizeof(struct SearchLogCriteria));
+    memset(ret, 0, sizeof(struct SearchLogCriteria));
+    ret->sid = dmapi_malloc(sizeof(struct SlcServiceId) + sizeof(enum ServiceId) * 1);
+    memset(ret->sid, 0, sizeof(struct SlcServiceId) + sizeof(enum ServiceId) * 1);
+    ret->trxResult = dmapi_malloc(sizeof(struct SlcTransactionResult) + sizeof(enum TransactionResult) * 1);
+    memset(ret->trxResult, 0, sizeof(struct SlcTransactionResult) + sizeof(enum TransactionResult) * 1);
+
+    ret->sid->s = 1;
+    ret->sid->v[0] = ttd.selectedService;
+
+    ret->trxResult->s = 1;
+    ret->trxResult->v[0] = T_APPROVED;
+
+    ret->pan = *acpptr(&ttd.pan);
+
+    return ret;
+}
+
 struct cbcd6 String_To_Cbcd6(const char* const str) {
     struct cbcd6 ret = { .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
 
@@ -157,4 +176,9 @@ struct cbcd6 String_To_Cbcd6(const char* const str) {
 
 int yymmdd_cmp(const union yymmdd lhs, const union yymmdd rhs) {
     return lhs.u > rhs.u;
+}
+
+int bcd6_add(const union bcd6 a, const union bcd6 b, union bcd6* const c) {
+    // TODO: Implement bcd_add function
+    return 0;
 }

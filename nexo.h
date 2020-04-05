@@ -57,7 +57,14 @@ struct CardholderVerification {
     struct CvRule* cvRule;
 };
 
+struct TerminalRiskManagement {
+    // NEXO: More optimal checkedAmount is used instean of lastTransactionAmount
+    union bcd randomNumberforBsr;
+    union bcd trxTargetPercentage;
+};
+
 static struct ApplicationKernelAndAppProfileSelection s_akps;
 static struct TechnologySelection s_ts;
 static struct TransactionCompletion s_tc;
 static struct CardholderVerification s_cv;
+static struct TerminalRiskManagement s_trm;

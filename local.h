@@ -26,7 +26,13 @@ bool isIssuerCountryExcludedForDcc(void);
 
 struct cbcd6 String_To_Cbcd6(const char* str);
 
+int bcd6_add(union bcd6 a, union bcd6 b, union bcd6* c);
+
 int yymmdd_cmp(union yymmdd lhs, union yymmdd rhs);
+
+// FIXME: Fix this ugly hack with allocations
+// nexo-FAST v.3.2, note 182-10
+struct SearchLogCriteria* alloc_SearchLogCriteria_For_FloorLimit(void);
 
 static inline union ApplicationContextControl Auc_to_Acc(const union ApplicationUsageControl auc) {
     const union ApplicationContextControl ret = {

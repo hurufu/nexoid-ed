@@ -23,6 +23,10 @@ extern struct ApplicationProfileSelectionTableNonChip* e8;
 extern struct CombinationListAndParameters* ec;
 extern struct AidPreferenceTable* ee;
 
+/* Used as a hapi_Search_Transactions results container
+ */
+extern struct SearchTransactionResultList* sl;
+
 // Controls if TMS should be contacted
 //
 // It's defined only in nexo-IS, and this document is sometimes inconsistent

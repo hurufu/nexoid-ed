@@ -52,10 +52,10 @@ INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','518 1564',
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-149 -471','FIXME: This function handles only single event at a time',59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -64','',75.0);
-INSERT INTO diagrams VALUES(81,'Card_Product_Selection','132 235','',75.0);
+INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-69 -110','',75.0);
 INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-26 -104','First best match is selected',75.0);
 INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','26 -72','',75.0);
-INSERT INTO diagrams VALUES(85,'Match_Prefix','-297 -188',NULL,75.0);
+INSERT INTO diagrams VALUES(85,'Match_Prefix','-229 -52',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','1121 -68',NULL,70.0);
@@ -92,7 +92,7 @@ INSERT INTO diagrams VALUES(118,'Process_Profile_Parameters','10 30','',75.0);
 INSERT INTO diagrams VALUES(119,'Outcome_Processing','5520 207','',80.0);
 INSERT INTO diagrams VALUES(120,'Ui_Parameters_For_Outcome_Processing','682 412',NULL,75.0);
 INSERT INTO diagrams VALUES(121,'Store_Kernel_Data','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(122,'Exception_File_Checking','-133 -266',NULL,75.0);
+INSERT INTO diagrams VALUES(122,'Exception_File_Checking','-392 -325',NULL,75.0);
 INSERT INTO diagrams VALUES(123,'Prepare_Cardholder_Confirmation_Check','-120 -8',NULL,75.0);
 INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','141 66',NULL,75.0);
 INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','',75.0);
@@ -129,7 +129,7 @@ INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those f
 INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-65 -265',NULL,75.0);
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','-464 -130',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','495 166',NULL,80.0);
-INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','-156 13','',75.0);
+INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','174 12','',75.0);
 INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5500 -801','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-168 22','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
@@ -223,7 +223,7 @@ INSERT INTO diagrams VALUES(278,'Validate_Plain_Text_Pin_String','-285 -210',rep
 INSERT INTO diagrams VALUES(279,'Check_Cvm_Code_Support','964 -232',NULL,75.0);
 INSERT INTO diagrams VALUES(280,'Is_Cvm_Code_Recognised','0 0','NEXO: This procedure isn''t specified by nexo',75.0);
 INSERT INTO diagrams VALUES(282,'Proprietary_Cvm_Support_Check','-111 0',NULL,90.0);
-INSERT INTO diagrams VALUES(283,'Terminal_Floor_Limit_Checking','-220 -204',NULL,75.0);
+INSERT INTO diagrams VALUES(283,'Terminal_Floor_Limit_Checking','914 -204',NULL,75.0);
 INSERT INTO diagrams VALUES(284,'Search_Transactions','-9 -41',NULL,100.0);
 INSERT INTO diagrams VALUES(285,'Request_Exception_File_Checking','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(286,'Biased_Random_Selection_For_Online_Processing','788 52','FIXME: This barely implemented and requires some rework',75.0);
@@ -235,7 +235,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,177,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,122,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2513,12 +2513,12 @@ INSERT INTO items VALUES(5204,121,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,N
 INSERT INTO items VALUES(5205,121,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5206,121,'action','returns enum ProcedureResult',0,400,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5207,121,'action','return PR_OK;',0,170,320,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5208,122,'beginend','Exception_File_Checking',0,200,60,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5209,122,'beginend','End',0,200,440,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5210,122,'vertical',NULL,0,200,80,0,340,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5211,122,'horizontal',NULL,0,200,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5212,122,'action','returns enum ProcedureResult',0,460,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(5213,122,'action','return PR_OK;',0,200,380,160,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5208,122,'beginend','Exception_File_Checking',0,180,-490,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5209,122,'beginend','End',0,180,1120,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5210,122,'vertical',NULL,0,180,-470,0,1570,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5211,122,'horizontal',NULL,0,180,-490,210,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5212,122,'action','returns enum ProcedureResult',0,450,-490,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(5213,122,'action','return result;',0,180,1060,200,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5214,123,'beginend','Prepare_Cardholder_Confirmation_Check',0,340,210,160,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5215,123,'beginend','End',0,340,770,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(5216,123,'vertical',NULL,0,340,230,0,520,0,0,NULL,NULL,NULL,NULL);
@@ -3963,7 +3963,7 @@ INSERT INTO items VALUES(8022,166,'if','PR_OK == result',0,1570,350,210,20,190,1
 INSERT INTO items VALUES(8023,166,'address','Assert Nok',0,1970,560,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8024,166,'insertion',replace('result =\nProcessing_Restrictions();','\n',char(10)),0,2160,260,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8025,166,'if','PR_DONE == result',0,2160,330,120,20,70,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(8026,166,'insertion',replace('result =\nTerminal_Risk_Management();','\n',char(10)),0,2160,410,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8026,166,'insertion',replace('result =\nTerminal_Risk_Management();','\n',char(10)),1,2160,410,120,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8027,166,'if','PR_DONE == result',0,2160,490,120,20,70,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8028,166,'vertical','',0,2350,330,0,280,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8029,166,'address','Assert Nok',0,2350,560,50,30,60,0,NULL,'',NULL,'');
@@ -8051,17 +8051,16 @@ INSERT INTO items VALUES(13493,285,'beginend','End',0,300,320,50,20,60,0,NULL,NU
 INSERT INTO items VALUES(13494,285,'vertical',NULL,0,300,220,0,80,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13495,285,'horizontal',NULL,0,300,200,180,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13496,285,'action','returns enum ProcedureResult',0,590,200,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13497,285,'insertion','return Exception_File_Checking();',0,300,260,150,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13498,177,'insertion',replace('result =\nRequest_Exception_File_Checking();','\n',char(10)),0,900,470,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13497,285,'insertion','return Exception_File_Checking();',1,300,260,150,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13498,177,'insertion',replace('result =\nRequest_Exception_File_Checking();','\n',char(10)),1,900,470,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13502,177,'vertical','',0,3320,220,0,620,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13503,177,'address','End',0,3320,790,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13504,177,'branch','Assert Nok',0,3320,270,90,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13506,177,'shelf','PR_DONE',0,3160,450,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(13512,177,'vertical','',0,1240,540,0,300,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13514,177,'address','Assert Nok',0,1240,790,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13516,122,'shelf','true',0,200,140,160,40,40,0,NULL,NULL,NULL,'ttd.exceptionFileCheckPerformed');
-INSERT INTO items VALUES(13517,122,'commentin','TODO: Search exception file for PAN',0,200,220,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13518,122,'shelf','false',0,200,300,160,40,40,0,NULL,NULL,NULL,'ttd.exceptionFileMatch');
+INSERT INTO items VALUES(13516,122,'shelf','true',0,180,-310,200,40,40,0,NULL,NULL,NULL,'ttd.exceptionFileCheckPerformed');
+INSERT INTO items VALUES(13518,122,'shelf','false',0,760,840,100,40,40,0,NULL,NULL,NULL,'ttd.exceptionFileMatch');
 INSERT INTO items VALUES(13519,177,'if','ttd.exceptionFileMatch',0,900,600,150,20,20,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13520,177,'vertical','',0,1070,600,0,140,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13521,177,'horizontal','',0,900,740,170,0,0,0,NULL,NULL,NULL,NULL);
@@ -8187,6 +8186,33 @@ INSERT INTO items VALUES(13646,286,'shelf','1',0,2080,690,230,40,40,0,NULL,NULL,
 INSERT INTO items VALUES(13647,286,'vertical','',0,1380,260,0,210,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13648,286,'horizontal','',0,1150,470,230,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13649,286,'commentout','FIXME: Implement Linear Interpolation',0,780,530,160,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13650,122,'if','e9',0,180,-30,200,20,500,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13651,122,'vertical','',0,880,-30,0,1050,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13652,122,'horizontal','',0,180,1020,700,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13653,122,'shelf','PR_UNINITIALISED',0,180,-410,200,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(13654,122,'shelf','PR_NOK',0,880,960,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(13655,122,'loopstart','p = e9; p; p = p->next',0,180,40,200,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13656,122,'loopend','',0,180,440,200,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13657,122,'insertion',replace('result =\nMatch_Prefix(p->entry.prefix);','\n',char(10)),0,180,110,200,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13658,122,'shelf','NULL',0,180,-210,200,40,40,0,NULL,NULL,NULL,'struct ExceptionFile* p');
+INSERT INTO items VALUES(13659,122,'if','PR_MATCH == result',0,180,180,200,20,30,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13660,122,'vertical','',0,410,180,0,220,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13661,122,'horizontal','',0,180,400,230,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13662,122,'shelf','&(struct ExceptionFileEntry){ }',0,180,-110,200,40,40,0,NULL,NULL,NULL,'const struct ExceptionFileEntry* longest');
+INSERT INTO items VALUES(13663,122,'if','p->entry.prefix.size > longest->prefix.size',0,180,250,200,20,30,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13664,122,'shelf','&p->entry',0,180,340,200,40,40,0,NULL,NULL,NULL,'longest');
+INSERT INTO items VALUES(13665,122,'if','PR_MATCH == result',0,180,500,200,20,380,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13666,122,'vertical','',0,760,500,0,400,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13667,122,'shelf','PR_NOK',0,180,960,200,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(13668,122,'horizontal','',0,180,900,580,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13669,122,'if','cd.panSequenceNumber',0,180,570,200,20,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13670,122,'commentout',replace('NEXO: This tag is in CardData and\nnot in Transaction Data Base','\n',char(10)),0,-180,570,150,30,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13671,122,'shelf','true',0,180,840,200,40,40,0,NULL,'',NULL,'ttd.exceptionFileMatch');
+INSERT INTO items VALUES(13672,122,'if','longest->panSequenceNumber',0,400,630,130,20,50,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13673,122,'vertical','',0,400,570,0,210,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13675,122,'vertical','',0,580,630,0,150,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13676,122,'if',replace('cd.panSequenceNumber\n==\nlongest->panSequenceNumber','\n',char(10)),0,580,710,140,40,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13677,122,'horizontal','',0,180,780,400,0,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

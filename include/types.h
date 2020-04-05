@@ -571,6 +571,9 @@ struct CardData {
     // [5F24]
     union yymmdd* applicationExpirationDate;
 
+    // [5F34]
+    union bcd* panSequenceNumber;
+
     // [9F17]
     uint8_t* pinTryCounter;
 
@@ -1903,11 +1906,22 @@ struct ApplicationProfileSelectionTableNonChip {
     struct ApplicationProfileSelectionTableNonChip* next;
 };
 
-// source: nexo-FAST v.3.2
+struct ExceptionFileEntry {
+    // [DF01]
+    struct Prefix prefix;
+
+    // [DF02]
+    union bcd* panSequenceNumber;
+};
+
+// source: nexo-FAST v.3.2, 13.3.63
 // size: at least 5000
 // configuration: Terminal
 // presence: O
+// [E9]
 struct ExceptionFile {
+    struct ExceptionFileEntry entry;
+    struct ExceptionFile* next;
 };
 
 // source: nexo-FAST v.3.2 section 13.3.76

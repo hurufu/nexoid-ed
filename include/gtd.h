@@ -20,6 +20,7 @@ extern struct ServiceSettingsTable e4;
 extern struct ApplicationProfileList* e6;
 extern struct TerminalListOfBid* e7;
 extern struct ApplicationProfileSelectionTableNonChip* e8;
+extern struct ExceptionFile* e9;
 extern struct CombinationListAndParameters* ec;
 extern struct AidPreferenceTable* ee;
 

@@ -29,6 +29,10 @@ STD          := gnu11
 WARNINGS     := all extra
 PREFIX       := /usr/local
 
+# Git inspector config ########################################################
+GITINSPECTOR_FORMAT ?= html
+GITINSPECTOR_FILE   := gitinspector.$(GITINSPECTOR_FORMAT)
+
 # Project config ##############################################################
 NAME         := nexoid
 INCLUDE_DIRS := . $(shell find include -type d)
@@ -90,6 +94,7 @@ PROLOG        = $(TIME) $(call assert_cmd,gprolog)
 CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
 CFLOW         = $(TIME) $(call assert_cmd,cflow)
 DRAKON_GEN   := $(TIME) '$(DRAKON_PATH)/drakon_gen.tcl'
+GITINSPECTOR := $(TIME) $(call assert_cmd,gitinspector)
 
 # Build time profiling
 TIME_PROC.pdb  := $(PROLOG) --consult-file time.pdb --consult-file profiling_build.pdb <profiling_build.pq
@@ -199,3 +204,9 @@ graph: $(GRAPH_IMAGES)
 %.dot: $(lastword $(MAKEFILE_LIST))
 	make wipe
 	make -Bnd $* | make2graph -b | sed '2irankdir="RL"' >$@
+
+.PHONY: inspect
+inspect: $(GITINSPECTOR_FILE)
+clean: F += $(wildcard $(GITINSPECTOR_FILE))
+$(GITINSPECTOR_FILE):
+	$(GITINSPECTOR) -HmTr -F $(GITINSPECTOR_FORMAT) >$@

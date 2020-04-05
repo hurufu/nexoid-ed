@@ -574,6 +574,12 @@ struct CardData {
     // [9F17]
     uint8_t* pinTryCounter;
 
+    // [9F14]
+    uint8_t* lcol; // Lower Consecutive Offline Limit
+
+    // [9F23]
+    uint8_t* ucol; // Upper Consecutive Offline Limit
+
     // [-]
     // NEXO: Tag [99] is not used by nexo-FAST
     union PinBlock pinData;

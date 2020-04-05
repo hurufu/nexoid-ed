@@ -129,7 +129,7 @@ INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those f
 INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-65 -265',NULL,75.0);
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','-464 -130',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','495 166',NULL,80.0);
-INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','1444 80','',75.0);
+INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','-156 13','',75.0);
 INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5500 -801','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-168 22','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
@@ -7968,7 +7968,7 @@ INSERT INTO items VALUES(13402,177,'vertical','',0,3160,220,0,620,0,0,NULL,'',NU
 INSERT INTO items VALUES(13403,177,'branch','Done',0,3160,270,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13404,177,'address','End',0,3160,790,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13405,177,'shelf','PR_BAIL',0,3600,460,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(13406,177,'commentout',replace('NEXO: In nexo this procedure can not\nfail, but in reality it call external\nHAP API, so that means that basic\nsanity checks has to be performed,\nand it should bail-out if int case of\nfailure.','\n',char(10)),0,30,620,160,60,60,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13406,177,'commentout',replace('NEXO: In nexo this procedure can not\nfail, but in reality it calls external\nHAP API, so that means that basic\nsanity checks has to be performed,\nand it should bail-out if int case of\nfailure.','\n',char(10)),0,30,620,170,60,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13407,177,'vertical','',0,900,220,0,620,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13408,177,'branch','Exception File Checking',0,900,270,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13409,177,'address','Biased random selection',0,900,790,150,30,60,0,NULL,NULL,NULL,NULL);

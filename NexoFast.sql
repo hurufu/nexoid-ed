@@ -80,7 +80,7 @@ INSERT INTO diagrams VALUES(106,'Perform_General_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(107,'Perform_Specific_Checks','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-266 0',NULL,75.0);
-INSERT INTO diagrams VALUES(110,'Kernel_Processing','1084 -49','',75.0);
+INSERT INTO diagrams VALUES(110,'Kernel_Processing','948 -48','',75.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','521 0',NULL,75.0);
 INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,75.0);
@@ -130,7 +130,7 @@ INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-65 -2
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','-464 -130',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','495 166',NULL,80.0);
 INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','1444 80','',75.0);
-INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5500 -801','',75.0);
+INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','3632 -800','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-168 22','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0);
@@ -235,7 +235,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,177,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,178,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2108,7 +2108,7 @@ INSERT INTO items VALUES(4742,110,'shelf','PR_NOT_IMPLEMENTED',0,4020,270,90,40,
 INSERT INTO items VALUES(4743,110,'select','ttd.kernelId',0,1150,230,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4744,110,'horizontal','',0,1150,270,1830,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4745,110,'case','KERNEL_M',0,1150,310,100,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4746,110,'case','KERNEL_E',0,1640,310,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4746,110,'case','KERNEL_E',0,1640,310,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4747,110,'case','',0,2980,310,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4748,110,'vertical','',0,1640,270,0,420,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4749,110,'vertical','',0,2980,270,0,420,0,0,NULL,NULL,NULL,NULL);
@@ -4181,7 +4181,7 @@ INSERT INTO items VALUES(8258,178,'branch','PKLR Bail',0,11650,-610,80,30,60,0,N
 INSERT INTO items VALUES(8259,178,'branch','PKLR End',0,11840,-610,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8260,178,'address','PKLR End',0,11650,160,80,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8261,178,'horizontal','',0,3890,-730,180,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8262,178,'action',replace('public\n\nreturns enum PklrResult','\n',char(10)),0,4130,-730,110,40,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8262,178,'action','returns enum PklrResult',0,4130,-730,110,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8263,178,'action','return pklr_result;',0,11840,-510,90,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8264,178,'shelf','PR_UNINITIALISED',0,3890,-490,130,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(8265,178,'shelf','PKLR_DONE',0,11350,-330,60,40,40,0,NULL,'',NULL,'pklr_result');
@@ -4214,7 +4214,7 @@ INSERT INTO items VALUES(8291,178,'address',replace('Try fallback\n(2, A)','\n',
 INSERT INTO items VALUES(8292,178,'address',replace('Outcome:\nSelect next','\n',char(10)),0,5620,150,130,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8293,178,'address','Init. application',0,4420,160,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8294,178,'branch',replace('Check and init.\nkernel data','\n',char(10)),0,4420,-600,190,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(8295,178,'insertion',replace('result =\nAuthentication_Processing_And_Risk_Management();','\n',char(10)),1,6120,-480,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(8295,178,'insertion',replace('result =\nAuthentication_Processing_And_Risk_Management();','\n',char(10)),0,6120,-480,210,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8296,178,'if','PR_OK == result',0,6120,-410,210,20,310,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(8297,178,'vertical','',0,6640,-410,0,620,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(8298,178,'address',replace('Try fallback\n(2, A)','\n',char(10)),0,6640,150,90,40,60,0,NULL,'',NULL,'');
@@ -4408,7 +4408,6 @@ INSERT INTO items VALUES(8488,110,'case','',0,1440,570,50,20,60,0,NULL,NULL,NULL
 INSERT INTO items VALUES(8489,110,'vertical','',0,1320,530,0,160,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8490,110,'vertical','',0,1440,530,0,160,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8491,110,'address','Bailout',0,1440,640,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(8495,110,'output',replace('pklr_result =\npklr_Kernel_E_Processing();','\n',char(10)),1,1640,400,130,50,40,0,NULL,NULL,NULL,'PKLR');
 INSERT INTO items VALUES(8496,183,'beginend','Authorisation_Request',0,390,-320,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8497,183,'beginend','End',0,390,380,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(8498,183,'vertical',NULL,0,390,-300,0,660,0,0,NULL,NULL,NULL,NULL);
@@ -5993,15 +5992,15 @@ INSERT INTO items VALUES(10588,168,'address','Nok',0,6440,-310,120,30,60,0,NULL,
 INSERT INTO items VALUES(10589,168,'if','PKLR_NOK == pklr_result',0,6440,-450,120,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10590,168,'vertical','',0,6630,-450,0,200,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10591,168,'address','Bail',0,6630,-300,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10592,110,'action','enum PklrResult pklr_result;',0,900,380,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10593,110,'select','pklr_result',0,1640,490,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10592,110,'action','enum PklrResult pklr_result;',0,900,380,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10593,110,'select','pklr_result',0,1640,490,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10594,110,'horizontal','',0,1640,530,320,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10595,110,'case','PKLR_DONE',0,1640,570,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10595,110,'case','PKLR_DONE',0,1640,570,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10596,110,'case','PKLR_NOK',0,1840,570,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10597,110,'case','',0,1960,570,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10598,110,'vertical','',0,1840,530,0,160,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10599,110,'vertical','',0,1960,530,0,160,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10600,110,'address','Check Outcome',0,1640,640,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10600,110,'address','Check Outcome',0,1640,640,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10601,110,'address','Nok',0,1840,640,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10602,110,'address','Bailout',0,1960,640,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10603,168,'action','enum PklrResult pklr_result;',0,990,-600,130,20,0,0,NULL,NULL,NULL,NULL);
@@ -8187,6 +8186,8 @@ INSERT INTO items VALUES(13646,286,'shelf','1',0,2080,690,230,40,40,0,NULL,NULL,
 INSERT INTO items VALUES(13647,286,'vertical','',0,1380,260,0,210,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13648,286,'horizontal','',0,1150,470,230,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13649,286,'commentout','FIXME: Implement Linear Interpolation',0,780,530,160,20,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13650,110,'insertion',replace('pklr_result =\nKernel_E_Processing();','\n',char(10)),1,1640,400,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13651,110,'commentout',replace('TODO: pklr_Kernel_E_Processing\nmay be added if needed','\n',char(10)),0,1900,400,130,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

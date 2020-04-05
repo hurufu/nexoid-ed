@@ -49,3 +49,7 @@ static inline union ApplicationContextControl Auc_to_Acc(const union Application
     };
     return ret;
 }
+
+static inline uint8_t Bcd_To_Binary(const union bcd bcd) {
+    return bcd.high * 10 + bcd.low;
+}

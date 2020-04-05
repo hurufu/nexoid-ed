@@ -19,7 +19,7 @@ CREATE TABLE diagrams
 );
 INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2440 81','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','2450 -47','',80.0);
-INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-172 -281','nexo-FAST v.3.2 section 6.6.4',75.0);
+INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-198 -120','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','-88 -240','',75.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-134 -148','',75.0);
@@ -129,7 +129,7 @@ INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those f
 INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-65 -265',NULL,75.0);
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','-464 -130',NULL,75.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','495 166',NULL,80.0);
-INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','1244 80','',75.0);
+INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','1444 80','',75.0);
 INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','5500 -801','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-168 22','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
@@ -223,10 +223,10 @@ INSERT INTO diagrams VALUES(278,'Validate_Plain_Text_Pin_String','-285 -210',rep
 INSERT INTO diagrams VALUES(279,'Check_Cvm_Code_Support','964 -232',NULL,75.0);
 INSERT INTO diagrams VALUES(280,'Is_Cvm_Code_Recognised','0 0','NEXO: This procedure isn''t specified by nexo',75.0);
 INSERT INTO diagrams VALUES(282,'Proprietary_Cvm_Support_Check','-111 0',NULL,90.0);
-INSERT INTO diagrams VALUES(283,'Terminal_Floor_Limit_Checking','853 -188',NULL,75.0);
+INSERT INTO diagrams VALUES(283,'Terminal_Floor_Limit_Checking','-220 -204',NULL,75.0);
 INSERT INTO diagrams VALUES(284,'Search_Transactions','-9 -41',NULL,100.0);
 INSERT INTO diagrams VALUES(285,'Request_Exception_File_Checking','-133 -133',NULL,75.0);
-INSERT INTO diagrams VALUES(286,'Biased_Random_Selection_For_Online_Processing','54 52','FIXME: This barely implemented and requires some rework',75.0);
+INSERT INTO diagrams VALUES(286,'Biased_Random_Selection_For_Online_Processing','788 52','FIXME: This barely implemented and requires some rework',75.0);
 INSERT INTO diagrams VALUES(287,'Velocity_Checking','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(288,'Generate_Random_Number','6 -196','TODO: Consider different signature to be able to retrieve larger numbers',75.0);
 CREATE TABLE state
@@ -235,7 +235,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,286,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,177,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -8041,7 +8041,7 @@ INSERT INTO items VALUES(13483,283,'vertical','',0,1210,400,0,280,0,0,NULL,NULL,
 INSERT INTO items VALUES(13484,283,'address','Bail',0,1210,630,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13485,283,'commentin',replace('NEXO: They do not specify\nactions in case of overflow','\n',char(10)),0,1210,510,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13486,283,'if','ap.terminalFloorLimit',0,1500,200,130,20,40,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13487,283,'commentout',replace('NEXO: Non-compliant condition\nIf terminal Floor limit is absent\nthen for kernel E default value 0\nshould be used\n\nFIXME: this has to be done in\nApplication Profile Processing,\nso as a quick workaround it is\nassumed that transaction amount\nis always above Floor Limit','\n',char(10)),0,1200,200,150,90,60,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13487,283,'commentout',replace('FIXME: this has to be done in\nApplication Profile Processing,\nso as a quick workaround it is\nassumed that transaction amount\nis always above Floor Limit','\n',char(10)),0,1200,200,140,50,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13488,283,'vertical','',0,1850,-10,0,690,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13489,283,'branch','Done',0,1850,40,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13490,283,'address','End',0,1850,630,50,30,60,0,NULL,'',NULL,'');

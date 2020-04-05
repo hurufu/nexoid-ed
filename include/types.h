@@ -1843,6 +1843,11 @@ struct ApplicationProfile {
     union MsrCvmCapability* msrCvmCapabilityCvmRequired;
     union MsrCvmCapability* msrCvmCapabilityNoCvmRequired;
     struct bcd2* maxTargetPercentageForBiasedRandomSelection;
+    union bcd* targetPercentageForBiasedRandomSelection;
+
+    // DF1D
+    union bcd6* thersholdValueForBiasedRandomSelection;
+
     struct bcd4 merchantCategoryCode;
     uint8_t (* merchantCustomData)[20];
     char merchantIdentifier[15];

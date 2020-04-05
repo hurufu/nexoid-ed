@@ -107,3 +107,7 @@ enum ScapiResult sped_Generate_Enciphered_Pin_Data(struct CvRule);
  * TODO: Consider moving to separate API
  */
 enum ScapiResult sped_Generate_Offline_Pin_Block(struct CvRule);
+
+/* Generate random number in the range
+ */
+enum ScapiResult randapi_Generate_Random_Number(uint8_t upperLimit, uint8_t* randomNumber);

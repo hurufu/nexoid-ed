@@ -8,6 +8,7 @@ struct TerminalTransactionData ttd;
 struct KernelData kd;
 struct CardData cd;
 struct OnlineResponseData ord;
+struct SearchTransactionResultList* sl;
 
 struct PermanentTerminalSpecificData e0;
 struct TerminalSpecificData e1;
@@ -16,6 +17,7 @@ struct ServiceSettingsTable e4;
 struct ApplicationProfileList* e6;
 struct TerminalListOfBid* e7;
 struct ApplicationProfileSelectionTableNonChip* e8;
+struct ExceptionFile* e9;
 struct CombinationListAndParameters* ec;
 struct AidPreferenceTable* ee;
 

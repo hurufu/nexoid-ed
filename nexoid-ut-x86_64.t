@@ -104,3 +104,14 @@
     const struct cbcd6 converted = String_To_Cbcd6("123ab23");
     const struct cbcd6 expected = { .v = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF } };
     ck_assert_mem_eq(converted.v, expected.v, 6);
+
+#test yymmdd_dates_equal
+    const union yymmdd a = { .y = 0x20, .m = 0x04, .d = 0x04 };
+    const union yymmdd b = { .y = 0x20, .m = 0x04, .d = 0x04 };
+    ck_assert_int_eq(yymmdd_cmp(a, b), 0);
+
+#test yymmdd_years_differ
+    const union yymmdd a = { .y = 0x20, .m = 0x04, .d = 0x04 };
+    const union yymmdd b = { .y = 0x19, .m = 0x04, .d = 0x04 };
+    ck_assert_int_eq(yymmdd_cmp(a, b), 1);
+    ck_assert_int_eq(yymmdd_cmp(b, a), -1);

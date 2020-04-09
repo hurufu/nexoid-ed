@@ -583,6 +583,15 @@ struct CardData {
     // [9F23]
     uint8_t* ucol; // Upper Consecutive Offline Limit
 
+    // [9F0D]
+    union TerminalVerificationResults* iacDefault;
+
+    // [9F0E]
+    union TerminalVerificationResults* iacDenial;
+
+    // [9F0F]
+    union TerminalVerificationResults* iacOnline;
+
     // [-]
     // NEXO: Tag [99] is not used by nexo-FAST
     union PinBlock pinData;
@@ -1850,6 +1859,15 @@ struct ApplicationProfile {
 
     // DF1D
     union bcd6* thersholdValueForBiasedRandomSelection;
+
+    // DF1E
+    union TerminalVerificationResults* tacDefault;
+
+    // DF1F
+    union TerminalVerificationResults* tacDenial;
+
+    // DF20
+    union TerminalVerificationResults* tacOnline;
 
     struct bcd4 merchantCategoryCode;
     uint8_t (* merchantCustomData)[20];

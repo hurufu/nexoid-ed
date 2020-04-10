@@ -179,7 +179,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','5053 -54','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','552 -53','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -6320,7 +6320,7 @@ INSERT INTO items VALUES(11013,233,'insertion',replace('result =\nScap_Event_Han
 INSERT INTO items VALUES(11014,233,'if','PR_NEW_EVENT == result',0,990,30,130,20,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11015,233,'vertical','',0,1140,30,0,120,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11018,232,'insertion',replace('result =\nIdle_Event_Processing();','\n',char(10)),0,1810,190,150,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11019,232,'commentout',replace('In the spec CTD shall be zeroed out in\nService Initialisation, but this doesn''t\nmake sense, that''s why it''s zeroed out\nhere','\n',char(10)),0,1010,250,170,50,20,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11019,232,'commentout',replace('In the spec TTD shall be zeroed out in\nService Initialisation, but this does\nnot make sense, that is why it is\nzeroed out here','\n',char(10)),0,1010,250,170,50,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11022,232,'vertical','',0,170,420,0,290,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11023,232,'address','Terminate',0,170,660,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11025,232,'action','enum ProcedureResult result;',0,-30,200,130,20,0,0,NULL,NULL,NULL,NULL);

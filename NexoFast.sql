@@ -228,7 +228,7 @@ INSERT INTO diagrams VALUES(284,'Search_Transactions','-9 -41',NULL,100.0);
 INSERT INTO diagrams VALUES(285,'Request_Exception_File_Checking','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(286,'Biased_Random_Selection_For_Online_Processing','188 52','FIXME: This barely implemented and requires some rework',75.0);
 INSERT INTO diagrams VALUES(287,'Velocity_Checking','-65 -133',NULL,75.0);
-INSERT INTO diagrams VALUES(288,'Generate_Random_Number','6 -196','TODO: Consider different signature to be able to retrieve larger numbers',75.0);
+INSERT INTO diagrams VALUES(288,'Generate_Random_Number','5 137','TODO: Consider different signature to be able to retrieve larger numbers',75.0);
 INSERT INTO diagrams VALUES(289,'Taa_Set_Default_Values','-64 -270',NULL,75.0);
 INSERT INTO diagrams VALUES(290,'Tvr_Match','-197 -264',NULL,75.0);
 INSERT INTO diagrams VALUES(291,'First_Generate_Ac_Processing','125 -185',NULL,80.0);
@@ -240,7 +240,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,156,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,288,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -8116,28 +8116,28 @@ INSERT INTO items VALUES(13583,287,'shelf','PR_UNINITIALISED',0,170,260,120,40,4
 INSERT INTO items VALUES(13584,286,'shelf','PR_BAIL',0,2780,350,50,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(13585,287,'shelf','PR_OK',0,420,360,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(13586,286,'shelf','1',0,420,480,180,40,40,0,NULL,NULL,NULL,'uint8_t randomNumber');
-INSERT INTO items VALUES(13587,288,'beginend','Generate_Random_Number',0,340,-30,100,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13588,288,'beginend','End',0,340,660,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13589,288,'vertical','',0,340,-10,0,650,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13590,288,'horizontal','',0,340,-30,170,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13591,288,'action',replace('const uint8_t upperLimit\nuint8_t* const randomNumber\n\nreturns enum ProcedureResult','\n',char(10)),0,590,-30,130,50,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13592,288,'output',replace('const enum ScapiResult scapi_result =\nrandapi_Generate_Random_Number(upperLimit, randomNumber);','\n',char(10)),0,340,190,250,50,40,0,NULL,'',NULL,'PKLR');
-INSERT INTO items VALUES(13593,288,'select','scapi_result',0,340,280,250,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13594,288,'horizontal','',0,340,320,830,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13595,288,'case','SCAPI_OK',0,340,360,250,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13596,288,'case','',0,1170,360,140,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13597,288,'vertical','',0,1170,320,0,240,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13598,288,'case','SCAPI_NOK',0,960,360,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13599,288,'shelf','PR_UNINITIALISED',0,340,80,250,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(13600,288,'vertical','',0,960,320,0,240,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13601,288,'horizontal','',0,340,560,830,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13602,288,'action','return result;',0,340,600,250,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(13603,288,'shelf','PR_OK',0,340,500,250,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(13604,288,'shelf','PR_NOK',0,960,500,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(13605,288,'shelf','Interface_Contract_Violation();',0,1170,500,140,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(13606,288,'if','*randomNumber <= upperLimit',0,340,420,250,20,160,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13607,288,'vertical','',0,750,420,0,140,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13608,288,'shelf','Interface_Contract_Violation();',0,750,500,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(13587,288,'beginend','Generate_Random_Number',0,330,-170,100,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13588,288,'beginend','End',0,330,680,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13589,288,'vertical','',0,330,-150,0,810,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13590,288,'horizontal','',0,330,-170,180,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13591,288,'action',replace('const uint8_t upperLimit\nuint8_t* const randomNumber\n\nreturns enum ProcedureResult','\n',char(10)),0,590,-170,130,50,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13592,288,'output',replace('const enum ScapiResult scapi_result =\nrandapi_Generate_Random_Number(upperLimit, randomNumber);','\n',char(10)),0,330,150,250,50,40,0,NULL,'',NULL,'PKLR');
+INSERT INTO items VALUES(13593,288,'select','scapi_result',0,330,240,250,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13594,288,'horizontal','',0,330,280,840,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13595,288,'case','SCAPI_OK',0,330,320,250,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13596,288,'case','',0,1170,320,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13597,288,'vertical','',0,1170,280,0,300,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13598,288,'case','SCAPI_NOK',0,960,320,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13599,288,'shelf','PR_UNINITIALISED',0,330,-60,250,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(13600,288,'vertical','',0,960,280,0,300,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13601,288,'horizontal','',0,330,580,840,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13602,288,'action','return result;',0,330,620,250,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13603,288,'shelf','PR_OK',0,330,520,250,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(13604,288,'shelf','PR_NOK',0,960,520,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(13605,288,'shelf','Interface_Contract_Violation();',0,1170,520,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(13606,288,'if','*randomNumber <= upperLimit',0,330,380,250,20,160,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13607,288,'vertical','',0,740,380,0,200,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13608,288,'shelf','Interface_Contract_Violation();',0,740,520,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(13609,286,'insertion',replace('result =\nGenerate_Random_Number(99, &randomNumber);','\n',char(10)),0,420,570,180,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13610,286,'select','result',0,420,640,180,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13611,286,'horizontal','',0,420,680,370,0,0,0,NULL,NULL,NULL,NULL);
@@ -8371,6 +8371,8 @@ INSERT INTO items VALUES(13883,156,'shelf','e1.terminalSupportedLanguageList.a[j
 INSERT INTO items VALUES(13884,156,'shelf','cd.languagePreference->a[i]',0,740,560,170,40,40,0,NULL,'',NULL,'cardLanguage');
 INSERT INTO items VALUES(13885,156,'action',replace('union Iso639_1 terminalLanguage,\n               cardLanguage;','\n',char(10)),0,280,470,150,30,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13886,156,'shelf','true',0,1070,800,140,40,40,0,NULL,NULL,NULL,'ttd.cardholderLanguageIsSelected');
+INSERT INTO items VALUES(13887,288,'shelf','*randomNumber',0,330,40,250,40,40,0,NULL,NULL,NULL,'const uint8_t lowerLimit');
+INSERT INTO items VALUES(13888,288,'if','*randomNumber >= lowerLimit',0,330,440,250,20,160,1,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

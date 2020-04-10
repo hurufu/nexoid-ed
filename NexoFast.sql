@@ -122,7 +122,7 @@ INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',75.0);
 INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','-396 -120','',75.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','3474 -100','',75.0);
 INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','4992 -938',replace('nexo-Fast fig. 158~160\n\nTODO: Decoding and processing of AFL is implemented only for first AFL entry (see nexo-FAST fig. 159)','\n',char(10)),75.0);
-INSERT INTO diagrams VALUES(169,'Action_Analysis','1121 -152','nexo-FAST v.3.2, section 8.2.2.2',75.0);
+INSERT INTO diagrams VALUES(169,'Action_Analysis','2650 -152','nexo-FAST v.3.2, section 8.2.2.2',75.0);
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1053 -160','nexo-FAST v.3.2, figure 168',75.0);
 INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','101 -136',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),75.0);
@@ -231,6 +231,7 @@ INSERT INTO diagrams VALUES(287,'Velocity_Checking','-65 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(288,'Generate_Random_Number','6 -196','TODO: Consider different signature to be able to retrieve larger numbers',75.0);
 INSERT INTO diagrams VALUES(289,'Taa_Set_Default_Values','-64 -270',NULL,75.0);
 INSERT INTO diagrams VALUES(290,'Tvr_Match','-197 -264',NULL,75.0);
+INSERT INTO diagrams VALUES(291,'First_Generate_Ac_Processing','125 -185',NULL,80.0);
 CREATE TABLE state
 (
 	row integer primary key,
@@ -5703,9 +5704,9 @@ INSERT INTO items VALUES(10258,169,'vertical','',0,1600,40,0,560,0,0,NULL,NULL,N
 INSERT INTO items VALUES(10259,169,'branch',replace('Termina Action\nAnalysis (TAA)','\n',char(10)),0,1600,100,150,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10260,169,'address','1ˢᵗ Generate AC',0,1600,550,150,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10261,169,'address',replace('Termina Action\nAnalysis (TAA)','\n',char(10)),0,1360,540,70,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10262,169,'vertical','',0,2950,40,0,560,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10263,169,'branch','1ˢᵗ Generate AC',0,2950,90,170,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10264,169,'address','Ok',0,2950,550,170,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10262,169,'vertical','',0,2960,40,0,560,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10263,169,'branch','1ˢᵗ Generate AC',0,2960,90,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10264,169,'address','Ok',0,2960,550,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10265,169,'vertical','',0,3550,40,0,560,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10266,169,'branch','Nok',0,3550,90,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10267,169,'address','End',0,3550,550,50,30,60,0,NULL,'',NULL,'');
@@ -5715,15 +5716,8 @@ INSERT INTO items VALUES(10270,169,'address','End',0,3430,550,50,30,60,0,NULL,''
 INSERT INTO items VALUES(10271,169,'shelf','PR_OK',0,3430,250,50,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(10272,169,'shelf','PR_NOK',0,3550,250,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10273,169,'shelf','PR_BAIL',0,3670,250,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10274,169,'select','pklr_result',0,2950,330,170,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10275,169,'horizontal','',0,2950,370,360,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10276,169,'case','PKLR_OK',0,2950,410,170,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10277,169,'case','PKLR_NOK',0,3190,410,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10278,169,'case','',0,3310,410,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10279,169,'vertical','',0,3190,370,0,230,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10280,169,'vertical','',0,3310,370,0,230,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10281,169,'address','Nok',0,3190,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10282,169,'address','Bail',0,3310,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10281,169,'address','Nok',0,3170,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10282,169,'address','Bail',0,3290,550,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10283,169,'shelf','PR_UNINITIALISED',0,570,190,130,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(10284,169,'vertical','',0,2350,40,0,560,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10285,169,'branch','ARQC',0,2350,90,130,30,60,0,NULL,NULL,NULL,NULL);
@@ -5742,7 +5736,6 @@ INSERT INTO items VALUES(10303,169,'address','ARQC',0,1940,550,140,30,60,0,NULL,
 INSERT INTO items VALUES(10304,169,'if',replace('e1.terminalType\n.operationalEnvironment\n==\nATTENDED_OFFLINE_ONLY','\n',char(10)),0,1940,450,140,50,70,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10305,169,'address','AAC',0,2150,550,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10306,169,'if','S_PAYMENT == ttd.selectedService',0,1600,240,150,20,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10307,169,'output',replace('pklr_result =\npklr_First_Generate_Ac_Processing();','\n',char(10)),0,2950,240,170,50,40,0,NULL,NULL,NULL,'PKLR');
 INSERT INTO items VALUES(10308,169,'shelf','0x80',0,2350,220,130,40,40,0,NULL,NULL,NULL,'cd.p1 /* P₁ for GenAC */');
 INSERT INTO items VALUES(10309,169,'shelf','0x00',0,2630,220,130,40,40,0,NULL,'',NULL,'cd.p1 /* P₁ for GenAC */');
 INSERT INTO items VALUES(10310,169,'shelf','ARC_NONE',0,2350,410,130,40,40,0,NULL,NULL,NULL,'ttd.authorisationResponseCode');
@@ -5978,7 +5971,6 @@ INSERT INTO items VALUES(10567,18,'commentin',replace('TODO: Consider\nbailing-o
 INSERT INTO items VALUES(10568,129,'action','enum EapiResult eapi_result;',0,470,260,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10571,75,'shelf','{ .u = 4 * (1 << exponent) };',0,970,360,280,40,40,0,NULL,NULL,NULL,'const union bcd6 one');
 INSERT INTO items VALUES(10572,75,'shelf',replace('10 * ttd.transactionCurrencyExponent.high\n   + ttd.transactionCurrencyExponent.low','\n',char(10)),0,970,250,280,50,40,0,NULL,NULL,NULL,'const uint8_t exponent');
-INSERT INTO items VALUES(10575,169,'action','enum PklrResult pklr_result;',0,570,270,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10576,219,'action','enum PklrResult pklr_result;',0,980,310,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10577,219,'vertical','',0,3390,90,0,760,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10578,219,'branch',replace('PKLR\nAssert Nok','\n',char(10)),0,3390,150,120,40,60,0,NULL,'',NULL,'');
@@ -8308,6 +8300,34 @@ INSERT INTO items VALUES(13803,290,'shelf','true',0,500,410,50,40,40,0,NULL,'',N
 INSERT INTO items VALUES(13804,290,'action','return result;',0,340,510,90,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13805,218,'if','Tvr_Match(cd.iacDenial, ap.tacDenial)',0,1480,280,170,20,200,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13806,289,'commentout',replace('FIXME: Do not change config\nduring transaction processing!!','\n',char(10)),0,950,850,140,30,90,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13807,291,'beginend','First_Generate_Ac_Processing',0,440,0,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13808,291,'beginend','End',0,440,660,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13809,291,'vertical',NULL,0,440,20,0,620,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13810,291,'horizontal',NULL,0,440,0,200,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13811,291,'action','returns enum ProcedureResult',0,720,0,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13812,291,'action','return result;',0,440,600,170,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13813,291,'shelf','PR_UNINITIALISED',0,440,80,170,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(13814,291,'select','pklr_result',0,440,280,170,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13815,291,'horizontal','',0,440,320,450,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13816,291,'case','PKLR_OK',0,440,360,170,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13817,291,'case','PKLR_NOK',0,680,360,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13818,291,'case','',0,890,360,140,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13819,291,'vertical','',0,680,320,0,240,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13820,291,'vertical','',0,890,320,0,240,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13821,291,'output',replace('const enum PklrResult pklr_result =\npklr_First_Generate_Ac_Processing();','\n',char(10)),0,440,190,170,50,40,0,NULL,'',NULL,'PKLR');
+INSERT INTO items VALUES(13822,169,'insertion',replace('result =\nFirst_Generate_Ac_Processing();','\n',char(10)),0,2960,220,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13823,169,'select','result',0,2960,300,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13824,169,'horizontal','',0,2960,340,330,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13825,169,'case','PR_OK',0,2960,380,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13826,169,'case','PR_NOK',0,3170,380,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13827,169,'case','',0,3290,380,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13828,169,'vertical','',0,3170,340,0,260,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13829,169,'vertical','',0,3290,340,0,260,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13830,291,'horizontal','',0,440,560,450,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13831,291,'shelf','PR_OK',0,440,500,170,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(13832,291,'shelf','PR_NOK',0,680,500,50,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(13833,291,'shelf','Interface_Contract_Violation();',0,890,500,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(13834,291,'commentin','TODO: Check AC response',0,440,420,170,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -8597,6 +8617,7 @@ INSERT INTO tree_nodes VALUES(382,175,'folder','RAND',NULL);
 INSERT INTO tree_nodes VALUES(383,382,'item','',288);
 INSERT INTO tree_nodes VALUES(384,288,'item',NULL,289);
 INSERT INTO tree_nodes VALUES(385,288,'item',NULL,290);
+INSERT INTO tree_nodes VALUES(386,335,'item',NULL,291);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

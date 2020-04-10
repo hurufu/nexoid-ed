@@ -1243,6 +1243,16 @@ enum PACKED CountryAlpha2 {
     COUNTRY_PL = MULTICHAR('p','l')
 };
 
+enum PACKED Language2 {
+    LANG_PL = MULTICHAR('p','l'),
+    LANG_EN = MULTICHAR('e','n'),
+    LANG_DA = MULTICHAR('d','a'),
+    LANG_CS = MULTICHAR('c','s'),
+    LANG_RU = MULTICHAR('r','u'),
+    LANG_RO = MULTICHAR('r','o'),
+    LANG_AR = MULTICHAR('a','r'),
+};
+
 // TODO: Remouve union Country
 union Country {
     enum CountryAlpha2 Code;
@@ -1250,7 +1260,7 @@ union Country {
 };
 
 union Iso639_1 {
-    enum CountryAlpha2 e;
+    enum Language2 e;
     uint8_t c[2];
 };
 

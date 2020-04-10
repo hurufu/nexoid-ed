@@ -26,7 +26,7 @@ INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-134 -148','',75.0
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','-236 22','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','-298 22',NULL,75.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-326 -192',NULL,75.0);
-INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','1392 -438','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
+INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','258 -437','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -295','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
@@ -179,7 +179,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','552 -53','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','3272 4','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -240,7 +240,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,232,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,38,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -632,7 +632,7 @@ INSERT INTO items VALUES(1251,40,'horizontal','',0,610,-10,1670,0,0,0,NULL,NULL,
 INSERT INTO items VALUES(1252,40,'arrow','',0,470,-10,140,420,1610,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1253,40,'branch','Local',0,610,40,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1254,40,'address',replace('Check if service\nselected','\n',char(10)),0,610,350,120,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1255,40,'branch','Satisfied',1,2080,40,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1255,40,'branch','Satisfied',0,2080,40,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1256,40,'branch','End',0,2280,40,70,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1257,40,'address','End',0,2080,360,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1470,42,'beginend','Process_Language_Selection',0,170,-20,120,20,60,0,NULL,'',NULL,'');
@@ -770,7 +770,7 @@ INSERT INTO items VALUES(1682,57,'vertical','',0,710,0,0,860,0,0,NULL,'',NULL,''
 INSERT INTO items VALUES(1683,57,'branch','Done',0,710,50,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1684,57,'address','Return',0,710,810,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1685,57,'shelf','PR_DONE',0,710,300,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(1697,38,'commentin',replace('Initilasise some (sic)\ntransaction data elements','\n',char(10)),0,150,90,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1697,38,'commentin',replace('NEXO: Initialise some (sic)\ntransaction data elements','\n',char(10)),0,150,90,130,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1698,38,'select','ttd.selectedService',0,150,160,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1699,38,'horizontal','',0,150,200,620,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1700,38,'case','S_UPDATE_PRE_AUTH',0,150,240,130,20,60,0,NULL,NULL,NULL,NULL);

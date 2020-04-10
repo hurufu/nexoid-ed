@@ -549,7 +549,7 @@ struct CardData {
     struct string16 applicationLabel;
     union ApplicationPriorityIndicator* applicationPriorityIndicator;
     struct Dol* pdol;
-    struct string8* languagePreference;
+    struct TerminalSupportedLanguageList* languagePreference;
     enum IssuerCodeTableIndex* issuerCodeTableIndex;
     struct string16* applicationPreferredName;
     struct ApplicationFileLocator afl;
@@ -1608,7 +1608,7 @@ struct TerminalSpecificData {
     // DF17
     enum ServiceId defaultCardService;
     // DF12
-    union Country cardholderDefaultLanguage;
+    union Iso639_1 cardholderDefaultLanguage;
     // DF18
     union bcd maxNumberOfChipTries; // WARNING: Set default value to 0x01
     // DF40
@@ -2249,7 +2249,7 @@ struct FciProprietaryTemplate {
     struct Dol* pdol;
 
     // [5F2D]
-    struct string8* languagePreference;
+    struct TerminalSupportedLanguageList* languagePreference;
 
     // [9F11]
     enum IssuerCodeTableIndex* issuerCodeTableIndex;
@@ -2553,7 +2553,7 @@ struct TerminalTransactionData {
     bool pinBypassAllowed;
     bool* minus; // FIXME: Consider making minus a value, and not a pointer
     bool amountDisplayed;
-    union Country selectedLanguage;
+    union Iso639_1 selectedLanguage;
     enum TerminalErrorReason terminalErrorReason;
     bool terminalErrorIndicator;
     bool transactionConfirmedByCardholder; // EMV also

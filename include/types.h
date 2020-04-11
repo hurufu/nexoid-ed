@@ -559,6 +559,9 @@ struct CardData {
     union CurrencyCode* applicationCurrencyCode;
     union binary2* applicationVersionNumber_Card; // 0x9F08
 
+    // [84]
+    struct Aid dfName; // FIXME: Fix type
+
     // [9F07]
     union ApplicationUsageControl* auc;
 
@@ -2449,10 +2452,16 @@ struct FciProprietaryTemplate {
     struct FciIssuerDiscretionaryData* issuerDiscretionaryData;
 };
 
+// FIXME: Use proper type for DF Name
+struct DfName {
+    size_t l;
+    char v[36];
+};
+
 // [6F]
 struct FileControlInformation {
     // [84]
-    struct Aid DfName;
+    struct Aid DfName; // FIXME: Type
     // [A5]
     struct FciProprietaryTemplate a5;
 };

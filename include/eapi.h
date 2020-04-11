@@ -26,6 +26,8 @@ enum EapiResult eapi_Activate_Contacts_And_Reset_Chip(void);
  */
 enum EapiResult eapi_Reset_Chip(void);
 
+enum EapiResult eapi_Select_Pse(void);
+
 enum EapiResult eapi_Select_Application(const struct Aid*);
 
 enum EapiResult eapi_Select_Next_Application(const struct Aid*);

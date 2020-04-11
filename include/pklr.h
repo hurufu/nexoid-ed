@@ -31,6 +31,16 @@ enum PklrResult {
   , PKLR_UNSUCCESSFUL
 };
 
+struct PklrConfiguration {
+    bool buildCandidateList;
+};
+
+/* Used to enable or disable PKLR for different procedures
+ *
+ * Should be defined in the Trusted Layer
+ */
+extern struct PklrConfiguration pklr;
+
 /** Redirect to API that will perform Building of Candidate List as specified
  *  in EMV Book 1 section 12, after which Final Application will be performed
  *  be nexoid.

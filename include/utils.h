@@ -15,3 +15,5 @@
 
 // A ↛ B
 #define NIMPLY(A, B) (~IMPLY(A, B))
+
+#define MIN(...) NUMBERED_MACRO(MIN, __VA_ARGS__)

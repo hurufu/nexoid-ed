@@ -16,3 +16,8 @@
 #define ONEOF2(X, A1, A2)         (((X) == (A1)) || ((X) == (A2)))
 #define ONEOF3(X, A1, A2, A3)     (((X) == (A1)) || ((X) == (A2)) || ((X) == (A3)))
 #define ONEOF4(X, A1, A2, A3, A4) (((X) == (A1)) || ((X) == (A2)) || ((X) == (A3)) || ((X) == (A4)))
+
+#define MIN1(A1)             ( (A1)                                  )
+#define MIN2(A1, A2)         ( (A1) < (A2) ? (A1) : MIN1(A2)         )
+#define MIN3(A1, A2, A3)     ( (A1) < (A2) ? (A1) : MIN2(A2, A3)     )
+#define MIN4(A1, A2, A3, A4) ( (A1) < (A2) ? (A1) : MIN3(A2, A3, A4) )

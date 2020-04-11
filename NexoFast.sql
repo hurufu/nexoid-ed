@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1504 80','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1434 80','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','2450 -47','',80.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-198 -120','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','-88 -240','',75.0);
@@ -25,8 +25,8 @@ INSERT INTO diagrams VALUES(31,'Dcc_Processing','-468 -178','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-134 -148','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','-236 22','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','-298 22',NULL,75.0);
-INSERT INTO diagrams VALUES(38,'Perform_Service','-324 -256',NULL,75.0);
-INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','258 -437','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
+INSERT INTO diagrams VALUES(38,'Perform_Service','-390 -322',NULL,75.0);
+INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','390 -302','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -295','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
@@ -52,8 +52,8 @@ INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','518 1564',
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-149 -471','FIXME: This function handles only single event at a time',59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -64','',75.0);
-INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-69 -110','',75.0);
-INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-26 -104','First best match is selected',75.0);
+INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-68 -176','',75.0);
+INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-158 -104','First best match is selected',75.0);
 INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','26 -72','',75.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-229 -52',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
@@ -100,12 +100,12 @@ INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
 INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','296 -229','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
 INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','312 -228','TODO: Build Candidate List using PSE isn''t fully implemented',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1252 -85',NULL,75.0);
-INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','1132 -101',NULL,75.0);
+INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','1264 -364',NULL,75.0);
 INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','333 -96',replace('There is no parsing per-se in the current implementation,\nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','-518 -178',NULL,75.0);
 INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','703 17',NULL,80.0);
-INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','923 -174',NULL,85.0);
+INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','624 -110',NULL,85.0);
 INSERT INTO diagrams VALUES(141,'Local_Build_Candidate_List','1896 -164','TODO: Move to separate module',75.0);
 INSERT INTO diagrams VALUES(142,'Ctlss_Application_Kernel_Profile_Selection','136 -65',NULL,75.0);
 INSERT INTO diagrams VALUES(143,'Is_Fallback_To_Msr_Allowed','186 -182','nexo-FAST note 122-95',80.0);
@@ -150,9 +150,9 @@ INSERT INTO diagrams VALUES(196,'Update_Interfaces_Enable_All','112 126',NULL,75
 INSERT INTO diagrams VALUES(197,'Update_Interfaces_No_Contactless','-448 -185',NULL,75.0);
 INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -160','',75.0);
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 890','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
-INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','505 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
-INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1237 -129','',85.0);
-INSERT INTO diagrams VALUES(202,'Process_Event','2037 272','FIXME: Refactor Process Event to make it more linear',75.0);
+INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','504 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
+INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','883 -187','',85.0);
+INSERT INTO diagrams VALUES(202,'Process_Event','-364 -394','FIXME: Refactor Process Event to make it more linear',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','0 201','',75.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','412 -450','',75.0);
@@ -179,7 +179,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','3272 4','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','3377 -50','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -245,7 +245,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,134,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,140,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1449,7 +1449,7 @@ INSERT INTO items VALUES(3729,79,'case','',0,1010,310,110,20,60,0,NULL,'',NULL,'
 INSERT INTO items VALUES(3730,79,'vertical','',0,830,270,0,500,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3731,79,'vertical','',0,1010,270,0,500,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3732,79,'shelf','KERNEL_M',0,260,390,190,40,40,0,NULL,'',NULL,'ttd.kernelId');
-INSERT INTO items VALUES(3733,79,'insertion',replace('result =\nApplication_Profile_Selection_For_Non_Chip();','\n',char(10)),1,260,480,190,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(3733,79,'insertion',replace('result =\nApplication_Profile_Selection_For_Non_Chip();','\n',char(10)),0,260,480,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3734,79,'select','result',0,260,550,190,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3735,79,'horizontal','',0,260,590,440,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3736,79,'case','PR_OK',0,260,630,190,20,60,0,NULL,'',NULL,'');
@@ -3539,13 +3539,13 @@ INSERT INTO items VALUES(6988,142,'shelf','PR_NOK',0,690,580,120,40,40,0,NULL,''
 INSERT INTO items VALUES(6989,140,'insertion',replace('result =\nCtlss_Application_Kernel_Profile_Selection();','\n',char(10)),0,1830,330,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(6996,140,'horizontal','',0,900,380,930,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(6997,140,'select','result',0,900,420,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(6998,140,'horizontal','',0,900,460,860,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(6998,140,'horizontal','',0,900,460,980,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(6999,140,'case','PR_OK',0,900,500,140,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7000,140,'case','PR_C',0,1350,500,60,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7001,140,'case','',0,1760,500,50,20,60,0,NULL,'fg #000000 bg #d4f0ff',NULL,NULL);
+INSERT INTO items VALUES(7001,140,'case','',0,1880,500,50,20,60,0,NULL,'fg #000000 bg #d4f0ff',NULL,NULL);
 INSERT INTO items VALUES(7002,140,'vertical','',0,1350,460,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7003,140,'vertical','',0,1760,460,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(7004,140,'address','Bail',0,1760,590,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7003,140,'vertical','',0,1880,460,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7004,140,'address','Bail',0,1880,590,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7005,140,'address','Try fallback',0,1350,590,60,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7006,140,'vertical','',0,3570,-60,0,700,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7007,140,'if','Is_Fallback_To_Msr_Allowed()',0,2640,180,140,20,70,1,NULL,NULL,NULL,NULL);
@@ -3585,7 +3585,7 @@ INSERT INTO items VALUES(7043,140,'address','End',0,3290,590,60,30,60,0,NULL,'',
 INSERT INTO items VALUES(7044,140,'branch','Tap again',0,3290,-10,60,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(7045,140,'shelf','PR_TAP_AGAIN',0,3290,170,60,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(7046,140,'shelf','N_TECHNICAL_ERROR',0,3570,80,80,40,40,0,NULL,'',NULL,'ttd.nokReason');
-INSERT INTO items VALUES(7047,140,'horizontal','',0,1760,540,330,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(7047,140,'horizontal','',0,1880,540,210,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7048,142,'shelf','PR_UNINITIALISED',0,420,280,120,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(7049,143,'beginend','Is_Fallback_To_Msr_Allowed',0,600,-60,120,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(7050,143,'beginend','End',0,600,600,50,20,60,0,NULL,NULL,NULL,NULL);
@@ -8536,6 +8536,9 @@ INSERT INTO items VALUES(14116,299,'vertical','',0,910,350,0,80,0,0,NULL,NULL,NU
 INSERT INTO items VALUES(14117,299,'vertical','',0,1130,350,0,200,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14118,299,'horizontal','',0,1130,430,160,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14119,299,'horizontal','',0,750,430,160,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14120,140,'case','PR_NOK',0,1760,500,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14121,140,'vertical','',0,1760,460,0,180,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14122,140,'address','Nok',0,1760,590,50,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

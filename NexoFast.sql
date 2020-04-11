@@ -62,7 +62,7 @@ INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','1121 -68',NU
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-309 7',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),75.999999999999999999);
 INSERT INTO diagrams VALUES(90,'Kernel_Activation','1252 52','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-458 -493',NULL,45.999999999999999999);
-INSERT INTO diagrams VALUES(92,'Set_Transaction_Type','-470 -440',NULL,40.0);
+INSERT INTO diagrams VALUES(92,'Set_Transaction_Type','-885 -35',NULL,80.0);
 INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-338 -198',NULL,75.0);
 INSERT INTO diagrams VALUES(94,'Update_Kernel_Transaction_Database','0 -200','',75.0);
 INSERT INTO diagrams VALUES(95,'Initialise_Kernel_M','0 0','',75.0);
@@ -245,7 +245,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,140,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,92,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1776,39 +1776,39 @@ INSERT INTO items VALUES(4204,91,'shelf','KERNEL_MODE_EXTRACT_PAN',0,890,210,110
 INSERT INTO items VALUES(4205,91,'shelf','KERNEL_MODE_NONE',0,1680,210,80,40,40,0,NULL,'',NULL,'ttd.kernelMode');
 INSERT INTO items VALUES(4206,92,'vertical','',0,-330,110,0,400,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4207,92,'select','ttd.selectedService',0,-330,150,130,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4208,92,'horizontal','',0,-330,190,2340,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4209,92,'case','S_PAYMENT',0,1170,230,120,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4208,92,'horizontal','',0,-330,190,2360,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4209,92,'case','S_PAYMENT',0,1160,230,120,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4210,92,'case','S_DEFFERED_PAYMENT',0,-330,230,130,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4211,92,'case','',0,2010,230,90,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4212,92,'vertical','',0,-130,190,0,150,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4211,92,'case','',0,2030,230,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4212,92,'vertical','',0,-130,190,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4213,92,'case','S_PRE_AUTH',0,-130,230,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4214,92,'vertical','',0,20,190,0,150,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4214,92,'vertical','',0,20,190,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4215,92,'case','S_NO_SHOW',0,170,230,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4216,92,'vertical','',0,170,190,0,150,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4216,92,'vertical','',0,170,190,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4217,92,'case','S_UPDATE_PRE_AUTH',0,20,230,80,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4218,92,'vertical','',0,340,190,0,150,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4218,92,'vertical','',0,340,190,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4219,92,'case','S_CARD_VALIDITY_CHECK',0,340,230,100,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4220,92,'vertical','',0,1790,190,0,270,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4221,92,'case','S_CASH_ADVANCE',0,1790,230,90,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4222,92,'vertical','',0,1570,190,0,270,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4220,92,'vertical','',0,1830,190,0,270,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4221,92,'case','S_CASH_ADVANCE',0,1830,230,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4222,92,'vertical','',0,1630,190,0,270,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4223,92,'case','S_CANCELLATION',0,530,230,70,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4224,92,'vertical','',0,710,190,0,150,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4224,92,'vertical','',0,710,190,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4225,92,'case','S_PAYMENT_COMPLETION',0,710,230,90,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4226,92,'vertical','',0,920,190,0,150,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4226,92,'vertical','',0,920,190,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4227,92,'case','S_VOICE_AUTHORISATION',0,920,230,100,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4228,92,'vertical','',0,1170,190,0,150,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4229,92,'horizontal','',0,-330,340,1500,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4231,92,'case','S_REFUND',0,1570,230,90,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4232,92,'vertical','',0,530,190,0,150,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4235,92,'vertical','',0,2010,190,0,270,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4236,92,'if','ttd.cashbackAmount.i == 0',0,1170,290,120,20,30,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4237,92,'vertical','',0,1320,290,0,170,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4238,92,'horizontal','',0,-330,460,2340,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4228,92,'vertical','',0,1160,190,0,140,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4229,92,'horizontal','',0,-330,330,1490,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4231,92,'case','S_REFUND',0,1630,230,90,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4232,92,'vertical','',0,530,190,0,140,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4235,92,'vertical','',0,2030,190,0,270,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4236,92,'if','ttd.cashbackAmount.i == 0',0,1160,290,120,20,20,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4237,92,'vertical','',0,1300,290,0,170,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4238,92,'horizontal','',0,-330,460,2360,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4239,92,'shelf','TRX_DEBIT_GOODS_AND_SERVICES',0,-330,400,130,40,40,0,NULL,NULL,NULL,'ttd.transactionType');
-INSERT INTO items VALUES(4240,92,'shelf','TRX_DEBIT_GOODS_AND_SERVICES',0,1320,390,130,40,40,0,NULL,'',NULL,'ttd.transactionType');
-INSERT INTO items VALUES(4241,92,'shelf','TRX_CREDIT_RETURN',0,1570,390,90,40,40,0,NULL,'',NULL,'ttd.transactionType');
-INSERT INTO items VALUES(4242,92,'shelf','TRX_DEBIT_CASH',0,1790,390,90,40,40,0,NULL,'',NULL,'ttd.transactionType');
-INSERT INTO items VALUES(4243,92,'shelf','TRX_NONE',0,2010,390,90,40,40,0,NULL,'',NULL,'ttd.transactionType');
+INSERT INTO items VALUES(4240,92,'shelf','TRX_DEBIT_GOODS_AND_SERVICES_WITH_CASH_DISBURSEMENT',0,1300,390,220,40,40,0,NULL,'',NULL,'ttd.transactionType');
+INSERT INTO items VALUES(4241,92,'shelf','TRX_CREDIT_RETURN',0,1630,390,90,40,40,0,NULL,'',NULL,'ttd.transactionType');
+INSERT INTO items VALUES(4242,92,'shelf','TRX_DEBIT_CASH',0,1830,390,90,40,40,0,NULL,'',NULL,'ttd.transactionType');
+INSERT INTO items VALUES(4243,92,'shelf','TRX_NONE',0,2030,390,90,40,40,0,NULL,'',NULL,'ttd.transactionType');
 INSERT INTO items VALUES(4244,93,'insertion',replace('result =\nInitialise_Kernel_M();','\n',char(10)),0,80,280,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4245,93,'shelf','PR_UNINITIALISED',0,80,50,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(4246,93,'select','ttd.kernelId',0,80,130,120,20,60,0,NULL,NULL,NULL,NULL);

@@ -17,7 +17,7 @@ CREATE TABLE diagrams
 	description text,
 	zoom double
 );
-INSERT INTO diagrams VALUES(18,'Card_Validity_Check','1434 80','CVC',75.0);
+INSERT INTO diagrams VALUES(18,'Card_Validity_Check','2100 80','CVC',75.0);
 INSERT INTO diagrams VALUES(19,'Online_Request_Outcome_Processing','2450 -47','',80.0);
 INSERT INTO diagrams VALUES(21,'Cvc_Check_Amount','-198 -120','nexo-FAST v.3.2 section 6.6.4',75.0);
 INSERT INTO diagrams VALUES(22,'Check_Online_Performed','-88 -240','',75.0);
@@ -60,10 +60,10 @@ INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','1121 -68',NULL,70.0);
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-309 7',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),75.999999999999999999);
-INSERT INTO diagrams VALUES(90,'Kernel_Activation','1252 52','',75.0);
+INSERT INTO diagrams VALUES(90,'Kernel_Activation','918 52','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-458 -493',NULL,45.999999999999999999);
-INSERT INTO diagrams VALUES(92,'Set_Transaction_Type','-885 -35',NULL,80.0);
-INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-338 -198',NULL,75.0);
+INSERT INTO diagrams VALUES(92,'Set_Transaction_Type','-572 -35',NULL,80.0);
+INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-269 -262',NULL,75.0);
 INSERT INTO diagrams VALUES(94,'Update_Kernel_Transaction_Database','0 -200','',75.0);
 INSERT INTO diagrams VALUES(95,'Initialise_Kernel_M','0 0','',75.0);
 INSERT INTO diagrams VALUES(96,'Forcing_Transaction_Acceptance','2205 121','nexo-FAST v.3.2 par. 6.4.2.3',75.0);
@@ -225,7 +225,7 @@ INSERT INTO diagrams VALUES(282,'Proprietary_Cvm_Support_Check','-111 0',NULL,90
 INSERT INTO diagrams VALUES(283,'Terminal_Floor_Limit_Checking','713 -204',NULL,75.0);
 INSERT INTO diagrams VALUES(284,'Search_Transactions','-9 -41',NULL,100.0);
 INSERT INTO diagrams VALUES(285,'Request_Exception_File_Checking','-133 -133',NULL,75.0);
-INSERT INTO diagrams VALUES(286,'Biased_Random_Selection_For_Online_Processing','188 52','FIXME: This barely implemented and requires some rework',75.0);
+INSERT INTO diagrams VALUES(286,'Biased_Random_Selection_For_Online_Processing','490 -218','FIXME: This barely implemented and requires some rework',75.0);
 INSERT INTO diagrams VALUES(287,'Velocity_Checking','-65 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(288,'Generate_Random_Number','5 137','TODO: Consider different signature to be able to retrieve larger numbers',75.0);
 INSERT INTO diagrams VALUES(289,'Taa_Set_Default_Values','-64 -270',NULL,75.0);
@@ -245,7 +245,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,92,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,182,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -8130,10 +8130,10 @@ INSERT INTO items VALUES(13623,286,'commentin',replace('NEXO: Spec does not\nspe
 INSERT INTO items VALUES(13624,286,'vertical','',0,1150,140,0,710,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13625,286,'branch','Set Target Percentage',0,1150,190,190,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13626,286,'address','Random Selection',0,1150,800,190,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13627,286,'if',replace('ttd.amountAuthorisedNumeric.u\n>=\nap.thersholdValueForBiasedRandomSelection->u','\n',char(10)),0,1380,380,210,40,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(13627,286,'if',replace('ttd.amountAuthorisedNumeric.u\n>=\nap.thresholdValueForBiasedRandomSelection->u','\n',char(10)),0,1380,380,210,40,20,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13628,286,'vertical','',0,1610,380,0,250,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13629,286,'horizontal','',0,1150,630,460,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13630,286,'if','ap.thersholdValueForBiasedRandomSelection',0,1150,260,190,20,40,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(13630,286,'if','ap.thresholdValueForBiasedRandomSelection',0,1150,260,190,20,40,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13632,286,'shelf','0',0,420,380,180,40,40,0,NULL,'',NULL,'uint8_t transactionTargetPercentage');
 INSERT INTO items VALUES(13633,286,'shelf','0',0,1150,530,190,40,40,0,NULL,'',NULL,'transactionTargetPercentage');
 INSERT INTO items VALUES(13634,286,'shelf','ap.targetPercentageForBiasedRandomSelection->raw',0,1610,530,210,40,40,0,NULL,'',NULL,'transactionTargetPercentage');

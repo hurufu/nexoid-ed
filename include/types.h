@@ -72,6 +72,10 @@ union bcd6 {
     uint64_t u;
 };
 
+struct ans15 {
+    char v[15];
+};
+
 struct ans_16 {
     uint8_t l;
     char v[16];
@@ -2008,6 +2012,17 @@ union ApplicationProfileSettings {
     };
 };
 
+union PACKED MerchantCategoryCode {
+    struct bcd2 bcd;
+    uint8_t raw[2];
+    enum PACKED MerchantCategoryCodeEnum {
+        // Based on some random document from the internet claiming to be Visa'a classification
+        MCC_VETERINARY_SERVICES = MULTICHAR(0x07,0x42),
+        MCC_AGRICULTURAL_CO_OPERATIVES = MULTICHAR(0x07,0x63),
+        MCC_HORTICULTURAL_SERVICES = MULTICHAR(0x07,0x80),
+    } e;
+};
+
 // source nexo-IS 4.0
 // configuration: Application Profile
 // presence: M
@@ -2049,7 +2064,7 @@ struct ApplicationProfile {
     union bcd* targetPercentageForBiasedRandomSelection;
 
     // DF1D
-    union bcd6* thersholdValueForBiasedRandomSelection;
+    union bcd6* thresholdValueForBiasedRandomSelection;
 
     // DF1E
     union TerminalVerificationResults* tacDefault;
@@ -2060,9 +2075,9 @@ struct ApplicationProfile {
     // DF20
     union TerminalVerificationResults* tacOnline;
 
-    struct bcd4 merchantCategoryCode;
+    union MerchantCategoryCode merchantCategoryCode;
     uint8_t (* merchantCustomData)[20];
-    char merchantIdentifier[15];
+    struct ans15 merchantIdentifier;
     char* merchantNameAndLocation;
 
     enum FallbackParameterChip fallbackParameterChip;
@@ -2513,6 +2528,162 @@ struct KernelData {
 
     struct PinData pinData;
     union KeySerialNumber* ksn;
+};
+
+struct E1KernelConfigurationData {
+    // [9F01]
+    union bcd6 acquirerIdentifier;
+
+    // [9F40]
+    union AdditionalTerminalCapabilities additionalTerminalCapabilities;
+
+    // [DF27]
+    union ApplicationProfileSettings aps;
+
+    // Application version number for selected ICC application, specific to the terminal
+    // Selected from DF40/DF49
+    // [9F09]
+    union binary2 applicationVersionNumber_Terminal;
+
+    // [DF12]
+    union Iso639_1 cardholderDefaultLanguage;
+
+    // CaPublicKeyCheckSum
+
+    // CaPublicKeyExponent
+
+    // [9F22]
+    // CaPublicKeyIndex_Terminal
+
+    // CaPublicKeyModulus
+
+    // [E3]
+    // CaPublicKeyTable
+
+    // [DF14]
+    struct string5 commandKeyClearLabel;
+
+    // [DF15]
+    struct string5 commandKeyEnterLabel;
+
+    // [DF16]
+    struct string5 commandKeyScrollLabel;
+
+    // [DF1A]
+    struct Dol* ddol;
+
+    // [DF44]
+    enum FallbackParameterChip fallbackParameterChip;
+
+    // [9F1E]
+    struct string8* ifdSerialNumber;
+
+    // [DF1C]
+    struct bcd2* maxTargetPercentageForBiasedRandomSelection;
+
+    // [9F15]
+    union MerchantCategoryCode merchantCategoryCode;
+
+    // [9F16]
+    struct ans15 merchantIdentifier;
+
+    // [9F4E]
+    char* merchantNameAndLocation;
+
+    // [DF10]
+    union ServiceSettings serviceSettings;
+
+    // [DF1D]
+    union bcd* targetPercentageForBiasedRandomSelection;
+
+    // [DF1E]
+    union TerminalVerificationResults* tacDefault;
+
+    // [DF1F]
+    union TerminalVerificationResults* tacDenial;
+
+    // [DF20]
+    union TerminalVerificationResults* tacOnline;
+
+    // [9F33]
+    union TerminalCapabilities terminalCapabilities;
+
+    // [9F1A]
+    // terminalCountryCode
+
+    // [9F1B]
+    union bcd6* terminalFloorLimit;
+
+    // [DF35]
+    // terminalTransactionCurrencyCode
+
+    // [DF36]
+    union bcd terminalTransactionCurrencyExponent;
+
+    // [9F35]
+    union TerminalType terminalType;
+
+    // [DF21]
+    union bcd6* thresholdValueForBiasedRandomSelection;
+
+    // [9F53]
+    // transactionCategoryCode
+};
+
+struct E1KernelTransactionData {
+    // [81]
+    uint32_t amountAuthorisedBinary;
+
+    // [9F02]
+    union bcd6 amountAuthorisedNumeric;
+
+    // [9F04]
+    uint32_t amountOtherBinary;
+
+    // [9F03]
+    union bcd6 amountOtherNUmeric;
+
+    // [9F26]
+    // applicationCryptogram;
+
+    // [9F42]
+    union CurrencyCode* applicationCurrencyCode;
+
+    // [9F44]
+    union bcd* applicationCurrencyExponent;
+
+    // [9F05]
+    // applicationDiscretionaryData
+
+    // [5F25]
+    union yymmdd* applicationEffectiveDate;
+
+    // [5F24]
+    union yymmdd* applicationExpirationDate;
+
+};
+
+struct E1KernelActivationData {
+    enum KernelMode kernelMode;
+    struct FileControlInformation* fci;
+    union EmvStatus* sw1Sw2;
+    bool* unableToGoOnline;
+};
+
+struct E1KernelData {
+    struct E1KernelConfigurationData cf;
+    struct E1KernelTransactionData td;
+    struct E1KernelActivationData ad;
+};
+
+// TODO: This struct should completely replace KernelData
+struct NewKernelData {
+    // NEXO: Kernel ID isn't part of Kernel Data according to nexo, but it's
+    // better to have it, for technical reasons, so it will be easier to debug
+    enum Kernel kernelId;
+    union {
+        struct E1KernelData* e1;
+    };
 };
 
 // Based on nexo-FAST section 13.3

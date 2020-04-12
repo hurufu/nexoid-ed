@@ -59,3 +59,14 @@ static inline union ApplicationContextControl Auc_to_Acc(const union Application
 static inline uint8_t Bcd_To_Binary(const union bcd bcd) {
     return bcd.high * 10 + bcd.low;
 }
+
+static inline uint32_t Bcd6_To_U32(const union bcd6 bcd) {
+    uint32_t acc = 0;
+    for (int i = 0; i < 6; i++) {
+        const union bcd tmp = { .raw = bcd.v[i] };
+        const uint8_t tmp_acc = Bcd_To_Binary(tmp);
+        acc = acc * 100 + tmp_acc;
+        // TODO: Check for overflow
+    }
+    return acc;
+}

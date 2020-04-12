@@ -2654,7 +2654,7 @@ struct E1KernelTransactionData {
     uint32_t amountOtherBinary;
 
     // [9F03]
-    union bcd6 amountOtherNUmeric;
+    union bcd6 amountOtherNumeric;
 
     // [9F26]
     // applicationCryptogram;
@@ -2672,7 +2672,7 @@ struct E1KernelTransactionData {
     union yymmdd* applicationEffectiveDate;
 
     // [5F24]
-    union yymmdd* applicationExpirationDate;
+    union yymmdd applicationExpirationDate;
 
 };
 

@@ -60,7 +60,7 @@ INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-66 0',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','1121 -68',NULL,70.0);
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-309 7',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),75.999999999999999999);
-INSERT INTO diagrams VALUES(90,'Kernel_Activation','918 52','',75.0);
+INSERT INTO diagrams VALUES(90,'Kernel_Activation','317 52','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-458 -493',NULL,45.999999999999999999);
 INSERT INTO diagrams VALUES(92,'Set_Transaction_Type','-572 -35',NULL,80.0);
 INSERT INTO diagrams VALUES(93,'Initialise_Kernel_Transaction_Database','-269 -262',NULL,75.0);
@@ -134,7 +134,7 @@ INSERT INTO diagrams VALUES(178,'Kernel_E_Processing','3630 -800','',75.0);
 INSERT INTO diagrams VALUES(179,'Kernel_E_Check_Activation_Data','-236 -394','nexo-FAST note 152-20',75.0);
 INSERT INTO diagrams VALUES(180,'Kernel_E_Initialise_Data','-168 22','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(181,'Can_Fallback_Be_Performed','-192 -178','',75.0);
-INSERT INTO diagrams VALUES(182,'Initialise_Kernel_E','1 -129','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
+INSERT INTO diagrams VALUES(182,'Initialise_Kernel_E','200 -128','TODO: Shall be handled according to nexo-FAST 8.3',75.0);
 INSERT INTO diagrams VALUES(183,'Authorisation_Request','-298 -340','nexo-FAST v.3.2 fig. 58 notes 10 and 20',75.0);
 INSERT INTO diagrams VALUES(185,'Transaction_Completion','-445 -687',replace('Nexo specifies to execute each step of Transaction Completion regardles of any error conditions, but this implementation has an addtional error: Interface Contract Violation, it''s the hardest possible error, and default hadling is to immediately go to Main and execute Diagnostics and Maintenance and terminate nexo application. Here this handling is relaxed and bailing out will occur after\nall steps of Transaction Completion.','\n',char(10)),70.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',70.0);
@@ -240,6 +240,7 @@ INSERT INTO diagrams VALUES(297,'Validate_Df_Name','-200 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(298,'Read_Records','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(299,'Reset_Chip','250 -186',replace('nexo-FAST v.3.2, note 126-05\n\nTODO: Check if this procedure agrees with EMV Book 1, sections 6~9','\n',char(10)),80.0);
 INSERT INTO diagrams VALUES(300,'E1_Initialise_Configuration_Data','768 -236','TODO: Check if all mandatory tags are copied',50.0);
+INSERT INTO diagrams VALUES(301,'E1_Initialise_Activation_Data','-85 -283',NULL,100.0);
 CREATE TABLE state
 (
 	row integer primary key,
@@ -8621,6 +8622,20 @@ INSERT INTO items VALUES(14203,300,'shelf','e1.terminalTransactionCurrencyExpone
 INSERT INTO items VALUES(14204,300,'shelf','e1.terminalType',0,1320,60,230,40,40,0,NULL,NULL,NULL,'cf->terminalType');
 INSERT INTO items VALUES(14205,300,'shelf','acpptr(ap.thresholdValueForBiasedRandomSelection)',0,1320,160,230,40,40,0,NULL,NULL,NULL,'cf->thresholdValueForBiasedRandomSelection');
 INSERT INTO items VALUES(14206,300,'commentin','TODO: Allocate transactionCategoryCode',0,1320,240,230,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14207,182,'insertion',replace('result =\nE1_Initialise_Activation_Data(&nkd.e1->ad);','\n',char(10)),0,720,340,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14208,182,'if','PR_OK == result',0,720,410,200,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(14209,301,'beginend','E1_Initialise_Activation_Data',0,200,-200,130,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14210,301,'beginend','End',0,200,320,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14211,301,'vertical',NULL,0,200,-180,0,480,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14212,301,'horizontal',NULL,0,200,-200,190,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14213,301,'action',replace('struct E1KernelActivationData* const ad\n\nreturns enum ProcedureResult','\n',char(10)),0,530,-200,170,40,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14214,301,'shelf','ttd.kernelMode',0,200,-120,90,40,40,0,NULL,NULL,NULL,'ad->kernelMode');
+INSERT INTO items VALUES(14215,301,'shelf','acpptr(cd.fci)',0,200,-20,90,40,40,0,NULL,NULL,NULL,'ad->fci');
+INSERT INTO items VALUES(14216,301,'commentout','FIXME: Use Entry Point data as an FCI source',0,520,-20,190,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14217,301,'shelf','acpval(cd.sw1Sw2)',0,200,80,90,40,40,0,NULL,'',NULL,'ad->sw1Sw2');
+INSERT INTO items VALUES(14218,301,'shelf','NULL',0,200,180,90,40,40,0,NULL,NULL,NULL,'ad->unableToGoOnline');
+INSERT INTO items VALUES(14219,301,'action','return PR_OK;',0,200,260,90,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14220,301,'commentout','FIXME: Use Entry Point data as a SW1SW2 source',0,510,80,200,20,60,0,NULL,'',NULL,'');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -8920,6 +8935,7 @@ INSERT INTO tree_nodes VALUES(393,183,'item',NULL,297);
 INSERT INTO tree_nodes VALUES(394,183,'item',NULL,298);
 INSERT INTO tree_nodes VALUES(395,176,'item',NULL,299);
 INSERT INTO tree_nodes VALUES(396,245,'item',NULL,300);
+INSERT INTO tree_nodes VALUES(397,245,'item',NULL,301);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

@@ -9,6 +9,7 @@ extern struct TerminalTransactionData ttd;
 extern struct ApplicationProfile ap;
 extern struct CardData cd;
 extern struct KernelData kd;
+extern struct NewKernelData nkd;
 extern struct TerminalConfiguration tc;
 extern struct OnlineResponseData ord;
 extern struct ServiceSettingsEntry sc;

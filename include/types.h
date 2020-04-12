@@ -2610,13 +2610,13 @@ struct E1KernelConfigurationData {
     union bcd* targetPercentageForBiasedRandomSelection;
 
     // [DF1E]
-    union TerminalVerificationResults* tacDefault;
+    union TerminalVerificationResults tacDefault;
 
     // [DF1F]
-    union TerminalVerificationResults* tacDenial;
+    union TerminalVerificationResults tacDenial;
 
     // [DF20]
-    union TerminalVerificationResults* tacOnline;
+    union TerminalVerificationResults tacOnline;
 
     // [9F33]
     union TerminalCapabilities terminalCapabilities;

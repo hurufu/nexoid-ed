@@ -618,6 +618,19 @@ struct CardData {
     /** @} */
 };
 
+/** Container for card data retrieved during "App, Kernel, Profile Selection".
+ *
+ *  NEXO: This struct isn't explicitly defined by nexo. Rationale, in nexo they
+ *  don't distinguish card data container for App Selection and for Kernel
+ *  Processing, but it's implied that they are different in Kernel Activation,
+ *  when they copy all card data to Kernel Data as part of Kernel Transaction
+ *  Data, and don't use common shared data holder.
+ *
+ *  nexo-FAST v.3.2, section 3.3, section 13.1
+ */
+struct EntryPointData {
+};
+
 enum TmsContactLevel {
     CALL_TMS_NONE
   , CALL_TMS_ASAP

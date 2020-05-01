@@ -1735,14 +1735,12 @@ enum PACKED TerminalTypeEnum {
   , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x36
 };
 
-struct TerminalTypeParts {
-    enum TerminalOperationalEnvironment operationalEnvironment : 4;
-    enum TerminalOperationalControl operationalControl : 4;
-};
-
 union TerminalType {
     uint8_t b[1];
-    struct TerminalTypeParts p;
+    struct {
+        enum TerminalOperationalEnvironment operationalEnvironment : 4;
+        enum TerminalOperationalControl operationalControl : 4;
+    };
     enum TerminalTypeEnum e;
 };
 

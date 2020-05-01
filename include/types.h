@@ -213,6 +213,8 @@ enum PACKED IssuerCodeTableIndex {
     ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
 };
 
+// Kernel ID
+// [DF38]
 enum PACKED Kernel {
     KERNEL_NONE = 0x00
   , KERNEL_C1 = 0x01

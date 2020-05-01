@@ -28,6 +28,9 @@ enum EapiResult eapi_Reset_Chip(void);
 
 enum EapiResult eapi_Select_Pse(void);
 
+/**
+ *  Should set `cr` to card response if received.
+ */
 enum EapiResult eapi_Select_Application(const struct Aid*);
 
 enum EapiResult eapi_Select_Next_Application(const struct Aid*);

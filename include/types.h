@@ -541,17 +541,48 @@ union CountryCode {
     uint16_t u;
 };
 
-struct CardData {
-    /** @{ */
-    /** Members populated with raw or parsed card responses */
-    union EmvStatus sw1Sw2;
+struct ParsedResponseData {
     struct FileControlInformation* fci;
     struct ResponseMessageTemplate* responseMessageTemplate;
     struct ReadRecordResponseMessageTemplate* readRecordResponeMessageTemplate;
-    struct ResponseData responseData;
-    /** @} */
-    bool responseDataParsed; // non-NEXO
+};
 
+/** Data populated with raw or parsed card responses.
+ *
+ *  If `responseData` is available then it will be used to populate `parsed`,
+ *  else `parsed` will be used directly.
+ *
+ *  NEXO: It's not specified in a spec, but it's actually useful to separate,
+ *  because card data that was received directly from the card isn't used as-is,
+ *  in the spec, but it's always converted to some internal representation,
+ *  which is CardData in the current implementation.
+ */
+struct CardResponse {
+    struct ResponseData* responseData;
+    struct ParsedResponseData* parsed;
+    union EmvStatus sw1Sw2;
+};
+
+/** Container poplated with data expected to be sent to the card.
+ *
+ *  NEXO: It's not specified in a spec
+ *  @todo Replace p1, p2 and p1ForGenAc type with some self-describing enum
+ */
+struct CardRequest {
+    struct DolData* cdaTransactionData;
+
+    uint8_t p1;
+    uint8_t p2;
+    uint8_t p1ForGenAc; ///< @todo Consider removing p1ForGenAc
+};
+
+/** Data obtained from the (P)ICC.
+ *
+ *  @note Two instances of CardData are created during the transaction:
+ *     * Application, Kernel and Profile Selection
+ *     * Kernel Processing
+ */
+struct CardData {
     struct string16 applicationLabel;
     union ApplicationPriorityIndicator* applicationPriorityIndicator;
     struct Dol* pdol;
@@ -609,15 +640,6 @@ struct CardData {
     void* encipheredPinData;
 
     struct DolData dolData;
-    /** @{ */
-    /** Data objects that are expected to be sent to the card */
-    struct DolData cdaTransactionData;
-    // TODO: Replace p1, p2 and p1ForGenAc type with some self-describing enum
-    // TODO: Consider removing p1ForGenAc
-    uint8_t p1;
-    uint8_t p2;
-    uint8_t p1ForGenAc;
-    /** @} */
 };
 
 /** Container for card data retrieved during "App, Kernel, Profile Selection".
@@ -1988,6 +2010,70 @@ enum PACKED CvmMagneticStripe {
   , CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES = 0x04 // aka 'SIGNATURE or ONLINE PIN'
 };
 
+enum Outcome {
+    O_NONE
+
+  // Final outcome
+  , O_APPROVED
+  , O_DECLINED
+  , O_ONLINE_REQUEST
+  , O_TRY_ANOTHER_INTERFACE
+  , O_END_APPLICATION
+
+  // Non final outcome
+  , O_SELECT_NEXT
+  , O_TRY_AGAIN
+};
+
+enum Start {
+    NONE
+  , A
+  , B
+  , C
+  , D
+  , E
+  , F
+};
+
+enum OnlineResponseType {
+    ONLINE_RES_NONE
+  , ONLINE_RES_EMV_DATA
+  , ONLINE_RES_ANY
+};
+
+enum CvmOutcome {
+    CVM_NONE
+  , CVM_ONLINE_PIN
+  , CVM_CONFIRMATION_CODE_VERIFIED
+  , CVM_OBTAIN_SIGNATURE
+  , CVM_NO_CVM
+};
+
+enum AlternateInterfacePreference {
+    INTERFACE_PREFERENCE_NONE
+  , INTERFACE_PREFERENCE_CONTACT_CHIP
+  , INTERFACE_PREFERENCE_MAGSTRIPE
+};
+
+enum Receipt {
+    RECEIPT_NONE
+  , RECEIPT_PRINT
+};
+
+struct OutcomeParameters {
+    enum Start Start;
+    enum OnlineResponseType OnlineResponseType; // It's called Online Response Data in nexo
+    enum CvmOutcome Cvm;
+    bool UiRequestOnOutcomePresent;
+    bool UiRequestOnRestartPresent;
+    bool DataRecordPresent;
+    bool DiscretionaryDataPresent;
+    enum AlternateInterfacePreference AlternateInterfacePreference;
+    enum Receipt Receipt;
+    uint8_t FieldOffRequest;
+    uint8_t RemovalTimeout;
+};
+
 // Based on nexo-FAST section 13.3
 union ApplicationProfileSettings {
     uint8_t raw[5];
@@ -2517,26 +2603,28 @@ union PACKED KeySerialNumber {
     };
 };
 
-struct KernelData {
+/** Container for kernel data that wasn't received as a part of Kernel Activation.
+ *
+ *  NEXO: FAST has only vague notion of Kernel Data, so they lump together
+ *  kernel configuration and data obtained (either from the card or from other
+ *  source) during kernel processing. Struct E1KernelWorkingData isn't defined
+ *  by nexo, but it's implicitly required, eg. Kernel Data is initialized during
+ *  both Kernel Activation and Kernel Processing with the only sensible
+ *  interpretation that there are two different structures that hold different
+ *  subsets of Kernel Data.
+ */
+struct E1KernelWorkingData {
     enum AuthorisationResponseCode authorisationResponseCode;
-    union TerminalVerificationResults tvr;
     union TransactionStatusInformation tsi;
     // FIXME: I have no idea were to put commandTemplate
     union CommandTemplate commandTemplate;
 
-    uint8_t responseData[256];
     struct Aid aidTerminal;
 
     struct binary staticDataToBeAuthenticated;
 
     // FIXME: IssuerCountry is actually a card data
     union Country* issuerCountry;
-
-    // Application version number for selected ICC application, specific to the terminal
-    // Selected from DF40/DF49
-    union binary2 applicationVersionNumber_Terminal; // 9F09
-
-    union Cvm cvmResults;
 
     struct PinData pinData;
     union KeySerialNumber* ksn;
@@ -2682,20 +2770,20 @@ struct E1KernelActivationData {
     bool* unableToGoOnline;
 };
 
+/** Data that may be stored and used by an upper layer, ("Kernel Return Value")
+ */
+struct E1KernelSharedData {
+    enum Outcome outcome;
+    struct OutcomeParameters out;
+};
+
 struct E1KernelData {
     struct E1KernelConfigurationData cf;
     struct E1KernelTransactionData td;
     struct E1KernelActivationData ad;
-};
-
-// TODO: This struct should completely replace KernelData
-struct NewKernelData {
-    // NEXO: Kernel ID isn't part of Kernel Data according to nexo, but it's
-    // better to have it, for technical reasons, so it will be easier to debug
-    enum Kernel kernelId;
-    union {
-        struct E1KernelData* e1;
-    };
+    struct E1KernelWorkingData wd;
+    struct E1KernelSharedData sd;
+    struct CardData cd;
 };
 
 // Based on nexo-FAST section 13.3
@@ -2748,70 +2836,6 @@ struct OnlineResponseData {
     // character. As a temporary workaround new optional data element is added:
     // Decline Display Message Id that can hold Cardholder Message Id
     enum CardholderMessage* declineDisplayMessageId;
-};
-
-enum Outcome {
-    O_NONE
-
-  // Final outcome
-  , O_APPROVED
-  , O_DECLINED
-  , O_ONLINE_REQUEST
-  , O_TRY_ANOTHER_INTERFACE
-  , O_END_APPLICATION
-
-  // Non final outcome
-  , O_SELECT_NEXT
-  , O_TRY_AGAIN
-};
-
-enum Start {
-    NONE
-  , A
-  , B
-  , C
-  , D
-  , E
-  , F
-};
-
-enum OnlineResponseType {
-    ONLINE_RES_NONE
-  , ONLINE_RES_EMV_DATA
-  , ONLINE_RES_ANY
-};
-
-enum CvmOutcome {
-    CVM_NONE
-  , CVM_ONLINE_PIN
-  , CVM_CONFIRMATION_CODE_VERIFIED
-  , CVM_OBTAIN_SIGNATURE
-  , CVM_NO_CVM
-};
-
-enum AlternateInterfacePreference {
-    INTERFACE_PREFERENCE_NONE
-  , INTERFACE_PREFERENCE_CONTACT_CHIP
-  , INTERFACE_PREFERENCE_MAGSTRIPE
-};
-
-enum Receipt {
-    RECEIPT_NONE
-  , RECEIPT_PRINT
-};
-
-struct OutcomeParameters {
-    enum Start Start;
-    enum OnlineResponseType OnlineResponseType; // It's called Online Response Data in nexo
-    enum CvmOutcome Cvm;
-    bool UiRequestOnOutcomePresent;
-    bool UiRequestOnRestartPresent;
-    bool DataRecordPresent;
-    bool DiscretionaryDataPresent;
-    enum AlternateInterfacePreference AlternateInterfacePreference;
-    enum Receipt Receipt;
-    uint8_t FieldOffRequest;
-    uint8_t RemovalTimeout;
 };
 
 // nexo-FAST v.3.2, section 13.1.126 and 13.1.125
@@ -2979,8 +3003,9 @@ struct TerminalTransactionData {
     // values
     enum AuthorisationResponseCode authorisationResponseCode;
 
-    // FIXME: Same as previous, but may be set by any process
     union TerminalVerificationResults tvr;
+
+    union Cvm cvmResults;
 
     // FIXME: Consider better type for referenceData
     char referenceData[35 + 1];
@@ -3034,29 +3059,5 @@ enum TerminalTransactionDataTag {
 
     TTD_MAX
 };
-
-# if 0
-
-    const struct Bid* selectedBid;
-    enum Kernel kernelId;
-    struct UiParameters uiParametersForOutcome;
-    struct UiParameters uiParametersForRestart;
-    struct UiParameters uiParametersForTrxCompletion;
-    union Country selectedLanguage;
-    union CurrencyAlpha3 transactionCurrencyCodeAlpha3;
-    union ProcessingStatus processingStatus;
-    union ServiceStartEvents serviceStartEvents;
-
-    struct bcd2 preSelectedAcquirerNumber;
-    union bcd6 cashbackAmount;
-    union bcd6 transactionAmount;
-    enum KernelMode kernelMode;
-    enum NokReason nokReason;
-    enum Technology technologySelected;
-    enum TerminalErrorReason terminalErrorReason;
-    enum TransactionResult transactionResult;
-    struct Track2 track2Data; // FIXME: Use proper structure for Track 2
-    struct CombinationListAndParameters* combListWorkingTable;
-#endif
 
 #endif // TYPES_H

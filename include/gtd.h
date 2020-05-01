@@ -7,12 +7,11 @@
 
 extern struct TerminalTransactionData ttd;
 extern struct ApplicationProfile ap;
+extern struct CardResponse* cr;
 extern struct CardData cd;
-extern struct KernelData kd;
-extern struct NewKernelData nkd;
-extern struct TerminalConfiguration tc;
 extern struct OnlineResponseData ord;
 extern struct ServiceSettingsEntry sc;
+extern struct E1KernelData* e1kd;
 
 extern struct PermanentTerminalSpecificData e0;
 extern struct TerminalSpecificData e1;

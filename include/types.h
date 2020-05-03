@@ -1805,11 +1805,6 @@ struct TerminalSupportedLanguageList {
     union Iso639_1 a[30];
 };
 
-
-union CommandTemplate {
-    uint8_t raw[2];
-};
-
 // source nexo-IS v.4.0, section 4.5.3.3
 // E0
 struct PermanentTerminalSpecificData {
@@ -2616,8 +2611,6 @@ union PACKED KeySerialNumber {
 struct E1KernelWorkingData {
     enum AuthorisationResponseCode authorisationResponseCode;
     union TransactionStatusInformation tsi;
-    // FIXME: I have no idea were to put commandTemplate
-    union CommandTemplate commandTemplate;
 
     struct Aid aidTerminal;
 
@@ -2770,19 +2763,11 @@ struct E1KernelActivationData {
     bool* unableToGoOnline;
 };
 
-/** Data that may be stored and used by an upper layer, ("Kernel Return Value")
- */
-struct E1KernelSharedData {
-    enum Outcome outcome;
-    struct OutcomeParameters out;
-};
-
 struct E1KernelData {
     struct E1KernelConfigurationData cf;
     struct E1KernelTransactionData td;
     struct E1KernelActivationData ad;
     struct E1KernelWorkingData wd;
-    struct E1KernelSharedData sd;
     struct CardData cd;
 };
 

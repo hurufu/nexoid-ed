@@ -39,7 +39,7 @@ enum EapiResult eapi_Generate_Ac(); // FIXME: Signature isn't yet defined
 
 enum EapiResult eapi_Read_Record(uint8_t p1, uint8_t p2);
 
-enum EapiResult eapi_Verify_Pin_Block(void);
+enum EapiResult eapi_Verify_Pin_Block(uint8_t p2);
 
 /* EMV L2
  */
@@ -68,7 +68,10 @@ enum EapiResult eapi_Final_Application_Selection(void);
  *
  * TODO: Replace with pklr_Application_Initialisation
  */
-enum EapiResult eapi_Get_Processing_Options(void);
+enum EapiResult eapi_Get_Processing_Options(
+        uint8_t commandTemplate,
+        const struct DolData* cdaTransactionData
+);
 
 /** Perform EXTERNAL AUTHENTICATE using `ord.issuerAuthenticationData`
  *  @warning Signature if this function isn't yet established, consider passing

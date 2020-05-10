@@ -653,6 +653,7 @@ struct CardData {
  *  nexo-FAST v.3.2, section 3.3, section 13.1
  */
 struct EntryPointData {
+    struct CardData cd;
 };
 
 enum TmsContactLevel {

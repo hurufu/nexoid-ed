@@ -44,6 +44,7 @@ CPPFLAGS     := $(addprefix -I,$(INCLUDE_DIRS))
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL) -fPIC
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 CFLAGS       += $(if $(USE_COLOR),-fdiagnostics-color=always,)
+CFLAGS       += $(if $(USE_GCC_ANALYZER),-fanalyzer,)
 CFLAGS       += -march=native -mtune=native
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 VERSION       = $(shell git describe --dirty --broken)

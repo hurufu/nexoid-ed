@@ -15,9 +15,9 @@ static inline bool Aid_eq(const struct Aid* const a, const struct Aid* const b) 
 }
 
 // TODO: Consider removal of global variabled here
-struct TerminalListOfAid* g_TerminalListOfAid;
-struct CandidateList* g_CandidateList;
-enum PrinterStatus g_PrinterStatus;
+extern struct TerminalListOfAid* g_TerminalListOfAid;
+extern struct CandidateList* g_CandidateList;
+extern enum PrinterStatus g_PrinterStatus;
 
 union ConfiguredServices ServiceId_to_ConfiguredServices(enum ServiceId);
 union ServiceStartEvents ServiceId_to_AllowedServiceStartEvents(enum ServiceId s);

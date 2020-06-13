@@ -1598,7 +1598,7 @@ struct Track2 {
 struct Bid {
     uint8_t size;
     unsigned char value[16 + 1];
-} Bid;
+};
 
 struct Prefix {
     uint8_t size;

@@ -160,7 +160,7 @@ INSERT INTO diagrams VALUES(206,'Is_Tag_Ok','-398 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(207,'Match_Aid','0 -125',NULL,80.0);
 INSERT INTO diagrams VALUES(208,'Determination_Of_Oda_Method','173 -248','nexo-FAST v.3.2 section 8.2.3.2.2',75.0);
 INSERT INTO diagrams VALUES(209,'Decode_Afl_Entry','178 -228',NULL,75.0);
-INSERT INTO diagrams VALUES(210,'Process_Read_Record','245 -188',replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented','\n',char(10)),75.0);
+INSERT INTO diagrams VALUES(210,'Process_Read_Record','110 -188',replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(211,'Copy_Response_Data_After_Read_Record','-200 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(212,'Cvm_List_Processing','361 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(213,'Try_Performing_Cvm','2422 -140',NULL,80.0);
@@ -206,18 +206,18 @@ INSERT INTO diagrams VALUES(258,'s_Offline_Data_Authentication','25 -100',NULL,8
 INSERT INTO diagrams VALUES(259,'Proprietary_Cvm_Condition_Code_Processing','84 -195',NULL,90.0);
 INSERT INTO diagrams VALUES(260,'Is_Cvm_Offline_Pin','-265 -396',NULL,75.0);
 INSERT INTO diagrams VALUES(263,'Perform_Cvm','1309 -319',NULL,75.0);
-INSERT INTO diagrams VALUES(264,'Perform_Cvm_Offline_Pin','863 453','',90.0);
+INSERT INTO diagrams VALUES(264,'Perform_Cvm_Offline_Pin','1695 452','',90.0);
 INSERT INTO diagrams VALUES(265,'Prepare_Offline_Pin_Block','986 -464','',75.0);
-INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','3450 20','',75.0);
+INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','1182 20','',75.0);
 INSERT INTO diagrams VALUES(267,'Perform_Cvm_Online_Pin','-84 -168','',75.0);
 INSERT INTO diagrams VALUES(268,'Request_Pin_Entry_For_Emv_Chip','0 -266',NULL,75.0);
 INSERT INTO diagrams VALUES(269,'Verify_Pin_Block','-382 -132','',80.0);
 INSERT INTO diagrams VALUES(270,'Pin_Encipherment','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(272,'Pin_Entry_Done','338 -1345','nexo FAST v.3.2, figure 90',75.0);
+INSERT INTO diagrams VALUES(272,'Pin_Entry_Done','337 -677','nexo FAST v.3.2, figure 90',75.0);
 INSERT INTO diagrams VALUES(273,'Pin_Entry','1490 121',replace('NEXO: Flow described in the spec is brain-dead, there are a lot of duplications it looks like the author just copy-pasted from different PIN Entry variant. It hides similarities and doesn''t highlight differences in PIN Entry variants. That''s why here it''s reimplemented differently\nFIXME: This procedure is implemented in non-conformant way','\n',char(10)),60.0);
 INSERT INTO diagrams VALUES(274,'Data_Entry_Interaction','332 65',NULL,75.0);
 INSERT INTO diagrams VALUES(275,'Generate_Enciphered_Pin_Data','299 -349','',75.0);
-INSERT INTO diagrams VALUES(277,'Generate_Offline_Pin_Block','86 -57',NULL,75.0);
+INSERT INTO diagrams VALUES(277,'Generate_Offline_Pin_Block','1817 -56',NULL,75.0);
 INSERT INTO diagrams VALUES(278,'Validate_Plain_Text_Pin_String','-228 -302',replace('NEXO: This function is not decirbed in nexo. It is needed as a support function\nfor plainText PIN entry mode, which is used mainly for debugging','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(279,'Check_Cvm_Code_Support','964 -232',NULL,75.0);
 INSERT INTO diagrams VALUES(280,'Is_Cvm_Code_Recognised','0 0','NEXO: This procedure isn''t specified by nexo',75.0);
@@ -254,7 +254,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,210,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,277,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -7652,7 +7652,7 @@ INSERT INTO items VALUES(13004,277,'address','Generate PIN Block in plain text',
 INSERT INTO items VALUES(13005,277,'vertical','',0,2220,20,0,590,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13006,277,'address','Ok',0,2220,560,250,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(13007,277,'branch','Generate PIN Block in plain text',0,2220,70,250,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(13008,277,'shelf','acpval(block);',0,2220,460,250,40,40,0,NULL,'',NULL,'ep.cd.offlinePinBlock');
+INSERT INTO items VALUES(13008,277,'shelf','acpval(block);',0,2220,460,250,40,40,0,NULL,'',NULL,'e1kd->cd.offlinePinBlock');
 INSERT INTO items VALUES(13009,277,'shelf',replace('{\n    .control = 0x2,\n    .length = strlen(e1kd->wd.pinData.plainTextPin),\n    .pin = String_To_Cbcd6(e1kd->wd.pinData.plainTextPin),\n    .padding = { 0xFF }\n}','\n',char(10)),0,2220,210,250,80,40,0,NULL,'',NULL,'union PlainTextPinBlock block');
 INSERT INTO items VALUES(13010,277,'vertical','',0,2660,20,0,590,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13011,277,'branch','Nok',0,2660,70,50,30,60,0,NULL,'',NULL,'');
@@ -7670,7 +7670,7 @@ INSERT INTO items VALUES(13022,277,'case','SCAPI_NOK',0,1540,340,130,20,60,0,NUL
 INSERT INTO items VALUES(13023,277,'case','',0,1900,340,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13024,277,'vertical','',0,1540,300,0,310,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13026,277,'shelf','Interface_Contract_Violation();',0,2990,270,140,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(13029,277,'if','ep.cd.offlinePinBlock',0,1050,400,210,20,80,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(13029,277,'if','e1kd->cd.offlinePinBlock',0,1050,400,210,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(13031,277,'if','ttd.terminalErrorIndicator',0,1540,410,130,20,50,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13032,277,'if','TE_NONE == ttd.terminalErrorReason',0,1720,470,160,20,20,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(13033,277,'horizontal','',0,1540,510,180,0,0,0,NULL,'',NULL,'');

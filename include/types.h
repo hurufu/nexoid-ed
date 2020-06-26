@@ -72,6 +72,10 @@ union bcd6 {
     uint64_t u;
 };
 
+struct ans15 {
+    char v[15];
+};
+
 struct ans_16 {
     uint8_t l;
     char v[16];
@@ -209,6 +213,8 @@ enum PACKED IssuerCodeTableIndex {
     ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
 };
 
+// Kernel ID
+// [DF38]
 enum PACKED Kernel {
     KERNEL_NONE = 0x00
   , KERNEL_C1 = 0x01
@@ -535,17 +541,48 @@ union CountryCode {
     uint16_t u;
 };
 
-struct CardData {
-    /** @{ */
-    /** Members populated with raw or parsed card responses */
-    union EmvStatus sw1Sw2;
+struct ParsedResponseData {
     struct FileControlInformation* fci;
     struct ResponseMessageTemplate* responseMessageTemplate;
     struct ReadRecordResponseMessageTemplate* readRecordResponeMessageTemplate;
-    struct ResponseData responseData;
-    /** @} */
-    bool responseDataParsed; // non-NEXO
+};
 
+/** Data populated with raw or parsed card responses.
+ *
+ *  If `responseData` is available then it will be used to populate `parsed`,
+ *  else `parsed` will be used directly.
+ *
+ *  NEXO: It's not specified in a spec, but it's actually useful to separate,
+ *  because card data that was received directly from the card isn't used as-is,
+ *  in the spec, but it's always converted to some internal representation,
+ *  which is CardData in the current implementation.
+ */
+struct CardResponse {
+    struct ResponseData* responseData;
+    struct ParsedResponseData* parsed;
+    union EmvStatus sw1Sw2;
+};
+
+/** Container poplated with data expected to be sent to the card.
+ *
+ *  NEXO: It's not specified in a spec
+ *  @todo Replace p1, p2 and p1ForGenAc type with some self-describing enum
+ */
+struct CardRequest {
+    struct DolData* cdaTransactionData;
+
+    uint8_t p1;
+    uint8_t p2;
+    uint8_t p1ForGenAc; ///< @todo Consider removing p1ForGenAc
+};
+
+/** Data obtained from the (P)ICC.
+ *
+ *  @note Two instances of CardData are created during the transaction:
+ *     * Application, Kernel and Profile Selection
+ *     * Kernel Processing
+ */
+struct CardData {
     struct string16 applicationLabel;
     union ApplicationPriorityIndicator* applicationPriorityIndicator;
     struct Dol* pdol;
@@ -603,15 +640,20 @@ struct CardData {
     void* encipheredPinData;
 
     struct DolData dolData;
-    /** @{ */
-    /** Data objects that are expected to be sent to the card */
-    struct DolData cdaTransactionData;
-    // TODO: Replace p1, p2 and p1ForGenAc type with some self-describing enum
-    // TODO: Consider removing p1ForGenAc
-    uint8_t p1;
-    uint8_t p2;
-    uint8_t p1ForGenAc;
-    /** @} */
+};
+
+/** Container for card data retrieved during "App, Kernel, Profile Selection".
+ *
+ *  NEXO: This struct isn't explicitly defined by nexo. Rationale, in nexo they
+ *  don't distinguish card data container for App Selection and for Kernel
+ *  Processing, but it's implied that they are different in Kernel Activation,
+ *  when they copy all card data to Kernel Data as part of Kernel Transaction
+ *  Data, and don't use common shared data holder.
+ *
+ *  nexo-FAST v.3.2, section 3.3, section 13.1
+ */
+struct EntryPointData {
+    struct CardData cd;
 };
 
 enum TmsContactLevel {
@@ -1556,7 +1598,7 @@ struct Track2 {
 struct Bid {
     uint8_t size;
     unsigned char value[16 + 1];
-} Bid;
+};
 
 struct Prefix {
     uint8_t size;
@@ -1679,53 +1721,50 @@ enum PrinterStatus {
 #define TERMINAL_TYPE_OFFLINE_WITH_ONLINE_CAPABILITY(T)\
     ONEOF2((T).operationalEnvironment, ATTENDED_OFFLINE_AND_ONLINE, UNATTENDED_OFFLINE_AND_ONLINE)
 
+enum PACKED TerminalOperationalControl {
+    OPERATED_BY_FINANCIAL_INSTITUTION = 0x1
+  , OPERATED_BY_MERCHANT = 0x2
+  , OPERATED_BY_CARDHOLDER = 0x3
+};
+
+enum PACKED TerminalOperationalEnvironment {
+    ATTENDED_ONLINE_ONLY = 0x1
+  , ATTENDED_OFFLINE_AND_ONLINE = 0x2
+  , ATTENDED_OFFLINE_ONLY = 0x3
+  , UNATTENDED_ONLINE_ONLY = 0x4
+  , UNATTENDED_OFFLINE_AND_ONLINE = 0x5
+  , UNATTENDED_OFFLINE_ONLY = 0x6
+};
+
+enum PACKED TerminalTypeEnum {
+    ATTENDED_ONLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x11
+  , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_FINANCIAL_INSTITUTION = 0x12
+  , ATTENDED_OFFLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x13
+  , ATTENDED_ONLINE_ONLY_OPERATED_BY_MERCHANT = 0x21
+  , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_MERCHANT = 0x22
+  , ATTENDED_OFFLINE_ONLY_OPERATED_BY_MERCHANT = 0x23
+  , ATTENDED_ONLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x31
+  , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_CARDHOLDER = 0x32
+  , ATTENDED_OFFLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x33
+
+  , UNATTENDED_ONLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x14
+  , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_FINANCIAL_INSTITUTION = 0x15
+  , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x16
+  , UNATTENDED_ONLINE_ONLY_OPERATED_BY_MERCHANT = 0x24
+  , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_MERCHANT = 0x25
+  , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_MERCHANT = 0x26
+  , UNATTENDED_ONLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x34
+  , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_CARDHOLDER = 0x35
+  , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x36
+};
+
 union TerminalType {
     uint8_t b[1];
-
-    union {
-        struct {
-            uint8_t : 4;
-            enum PACKED {
-                OPERATED_BY_FINANCIAL_INSTITUTION = 0x1
-              , OPERATED_BY_MERCHANT = 0x2
-              , OPERATED_BY_CARDHOLDER = 0x3
-            } operationalControl : 4;
-        };
-
-        struct {
-            enum PACKED {
-                ATTENDED_ONLINE_ONLY = 0x1
-              , ATTENDED_OFFLINE_AND_ONLINE = 0x2
-              , ATTENDED_OFFLINE_ONLY = 0x3
-              , UNATTENDED_ONLINE_ONLY = 0x4
-              , UNATTENDED_OFFLINE_AND_ONLINE = 0x5
-              , UNATTENDED_OFFLINE_ONLY = 0x6
-            } operationalEnvironment : 4;
-            uint8_t : 4;
-        };
-
-        enum PACKED {
-            ATTENDED_ONLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x11
-          , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_FINANCIAL_INSTITUTION = 0x12
-          , ATTENDED_OFFLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x13
-          , ATTENDED_ONLINE_ONLY_OPERATED_BY_MERCHANT = 0x21
-          , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_MERCHANT = 0x22
-          , ATTENDED_OFFLINE_ONLY_OPERATED_BY_MERCHANT = 0x23
-          , ATTENDED_ONLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x31
-          , ATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_CARDHOLDER = 0x32
-          , ATTENDED_OFFLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x33
-
-          , UNATTENDED_ONLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x14
-          , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_FINANCIAL_INSTITUTION = 0x15
-          , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_FINANCIAL_INSTITUTION = 0x16
-          , UNATTENDED_ONLINE_ONLY_OPERATED_BY_MERCHANT = 0x24
-          , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_MERCHANT = 0x25
-          , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_MERCHANT = 0x26
-          , UNATTENDED_ONLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x34
-          , UNATTENDED_OFFLINE_AND_ONLINE_OPERATED_BY_CARDHOLDER = 0x35
-          , UNATTENDED_OFFLINE_ONLY_OPERATED_BY_CARDHOLDER = 0x36
-        } e;
+    struct {
+        enum TerminalOperationalEnvironment operationalEnvironment : 4;
+        enum TerminalOperationalControl operationalControl : 4;
     };
+    enum TerminalTypeEnum e;
 };
 
 enum InterfaceStatus {
@@ -1765,11 +1804,6 @@ struct TerminalApplicationVersionList {
 struct TerminalSupportedLanguageList {
     size_t l;
     union Iso639_1 a[30];
-};
-
-
-union CommandTemplate {
-    uint8_t raw[2];
 };
 
 // source nexo-IS v.4.0, section 4.5.3.3
@@ -1972,6 +2006,70 @@ enum PACKED CvmMagneticStripe {
   , CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES = 0x04 // aka 'SIGNATURE or ONLINE PIN'
 };
 
+enum Outcome {
+    O_NONE
+
+  // Final outcome
+  , O_APPROVED
+  , O_DECLINED
+  , O_ONLINE_REQUEST
+  , O_TRY_ANOTHER_INTERFACE
+  , O_END_APPLICATION
+
+  // Non final outcome
+  , O_SELECT_NEXT
+  , O_TRY_AGAIN
+};
+
+enum Start {
+    NONE
+  , A
+  , B
+  , C
+  , D
+  , E
+  , F
+};
+
+enum OnlineResponseType {
+    ONLINE_RES_NONE
+  , ONLINE_RES_EMV_DATA
+  , ONLINE_RES_ANY
+};
+
+enum CvmOutcome {
+    CVM_NONE
+  , CVM_ONLINE_PIN
+  , CVM_CONFIRMATION_CODE_VERIFIED
+  , CVM_OBTAIN_SIGNATURE
+  , CVM_NO_CVM
+};
+
+enum AlternateInterfacePreference {
+    INTERFACE_PREFERENCE_NONE
+  , INTERFACE_PREFERENCE_CONTACT_CHIP
+  , INTERFACE_PREFERENCE_MAGSTRIPE
+};
+
+enum Receipt {
+    RECEIPT_NONE
+  , RECEIPT_PRINT
+};
+
+struct OutcomeParameters {
+    enum Start Start;
+    enum OnlineResponseType OnlineResponseType; // It's called Online Response Data in nexo
+    enum CvmOutcome Cvm;
+    bool UiRequestOnOutcomePresent;
+    bool UiRequestOnRestartPresent;
+    bool DataRecordPresent;
+    bool DiscretionaryDataPresent;
+    enum AlternateInterfacePreference AlternateInterfacePreference;
+    enum Receipt Receipt;
+    uint8_t FieldOffRequest;
+    uint8_t RemovalTimeout;
+};
+
 // Based on nexo-FAST section 13.3
 union ApplicationProfileSettings {
     uint8_t raw[5];
@@ -2006,6 +2104,17 @@ union ApplicationProfileSettings {
         union ReceiptSettings cardholderReceipt;
 
     };
+};
+
+union PACKED MerchantCategoryCode {
+    struct bcd2 bcd;
+    uint8_t raw[2];
+    enum PACKED MerchantCategoryCodeEnum {
+        // Based on some random document from the internet claiming to be Visa'a classification
+        MCC_VETERINARY_SERVICES = MULTICHAR(0x07,0x42),
+        MCC_AGRICULTURAL_CO_OPERATIVES = MULTICHAR(0x07,0x63),
+        MCC_HORTICULTURAL_SERVICES = MULTICHAR(0x07,0x80),
+    } e;
 };
 
 // source nexo-IS 4.0
@@ -2049,7 +2158,7 @@ struct ApplicationProfile {
     union bcd* targetPercentageForBiasedRandomSelection;
 
     // DF1D
-    union bcd6* thersholdValueForBiasedRandomSelection;
+    union bcd6* thresholdValueForBiasedRandomSelection;
 
     // DF1E
     union TerminalVerificationResults* tacDefault;
@@ -2060,9 +2169,9 @@ struct ApplicationProfile {
     // DF20
     union TerminalVerificationResults* tacOnline;
 
-    struct bcd4 merchantCategoryCode;
+    union MerchantCategoryCode merchantCategoryCode;
     uint8_t (* merchantCustomData)[20];
-    char merchantIdentifier[15];
+    struct ans15 merchantIdentifier;
     char* merchantNameAndLocation;
 
     enum FallbackParameterChip fallbackParameterChip;
@@ -2490,14 +2599,20 @@ union PACKED KeySerialNumber {
     };
 };
 
-struct KernelData {
+/** Container for kernel data that wasn't received as a part of Kernel Activation.
+ *
+ *  NEXO: FAST has only vague notion of Kernel Data, so they lump together
+ *  kernel configuration and data obtained (either from the card or from other
+ *  source) during kernel processing. Struct E1KernelWorkingData isn't defined
+ *  by nexo, but it's implicitly required, eg. Kernel Data is initialized during
+ *  both Kernel Activation and Kernel Processing with the only sensible
+ *  interpretation that there are two different structures that hold different
+ *  subsets of Kernel Data.
+ */
+struct E1KernelWorkingData {
     enum AuthorisationResponseCode authorisationResponseCode;
-    union TerminalVerificationResults tvr;
     union TransactionStatusInformation tsi;
-    // FIXME: I have no idea were to put commandTemplate
-    union CommandTemplate commandTemplate;
 
-    uint8_t responseData[256];
     struct Aid aidTerminal;
 
     struct binary staticDataToBeAuthenticated;
@@ -2505,14 +2620,156 @@ struct KernelData {
     // FIXME: IssuerCountry is actually a card data
     union Country* issuerCountry;
 
-    // Application version number for selected ICC application, specific to the terminal
-    // Selected from DF40/DF49
-    union binary2 applicationVersionNumber_Terminal; // 9F09
-
-    union Cvm cvmResults;
-
     struct PinData pinData;
     union KeySerialNumber* ksn;
+};
+
+struct E1KernelConfigurationData {
+    // [9F01]
+    union bcd6 acquirerIdentifier;
+
+    // [9F40]
+    union AdditionalTerminalCapabilities additionalTerminalCapabilities;
+
+    // [DF27]
+    union ApplicationProfileSettings aps;
+
+    // Application version number for selected ICC application, specific to the terminal
+    // Selected from DF40/DF49
+    // [9F09]
+    union binary2 applicationVersionNumber_Terminal;
+
+    // [DF12]
+    union Iso639_1 cardholderDefaultLanguage;
+
+    // CaPublicKeyCheckSum
+
+    // CaPublicKeyExponent
+
+    // [9F22]
+    // CaPublicKeyIndex_Terminal
+
+    // CaPublicKeyModulus
+
+    // [E3]
+    // CaPublicKeyTable
+
+    // [DF14]
+    struct string5 commandKeyClearLabel;
+
+    // [DF15]
+    struct string5 commandKeyEnterLabel;
+
+    // [DF16]
+    struct string5 commandKeyScrollLabel;
+
+    // [DF1A]
+    struct Dol* ddol;
+
+    // [DF44]
+    enum FallbackParameterChip fallbackParameterChip;
+
+    // [9F1E]
+    struct string8* ifdSerialNumber;
+
+    // [DF1C]
+    struct bcd2* maxTargetPercentageForBiasedRandomSelection;
+
+    // [9F15]
+    union MerchantCategoryCode merchantCategoryCode;
+
+    // [9F16]
+    struct ans15 merchantIdentifier;
+
+    // [9F4E]
+    char* merchantNameAndLocation;
+
+    // [DF10]
+    union ServiceSettings serviceSettings;
+
+    // [DF1D]
+    union bcd* targetPercentageForBiasedRandomSelection;
+
+    // [DF1E]
+    union TerminalVerificationResults tacDefault;
+
+    // [DF1F]
+    union TerminalVerificationResults tacDenial;
+
+    // [DF20]
+    union TerminalVerificationResults tacOnline;
+
+    // [9F33]
+    union TerminalCapabilities terminalCapabilities;
+
+    // [9F1A]
+    // terminalCountryCode
+
+    // [9F1B]
+    union bcd6* terminalFloorLimit;
+
+    // [DF35]
+    // terminalTransactionCurrencyCode
+
+    // [DF36]
+    union bcd terminalTransactionCurrencyExponent;
+
+    // [9F35]
+    union TerminalType terminalType;
+
+    // [DF21]
+    union bcd6* thresholdValueForBiasedRandomSelection;
+
+    // [9F53]
+    // transactionCategoryCode
+};
+
+struct E1KernelTransactionData {
+    // [81]
+    uint32_t amountAuthorisedBinary;
+
+    // [9F02]
+    union bcd6 amountAuthorisedNumeric;
+
+    // [9F04]
+    uint32_t amountOtherBinary;
+
+    // [9F03]
+    union bcd6 amountOtherNumeric;
+
+    // [9F26]
+    // applicationCryptogram;
+
+    // [9F42]
+    union CurrencyCode* applicationCurrencyCode;
+
+    // [9F44]
+    union bcd* applicationCurrencyExponent;
+
+    // [9F05]
+    // applicationDiscretionaryData
+
+    // [5F25]
+    union yymmdd* applicationEffectiveDate;
+
+    // [5F24]
+    union yymmdd applicationExpirationDate;
+
+};
+
+struct E1KernelActivationData {
+    enum KernelMode kernelMode;
+    struct FileControlInformation* fci;
+    union EmvStatus* sw1Sw2;
+    bool* unableToGoOnline;
+};
+
+struct E1KernelData {
+    struct E1KernelConfigurationData cf;
+    struct E1KernelTransactionData td;
+    struct E1KernelActivationData ad;
+    struct E1KernelWorkingData wd;
+    struct CardData cd;
 };
 
 // Based on nexo-FAST section 13.3
@@ -2565,70 +2822,6 @@ struct OnlineResponseData {
     // character. As a temporary workaround new optional data element is added:
     // Decline Display Message Id that can hold Cardholder Message Id
     enum CardholderMessage* declineDisplayMessageId;
-};
-
-enum Outcome {
-    O_NONE
-
-  // Final outcome
-  , O_APPROVED
-  , O_DECLINED
-  , O_ONLINE_REQUEST
-  , O_TRY_ANOTHER_INTERFACE
-  , O_END_APPLICATION
-
-  // Non final outcome
-  , O_SELECT_NEXT
-  , O_TRY_AGAIN
-};
-
-enum Start {
-    NONE
-  , A
-  , B
-  , C
-  , D
-  , E
-  , F
-};
-
-enum OnlineResponseType {
-    ONLINE_RES_NONE
-  , ONLINE_RES_EMV_DATA
-  , ONLINE_RES_ANY
-};
-
-enum CvmOutcome {
-    CVM_NONE
-  , CVM_ONLINE_PIN
-  , CVM_CONFIRMATION_CODE_VERIFIED
-  , CVM_OBTAIN_SIGNATURE
-  , CVM_NO_CVM
-};
-
-enum AlternateInterfacePreference {
-    INTERFACE_PREFERENCE_NONE
-  , INTERFACE_PREFERENCE_CONTACT_CHIP
-  , INTERFACE_PREFERENCE_MAGSTRIPE
-};
-
-enum Receipt {
-    RECEIPT_NONE
-  , RECEIPT_PRINT
-};
-
-struct OutcomeParameters {
-    enum Start Start;
-    enum OnlineResponseType OnlineResponseType; // It's called Online Response Data in nexo
-    enum CvmOutcome Cvm;
-    bool UiRequestOnOutcomePresent;
-    bool UiRequestOnRestartPresent;
-    bool DataRecordPresent;
-    bool DiscretionaryDataPresent;
-    enum AlternateInterfacePreference AlternateInterfacePreference;
-    enum Receipt Receipt;
-    uint8_t FieldOffRequest;
-    uint8_t RemovalTimeout;
 };
 
 // nexo-FAST v.3.2, section 13.1.126 and 13.1.125
@@ -2796,8 +2989,9 @@ struct TerminalTransactionData {
     // values
     enum AuthorisationResponseCode authorisationResponseCode;
 
-    // FIXME: Same as previous, but may be set by any process
     union TerminalVerificationResults tvr;
+
+    union Cvm cvmResults;
 
     // FIXME: Consider better type for referenceData
     char referenceData[35 + 1];
@@ -2851,29 +3045,5 @@ enum TerminalTransactionDataTag {
 
     TTD_MAX
 };
-
-# if 0
-
-    const struct Bid* selectedBid;
-    enum Kernel kernelId;
-    struct UiParameters uiParametersForOutcome;
-    struct UiParameters uiParametersForRestart;
-    struct UiParameters uiParametersForTrxCompletion;
-    union Country selectedLanguage;
-    union CurrencyAlpha3 transactionCurrencyCodeAlpha3;
-    union ProcessingStatus processingStatus;
-    union ServiceStartEvents serviceStartEvents;
-
-    struct bcd2 preSelectedAcquirerNumber;
-    union bcd6 cashbackAmount;
-    union bcd6 transactionAmount;
-    enum KernelMode kernelMode;
-    enum NokReason nokReason;
-    enum Technology technologySelected;
-    enum TerminalErrorReason terminalErrorReason;
-    enum TransactionResult transactionResult;
-    struct Track2 track2Data; // FIXME: Use proper structure for Track 2
-    struct CombinationListAndParameters* combListWorkingTable;
-#endif
 
 #endif // TYPES_H

@@ -44,6 +44,7 @@ CPPFLAGS     := $(addprefix -I,$(INCLUDE_DIRS))
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL) -fPIC
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 CFLAGS       += $(if $(USE_COLOR),-fdiagnostics-color=always,)
+CFLAGS       += $(if $(USE_GCC_ANALYZER),-fanalyzer,)
 CFLAGS       += -march=native -mtune=native
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 VERSION       = $(shell git describe --dirty --broken)
@@ -93,11 +94,11 @@ endif
 PROLOG        = $(TIME) $(call assert_cmd,gprolog)
 CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
 CFLOW         = $(TIME) $(call assert_cmd,cflow)
-DRAKON_GEN   := $(TIME) '$(DRAKON_PATH)/drakon_gen.tcl'
-GITINSPECTOR := $(TIME) $(call assert_cmd,gitinspector)
+DRAKON_GEN   := $(TIME) $(if $(shell which drakon-gen),drakon-gen,'$(DRAKON_PATH)/drakon_gen.tcl')
+GITINSPECTOR  = $(TIME) $(call assert_cmd,gitinspector)
 
 # Build time profiling
-TIME_PROC.pdb  := $(PROLOG) --consult-file time.pdb --consult-file profiling_build.pdb <profiling_build.pq
+TIME_PROC.pdb   = $(PROLOG) --consult-file time.pdb --consult-file profiling_build.pdb <profiling_build.pq
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update

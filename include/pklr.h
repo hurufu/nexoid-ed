@@ -89,7 +89,7 @@ enum PklrResult pklr_Kernel_E_Processing(void);
  *
  *  @warning Expected behaviour isn't yet defined
  */
-enum PklrResult pklr_Process_Read_Record(void);
+enum PklrResult pklr_Process_Read_Record(uint8_t p1, uint8_t p2);
 
 /** Redirect to API that will perform SDA or DDA
  *
@@ -110,7 +110,7 @@ enum PklrResult pklr_Offline_Data_Authentication(void);
  *
  *  This function will be called usually after Terminal Action Analysis step
  */
-enum PklrResult pklr_First_Generate_Ac_Processing(void);
+enum PklrResult pklr_First_Generate_Ac_Processing(uint8_t p1);
 
 /** Redirect to an API that will perform issuer script processing before 2nd
  *  GENERATE AC.
@@ -151,4 +151,4 @@ enum PklrResult pklr_Second_Issuer_Script_Processing(void);
 
 /** Redirect to an API that will perform 2st GENERATE AC command
  */
-enum PklrResult pklr_Second_Generate_Ac_Processing(void);
+enum PklrResult pklr_Second_Generate_Ac_Processing(uint8_t p1);

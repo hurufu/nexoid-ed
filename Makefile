@@ -45,8 +45,10 @@ CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL) -fPIC
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 CFLAGS       += $(if $(USE_COLOR),-fdiagnostics-color=always,)
 CFLAGS       += $(if $(USE_GCC_ANALYZER),-fanalyzer,)
+CFLAGS       += -flto
 CFLAGS       += -march=native -mtune=native
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
+LDFLAGS      += -flto -fuse-linker-plugin
 VERSION       = $(shell git describe --dirty --broken)
 
 LIBNAME          := lib$(NAME)
@@ -84,6 +86,7 @@ TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS_$(TIME
 CSCOPE        = $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)
+AR           := gcc-ar
 OBJCOPY      := $(TIME) objcopy $(if $(VERBOSE),-v,)
 ADDR2LINE    := $(TIME) addr2line
 SQLITE3      := $(TIME) $(call assert_cmd,sqlite3)
@@ -165,7 +168,7 @@ uninstall:
 %.d: %.c
 	$(CC) -MM -MF $@ $(CPPFLAGS) $(CFLAGS) -o $@ $<
 %.s: %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -S -o $@ $<
+	$(CC) $(CPPFLAGS) $(filter-out -flto,$(CFLAGS)) -S -o $@ $<
 %.i: %.c
 	$(CC) $(CPPFLAGS) -E -o $@ $<
 %.drn: DropTables.sql %.sql

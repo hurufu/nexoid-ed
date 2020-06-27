@@ -41,7 +41,7 @@ LIBRARIES    := ptmalloc3 pthread
 
 # Toolchain settings ##########################################################
 CPPFLAGS     := $(addprefix -I,$(INCLUDE_DIRS))
-CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL) -fPIC
+CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
 CFLAGS       += $(if $(USE_COLOR),-fdiagnostics-color=always,)
 CFLAGS       += $(if $(USE_GCC_ANALYZER),-fanalyzer,)
@@ -66,6 +66,7 @@ SOURCES      := $(sort $(wildcard *.c) $(DRAKON_CFILES))
 HEADERS      := $(sort $(wildcard $(addsuffix /*.h,$(INCLUDE_DIRS)) $(DRAKON_HFILES)))
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
+PIC_OBJECTS  := $(SOURCES:.c=.pic.o)
 
 GRAPH_TARGETS := all install uninstall shared
 GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
@@ -129,7 +130,7 @@ static: $(LIBNAME.a)
 $(LIBNAME.a): $(OBJECTS)
 	$(AR) rcs $@ $^
 
-$(LIBNAME.so): $(OBJECTS)
+$(LIBNAME.so): $(PIC_OBJECTS)
 	$(CC) -shared -fPIC $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
@@ -166,15 +167,19 @@ uninstall:
 	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h
 %.d: %.c
-	$(CC) -MM -MF $@ $(CPPFLAGS) $(CFLAGS) -o $@ $<
+	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o $(CPPFLAGS) $(CFLAGS) -o $@ $<
 %.s: %.c
 	$(CC) $(CPPFLAGS) $(filter-out -flto,$(CFLAGS)) -S -o $@ $<
+%.pic.s: %.c
+	$(CC) $(CPPFLAGS) $(filter-out -flto,$(CFLAGS)) -fPIC -S -o $@ $<
 %.i: %.c
 	$(CC) $(CPPFLAGS) -E -o $@ $<
 %.drn: DropTables.sql %.sql
 	$(if $(strip $(shell lsof $^)),$(error Prior to proceed with '$@', close file(s): $^),)
 	cat $^ | $(SQLITE3) -batch $@
 	chmod a-x $@
+%.pic.o: %.c
+	$(COMPILE.c) -fPIC -o $@ $<
 
 .syntastic_c_config: Makefile
 	echo $(CPPFLAGS) $(CFLAGS) | tr ' ' '\n' > $@

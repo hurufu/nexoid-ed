@@ -167,7 +167,7 @@ uninstall:
 	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h
 %.d: %.c
-	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o $(CPPFLAGS) $(CFLAGS) -o $@ $<
+	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o $(CPPFLAGS) -o $@ $<
 %.s: %.c
 	$(CC) $(CPPFLAGS) $(filter-out -flto,$(CFLAGS)) -S -o $@ $<
 %.pic.s: %.c

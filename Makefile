@@ -85,6 +85,11 @@ TIME_RESULT    := time.$(TIME_FORMAT)
 TIME_ARGS_yaml := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
 TIME_ARGS_pdb  := --format='pd(user(%U), system(%S), real(%e), command("%C")).' --append --output $(TIME_RESULT)
 
+CPP_ARGFILE    := .cpp.args
+C_ARGFILE      := .$(basename $(CC)).args
+LD_ARGFILE     := .ld.args
+LIB_ARGFILE    := .lib.args
+
 # Commands ####################################################################
 TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS_$(TIME_FORMAT)),)
 CSCOPE        = $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
@@ -133,8 +138,8 @@ static: $(LIBNAME.a)
 $(LIBNAME.a): $(OBJECTS)
 	$(AR) rcs $@ $^
 
-$(LIBNAME.so): $(PIC_OBJECTS)
-	$(CC) -shared -fPIC $(LDFLAGS) -o $@ $^ $(LDLIBS)
+$(LIBNAME.so): $(LD_ARGFILE) $(LIB_ARGFILE) $(PIC_OBJECTS)
+	$(CC) -shared -fPIC @$(word 1,$^) -o $@ $(wordlist 3,$(words $^),$^) @$(word 2,$^)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
@@ -144,6 +149,7 @@ clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config *.d *.stackdump)
+wipe: F += $(wildcard $(C_ARGFILE) $(CPP_ARGFILE) $(LD_ARGFILE) $(LIB_ARGFILE))
 wipe: clean
 
 .PHONY: install
@@ -169,23 +175,33 @@ uninstall:
 %.c %.h: %.drn
 	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h
-%.d: %.c
-	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o $(CPPFLAGS) -o $@ $<
-%.s: %.c
-	$(CC) $(CPPFLAGS) $(filter-out -flto,$(CFLAGS)) -S -o $@ $<
-%.pic.s: %.c
-	$(CC) $(CPPFLAGS) $(filter-out -flto,$(CFLAGS)) -fPIC -S -o $@ $<
-%.i: %.c
-	$(CC) $(CPPFLAGS) -E -o $@ $<
+%.d: %.c $(CPP_ARGFILE)
+	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o @$(word 2,$^) -o $@ $<
+%.s: %.c $(C_ARGFILE)
+	$(CC) -S @$(word 2,$^) -fno-lto -o $@ $<
+%.pic.s: %.c $(C_ARGFILE)
+	$(CC) -S @$(word 2,$^) -fno-lto -fPIC -o $@ $<
+%.i: %.c $(CPP_ARGFILE)
+	$(CC) @$(word 2,$^) -E -o $@ $<
 %.drn: DropTables.sql %.sql
 	$(if $(strip $(shell lsof $^)),$(error Prior to proceed with '$@', close file(s): $^),)
 	cat $^ | $(SQLITE3) -batch $@
 	chmod a-x $@
-%.pic.o: %.c
-	$(COMPILE.c) -fPIC -o $@ $<
+%.pic.o: %.c $(C_ARGFILE)
+	$(CC) -c @$(word 2,$^) -fPIC -o $@ $(word 1,$^)
+%.o: %.c $(C_ARGFILE)
+	$(CC) -c @$(word 2,$^) -o $@ $(word 1,$^)
 
-.syntastic_c_config: Makefile
-	echo $(CPPFLAGS) $(CFLAGS) | tr ' ' '\n' > $@
+.syntastic_c_config: $(C_ARGFILE)
+	echo @$< -fdiagnostics-color=never | tr ' ' '\n' > $@
+$(C_ARGFILE): $(CPP_ARGFILE)
+	echo $(CFLAGS) @$< | tr ' ' '\n' > $@
+$(CPP_ARGFILE):
+	echo $(CPPFLAGS) | tr ' ' '\n' > $@
+$(LD_ARGFILE):
+	echo $(LDFLAGS) | tr ' ' '\n' > $@
+$(LIB_ARGFILE):
+	echo $(LDLIBS) | tr ' ' '\n' > $@
 
 .PHONY: csv
 csv: $(DRAKON_FILES:.drn=.csv)
@@ -199,8 +215,8 @@ $(NAME).cflow:
 
 .PHONY: cg
 cg: cg.png
-cg.png:
-	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -fdump-rtl-expand $(SOURCES) $(LDLIBS)
+cg.png: $(CPP_ARGFILE)
+	$(CC) -c @$< -fdump-rtl-expand $(SOURCES)
 	egypt *.expand | sed '8irankdir="LR"' | dot -Tpng > callgraph.png
 
 # TODO: Move to `makes` library

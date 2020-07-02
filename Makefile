@@ -142,6 +142,7 @@ $(LIBNAME.so): $(LD_ARGFILE) $(LIB_ARGFILE) $(PIC_OBJECTS)
 	$(CC) -shared -fPIC @$(word 1,$^) -o $@ $(wordlist 3,$(words $^),$^) @$(word 2,$^)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
+Makefile: $(DEPENDS)
 
 $(CSCOPE_REF): $(SOURCES) $(wildcard ptmalloc3/*.[ch]) $(HEADERS)
 	$(CSCOPE) -R -f $@ -b
@@ -229,7 +230,7 @@ graph: $(GRAPH_IMAGES)
 %.png: %.dot
 	dot -T png  $< >$@
 %.dot: export LC_ALL=C
-%.dot: $(lastword $(MAKEFILE_LIST))
+%.dot:
 	make wipe
 	make -Bnd $* | make2graph -b | sed '2irankdir="RL"' >$@
 

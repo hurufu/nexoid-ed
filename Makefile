@@ -27,7 +27,13 @@ OL           := 0
 DL           := gdb3
 STD          := gnu11
 WARNINGS     := all extra
+WARNINGS     += $(if $(USE_GCC_ANALYZER),analyzer-too-complex,)
 PREFIX       := /usr/local
+GCC_FEATURES := $(if $(filter trace,$(MAKECMDGOALS)),instrument-functions,)
+GCC_FEATURES += $(if $(USE_COLOR),diagnostics-color=always,)
+GCC_FEATURES += $(if $(USE_GCC_ANALYZER),analyzer $(if $(USE_GCC_ANALYZER_TAINT),analyzer-checker=taint,))
+GCC_FEATURES += $(if $(USE_LTO),lto,)
+LD_FEATURES  := $(if $(USE_LTO),lto use-linker-plugin)
 
 # Git inspector config ########################################################
 GITINSPECTOR_FORMAT ?= html
@@ -42,13 +48,10 @@ LIBRARIES    := ptmalloc3 pthread
 # Toolchain settings ##########################################################
 CPPFLAGS     := $(addprefix -I,$(INCLUDE_DIRS))
 CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
-CFLAGS       += $(if $(filter trace,$(MAKECMDGOALS)),-finstrument-functions,)
-CFLAGS       += $(if $(USE_COLOR),-fdiagnostics-color=always,)
-CFLAGS       += $(if $(USE_GCC_ANALYZER),-fanalyzer,)
-CFLAGS       += -flto
+CFLAGS       += $(addprefix -f,$(GCC_FEATURES))
 CFLAGS       += -march=native -mtune=native
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
-LDFLAGS      += -flto -fuse-linker-plugin
+LDFLAGS      := $(addprefix -f,$(LD_FEATURES))
 VERSION       = $(shell git describe --dirty --broken)
 
 LIBNAME          := lib$(NAME)

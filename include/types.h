@@ -669,6 +669,41 @@ struct CardData {
     struct binary* encipheredPinData;
 
     struct DolData dolData;
+
+    /// Tags required for Offline Enciphered PIN CVM
+    /// @{
+
+    // [8F]
+    uint8_t* caPublicKeyIndex_Card;
+
+    // [90]
+    // length: N_CA
+    struct binary* issuerPublicKeyCertificate;
+
+    // [9F32]
+    // length: 1~3
+    // FIXME: Use smaller type
+    struct binary* issuerPublicKeyExponent;
+
+    // [9F2D]
+    // length: N_I
+    struct binary* iccPinEnciphermentPublicKeyCertificate;
+
+    // [9F2E]
+    // length: 1~3
+    // FIXME: Use smaller type
+    struct binary* iccPinEnciphermentPublicKeyExponent;
+
+    // [9F46]
+    // length: N_I
+    struct binary* iccPublicKeyCertificate;
+
+    // [9F47]
+    // length: 1~3
+    // FIXME: Use smaller type
+    struct binary* iccPublicKeyExponent;
+
+    /// @}
 };
 
 /** Container for card data retrieved during "App, Kernel, Profile Selection".

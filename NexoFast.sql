@@ -98,7 +98,7 @@ INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','141 66',NULL,75.0
 INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','',75.0);
 INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',75.0);
 INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','7281 -165','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',75.0);
-INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','1828 -248','TODO: Build Candidate List using PSE isn''t fully implemented',75.0);
+INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','1445 -248','TODO: Build Candidate List using PSE isn''t fully implemented',75.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','1326 -513',NULL,75.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','6080 -38',NULL,75.0);
 INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','1069 -329',replace('There is no parsing per-se in the current implementation,\nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.','\n',char(10)),75.0);
@@ -123,7 +123,7 @@ INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management',
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','3809 -89','',75.0);
 INSERT INTO diagrams VALUES(168,'Kernel_E_Application_Initialisation','4833 -1185',replace('nexo-Fast fig. 158~160\n\nTODO: Decoding and processing of AFL is implemented only for first AFL entry (see nexo-FAST fig. 159)','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(169,'Action_Analysis','914 204','nexo-FAST v.3.2, section 8.2.2.2',75.0);
-INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1996 -40','nexo-FAST v.3.2, figure 168',75.0);
+INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1662 -40','nexo-FAST v.3.2, figure 168',75.0);
 INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','101 -136',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','164 -198',NULL,75.0);
@@ -160,7 +160,7 @@ INSERT INTO diagrams VALUES(206,'Is_Tag_Ok','-398 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(207,'Match_Aid','0 -125',NULL,80.0);
 INSERT INTO diagrams VALUES(208,'Determination_Of_Oda_Method','173 -248','nexo-FAST v.3.2 section 8.2.3.2.2',75.0);
 INSERT INTO diagrams VALUES(209,'Decode_Afl_Entry','178 -228',NULL,75.0);
-INSERT INTO diagrams VALUES(210,'Process_Read_Record','110 -188',replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented','\n',char(10)),75.0);
+INSERT INTO diagrams VALUES(210,'Process_Read_Record','241 -121',replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(211,'Copy_Response_Data_After_Read_Record','-200 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(212,'Cvm_List_Processing','361 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(213,'Try_Performing_Cvm','2422 -140',NULL,80.0);
@@ -179,7 +179,7 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','3377 -50','',90.0);
+INSERT INTO diagrams VALUES(232,'Main','321 5','',90.0);
 INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
@@ -206,9 +206,9 @@ INSERT INTO diagrams VALUES(258,'s_Offline_Data_Authentication','25 -100',NULL,8
 INSERT INTO diagrams VALUES(259,'Proprietary_Cvm_Condition_Code_Processing','84 -195',NULL,90.0);
 INSERT INTO diagrams VALUES(260,'Is_Cvm_Offline_Pin','-265 -396',NULL,75.0);
 INSERT INTO diagrams VALUES(263,'Perform_Cvm','1309 -319',NULL,75.0);
-INSERT INTO diagrams VALUES(264,'Perform_Cvm_Offline_Pin','1695 452','',90.0);
-INSERT INTO diagrams VALUES(265,'Prepare_Offline_Pin_Block','785 -397','',75.0);
-INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','2914 86','',75.0);
+INSERT INTO diagrams VALUES(264,'Perform_Cvm_Offline_Pin','1415 450','',90.0);
+INSERT INTO diagrams VALUES(265,'Prepare_Offline_Pin_Block','849 -329','',75.0);
+INSERT INTO diagrams VALUES(266,'Offline_Pin_Entry','2846 85','',75.0);
 INSERT INTO diagrams VALUES(267,'Perform_Cvm_Online_Pin','-84 -168','',75.0);
 INSERT INTO diagrams VALUES(268,'Request_Pin_Entry_For_Emv_Chip','0 -266',NULL,75.0);
 INSERT INTO diagrams VALUES(269,'Verify_Pin_Block','-382 -132','',80.0);
@@ -236,7 +236,7 @@ INSERT INTO diagrams VALUES(294,'Build_Candidate_List','688 360',NULL,80.0);
 INSERT INTO diagrams VALUES(295,'Select_Pse','0 0',NULL,80.0);
 INSERT INTO diagrams VALUES(296,'Copy_Fci_Data_After_Select_Pse','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(297,'Validate_Df_Name','-50 -349',NULL,75.0);
-INSERT INTO diagrams VALUES(298,'Read_Records','-133 -133',NULL,75.0);
+INSERT INTO diagrams VALUES(298,'Read_Records','-133 -133','nexo-FAST v.3.2, figure 124',75.0);
 INSERT INTO diagrams VALUES(299,'Reset_Chip','250 -186',replace('nexo-FAST v.3.2, note 126-05\n\nTODO: Check if this procedure agrees with EMV Book 1, sections 6~9','\n',char(10)),80.0);
 INSERT INTO diagrams VALUES(300,'E1_Initialise_Configuration_Data','1073 -2952','TODO: Check if all mandatory tags are copied',70.0);
 INSERT INTO diagrams VALUES(301,'E1_Initialise_Activation_Data','27 -364',NULL,100.0);
@@ -247,11 +247,11 @@ INSERT INTO diagrams VALUES(305,'Select_Application','0 0','',80.0);
 INSERT INTO diagrams VALUES(306,'Select_Next_Application','-383 165','',80.0);
 INSERT INTO diagrams VALUES(307,'Read_Record','0 -62','',80.0);
 INSERT INTO diagrams VALUES(308,'External_Authenticate','0 -62','',80.0);
-INSERT INTO diagrams VALUES(309,'Pin_Encipherment','-32 -248','nexo-FAST v.3.2, section 8.2.5.2.6.1',75.0);
+INSERT INTO diagrams VALUES(309,'Pin_Encipherment','-97 -114','nexo-FAST v.3.2, section 8.2.5.2.6.1',75.0);
 INSERT INTO diagrams VALUES(311,'Encrypt_Pin_Block','496 -613','',75.0);
-INSERT INTO diagrams VALUES(312,'Presence_Check_Of_Icc_Data_For_Pin_Encipherment','-104 -149',NULL,75.0);
+INSERT INTO diagrams VALUES(312,'Presence_Check_Of_Icc_Data_For_Pin_Encipherment','357 -142',NULL,75.0);
 INSERT INTO diagrams VALUES(313,'Public_Key_Retrieval_For_Pin_Encipherment','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(314,'Generate_Icc_Enciphered_Pin_Data','1088 -284','',75.0);
+INSERT INTO diagrams VALUES(314,'Generate_Icc_Enciphered_Pin_Data','554 -217','',75.0);
 INSERT INTO diagrams VALUES(315,'Generate_Random_Bytes','469 -393','TODO: Consider different signature to be able to retrieve larger numbers',75.0);
 INSERT INTO diagrams VALUES(316,'Get_Challenge','125 -185','',80.0);
 CREATE TABLE state
@@ -260,7 +260,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,314,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,312,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -8477,23 +8477,23 @@ INSERT INTO items VALUES(14069,132,'if','Validate_Df_Name()',0,1220,470,140,20,8
 INSERT INTO items VALUES(14070,132,'shelf','PR_UNINITIALISED',0,670,50,130,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(14071,132,'insertion','Check_Cardholder_Language();',0,2030,170,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14072,132,'commentin',replace('TODO:\nSet P1 & Record Num = 1\nSet P2 to SFI || 0b100','\n',char(10)),0,2030,250,130,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14073,132,'insertion',replace('result =\nRead_Records();','\n',char(10)),0,2030,340,130,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14074,298,'beginend','Read_Records',0,170,60,60,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14073,132,'insertion',replace('result =\nRead_Records();','\n',char(10)),1,2030,340,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14074,298,'beginend','Read_Records',0,190,60,60,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14075,298,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14076,298,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14077,298,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14076,298,'vertical','',0,190,80,0,520,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14077,298,'vertical','',0,440,120,0,480,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14078,298,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14079,298,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14080,298,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14081,298,'branch','branch 1',0,170,170,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14082,298,'address','branch 2',0,170,550,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14083,298,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14079,298,'horizontal','',0,190,120,470,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14080,298,'arrow','',0,0,120,190,480,440,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14081,298,'branch','branch 1',0,190,170,160,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14082,298,'address','branch 2',0,190,550,160,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14083,298,'branch','branch 2',0,440,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14084,298,'branch','End',0,660,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14085,298,'address','End',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14086,298,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14087,298,'action','returns enum ProcedureResult',0,390,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14088,298,'shelf','PR_UNINITIALISED',0,170,260,120,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
-INSERT INTO items VALUES(14089,298,'shelf','PR_OK',0,420,360,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(14085,298,'address','End',0,440,550,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14086,298,'horizontal',NULL,0,190,60,190,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14087,298,'action','returns enum ProcedureResult',0,400,60,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14088,298,'shelf','PR_UNINITIALISED',0,190,260,160,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
+INSERT INTO items VALUES(14089,298,'shelf','PR_OK',0,440,360,50,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(14090,298,'action','return result;',0,660,440,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14091,299,'beginend','Reset_Chip',0,490,-110,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14092,299,'beginend','End',0,490,650,50,20,60,0,NULL,NULL,NULL,NULL);
@@ -8819,12 +8819,12 @@ INSERT INTO items VALUES(14462,311,'if','*encryptedPinBlock',0,830,-40,210,20,16
 INSERT INTO items VALUES(14463,311,'vertical','',0,1200,-40,0,140,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(14464,311,'shelf','Interface_Contract_Violation();',0,1200,40,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(14465,311,'if','*encryptedPinBlock',0,1460,-40,100,20,160,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(14466,312,'beginend','Presence_Check_Of_Icc_Data_For_Pin_Encipherment',0,170,60,200,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14467,312,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14468,312,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14469,312,'horizontal',NULL,0,170,60,340,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14470,312,'action','returns enum ProcedureResult',0,530,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(14471,312,'action','return PR_CVM_SUCCESSFUL;',0,170,310,110,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14466,312,'beginend','Presence_Check_Of_Icc_Data_For_Pin_Encipherment',0,920,-370,200,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14467,312,'beginend','End',0,920,510,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14468,312,'vertical',NULL,0,920,-370,0,860,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14469,312,'horizontal',NULL,0,930,-370,320,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14470,312,'action','returns enum ProcedureResult',0,1270,-370,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14471,312,'action','return result;',0,920,450,210,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14472,313,'beginend','Public_Key_Retrieval_For_Pin_Encipherment',0,300,50,180,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14473,313,'beginend','End',0,690,510,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14474,313,'vertical','',0,300,70,0,530,0,0,NULL,NULL,NULL,NULL);
@@ -8937,6 +8937,23 @@ INSERT INTO items VALUES(14596,314,'shelf','PR_BAIL',0,3410,260,50,40,40,0,NULL,
 INSERT INTO items VALUES(14597,314,'commentin',replace('NEXO: Spec does not\ndefine error during\nactual encryption','\n',char(10)),0,2860,510,100,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14598,314,'vertical','',0,1310,370,0,280,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(14599,314,'address','End',0,1310,600,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(14600,298,'commentin',replace('NEXO: Is it true that spec mandates\nto read all card records 2 times‽\n1ˢᵗ time in 7.4.2.2.1 and 2ⁿᵈ time\nin 8.2.3.2.4','\n',char(10)),0,190,390,160,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14601,312,'if','e1kd->cd.caPublicKeyIndex_Card',0,920,-250,210,20,250,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14602,312,'vertical','',0,1380,-250,0,660,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14603,312,'horizontal','',0,920,410,460,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14604,312,'shelf','PR_CVM_UNSUCCESSFUL',0,1380,350,190,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(14605,312,'shelf','PR_CVM_SUCCESSFUL',0,920,350,210,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(14606,312,'action','enum ProcedureResult result;',0,920,-310,210,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14607,312,'if','e1kd->cd.issuerPublicKeyCertificate',0,920,-190,210,20,250,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(14608,312,'if','e1kd->cd.issuerPublicKeyExponent',0,920,-130,210,20,250,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(14609,312,'if','e1kd->cd.iccPinEnciphermentPublicKeyCertificate',0,920,-70,210,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(14610,312,'if','e1kd->cd.iccPinEnciphermentPublicKeyExponent',0,920,-10,210,20,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(14611,312,'vertical','',0,1170,-70,0,240,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14612,312,'if','e1kd->cd.iccPublicKeyCertificate',0,1170,50,150,20,60,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(14613,312,'if','e1kd->cd.iccPublicKeyExponent',0,1170,110,150,20,60,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(14614,312,'horizontal','',0,920,170,250,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14615,312,'commentin',replace('NEXO: Spec silently skips this CVM without\nany indication useful for debugging','\n',char(10)),0,1380,180,190,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14616,312,'commentin',replace('TODO: Consider setting some TVR extension\nbit to indicate this condition','\n',char(10)),0,1380,260,190,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

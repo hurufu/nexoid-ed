@@ -16,6 +16,7 @@ extern struct EntryPointData ep;
 extern struct PermanentTerminalSpecificData e0;
 extern struct TerminalSpecificData e1;
 extern struct ApplicationProfileSelectionTable* e2;
+extern struct CaPublicKeyTable* e3;
 extern struct ServiceSettingsTable e4;
 extern struct ApplicationProfileList* e6;
 extern struct TerminalListOfBid* e7;

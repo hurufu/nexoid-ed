@@ -16,6 +16,12 @@
 #include <string.h>
 #include <stdlib.h>
 
+enum PcaRetrievalStatus {
+    PCA_NOT_PERFORMED,
+    PCA_FOUND,
+    PCA_NOT_FOUND
+};
+
 // FIXME: Definition of ApplicationLabelList is probably wrong
 struct ApplicationLabelList {
     struct Aid adf;

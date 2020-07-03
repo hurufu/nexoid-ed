@@ -426,6 +426,16 @@ enum PinType {
   , PIN_OFFLINE
 };
 
+// EMV Book 2 v.4.3, annex B3.1
+enum PACKED CaHashAlgotithmIndicator {
+    CA_HASH_ALGORITHM_SHA1 = 0x01,
+};
+
+// EMV Book 2, v.4.3, annex A2.1 and annex B2.1
+enum PACKED CaPublicKeyAlgorithmIndicator {
+    CA_PUB_KEY_ALGORITHM_RSA = 0x01,
+};
+
 // nexo-FAST v.3.2, section 13.1.13
 // EMV v.4.3 Book 3, section 10.2
 // [94]
@@ -2019,12 +2029,44 @@ struct ApplicationProfileSelectionTable {
     struct ApplicationProfileSelectionTable* next;
 };
 
+struct KeyCheckValue {
+    uint8_t c[20];
+};
+
+struct CaPublicKeyTableEntry {
+    // [DF01]
+    struct Rid rid;
+
+    // [9F22]
+    uint8_t index;
+
+    // [DF02]
+    enum CaHashAlgotithmIndicator hashAlgorithmIndicator;
+
+    // [DF03]
+    enum CaPublicKeyAlgorithmIndicator publicKeyAlgorithmIndicator;
+
+    // [DF04]
+    // length: N_CA
+    struct binary caPublicKeyModulus;
+
+    // [DF05]
+    // length 1~3
+    // FIXME: Use smaller type
+    struct binary caPublicKeyExponent;
+
+    // [DF06]
+    struct KeyCheckValue* kcv;
+};
+
 // source: nexo-FAST v.3.2 section 13.3.33
-// size: at least 6
+// size: at least 6 per scheme
 // configuration: Terminal
 // presence: C
-
-struct CertificationAuthorityPublicKeyTable {
+// [E3]
+struct CaPublicKeyTable {
+    struct CaPublicKeyTableEntry entry;
+    struct CaPublicKeyTable* next;
 };
 
 // source: nexo-FAST v.3.2 section 13.3.120
@@ -2716,7 +2758,7 @@ struct E1KernelConfigurationData {
     // CaPublicKeyModulus
 
     // [E3]
-    // CaPublicKeyTable
+    struct CaPublicKeyTable* caPublicKeyTable;
 
     // [DF14]
     struct string5 commandKeyClearLabel;

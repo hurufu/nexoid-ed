@@ -82,7 +82,7 @@ INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','0 0',NULL,75.
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-266 0',NULL,75.0);
 INSERT INTO diagrams VALUES(110,'Kernel_Processing','1281 -112','',75.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,75.0);
-INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','521 0',NULL,75.0);
+INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','528 133',NULL,75.0);
 INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,75.0);
 INSERT INTO diagrams VALUES(114,'Full_Magnetic_Stripe_Processing','85 -241',NULL,75.0);
 INSERT INTO diagrams VALUES(115,'Full_Manual_Entry_Processing','0 0','',75.0);
@@ -264,7 +264,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,81,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,112,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2166,53 +2166,53 @@ INSERT INTO items VALUES(4773,110,'insertion',replace('result =\nKernel_M_Proces
 INSERT INTO items VALUES(4776,110,'address','Nok',0,1320,640,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4777,112,'beginend','Kernel_M_Processing',0,-30,50,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4778,112,'beginend','End',0,2590,520,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4779,112,'vertical','',0,-30,70,0,740,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4780,112,'vertical','',0,2390,90,0,720,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4779,112,'vertical','',0,-30,70,0,840,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4780,112,'vertical','',0,2390,90,0,820,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4781,112,'vertical','',0,2590,90,0,420,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4782,112,'horizontal','',0,-30,90,2620,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4783,112,'arrow','',0,-190,90,160,720,2580,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4783,112,'arrow','',0,-190,90,160,820,2580,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4784,112,'branch','Init',0,-30,140,140,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4785,112,'address',replace('Select kernel\nmode','\n',char(10)),0,-30,750,140,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4785,112,'address',replace('Select kernel\nmode','\n',char(10)),0,-30,850,140,40,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4786,112,'branch','Bailout',0,2390,140,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4787,112,'branch','End',0,2590,140,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4788,112,'address','End',0,2390,760,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4788,112,'address','End',0,2390,860,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4789,112,'horizontal',NULL,0,-30,50,250,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4790,112,'action','returns enum ProcedureResult',0,270,50,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4791,112,'vertical','',0,340,90,0,720,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4791,112,'vertical','',0,340,90,0,820,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4792,112,'branch',replace('Select kernel\nmode','\n',char(10)),0,340,150,80,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4793,112,'address','Full Mode',0,340,760,80,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4793,112,'address','Full Mode',0,340,860,80,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4794,112,'action','return result;',0,2590,380,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4795,112,'shelf','PR_UNINITIALISED',0,-30,260,140,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(4796,112,'shelf','PR_INTERNAL_INCONSISTENCY',0,2390,270,110,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(4797,112,'insertion',replace('result =\nInitialise_Outcome_Parameters();','\n',char(10)),0,-30,530,140,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4798,112,'if','PR_OK == result',0,-30,600,140,20,70,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(4799,112,'vertical','',0,180,600,0,210,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4800,112,'vertical','',0,2210,90,0,720,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4799,112,'vertical','',0,180,600,0,310,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4800,112,'vertical','',0,2210,90,0,820,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4801,112,'branch','Done',0,2210,140,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4802,112,'address','End',0,2210,760,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4802,112,'address','End',0,2210,860,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4803,112,'shelf','PR_DONE',0,2210,270,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(4804,112,'address','Bailout',0,180,760,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4804,112,'address','Bailout',0,180,860,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4805,113,'beginend','Initialise_Outcome_Parameters',0,170,60,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4806,113,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4807,113,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4808,113,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4809,113,'action','returns enum ProcedureResult',0,460,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4810,113,'action','return PR_OK;',0,170,310,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4811,112,'vertical','',0,960,90,0,720,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4811,112,'vertical','',0,960,90,0,820,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4812,112,'branch','Full Mode',0,960,140,150,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4813,112,'address','Handle DCC',0,960,760,150,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4814,112,'vertical','',0,2040,90,0,720,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4813,112,'address','Handle DCC',0,960,860,150,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4814,112,'vertical','',0,2040,90,0,820,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4815,112,'branch','Extract PAN',0,2040,140,100,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4816,112,'address','Bailout',0,2040,760,100,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4816,112,'address','Bailout',0,2040,860,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4817,112,'select','ttd.kernelMode',0,340,490,80,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4818,112,'horizontal','',0,340,530,400,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4819,112,'case','KERNEL_MODE_FULL',0,340,570,80,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4820,112,'case','KERNEL_MODE_EXTRACT_PAN',0,560,570,110,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4821,112,'case','',0,740,570,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4822,112,'vertical','',0,560,530,0,280,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4823,112,'vertical','',0,740,530,0,280,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4828,112,'address','Bailout',0,740,760,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4829,112,'address','Extract PAN',0,560,760,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4822,112,'vertical','',0,560,530,0,380,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4823,112,'vertical','',0,740,530,0,380,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4828,112,'address','Bailout',0,740,860,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4829,112,'address','Extract PAN',0,560,860,110,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4830,112,'commentin',replace('TODO: Extract PAN\nis not implemented','\n',char(10)),0,2040,450,100,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4831,112,'select','ttd.technologySelected',0,960,210,150,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4832,112,'horizontal','',0,960,250,550,0,0,0,NULL,NULL,NULL,NULL);
@@ -2228,11 +2228,11 @@ INSERT INTO items VALUES(4843,112,'insertion',replace('result =\nFull_Manual_Ent
 INSERT INTO items VALUES(4844,112,'horizontal','',0,960,590,550,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4845,112,'if','PR_DONE == result',0,960,450,150,20,400,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4847,112,'horizontal','',0,960,410,310,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4848,112,'shelf','true',0,960,660,150,50,60,0,NULL,'',NULL,replace('ttd.out\n.DataRecordPresent','\n',char(10)));
+INSERT INTO items VALUES(4848,112,'shelf','true',0,960,760,150,50,60,0,NULL,'',NULL,replace('ttd.out\n.DataRecordPresent','\n',char(10)));
 INSERT INTO items VALUES(4850,112,'shelf','O_ONLINE_REQUEST',0,960,530,150,40,40,0,NULL,'',NULL,'ttd.outcome');
-INSERT INTO items VALUES(4851,112,'vertical','',0,1780,90,0,720,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4851,112,'vertical','',0,1780,90,0,820,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4852,112,'branch','Handle DCC',0,1780,140,80,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4853,112,'address','Done',0,1780,760,80,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(4853,112,'address','Done',0,1780,860,80,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4855,114,'beginend','Full_Magnetic_Stripe_Processing',0,440,-210,140,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4856,114,'beginend','End',0,440,650,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4857,114,'vertical',NULL,0,440,-210,0,840,0,0,NULL,NULL,NULL,NULL);
@@ -9151,6 +9151,10 @@ INSERT INTO items VALUES(14838,77,'vertical','',0,1550,110,0,360,0,0,NULL,NULL,N
 INSERT INTO items VALUES(14839,77,'address','Entry failed',0,1550,420,60,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(14840,77,'if','ttd.expirationDate',0,1370,220,100,20,80,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(14841,81,'shelf','&ttd.track2Data.expiryDate',0,200,700,150,40,40,0,NULL,'',NULL,'ttd.expirationDate');
+INSERT INTO items VALUES(14842,112,'if','PR_BAIL == result',0,960,650,150,20,150,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(14843,112,'vertical','',0,1260,650,0,260,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14844,112,'address','Bailout',0,1260,860,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(14845,112,'commentout','FIXME: Refactor, very ugly',0,1360,650,120,20,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

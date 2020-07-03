@@ -516,6 +516,19 @@ union PACKED ApplicationContextControl {
     };
 };
 
+struct PACKED UnpredictableNumber {
+    uint8_t c[8];
+};
+
+struct PACKED RawRandomPadding {
+    uint8_t c[10];
+};
+
+struct PACKED RandomPadding {
+    size_t size;
+    struct RawRandomPadding r;
+};
+
 // EMV Book 3 v.4.3, section 6.5.12.2
 union PACKED PlainTextPinBlock {
     uint8_t raw[8];
@@ -531,9 +544,23 @@ union PACKED PlainTextPinBlock {
     };
 };
 
-union PinBlock {
+// EMV Book 2 v.4.3, table 25
+struct EncipherablePinBlock {
+    size_t size;
+    union PACKED {
+       struct EncipherablePinBlockData {
+            uint8_t header;
+            union PlainTextPinBlock plainTextPinBlock;
+            struct UnpredictableNumber unpredictableNumber;
+            struct RawRandomPadding randomPadding;
+        } data;
+        uint8_t raw[sizeof(struct EncipherablePinBlockData)];
+    };
+};
+
+struct PinBlock {
     union PlainTextPinBlock* offlinePinBlock;
-    void* encipheredPinData;
+    struct binary* encipheredPinData;
 };
 
 union CountryCode {
@@ -545,6 +572,7 @@ struct ParsedResponseData {
     struct FileControlInformation* fci;
     struct ResponseMessageTemplate* responseMessageTemplate;
     struct ReadRecordResponseMessageTemplate* readRecordResponeMessageTemplate;
+    struct UnpredictableNumber* unpredictableNumber;
 };
 
 /** Data populated with raw or parsed card responses.
@@ -581,6 +609,7 @@ struct CardRequest {
  *  @note Two instances of CardData are created during the transaction:
  *     * Application, Kernel and Profile Selection
  *     * Kernel Processing
+ *  @todo Split CardData into 2 structure for it's different usecases
  */
 struct CardData {
     struct string16 applicationLabel;
@@ -634,10 +663,10 @@ struct CardData {
 
     // [-]
     // NEXO: Tag [99] is not used by nexo-FAST
-    union PinBlock pinData;
+    struct PinBlock pinData;
 
     union PlainTextPinBlock* offlinePinBlock;
-    void* encipheredPinData;
+    struct binary* encipheredPinData;
 
     struct DolData dolData;
 };

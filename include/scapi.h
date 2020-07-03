@@ -95,6 +95,16 @@ enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum Cardholder
  */
 bool scapi_Authorise_Service(void);
 
+/*
+ * NOTE: As a general rule for security sensitive functions it's proposed that
+ *       nexo-FAST shouldn't allocate any local buffers and shouldn't send
+ *       pointers to such locally allocated buffers to avoid possibility of
+ *       internal stack corruption by the implementation of an interface. So
+ *       each interface is expected to allocat such buffer using DMAPI.
+ * TODO: Check if memory allocation delagation is actually safer then just
+ *       passing a pointer to a local buffer
+ */
+
 /* 
  * TODO: Consider moving to separate API
  */
@@ -108,6 +118,21 @@ enum ScapiResult sped_Generate_Enciphered_Pin_Data(struct CvRule);
  */
 enum ScapiResult sped_Generate_Offline_Pin_Block(struct CvRule);
 
+/* Encrypt PIN block using RSA
+ *
+ * This procedure should perform RSA recovery using ICC PIN Encipherment Public Key
+ *
+ * EMV Book 2 v.4.3, annex B2.1.3
+ * nexo-FAST v.3.2, section 8.2.14.2.9 (last action in a diagram)
+ * EMV Book 3 v.4.3, figure 11 (action named "Encipher PIN using recovered ICC key")
+ */
+enum ScapiResult sped_Encrypt_Pin_Block(const struct EncipherablePinBlock* pb, struct binary** encryptedPinBlock);
+
 /* Generate random number in the range
  */
 enum ScapiResult randapi_Generate_Random_Number(uint8_t upperLimit, uint8_t* randomNumber);
+
+/* Allocate and generate random bytes
+ *
+ */
+enum ScapiResult randapi_Generate_Random_Bytes(size_t size, uint8_t randomBytes[static size]);

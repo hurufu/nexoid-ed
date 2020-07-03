@@ -41,6 +41,8 @@ enum EapiResult eapi_Read_Record(uint8_t p1, uint8_t p2);
 
 enum EapiResult eapi_Verify_Pin_Block(uint8_t p2);
 
+enum EapiResult eapi_Get_Challenge(void);
+
 /* EMV L2
  */
 

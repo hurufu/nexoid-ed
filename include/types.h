@@ -43,6 +43,12 @@ struct n6 {
     uint8_t bcd[6];
 };
 
+// Compressed numeric
+// nexo-FAST v.3.2, page 18
+struct cn2 {
+    uint8_t v[2];
+};
+
 // Packed BCD max n12 padded with zeros to the right
 struct bcd2 {
     bcd_t v[2];
@@ -424,6 +430,13 @@ enum PinType {
     PIN_NONE
   , PIN_ONLINE
   , PIN_OFFLINE
+};
+
+enum CvdPresence {
+    CVD_ENTRY_BYPASSED
+  , CVD_PRESENT
+  , CVD_ILLEGIBLE
+  , CVD_NOT_PRESENT
 };
 
 // EMV Book 2 v.4.3, annex B3.1
@@ -1028,6 +1041,8 @@ enum PACKED CardholderMessage {
   /* Used by nexo FAST, but not defined */
   , CRDHLDR_ENT_ENTER_PAN = 0xB0
   , CRDHLDR_ENT_ENTER_EXPIRY_DATE = 0xB1
+  , CRDHLDR_ENT_CVD_PRESENCE = 0xB2
+  , CRDHLDR_ENT_CVD = 0xB3
 
   /* Outside of nexo FAST spec */
   , CRDHLDR_MSG_REQUEST_SIGNATURE = 0x32
@@ -2118,6 +2133,11 @@ enum PACKED CvmMagneticStripe {
   , CVM_MSR_ACCORDING_TO_RANGE_OF_SERVICES = 0x04 // aka 'SIGNATURE or ONLINE PIN'
 };
 
+enum PACKED CvmManualEntry {
+    CVM_MAN_SIGNATURE = 0x02
+  , CVM_MAN_NO_CVM = 0x03
+};
+
 enum Outcome {
     O_NONE
 
@@ -2289,6 +2309,7 @@ struct ApplicationProfile {
     enum FallbackParameterChip fallbackParameterChip;
     enum FallbackParameterMagneticStripe fallbackParameterMagneticStripe;
     enum CvmMagneticStripe cvmMagneticStripe;
+    enum CvmManualEntry* cvmManualEntry;
 };
 
 struct ApplicationProfileList {
@@ -3052,6 +3073,8 @@ struct TerminalTransactionData {
     // [C4]
     union ExpirationDate* expirationDate;
 
+    enum CvdPresence* cvdPresence;
+    struct cn2* cvd;
     char (* pan)[19]; // FIXME: Use proper structure for PAN
     bool isDccEligible;
     bool dccPerformedOnce;

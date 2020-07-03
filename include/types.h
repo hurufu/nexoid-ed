@@ -1025,6 +1025,10 @@ enum PACKED CardholderMessage {
   , CRDHLDR_MSG_PAYMENT = 0xE4
   , CRDHLDR_MSG_TOTAL = 0xE5
 
+  /* Used by nexo FAST, but not defined */
+  , CRDHLDR_ENT_ENTER_PAN = 0xB0
+  , CRDHLDR_ENT_ENTER_EXPIRY_DATE = 0xB1
+
   /* Outside of nexo FAST spec */
   , CRDHLDR_MSG_REQUEST_SIGNATURE = 0x32
   , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED = 0x33
@@ -1613,17 +1617,19 @@ struct UiParameters {
     union CurrencyAlpha3 CurrencyCode;
 };
 
+union PACKED ExpirationDate {
+    char full[4];
+    struct {
+        char year[2];
+        char month[2];
+    };
+};
+
 // NOTE: Strings in Track2 aren't null terminated
 // FIXME: Track2 struct isn't compliant with Nexo definition
 struct Track2 {
     char pan[19];
-    union {
-        char full[4];
-        struct {
-            char year[2];
-            char month[2];
-        };
-    } expiryDate;
+    union ExpirationDate expiryDate;
     union ServiceCodeMs {
         char raw[3]; // Same as ServiceCodeMs in the spec
         struct {
@@ -3043,6 +3049,9 @@ struct TerminalTransactionData {
     bool signatureLine;
     bool signatureLineMerchant;
     bool signatureLineForVoiceAuthorisation;
+    // [C4]
+    union ExpirationDate* expirationDate;
+
     char (* pan)[19]; // FIXME: Use proper structure for PAN
     bool isDccEligible;
     bool dccPerformedOnce;

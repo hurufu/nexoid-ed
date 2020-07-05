@@ -151,7 +151,7 @@ INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 890','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','504 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','883 -187','',85.0);
-INSERT INTO diagrams VALUES(202,'Process_Event','-364 -394','FIXME: Refactor Process Event to make it more linear',75.0);
+INSERT INTO diagrams VALUES(202,'Process_Event','3302 -460','FIXME: Refactor Process Event to make it more linear',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','-65 100','',75.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','1042 -246','TODO: Build_Dol_Data function looks too complex for what is does',75.0);
@@ -178,20 +178,20 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','3152 -50','',90.0);
-INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -412','The Idle State',100.0);
+INSERT INTO diagrams VALUES(232,'Main','2482 5','',90.0);
+INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -462','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(236,'Proprietary_Startup_Sequence','316 127','',90.0);
-INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','35 -570',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),80.0);
+INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','160 -317',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),80.0);
 INSERT INTO diagrams VALUES(239,'Check_Configured_Services','-55 -122',NULL,80.0);
 INSERT INTO diagrams VALUES(240,'Check_Payment_Service_Configuration','-110 -242',NULL,80.0);
 INSERT INTO diagrams VALUES(241,'Configuration_Error','-133 -133','',75.0);
 INSERT INTO diagrams VALUES(242,'Check_Service_Settings','-245 -308',NULL,80.0);
 INSERT INTO diagrams VALUES(244,'Check_Single_Service_Settings','2571 30',NULL,80.0);
-INSERT INTO diagrams VALUES(245,'Check_E4','-370 -740','',80.0);
-INSERT INTO diagrams VALUES(246,'Check_Config','-107 -73','TODO: Validate all config tables',80.0);
-INSERT INTO diagrams VALUES(247,'Check_E0','-60 -187',NULL,80.0);
+INSERT INTO diagrams VALUES(245,'Check_E4','-370 -862','',80.0);
+INSERT INTO diagrams VALUES(246,'Check_Config','18 -72','TODO: Validate all config tables',80.0);
+INSERT INTO diagrams VALUES(247,'Check_E0','-185 -186',NULL,80.0);
 INSERT INTO diagrams VALUES(248,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',90.0);
 INSERT INTO diagrams VALUES(250,'Data_Print_Interaction','397 -265',replace('NEXO: It''s madness, nokReason is set so inconsistently.\nFIXME: Somehow fix check of global variables here','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(251,'Specific_Processing_Based_On_Pan','0 -165',NULL,90.0);
@@ -257,7 +257,7 @@ INSERT INTO diagrams VALUES(317,'Retrieval_Of_Ca_Public_Key','657 -64',NULL,75.0
 INSERT INTO diagrams VALUES(318,'Retrieval_Of_Issuer_Public_Key','324 -64','',75.0);
 INSERT INTO diagrams VALUES(319,'Retrieval_Of_Icc_Pin_Encipherment_Public_Key','786 -64','',75.0);
 INSERT INTO diagrams VALUES(320,'Retrieval_Of_Icc_Public_Key','590 -64','',75.0);
-INSERT INTO diagrams VALUES(322,'Full_Manual_Entry_Processing','2564 72',NULL,75.0);
+INSERT INTO diagrams VALUES(322,'Full_Manual_Entry_Processing','697 138',NULL,75.0);
 INSERT INTO diagrams VALUES(323,'Request_Cvd','437 -85',replace('NEXO: This process is not described fully be nexo-FAST,\nthat''s why I''ve made assumptions how it should be\nimplemented','\n',char(10)),75.0);
 CREATE TABLE state
 (
@@ -265,7 +265,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,322,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,232,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -6223,14 +6223,13 @@ INSERT INTO items VALUES(10888,232,'vertical','',0,1810,60,0,650,0,0,NULL,'',NUL
 INSERT INTO items VALUES(10889,232,'branch','(B) Idle',0,1810,110,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10890,232,'address','Perform Service',0,1810,660,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10892,232,'select','result',0,1810,260,150,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10893,232,'horizontal','',0,1810,300,1590,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10893,232,'horizontal','',0,1810,300,1430,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10894,232,'case','PR_OK',0,1810,340,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10895,232,'case','PR_REINITIALISE',0,2610,340,70,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10896,232,'case','',0,3400,340,60,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10896,232,'case','',0,3240,340,60,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10897,232,'vertical','',0,2610,300,0,410,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10898,232,'vertical','',0,3400,300,0,410,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10898,232,'vertical','',0,3240,300,0,410,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10899,232,'address',replace('Default Service\ninitialisation','\n',char(10)),0,2610,650,70,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10900,232,'address',replace('(A) Financial\nApplication\nStartup','\n',char(10)),0,2770,640,70,50,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10901,232,'vertical','',0,3570,60,0,650,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10902,232,'branch','Perform Service',0,3570,110,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10903,232,'address',replace('Default Service\ninitialisation','\n',char(10)),0,3570,650,90,40,60,0,NULL,'',NULL,'');
@@ -6257,25 +6256,23 @@ INSERT INTO items VALUES(10924,232,'case','',0,2300,560,60,20,60,0,NULL,'',NULL,
 INSERT INTO items VALUES(10925,232,'vertical','',0,2100,520,0,190,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10926,232,'vertical','',0,2300,520,0,190,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10927,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,2300,640,60,50,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10933,232,'vertical','',0,2770,300,0,410,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10934,232,'case','PR_NOK',0,2770,340,70,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10935,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,3400,640,60,50,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10937,232,'case','PR_REBOOT',0,2960,340,100,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10938,232,'case','PR_TERMINATE',0,3200,340,120,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10939,232,'address','Terminate',0,3200,660,120,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10940,232,'address','Reboot',0,2960,660,100,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10935,232,'address',replace('Diagnostics\nMaintenance\nRecovery','\n',char(10)),0,3240,640,60,50,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10937,232,'case','PR_REBOOT',0,2800,340,100,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10938,232,'case','PR_TERMINATE',0,3040,340,120,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10939,232,'address','Terminate',0,3040,660,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10940,232,'address','Reboot',0,2800,660,100,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10941,232,'shelf','PR_TERMINATE',0,5430,280,60,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10942,232,'shelf','PR_REBOOT',0,5300,280,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10943,232,'vertical','',0,5430,60,0,650,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10944,232,'branch','Terminate',0,5430,110,60,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10945,232,'address','Return',0,5430,660,60,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10946,232,'vertical','',0,2960,300,0,410,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10947,232,'vertical','',0,3200,300,0,410,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10946,232,'vertical','',0,2800,300,0,410,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10947,232,'vertical','',0,3040,300,0,410,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10948,232,'vertical','',0,5300,60,0,650,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10949,232,'branch','Reboot',0,5300,110,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10950,232,'address','Return',0,5300,660,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10951,232,'output','papi_Force_Termination();',0,3200,420,120,40,40,0,NULL,'',NULL,'PROPRIETARY');
-INSERT INTO items VALUES(10952,232,'output','papi_Force_Reboot();',0,2960,420,100,40,40,0,NULL,'',NULL,'PROPRIETARY');
+INSERT INTO items VALUES(10951,232,'output','papi_Force_Termination();',0,3040,420,120,40,40,0,NULL,'',NULL,'PROPRIETARY');
+INSERT INTO items VALUES(10952,232,'output','papi_Force_Reboot();',0,2800,420,100,40,40,0,NULL,'',NULL,'PROPRIETARY');
 INSERT INTO items VALUES(10953,232,'select','result',0,4720,340,180,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10954,232,'horizontal','',0,4720,380,510,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10955,232,'case','PR_STARTUP_SEQUENCE',0,4720,420,180,20,60,0,NULL,'',NULL,'');

@@ -15,18 +15,6 @@ enum ScapiResult {
   , SCAPI_NEW_EVENT
 };
 
-enum ScapiResult scapi_Cardholder_Confirmation(void);
-
-enum ScapiResult scapi_Search_Transaction_Result_List(void);
-
-enum ScapiResult scapi_No_Original_Transaction(void);
-
-enum ScapiResult scapi_Update_Pre_Auth_Amount_Confirmation(void);
-
-enum ScapiResult scapi_Update_Pre_Auth_Amount_Entry(void);
-
-enum ScapiResult scapi_Set_Update_Pre_Auth_Total_Amount(void);
-
 /* Blocks until an event from SCAP is received
  *
  * This is the most complex function to implement, consider some simplifications.

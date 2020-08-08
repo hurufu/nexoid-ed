@@ -26,7 +26,7 @@ INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-208 9','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','1935 107','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','1921 124','Whole Upa Specific Processing isn''t finished. I have to rework it',75.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','677 -252',NULL,75.0);
-INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','390 -302','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
+INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','456 -301','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -295','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
@@ -151,7 +151,7 @@ INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 890','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','504 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','883 -187','',85.0);
-INSERT INTO diagrams VALUES(202,'Process_Event','3302 -460','FIXME: Refactor Process Event to make it more linear',75.0);
+INSERT INTO diagrams VALUES(202,'Process_Event','3501 -393','FIXME: Refactor Process Event to make it more linear',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','-65 100','',75.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','1042 -246','TODO: Build_Dol_Data function looks too complex for what is does',75.0);
@@ -175,11 +175,11 @@ INSERT INTO diagrams VALUES(223,'Terminal_Action_Analysis_Unable_To_Go_Online','
 INSERT INTO diagrams VALUES(224,'Data_Output_Interaction','-154 -296',replace('It''s still not clear whether Nok Reason should be set here and when Nok Reason should be set and what even is a *exact* and well defined difference between Nok Reason and Terminal Error Reason.\n\nI''m leaning towards idea to set Nok Reason in libnexoid and Terminal Error Reason in Trusted Layer, but this is in coflict with nexo-FAST, but then again nexo-FAST is not very clear about it''s usage either.','\n',char(10)),75.0);
 INSERT INTO diagrams VALUES(225,'Online_Approval_Request','-98 -58','',75.0);
 INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,75.0);
-INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','1012 -248','',75.0);
+INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','745 -248','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,75.0);
-INSERT INTO diagrams VALUES(232,'Main','2482 5','',90.0);
-INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','804 -462','The Idle State',100.0);
+INSERT INTO diagrams VALUES(232,'Main','1367 2','',90.0);
+INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','754 -362','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,75.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,75.0);
 INSERT INTO diagrams VALUES(236,'Proprietary_Startup_Sequence','316 127','',90.0);
@@ -265,7 +265,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,232,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,227,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -6093,7 +6093,7 @@ INSERT INTO items VALUES(10729,227,'vertical','',0,3770,70,0,280,0,0,NULL,'',NUL
 INSERT INTO items VALUES(10730,227,'horizontal','',0,1020,70,2750,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10731,227,'arrow','',0,840,70,180,600,2700,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10732,227,'branch','branch 1',0,1020,120,160,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10733,227,'address','Validate Ok',0,1020,620,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10733,227,'address','Ok',0,1020,620,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10734,227,'branch','End',0,3770,120,70,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10735,227,'horizontal','',0,1020,30,200,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10736,227,'output',replace('const enum HapiResult hapi_result =\nhapi_Transaction_Data_Storage();','\n',char(10)),0,1020,320,160,50,40,0,NULL,'',NULL,'HAPI');
@@ -6108,11 +6108,8 @@ INSERT INTO items VALUES(10744,227,'action','enum ProcedureResult result;',0,102
 INSERT INTO items VALUES(10745,227,'action','returns enum ProcedureResult',0,1310,30,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10746,227,'address','Interface violation',0,1430,620,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10747,227,'address','Validate Nok',0,1260,620,60,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10748,227,'vertical','',0,1700,70,0,600,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10749,227,'vertical','',0,2230,70,0,600,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10750,227,'address','Ok',0,1700,620,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10751,227,'address','Nok',0,2230,620,150,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10752,227,'branch','Validate Ok',0,1700,120,160,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10753,227,'branch','Validate Nok',0,2230,120,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10754,227,'vertical','',0,3330,70,0,600,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10755,227,'branch','Nok',0,3330,120,50,30,60,0,NULL,'',NULL,'');
@@ -6121,10 +6118,6 @@ INSERT INTO items VALUES(10757,227,'vertical','',0,3210,70,0,600,0,0,NULL,'',NUL
 INSERT INTO items VALUES(10758,227,'branch','Ok',0,3210,120,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10759,227,'address','End',0,3210,620,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10760,227,'action','return result;',0,3770,300,70,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10761,227,'if','ttd.terminalErrorIndicator',0,1700,310,160,20,110,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10762,227,'vertical','',0,1970,230,0,440,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10763,227,'if','TE_NONE == ttd.terminalErrorReason',0,1700,230,160,20,110,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(10764,227,'address','Interface violation',0,1970,620,90,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10765,227,'if','ttd.terminalErrorIndicator',0,2230,550,150,20,670,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10766,227,'select','ttd.terminalErrorReason',0,2230,210,150,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10767,227,'horizontal','',0,2230,250,820,0,0,0,NULL,'',NULL,'');

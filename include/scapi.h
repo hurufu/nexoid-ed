@@ -66,14 +66,14 @@ enum ScapiResult scapi_Wait_For_Event(void);
 
 enum ScapiResult scapi_Update_Interfaces(enum InterfaceStatus);
 
-enum ScapiResult scapi_Data_Output_Interaction(size_t size, const enum CardholderMessage msg[size]);
+enum ScapiResult scapi_Data_Output_Interaction(size_t size, const enum CardholderMessage msg[]);
 
 enum ScapiResult scapi_Data_Print_Interaction(enum PrintMessage);
 
 /*
  * TODO: Function signature isn't yet defined
  */
-enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum CardholderMessage msg[size]);
+enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum CardholderMessage msg[]);
 
 /* Called before strting protected service during Service_Initialisation
  *
@@ -124,4 +124,4 @@ enum ScapiResult randapi_Generate_Random_Number(uint8_t upperLimit, uint8_t* ran
 /* Allocate and generate random bytes
  *
  */
-enum ScapiResult randapi_Generate_Random_Bytes(size_t size, uint8_t randomBytes[static size]);
+enum ScapiResult randapi_Generate_Random_Bytes(size_t size, uint8_t randomBytes[]);

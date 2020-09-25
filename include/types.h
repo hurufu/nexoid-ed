@@ -246,7 +246,7 @@ struct Aid {
         uint8_t raw[16];
         struct {
             struct Rid rid;
-            uint8_t pix[];
+            uint8_t pix[0];
         };
     };
 };
@@ -2047,7 +2047,7 @@ struct ApplicationProfileSelectionTable {
     struct as_34* ibanMask;
     union bcd6* applicationProfileAmount;
     bool* cashBackPresent;
-    enum TechnologySelected* technologyOfProfile;
+    enum Technology* technologyOfProfile;
     struct KernelIdList* applicationProfileKernelId;
     struct EeaProductIdentificationList* productTypeComparisonValue;
     uint8_t (*productTypeMask)[5];
@@ -2359,7 +2359,7 @@ struct ApplicationProfileSelectionTableNonChip {
         struct Prefix* next;
     }* prefix;
     struct Prefix* prefixMask;
-    enum TechnologySelected* TechnologyOfProfile; // WUT?
+    enum Technology* TechnologyOfProfile; // WUT?
 
     struct ApplicationProfileSelectionTableNonChip* next;
 };

@@ -173,7 +173,7 @@ INSERT INTO diagrams VALUES(221,'First_Issuer_Script_Processing','0 0','In nexo 
 INSERT INTO diagrams VALUES(222,'Second_Issuer_Script_Processing','0 0','In nexo spec there is one single procedure Issuer_Script_Processing with parameters 0x71 or 0x72, which is not useful, because it adds redundant complexity (additional "if" statements) to a simple function, that''s why it''s splitted here',75.0);
 INSERT INTO diagrams VALUES(223,'Terminal_Action_Analysis_Unable_To_Go_Online','1944 22',NULL,75.0);
 INSERT INTO diagrams VALUES(224,'Data_Output_Interaction','-154 -296',replace('It''s still not clear whether Nok Reason should be set here and when Nok Reason should be set and what even is a *exact* and well defined difference between Nok Reason and Terminal Error Reason.\n\nI''m leaning towards idea to set Nok Reason in libnexoid and Terminal Error Reason in Trusted Layer, but this is in coflict with nexo-FAST, but then again nexo-FAST is not very clear about it''s usage either.','\n',char(10)),75.0);
-INSERT INTO diagrams VALUES(225,'Online_Approval_Request','-98 -58','',75.0);
+INSERT INTO diagrams VALUES(225,'Online_Approval_Request','97 -184','',75.0);
 INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,75.0);
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','610 -114','',75.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',70.0);
@@ -265,7 +265,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,34,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,225,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -5991,26 +5991,26 @@ INSERT INTO items VALUES(10658,89,'insertion',replace('result =\nData_Output_Int
 INSERT INTO items VALUES(10659,89,'commentout','TODO: Check does nexo specify DONE or OK',0,-300,250,170,20,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10660,88,'insertion',replace('result =\nData_Output_Interaction(number, msg);','\n',char(10)),0,2010,170,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10661,224,'action','return result;',0,360,480,190,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10662,225,'beginend','Online_Approval_Request',0,300,40,110,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10663,225,'beginend','End',0,300,580,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10664,225,'vertical','',0,300,60,0,500,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10665,225,'horizontal','',0,300,40,200,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10666,225,'action','returns enum ProcedureResult',0,560,40,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10667,225,'action','return result;',0,300,520,160,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10668,225,'action','enum ProcedureResult result;',0,300,100,160,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10662,225,'beginend','Online_Approval_Request',0,440,-240,110,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10663,225,'beginend','End',0,440,490,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10664,225,'vertical','',0,440,-220,0,690,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10665,225,'horizontal','',0,440,-240,200,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10666,225,'action','returns enum ProcedureResult',0,700,-240,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10667,225,'action','return result;',0,440,430,160,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10668,225,'action','enum ProcedureResult result;',0,440,-180,160,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10670,183,'insertion',replace('result =\nOnline_Approval_Request();','\n',char(10)),0,390,90,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10671,183,'if','PR_OK == result',0,390,160,200,20,40,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(10672,183,'shelf','{ CRDHLDR_EMV_PLEASE_WAIT }',0,390,-140,200,40,40,0,NULL,NULL,NULL,'const enum CardholderMessage msg[]');
-INSERT INTO items VALUES(10673,225,'select','hapi_result',0,300,260,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10674,225,'horizontal','',0,300,300,680,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10675,225,'case','HAPI_OK',0,300,340,160,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10676,225,'case','HAPI_UNABLE_TO_GO_ONLINE',0,590,340,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10677,225,'case','',0,980,340,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10678,225,'vertical','',0,590,300,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10679,225,'vertical','',0,980,300,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10680,225,'horizontal','',0,300,480,680,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10681,225,'case','HAPI_NOK',0,770,340,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(10682,225,'vertical','',0,770,300,0,180,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10673,225,'select','hapi_result',0,440,-20,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10674,225,'horizontal','',0,440,20,1810,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10675,225,'case','HAPI_OK',0,440,60,160,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10676,225,'case','HAPI_UNABLE_TO_GO_ONLINE',0,730,60,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10677,225,'case','',0,2250,60,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10678,225,'vertical','',0,730,20,0,370,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10679,225,'vertical','',0,2250,20,0,370,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10680,225,'horizontal','',0,440,390,1810,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10681,225,'case','HAPI_NOK',0,1290,60,160,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(10682,225,'vertical','',0,1290,20,0,370,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10683,226,'beginend','Interface_Contract_Violation',0,240,90,130,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10684,226,'beginend','End',0,240,410,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10685,226,'vertical',NULL,0,240,80,0,310,0,0,NULL,NULL,NULL,NULL);
@@ -6019,15 +6019,15 @@ INSERT INTO items VALUES(10687,226,'action','returns enum ProcedureResult',0,520
 INSERT INTO items VALUES(10689,226,'shelf','true',0,240,170,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorIndicator');
 INSERT INTO items VALUES(10690,226,'shelf','TER_INTERFACE_CONTRACT_VIOLATION',0,240,270,140,40,40,0,NULL,'',NULL,'ttd.terminalErrorReason');
 INSERT INTO items VALUES(10691,226,'action','return PR_BAIL;',0,240,350,140,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10694,225,'shelf','PR_OK',0,300,420,160,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(10695,225,'shelf','PR_UNABLE_TO_GO_ONLINE',0,590,420,110,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10696,225,'shelf','PR_NOK',0,770,420,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(10697,225,'shelf','Interface_Contract_Violation();',0,980,420,140,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(10694,225,'shelf','PR_OK',0,440,330,160,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(10695,225,'shelf','PR_UNABLE_TO_GO_ONLINE',0,730,330,110,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10696,225,'shelf','PR_NOK',0,1290,330,160,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(10697,225,'shelf','Interface_Contract_Violation();',0,2250,330,140,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(10698,224,'shelf','Interface_Contract_Violation();',0,1050,380,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10699,183,'insertion',replace('result =\nCheck_Minimal_Response_Tags();','\n',char(10)),0,390,230,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10700,125,'shelf','Interface_Contract_Violation();',0,2170,760,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(10701,34,'insertion',replace('result =\nOnline_Approval_Request();','\n',char(10)),0,4200,380,120,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10722,225,'output',replace('const enum HapiResult hapi_result =\nhapi_Online_Approval_Request();','\n',char(10)),0,300,180,160,40,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(10722,225,'output',replace('const enum HapiResult hapi_result =\nhapi_Online_Approval_Request();','\n',char(10)),0,440,-100,160,40,20,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10723,99,'insertion',replace('result =\nTransaction_Data_Storage();','\n',char(10)),0,460,110,130,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(10725,99,'action','enum ProcedureResult result;',0,460,40,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10726,227,'beginend','Transaction_Data_Storage',0,1020,30,110,20,60,0,NULL,'',NULL,'');
@@ -6596,8 +6596,8 @@ INSERT INTO items VALUES(11465,44,'insertion',replace('result =\nUpdate_Cardhold
 INSERT INTO items VALUES(11466,44,'action','enum ProcedureResult result;',0,170,-120,300,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11467,42,'action','enum ProcedureResult result;',0,170,40,210,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11468,44,'commentin',replace('NEXO: Specification (nexo-FAST v.3.2, note 24-20) tells to set here\nTerminal Error Indicator, with some vague decription stating: "When\nTerminal Error Indicator is set to = true, Nok Reason is set to\nTECHNICAL ERROR and Terminal Error Reason is set to an applicable\nvalue".\n\nIn this passage it is not immediatley obvious should we set Nok Reason\nand Terminal Error Reason here, or it should already been set\npreviously, or we should set it based on some condition (like if it is\nnot set already). Also in the spec it is basically random, where those\nerror reasons are set, and spec sometimes overwrites them (which is\neven more relevant in real implementation, because we have additional\nerror reasons eg. NOT IMPLEMENTED).\n\nThat is why I have taken an approach that error related flags are\nswitched on as close as possible to the place of an actuall error, it\nmeans that in this case Trusted Layer shall set those values and if\nunderlyig SCAPI function returns NOK and error reason is not set then\nit is assumed to be an Interface Contract Violation.\n\nThis comment applies to all related places in libnexoid.','\n',char(10)),0,170,280,300,180,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11469,224,'if','ttd.terminalErrorIndicator',0,730,140,160,20,160,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(11472,224,'if','TE_NONE == ttd.terminalErrorReason',0,730,200,160,20,160,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11469,224,'if','ttd.terminalErrorIndicator',1,730,140,160,20,160,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(11472,224,'if','TE_NONE == ttd.terminalErrorReason',1,730,200,160,20,160,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11473,195,'shelf','Interface_Contract_Violation();',0,1200,490,140,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(11474,195,'if','ttd.terminalErrorIndicator',0,880,250,160,20,160,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(11475,195,'if','TE_NONE == ttd.terminalErrorReason',0,880,310,160,20,160,0,NULL,'',NULL,'');
@@ -9249,6 +9249,15 @@ INSERT INTO items VALUES(15044,34,'shelf','CRDHLDR_SRC_TRX_AMOUNT',0,3340,420,19
 INSERT INTO items VALUES(15045,34,'commentin',replace('TODO: Increment/Decrement\nUpdate Pre-Auth Amount','\n',char(10)),0,3880,230,120,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15046,31,'insertion','Data_Entry_Interaction(sizeof(msg), msg);',0,210,650,180,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15047,31,'shelf',replace('{\n    CRDHLDR_ENT_DCC_CONFIRMATION\n}','\n',char(10)),0,210,160,180,60,40,0,NULL,'',NULL,'enum CardholderMessage msg[1]');
+INSERT INTO items VALUES(15048,225,'if','N_DATA_ERROR == ttd.nokReason',0,1290,250,160,20,160,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15049,225,'if','ttd.terminalErrorIndicator',0,1290,130,160,20,480,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15050,225,'if','TE_NONE == ttd.terminalErrorReason',0,1930,190,160,20,160,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15051,225,'vertical','',0,1930,130,0,260,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15052,225,'if','TE_NONE == ttd.terminalErrorReason',0,1290,190,160,20,160,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15053,225,'vertical','',0,1610,190,0,200,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15054,225,'shelf','Interface_Contract_Violation();',0,1610,330,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(15055,225,'shelf','PR_NOK',0,1930,330,160,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(15056,225,'commentout',replace('NEXO: Specification does not define what\nto do in case of a serious problem with\nHAP. They define only DATA ERROR in case\nwhen HAP found some data inconsistency\nwhile trying to send request. I have added\nsome rules for TerminalErrorIndicatior,\nso nexoid will be able to deal gracefully\nwith permantent failures of HAP module','\n',char(10)),0,930,190,180,80,40,1,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

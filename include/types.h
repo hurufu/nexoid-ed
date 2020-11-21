@@ -847,7 +847,8 @@ enum PACKED ServiceId {
 };
 
 enum NokReason {
-    N_NONE = PR_MAX + 2364
+    N_UNINITIALISED = 0
+  , N_NONE = PR_MAX + 2364
   , N_NOT_IMPLEMENTED
   , N_ORIGINAL_TRX_NOT_FOUND
   , N_TECHNICAL_ERROR

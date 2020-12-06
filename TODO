@@ -1,0 +1,2 @@
+Set some CTD values (eg. CVM Results) to Not Initialized during service initialisation to avoid possible errors where
+value was not set, but used.

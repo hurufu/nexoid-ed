@@ -178,7 +178,7 @@ uninstall:
 %.d: %.c $(CPP_ARGFILE)
 	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o @$(word 2,$^) -o $@ $<
 %.s: %.c $(C_ARGFILE)
-	$(CC) -S @$(word 2,$^) -fno-lto -o $@ $<
+	$(CC) -S @$(word 2,$^) -fno-lto -fverbose-asm -o $@ $<
 %.pic.s: %.c $(C_ARGFILE)
 	$(CC) -S @$(word 2,$^) -fno-lto -fPIC -o $@ $<
 %.i: %.c $(CPP_ARGFILE)

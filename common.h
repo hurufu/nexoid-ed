@@ -1,6 +1,7 @@
 #pragma once
 
 #include <nexoid/tag_retrival.h>
+#include <nexoid/pklr.h>
 #include <nexoid/gtd.h>
 
 #define lastof(Array) ((Array) + sizeof(Array) - 1)

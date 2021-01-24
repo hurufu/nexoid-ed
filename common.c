@@ -5,8 +5,10 @@
 struct ApplicationProfile ap;
 struct ServiceSettingsEntry sc;
 struct TerminalTransactionData ttd;
-struct KernelData kd;
 struct CardData cd;
+struct CardResponse* cr;
+struct E1KernelData* e1kd;
+struct EntryPointData ep;
 struct OnlineResponseData ord;
 struct SearchTransactionResultList* sl;
 
@@ -20,6 +22,10 @@ struct ApplicationProfileSelectionTableNonChip* e8;
 struct ExceptionFile* e9;
 struct CombinationListAndParameters* ec;
 struct AidPreferenceTable* ee;
+
+struct PklrConfiguration pklr = {
+    .buildCandidateList = true
+};
 
 struct CandidateList* g_CandidateList;
 enum PrinterStatus g_PrinterStatus;

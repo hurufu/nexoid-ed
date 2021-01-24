@@ -5,9 +5,10 @@
 struct ApplicationProfile ap;
 struct ServiceSettingsEntry sc;
 struct TerminalTransactionData ttd;
-struct KernelData kd;
-struct NewKernelData nkd;
 struct CardData cd;
+struct CardResponse* cr;
+struct E1KernelData* e1kd;
+struct EntryPointData ep;
 struct OnlineResponseData ord;
 struct SearchTransactionResultList* sl;
 

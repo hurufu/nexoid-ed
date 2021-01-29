@@ -1,5 +1,9 @@
 #pragma once
 
+#include "cxx_macros.h"
+
+EXTERN_C_PREAMBLE
+
 #include "types.h"
 
 /* SCAPI - Sale system, cardholder, attendant API
@@ -62,18 +66,18 @@ enum ScapiResult {
  *
  * @returns SCAPI_NEW_EVENT if new event was received, or SCAPI_NOK if an error occured.
  */
-enum ScapiResult scapi_Wait_For_Event(void);
+enum ScapiResult scapi_Wait_For_Event(void) NOEXCEPT;
 
-enum ScapiResult scapi_Update_Interfaces(enum InterfaceStatus);
+enum ScapiResult scapi_Update_Interfaces(enum InterfaceStatus) NOEXCEPT;
 
-enum ScapiResult scapi_Data_Output_Interaction(size_t size, const enum CardholderMessage msg[]);
+enum ScapiResult scapi_Data_Output_Interaction(size_t size, const enum CardholderMessage msg[]) NOEXCEPT;
 
-enum ScapiResult scapi_Data_Print_Interaction(enum PrintMessage);
+enum ScapiResult scapi_Data_Print_Interaction(enum PrintMessage) NOEXCEPT;
 
 /*
  * TODO: Function signature isn't yet defined
  */
-enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum CardholderMessage msg[]);
+enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum CardholderMessage msg[]) NOEXCEPT;
 
 /* Called before strting protected service during Service_Initialisation
  *
@@ -81,7 +85,7 @@ enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum Cardholder
  *
  * nexo-FAST v.3.2, figure 21
  */
-bool scapi_Authorise_Service(void)
+bool scapi_Authorise_Service(void) NOEXCEPT
 __attribute__((__deprecated__("Should be done using Data Entry Interaction using additional message type")));
 
 /*
@@ -97,7 +101,7 @@ __attribute__((__deprecated__("Should be done using Data Entry Interaction using
 /* 
  * TODO: Consider moving to separate API
  */
-enum ScapiResult sped_Generate_Enciphered_Pin_Data(struct CvRule);
+enum ScapiResult sped_Generate_Enciphered_Pin_Data(struct CvRule) NOEXCEPT;
 
 /* Generate PIN Block for Offline Authentication
  *
@@ -105,7 +109,7 @@ enum ScapiResult sped_Generate_Enciphered_Pin_Data(struct CvRule);
  *
  * TODO: Consider moving to separate API
  */
-enum ScapiResult sped_Generate_Offline_Pin_Block(struct CvRule);
+enum ScapiResult sped_Generate_Offline_Pin_Block(struct CvRule) NOEXCEPT;
 
 /* Encrypt PIN block using RSA
  *
@@ -115,13 +119,15 @@ enum ScapiResult sped_Generate_Offline_Pin_Block(struct CvRule);
  * nexo-FAST v.3.2, section 8.2.14.2.9 (last action in a diagram)
  * EMV Book 3 v.4.3, figure 11 (action named "Encipher PIN using recovered ICC key")
  */
-enum ScapiResult sped_Encrypt_Pin_Block(const struct EncipherablePinBlock* pb, struct binary** encryptedPinBlock);
+enum ScapiResult sped_Encrypt_Pin_Block(const struct EncipherablePinBlock* pb, struct binary** encryptedPinBlock) NOEXCEPT;
 
 /* Generate random number in the range
  */
-enum ScapiResult randapi_Generate_Random_Number(uint8_t upperLimit, uint8_t* randomNumber);
+enum ScapiResult randapi_Generate_Random_Number(uint8_t upperLimit, uint8_t* randomNumber) NOEXCEPT;
 
 /* Allocate and generate random bytes
  *
  */
-enum ScapiResult randapi_Generate_Random_Bytes(size_t size, uint8_t randomBytes[]);
+enum ScapiResult randapi_Generate_Random_Bytes(size_t size, uint8_t randomBytes[]) NOEXCEPT;
+
+EXTERN_C_EPILOGUE

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "cxx_macros.h"
+
+EXTERN_C_PREAMBLE
+
 #include "types.h"
 
 /* Proprietary procedure interface
@@ -34,7 +38,7 @@ enum PapiCvmResult {
  *
  *  nexo-FAST v.3.2, figure 15
  */
-enum PapiResult papi_Proprietary_Startup_Sequence(void);
+enum PapiResult papi_Proprietary_Startup_Sequence(void) NOEXCEPT;
 
 /* Perform any actions required to handle error conditions
  *
@@ -52,7 +56,7 @@ enum PapiResult papi_Proprietary_Startup_Sequence(void);
  *
  *  nexo-FAST v.3.2, figure 15
  */
-enum ProcedureResult papi_Diagnostics_Maintenance_Recovery(void);
+enum ProcedureResult papi_Diagnostics_Maintenance_Recovery(void) NOEXCEPT;
 
 /* Prepare system to reboot.
  *
@@ -61,7 +65,7 @@ enum ProcedureResult papi_Diagnostics_Maintenance_Recovery(void);
  *
  * TODO: Specify if it's allowed to reboot the device inside this function
  */
-void papi_Force_Reboot(void);
+void papi_Force_Reboot(void) NOEXCEPT;
 
 /* Prepare system for premature nexo shutdown.
  *
@@ -69,7 +73,7 @@ void papi_Force_Reboot(void);
  * TERMINATE event during main waiting loop. It will be called just before exiting
  * from `Main()`
  */
-void papi_Force_Termination(void);
+void papi_Force_Termination(void) NOEXCEPT;
 
 /* Performs an unspecified process during EMV Application Initialisation
  *
@@ -78,7 +82,7 @@ void papi_Force_Termination(void);
  *
  * nexo-FAST v.3.2, note 159-29
  */
-enum PapiResult papi_Specific_Processing_Based_On_Pan(void);
+enum PapiResult papi_Specific_Processing_Based_On_Pan(void) NOEXCEPT;
 
 /* Classifies CVM Condition Codes in range 0x80~0xFF
  *
@@ -87,6 +91,8 @@ enum PapiResult papi_Specific_Processing_Based_On_Pan(void);
  *
  * nexo-FAST v.3.2, figure 171
  */
-enum PapiCvmResult papi_Proprietary_Cvm_Condition_Code_Processing(struct CvRule cvRule);
+enum PapiCvmResult papi_Proprietary_Cvm_Condition_Code_Processing(struct CvRule cvRule) NOEXCEPT;
 
-enum PapiCvmResult papi_Proprietary_Cvm_Support_Check(struct CvRule cvRule);
+enum PapiCvmResult papi_Proprietary_Cvm_Support_Check(struct CvRule cvRule) NOEXCEPT;
+
+EXTERN_C_EPILOGUE

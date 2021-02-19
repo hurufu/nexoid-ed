@@ -1,6 +1,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include "cxx_macros.h"
 #include "utils.h"
 #include <stdint.h>
 #include <stdbool.h>
@@ -246,7 +247,7 @@ struct Aid {
         uint8_t raw[16];
         struct {
             struct Rid rid;
-            uint8_t pix[0];
+            uint8_t pix[FLEX];
         };
     };
 };

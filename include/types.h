@@ -1047,6 +1047,11 @@ enum PACKED CardholderMessage {
   , CRDHLDR_ENT_CVD_PRESENCE = 0xB2
   , CRDHLDR_ENT_CVD = 0xB3
   , CRDHLDR_ENT_DCC_CONFIRMATION = 0xB4
+  , CRDHLDR_MSG_SUPPLEMENTARY_AMOUNT_NOT_ALLOWED = 0xB5
+  , CRDHLDR_MSG_CASHBACK_NOT_ALLOWED = 0xB6
+  , CRDHLDR_MSG_CASHBACK_AMOUNT_TOO_HIGH = 0xB7
+  , CRDHLDR_MSG_PAYMENT_AMOUNT_TOO_LOW_FOR_CASHBACK = 0xB8
+  , CRDHLDR_MSG_TRANSACTION_AMOUNT_IS_OUT_OF_RANGE = 0xB9
 
   /* Outside of nexo FAST spec */
   , CRDHLDR_MSG_REQUEST_SIGNATURE = 0x32
@@ -2281,6 +2286,16 @@ struct ApplicationProfile {
     union CvmCapability* cvmCapabilityNoCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityCvmRequired;
     union MagStripeCvmCapability* magStripeCvmCapabilityNoCvmRequired;
+
+    // DF2D
+    union bcd6* paymentMaximumAmount;
+
+    // DF2E
+    union bcd6* paymentMinimumAmount;
+
+    // DF39
+    union bcd6* cashbackMinimumPaymentAmount;
+
     union bcd6* cvcDefaultAmount;
     union bcd6* dccMinimumAllowedAmount;
     union bcd6 refundProtectionAmount; // FIXME: Make refundProtectionAmount optional

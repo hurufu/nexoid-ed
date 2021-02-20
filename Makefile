@@ -46,12 +46,14 @@ INCLUDE_DIRS := . $(shell find include -type d)
 LIBRARIES    := ptmalloc3 pthread
 
 # Toolchain settings ##########################################################
-CPPFLAGS     := $(addprefix -I,$(INCLUDE_DIRS))
-CFLAGS       := -std=$(STD) -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
-CFLAGS       += $(addprefix -f,$(GCC_FEATURES))
-CFLAGS       += -march=native -mtune=native
+CPPFLAGS     += $(addprefix -I,$(INCLUDE_DIRS))
+_CFLAGS      := -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
+_CFLAGS      += $(addprefix -f,$(GCC_FEATURES))
+_CFLAGS      += -march=native -mtune=native
+CFLAGS       ?= $(_CFLAGS)
+CFLAGS       += -std=$(STD)
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
-LDFLAGS      := $(addprefix -f,$(LD_FEATURES))
+LDFLAGS      ?= $(addprefix -f,$(LD_FEATURES))
 VERSION       = $(shell git describe --dirty --broken)
 
 LIBNAME          := lib$(NAME)
@@ -178,7 +180,7 @@ uninstall:
 %.d: %.c $(CPP_ARGFILE)
 	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o @$(word 2,$^) -o $@ $<
 %.s: %.c $(C_ARGFILE)
-	$(CC) -S @$(word 2,$^) -fno-lto -o $@ $<
+	$(CC) -S @$(word 2,$^) -fno-lto -fverbose-asm -o $@ $<
 %.pic.s: %.c $(C_ARGFILE)
 	$(CC) -S @$(word 2,$^) -fno-lto -fPIC -o $@ $<
 %.i: %.c $(CPP_ARGFILE)

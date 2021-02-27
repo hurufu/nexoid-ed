@@ -196,13 +196,13 @@ uninstall:
 
 .syntastic_c_config: $(C_ARGFILE)
 	echo @$< -fdiagnostics-color=never | tr ' ' '\n' > $@
-$(C_ARGFILE): $(CPP_ARGFILE)
+$(C_ARGFILE): $(CPP_ARGFILE) $(MAKEFILE_LIST)
 	echo $(CFLAGS) @$< | tr ' ' '\n' > $@
 $(CPP_ARGFILE):
 	echo $(CPPFLAGS) | tr ' ' '\n' > $@
-$(LD_ARGFILE):
+$(LD_ARGFILE): $(MAKEFILE_LIST)
 	echo $(LDFLAGS) | tr ' ' '\n' > $@
-$(LIB_ARGFILE):
+$(LIB_ARGFILE): $(MAKEFILE_LIST)
 	echo $(LDLIBS) | tr ' ' '\n' > $@
 
 .PHONY: csv

@@ -61,6 +61,7 @@ LIBRARIES    := ptmalloc3 pthread
 
 # Toolchain settings ##########################################################
 CPPFLAGS     += $(addprefix -I,$(INCLUDE_DIRS))
+CPPFLAGS     += -pthread
 _CFLAGS      := -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 _CFLAGS      += $(addprefix -f,$(GCC_FEATURES))
 _CFLAGS      += -march=native -mtune=native
@@ -68,6 +69,7 @@ CFLAGS       ?= $(_CFLAGS)
 CFLAGS       += -std=$(STD)
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 LDFLAGS      ?= $(addprefix -f,$(LD_FEATURES))
+LDFLAGS      += -pthread
 VERSION       = $(shell git describe --dirty --broken)
 
 LIBNAME          := lib$(NAME)

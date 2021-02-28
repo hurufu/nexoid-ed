@@ -1,5 +1,6 @@
 # Macros ######################################################################
 # FIXME: Remove macros from here and user system-wide `makes` installation
+
 # Define MAKE_DEBUG to any non-empty value in order to debug all variable
 # definedness tests
 #MAKE_DEBUG := y

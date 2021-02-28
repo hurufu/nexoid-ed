@@ -1,14 +1,15 @@
 #include "common.h"
 
+#include "tag_retrival.h"
+#include "local.h"
+
 #include <check.h>
-#include <nexoid/tag_retrival.h>
-#include <nexoid/local.h>
 #include <limits.h>
 
 #suite tag_retrival
 
 #test tag_expanded_struct_is_consistent
-    const union TagExpanded t = { 0xDF, 0x81, 0x18 };
+    const union TagExpanded t = { .raw = { 0xDF, 0x81, 0x18 } };
     ck_assert_uint_eq(sizeof(t), sizeof(t.raw));
     ck_assert_uint_eq(sizeof(t), sizeof(tlv_tag_t));
     ck_assert_uint_eq(t.head, 0xDF);

@@ -29,4 +29,4 @@ void ck_assert_tl_impl(
     const uint8_t* next_cursor
 );
 
-static const char* dol_result_tostring(enum ProcedureResult r);
+const char* dol_result_tostring(enum ProcedureResult r);

@@ -32,7 +32,6 @@ enum PrinterStatus g_PrinterStatus;
 enum TmsContactLevel g_callTms;
 struct TerminalListOfAid* g_TerminalListOfAid;
 
-static
 const char*
 dol_result_tostring(const enum ProcedureResult r) {
     switch (r) {

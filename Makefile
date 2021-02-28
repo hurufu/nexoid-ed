@@ -4,6 +4,14 @@
 # definedness tests
 #MAKE_DEBUG := y
 
+# Special characters
+N :=
+S := $N $N
+define L
+
+
+endef
+
 # Message to be shown while debuging variables
 MAKE_DEBUG_MSG = $(warning $(origin $1) defined variable "$1" is \
                  "$(value $1)" expanded to "$($1)")
@@ -21,6 +29,10 @@ check_defined = $(call do_ifndef,warning,$1)
 
 
 assert_cmd = $(if $(shell which $1),$1,$(error "There is no $1 in $$PATH"))
+
+# Takes any number of command line arguments ($2) and created text file ($1)
+# with all of them on a separate line each
+make_argfile = $(file >$1,$(subst $S,$L,$2))
 
 # User config #################################################################
 OL           := 0
@@ -195,15 +207,15 @@ uninstall:
 	$(CC) -c @$(word 2,$^) -o $@ $(word 1,$^)
 
 .syntastic_c_config: $(C_ARGFILE)
-	echo @$< -fdiagnostics-color=never | tr ' ' '\n' > $@
+	$(call make_argfile,$@,@$< -fdiagnostics-color=never)
 $(C_ARGFILE): $(CPP_ARGFILE) $(MAKEFILE_LIST)
-	echo $(CFLAGS) @$< | tr ' ' '\n' > $@
+	$(call make_argfile,$@,@$< $(CFLAGS))
 $(CPP_ARGFILE):
-	echo $(CPPFLAGS) | tr ' ' '\n' > $@
+	$(call make_argfile,$@,$(CPPFLAGS))
 $(LD_ARGFILE): $(MAKEFILE_LIST)
-	echo $(LDFLAGS) | tr ' ' '\n' > $@
+	$(call make_argfile,$@,$(LDFLAGS))
 $(LIB_ARGFILE): $(MAKEFILE_LIST)
-	echo $(LDLIBS) | tr ' ' '\n' > $@
+	$(call make_argfile,$@,$(LDLIBS))
 
 .PHONY: csv
 csv: $(DRAKON_FILES:.drn=.csv)

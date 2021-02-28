@@ -59,6 +59,15 @@ INCLUDE_DIRS := . $(shell find include -type d)
 # TODO: Develop proper pkg-config for dependencies
 LIBRARIES    := ptmalloc3 pthread
 
+# Unit tests settings #########################################################
+UT_EXECUTABLE        := ut/$(NAME)
+UT_CHECK_TEST_FILES  := $(wildcard ut/*-$(shell uname --machine).t)
+UT_GENERATED_SOURCES := $(UT_CHECK_TEST_FILES:.t=.c)
+UT_SOURCES           := $(UT_GENERATED_SOURCES) ut/common.c
+UT_OBJECTS           := $(UT_SOURCES:.c=.o)
+UT_LDLIBS            := $(shell pkg-config --libs check)
+UT_LDFLAGS           := -Wl,--unresolved-symbols=ignore-in-object-files -pthread
+
 # Toolchain settings ##########################################################
 CPPFLAGS     += $(addprefix -I,$(INCLUDE_DIRS))
 CPPFLAGS     += -pthread
@@ -107,6 +116,8 @@ CPP_ARGFILE    := .cpp.args
 C_ARGFILE      := .$(basename $(CC)).args
 LD_ARGFILE     := .ld.args
 LIB_ARGFILE    := .lib.args
+UT_LD_ARGFILE  := .ut-ld.args
+UT_LIB_ARGFILE := .ut-lib.args
 
 # Commands ####################################################################
 TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS_$(TIME_FORMAT)),)
@@ -126,6 +137,7 @@ CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
 CFLOW         = $(TIME) $(call assert_cmd,cflow)
 DRAKON_GEN   := $(TIME) $(if $(shell which drakon-gen),drakon-gen,'$(DRAKON_PATH)/drakon_gen.tcl')
 GITINSPECTOR  = $(TIME) $(call assert_cmd,gitinspector)
+CHECKMK       = $(TIME) $(call assert_cmd,checkmk)
 
 # Build time profiling
 TIME_PROC.pdb   = $(PROLOG) --consult-file time.pdb --consult-file profiling_build.pdb <profiling_build.pq
@@ -141,7 +153,7 @@ profile_build: all profiling_build.pdb profiling_build.pq
 	$(TIME_PROC.$(TIME_FORMAT))
 endif
 
-.PHONY: all clean asm pp index update static shared
+.PHONY: all clean asm pp index update static shared test
 most_frequent: all install
 all: shared static index .syntastic_c_config cflow
 asm: $(SOURCES:.c=.s)
@@ -152,6 +164,11 @@ update: $(DRAKON_FILES)
 	$(SQLITE3) -batch $< '.dump' >$(DRAKON_SQL)
 shared: $(LIBNAME.so)
 static: $(LIBNAME.a)
+test: $(UT_EXECUTABLE)
+	./$<
+
+$(UT_EXECUTABLE): $(UT_LD_ARGFILE) $(UT_LIB_ARGFILE) $(UT_OBJECTS) $(LIBNAME.a)
+	$(CC) -o $@ @$(word 1,$^) $(wordlist 3,$(words $^),$^) @$(word 2,$^)
 
 $(LIBNAME.a): $(OBJECTS)
 	$(AR) rcs $@ $^
@@ -164,10 +181,12 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 $(CSCOPE_REF): $(SOURCES) $(wildcard ptmalloc3/*.[ch]) $(HEADERS)
 	$(CSCOPE) -R -f $@ -b
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
+clean: F += $(wildcard $(UT_EXECUTABLE) $(UT_GENERATED_SOURCES) $(UT_OBJECTS))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config *.d *.stackdump)
 wipe: F += $(wildcard $(C_ARGFILE) $(CPP_ARGFILE) $(LD_ARGFILE) $(LIB_ARGFILE))
+wipe: F += $(wildcard $(UT_LIB_ARGFILE) $(UT_LD_ARGFILE))
 wipe: clean
 
 .PHONY: install
@@ -209,6 +228,8 @@ uninstall:
 	$(CC) -c @$(word 2,$^) -fplt -fPIC -o $@ $(word 1,$^)
 %.o: %.c $(C_ARGFILE)
 	$(CC) -c @$(word 2,$^) -o $@ $(word 1,$^)
+%.c: %.t
+	$(CHECKMK) $< >$@
 
 .syntastic_c_config: $(C_ARGFILE)
 	$(call make_argfile,$@,@$< -fdiagnostics-color=never)
@@ -220,6 +241,10 @@ $(LD_ARGFILE): $(MAKEFILE_LIST)
 	$(call make_argfile,$@,$(LDFLAGS))
 $(LIB_ARGFILE): $(MAKEFILE_LIST)
 	$(call make_argfile,$@,$(LDLIBS))
+$(UT_LD_ARGFILE): $(MAKEFILE_LIST)
+	$(call make_argfile,$@,$(UT_LDFLAGS))
+$(UT_LIB_ARGFILE): $(MAKEFILE_LIST)
+	$(call make_argfile,$@,$(UT_LDLIBS))
 
 .PHONY: csv
 csv: $(DRAKON_FILES:.drn=.csv)

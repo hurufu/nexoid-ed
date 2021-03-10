@@ -1,6 +1,8 @@
 #include "common.h"
+#include "dmapi.h"
 
 #include <check.h>
+#include <stdlib.h>
 
 struct ApplicationProfile ap;
 struct ServiceSettingsEntry sc;
@@ -31,6 +33,11 @@ struct CandidateList* g_CandidateList;
 enum PrinterStatus g_PrinterStatus;
 enum TmsContactLevel g_callTms;
 struct TerminalListOfAid* g_TerminalListOfAid;
+
+__attribute__(( malloc ))
+void* dmapi_malloc(size_t s) {
+    return malloc(s);
+}
 
 const char*
 dol_result_tostring(const enum ProcedureResult r) {

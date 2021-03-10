@@ -35,6 +35,14 @@ assert_cmd = $(if $(shell which $1),$1,$(error "There is no $1 in $$PATH"))
 # with all of them on a separate line each
 make_argfile = $(file >$1,$(subst $S,$L,$2))
 
+# Simply expanded variable (:=) on Cygwin is actually 30x faster then
+# recursively expanded.
+# TODO: Maybe there is a way to speed-up targets that don't use $(UNAME_OS)
+# even more, by implementing some sort of memoization.
+UNAME_OS  := $(shell uname -o)
+OS_CYGWIN := $(if $(findstring Cygwin,$(UNAME_OS)),y)
+OS_LINUX  := $(if $(findstring Linux,$(UNAME_OS)),y)
+
 # User config #################################################################
 OL           := 0
 DL           := gdb3
@@ -57,7 +65,7 @@ GITINSPECTOR_FILE   := gitinspector.$(GITINSPECTOR_FORMAT)
 NAME         := nexoid
 INCLUDE_DIRS := . $(shell find include -type d)
 # TODO: Develop proper pkg-config for dependencies
-LIBRARIES    := ptmalloc3 pthread
+LIBRARIES    := pthread
 
 # Unit tests settings #########################################################
 UT_EXECUTABLE        := ut/$(NAME)
@@ -79,16 +87,25 @@ CFLAGS       += -std=$(STD)
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 LDFLAGS      ?= $(addprefix -f,$(LD_FEATURES))
 LDFLAGS      += -pthread
+# Some found arguments that may be usefull in the future, should be removed
+# as soon as shared library could be built
+#LDFLAGS      += -Wl,--unresolved-symbols=ignore-all
+#LDFLAGS      += -Wl,--allow-shlib-undefined
+#LDFLAGS      += -Wl,--out-implib,$(LIBNAME)_dll.a
+#LDFLAGS      += -Wl,--export-all-symbols
+#LDFLAGS      += -Wl,--enable-auto-import
 VERSION       = $(shell git describe --dirty --broken)
 
-LIBNAME          := lib$(NAME)
+LIBPREFIX        := $(if $(OS_CYGWIN),cyg,lib)
+SHARED_LIB_EXT   := $(if $(OS_LINUX),so,$(if $(OS_CYGWIN),dll,$(error Can't determine appropriate shared library extension for you OS: "$(UNAME_OS)")))
+LIBNAME          := $(LIBPREFIX)$(NAME)
 LIBNAME.a        := $(LIBNAME).a
-LIBNAME.so       := $(LIBNAME).so
-LIBNAME.so.debug := $(LIBNAME).so.debug
+LIBNAME.so       := $(LIBNAME).$(SHARED_LIB_EXT)
+LIBNAME.so.debug := $(LIBNAME.so).debug
 
 DRAKON_SQL   := NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
-DRAKON_PATH  ?= /cygdrive/c/opt/Drakon\ Editor/1.31
+DRAKON_PATH  ?= /cygdrive/c/opt/DrakonEditor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
@@ -102,7 +119,7 @@ GRAPH_TARGETS := all install uninstall shared
 GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
 
 HEADERS_INSTALL_DIR := $(PREFIX)/include/$(NAME)
-INSTALLED_FILES    := $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME).a $(LIBNAME).so))
+INSTALLED_FILES     = $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME).a $(LIBNAME).so))
 INSTALLED_FILES    += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(HEADERS)))
 
 CSCOPE_REF   := cscope.out
@@ -178,7 +195,7 @@ $(LIBNAME.so): $(LD_ARGFILE) $(LIB_ARGFILE) $(PIC_OBJECTS)
 
 include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
-$(CSCOPE_REF): $(SOURCES) $(wildcard ptmalloc3/*.[ch]) $(HEADERS)
+$(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -R -f $@ -b
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean: F += $(wildcard $(UT_EXECUTABLE) $(UT_GENERATED_SOURCES) $(UT_OBJECTS))

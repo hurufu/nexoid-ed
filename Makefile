@@ -177,7 +177,11 @@ asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 index: $(CSCOPE_REF)
 update: $(DRAKON_FILES)
+ifndef OS_CYGWIN
+	# There is a program similar to lsof for windows - handle, but it's too slow even for a single file
+	# https://docs.microsoft.com/en-us/sysinternals/downloads/handle
 	$(if $(strip $(shell lsof $^)),$(error Prior to proceed with '$@', close file(s): $^),)
+endif
 	$(SQLITE3) -batch $< '.dump' >$(DRAKON_SQL)
 shared: $(LIBNAME.so)
 static: $(LIBNAME.a)

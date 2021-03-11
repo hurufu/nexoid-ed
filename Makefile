@@ -132,7 +132,8 @@ CSCOPE_REF   := cscope.out
 
 TIME_FORMAT    ?= pdb
 TIME_RESULT    := time.$(TIME_FORMAT)
-TIME_ARGS_yaml := --format=' - { user: %U, system: %S, real: "%E", cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
+TIME_ARGS_json := --format='{ "user": %U, "system": %S, "real": %e, "cpu": "%P", "command": "%C" }' --append --output $(TIME_RESULT)
+TIME_ARGS_yaml := --format=' - { user: %U, system: %S, real: %e, cpu: "%P", command: "%C" }' --append --output $(TIME_RESULT)
 TIME_ARGS_pdb  := --format='pd(user(%U), system(%S), real(%e), command("%C")).' --append --output $(TIME_RESULT)
 
 CPP_ARGFILE    := .cpp.args
@@ -147,7 +148,7 @@ TIME         := $(if $(PROFILE_BUILD),$(call assert_cmd,time) $(TIME_ARGS_$(TIME
 CSCOPE        = $(TIME) $(call assert_cmd,cscope) $(if $(VERBOSE),-v,)
 CLANG_FORMAT := $(if $(USE_CLANG_FORMAT),$(call assert_cmd,clang-format),@true)
 RM           := rm $(if $(VERBOSE),-v,)
-AR           := gcc-ar
+AR           := $(TIME) gcc-ar
 OBJCOPY      := $(TIME) objcopy $(if $(VERBOSE),-v,)
 ADDR2LINE    := $(TIME) addr2line
 SQLITE3      := $(TIME) $(call assert_cmd,sqlite3)
@@ -156,14 +157,13 @@ ifdef USE_CCACHE
 CCACHE       := $(call assert_cmd,ccache)
 endif
 PROLOG        = $(TIME) $(call assert_cmd,gprolog)
+YQ            = $(call assert_cmd,yq)
+JQ            = $(call assert_cmd,jq)
 CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
 CFLOW         = $(TIME) $(call assert_cmd,cflow)
 DRAKON_GEN    = $(TIME) $(if $(shell which drakon-gen),drakon-gen,'$(DRAKON_PATH)/drakon_gen.tcl')
 GITINSPECTOR  = $(TIME) $(call assert_cmd,gitinspector)
 CHECKMK       = $(TIME) $(call assert_cmd,checkmk)
-
-# Build time profiling
-TIME_PROC.pdb   = $(PROLOG) --consult-file time.pdb --consult-file profiling_build.pdb <profiling_build.pq
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update
@@ -171,9 +171,14 @@ NOT_DEP      := clean asm pp wipe update
 .PRECIOUS: %.drn
 
 ifdef PROFILE_BUILD
-.PHONY: profile_build
-profile_build: all profiling_build.pdb profiling_build.pq
-	$(TIME_PROC.$(TIME_FORMAT))
+.PHONY: profile_build profile_build_pdb profile_build_yaml
+profile_build: profile_build_$(TIME_FORMAT)
+profile_build_pdb: profiling_build.pq profiling_build.pdb all
+	$(PROLOG) <$<
+profile_build_yaml: profiling_build.jq all
+	$(YQ) '$(strip $(file <$<))' $(TIME_RESULT)
+profile_build_json: profiling_build.jq all
+	$(JQ) -s '$(strip $(file <$<))' $(TIME_RESULT)
 endif
 
 .PHONY: all clean asm pp index update static shared test

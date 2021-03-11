@@ -43,6 +43,11 @@ UNAME_OS  := $(shell uname -o)
 OS_CYGWIN := $(if $(findstring Cygwin,$(UNAME_OS)),y)
 OS_LINUX  := $(if $(findstring Linux,$(UNAME_OS)),y)
 
+# There is a program similar to lsof for windows - handle, but it's too slow even for a single file
+# https://docs.microsoft.com/en-us/sysinternals/downloads/handle
+LSOF       = $(if $(OS_LINUX),$(call assert_cmd,lsof))
+lsof_guard = $(if $(LSOF),$(if $(strip $(shell $(LSOF) $1)),$(error Prior to proceed with '$@', close file(s): $1)))
+
 # User config #################################################################
 OL           := 0
 DL           := gdb3
@@ -179,11 +184,7 @@ asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 index: $(CSCOPE_REF)
 update: $(DRAKON_FILES)
-ifndef OS_CYGWIN
-	# There is a program similar to lsof for windows - handle, but it's too slow even for a single file
-	# https://docs.microsoft.com/en-us/sysinternals/downloads/handle
-	$(if $(strip $(shell lsof $^)),$(error Prior to proceed with '$@', close file(s): $^),)
-endif
+	$(call lsof_guard,$^)
 	$(SQLITE3) -batch $< '.dump' >$(DRAKON_SQL)
 shared: $(LIBNAME.so)
 static: $(LIBNAME.a)
@@ -244,7 +245,7 @@ uninstall:
 %.i: %.c $(CPP_ARGFILE)
 	$(CC) @$(word 2,$^) -E -o $@ $<
 %.drn: DropTables.sql %.sql
-	$(if $(strip $(shell lsof $^)),$(error Prior to proceed with '$@', close file(s): $^),)
+	$(call lsof_guard,$^)
 	cat $^ | $(SQLITE3) -batch $@
 	chmod a-x $@
 %.pic.o: %.c $(C_ARGFILE)

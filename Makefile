@@ -178,7 +178,7 @@ endif
 
 .PHONY: all clean asm pp index update static shared test
 most_frequent: all install test
-all: shared static index .syntastic_c_config cflow
+all: shared static index .syntastic_c_config
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 index: $(CSCOPE_REF)

@@ -63,13 +63,13 @@ GITINSPECTOR_FILE   := gitinspector.$(GITINSPECTOR_FORMAT)
 
 # Project config ##############################################################
 NAME         := nexoid
-INCLUDE_DIRS := . $(shell find include -type d)
+INCLUDE_DIRS := . include
 # TODO: Develop proper pkg-config for dependencies
 LIBRARIES    := pthread
 
 # Unit tests settings #########################################################
 UT_EXECUTABLE        := ut/$(NAME)
-UT_CHECK_TEST_FILES  := $(wildcard ut/*-$(shell uname --machine).t)
+UT_CHECK_TEST_FILES  := ut/nexoid-ut-$(shell uname --machine).t
 UT_GENERATED_SOURCES := $(UT_CHECK_TEST_FILES:.t=.c)
 UT_SOURCES           := $(UT_GENERATED_SOURCES) ut/common.c
 UT_OBJECTS           := $(UT_SOURCES:.c=.o)
@@ -77,7 +77,6 @@ UT_LDLIBS            := $(shell pkg-config --libs check)
 UT_LDFLAGS           := -Wl,--unresolved-symbols=ignore-in-object-files -pthread
 
 # Toolchain settings ##########################################################
-CPPFLAGS     += $(addprefix -I,$(INCLUDE_DIRS))
 CPPFLAGS     += -pthread
 _CFLAGS      := -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 _CFLAGS      += $(addprefix -f,$(GCC_FEATURES))
@@ -109,13 +108,16 @@ DRAKON_PATH  ?= /cygdrive/c/opt/DrakonEditor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
-SOURCES      := $(sort $(wildcard *.c) $(DRAKON_CFILES))
-HEADERS      := $(sort $(wildcard $(addsuffix /*.h,$(INCLUDE_DIRS)) $(DRAKON_HFILES)))
+SOURCES      := $(sort $(DRAKON_CFILES) common.c tag_retrival.c)
+HEADERS      := $(DRAKON_HFILES)
+HEADERS      += bool.h cxx_macros.h local.h nexo.h tag_retrival.h
+HEADERS      += ut/common.h
+HEADERS      += $(addprefix include/,dmapi.h eapi.h gtd.h hapi.h macro.h papi.h pklr.h scapi.h tmapi.h types.h utils.h)
 OBJECTS      := $(SOURCES:.c=.o)
 DEPENDS      := $(SOURCES:.c=.d)
 PIC_OBJECTS  := $(SOURCES:.c=.pic.o)
 
-GRAPH_TARGETS := all install uninstall shared
+GRAPH_TARGETS := all install uninstall shared most_frequent
 GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
 
 HEADERS_INSTALL_DIR := $(PREFIX)/include/$(NAME)
@@ -171,7 +173,7 @@ profile_build: all profiling_build.pdb profiling_build.pq
 endif
 
 .PHONY: all clean asm pp index update static shared test
-most_frequent: all install
+most_frequent: all install test
 all: shared static index .syntastic_c_config cflow
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
@@ -250,14 +252,16 @@ uninstall:
 %.o: %.c $(C_ARGFILE)
 	$(CC) -c @$(word 2,$^) -o $@ $(word 1,$^)
 %.c: %.t
+	# FIXME: Create all directories as '|' dependencies
+	mkdir -p -- $(*D)
 	$(CHECKMK) $< >$@
 
 .syntastic_c_config: $(C_ARGFILE)
 	$(call make_argfile,$@,@$< -fdiagnostics-color=never)
 $(C_ARGFILE): $(CPP_ARGFILE) $(MAKEFILE_LIST)
 	$(call make_argfile,$@,@$< $(CFLAGS))
-$(CPP_ARGFILE):
-	$(call make_argfile,$@,$(CPPFLAGS))
+$(CPP_ARGFILE): $(HEADERS)
+	$(call make_argfile,$@,$(CPPFLAGS) $(addprefix -I,$(sort $(^D))))
 $(LD_ARGFILE): $(MAKEFILE_LIST)
 	$(call make_argfile,$@,$(LDFLAGS))
 $(LIB_ARGFILE): $(MAKEFILE_LIST)

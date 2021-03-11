@@ -13,6 +13,8 @@ define L
 
 endef
 
+MAKEFILE = $(firstword $(MAKEFILE_LIST))
+
 # Message to be shown while debuging variables
 MAKE_DEBUG_MSG = $(warning $(origin $1) defined variable "$1" is \
                  "$(value $1)" expanded to "$($1)")
@@ -259,17 +261,17 @@ uninstall:
 
 .syntastic_c_config: $(C_ARGFILE)
 	$(call make_argfile,$@,@$< -fdiagnostics-color=never)
-$(C_ARGFILE): $(CPP_ARGFILE) $(MAKEFILE_LIST)
+$(C_ARGFILE): $(CPP_ARGFILE) $(MAKEFILE)
 	$(call make_argfile,$@,@$< $(CFLAGS))
 $(CPP_ARGFILE): $(HEADERS)
 	$(call make_argfile,$@,$(CPPFLAGS) $(addprefix -I,$(sort $(^D))))
-$(LD_ARGFILE): $(MAKEFILE_LIST)
+$(LD_ARGFILE): $(MAKEFILE)
 	$(call make_argfile,$@,$(LDFLAGS))
-$(LIB_ARGFILE): $(MAKEFILE_LIST)
+$(LIB_ARGFILE): $(MAKEFILE)
 	$(call make_argfile,$@,$(LDLIBS))
-$(UT_LD_ARGFILE): $(MAKEFILE_LIST)
+$(UT_LD_ARGFILE): $(MAKEFILE)
 	$(call make_argfile,$@,$(UT_LDFLAGS))
-$(UT_LIB_ARGFILE): $(MAKEFILE_LIST)
+$(UT_LIB_ARGFILE): $(MAKEFILE)
 	$(call make_argfile,$@,$(UT_LDLIBS))
 
 .PHONY: csv

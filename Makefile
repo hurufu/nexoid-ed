@@ -158,7 +158,7 @@ endif
 PROLOG        = $(TIME) $(call assert_cmd,gprolog)
 CC           := $(TIME) $(if $(USE_CCACHE),$(CCACHE) gcc,gcc)
 CFLOW         = $(TIME) $(call assert_cmd,cflow)
-DRAKON_GEN   := $(TIME) $(if $(shell which drakon-gen),drakon-gen,'$(DRAKON_PATH)/drakon_gen.tcl')
+DRAKON_GEN    = $(TIME) $(if $(shell which drakon-gen),drakon-gen,'$(DRAKON_PATH)/drakon_gen.tcl')
 GITINSPECTOR  = $(TIME) $(call assert_cmd,gitinspector)
 CHECKMK       = $(TIME) $(call assert_cmd,checkmk)
 

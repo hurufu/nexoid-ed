@@ -8,6 +8,7 @@
 # Special characters
 N :=
 S := $N $N
+C := ,
 define L
 
 
@@ -93,13 +94,9 @@ CFLAGS       += -std=$(STD)
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 LDFLAGS      ?= $(addprefix -f,$(LD_FEATURES))
 LDFLAGS      += -pthread
-# Some found arguments that may be usefull in the future, should be removed
-# as soon as shared library could be built
-#LDFLAGS      += -Wl,--unresolved-symbols=ignore-all
-#LDFLAGS      += -Wl,--allow-shlib-undefined
-#LDFLAGS      += -Wl,--out-implib,$(LIBNAME)_dll.a
-#LDFLAGS      += -Wl,--export-all-symbols
-#LDFLAGS      += -Wl,--enable-auto-import
+# TODO: Clearify what those flags are doing
+IMPLIB        = $(if $(OS_CYGWIN),$(LIBNAME)_dll.a)
+LDFLAGS      += $(if $(OS_CYGWIN),$(addprefix -Wl$C,--out-implib$C$(IMPLIB) --export-all-symbols --enable-auto-import))
 VERSION       = $(shell git describe --dirty --broken)
 
 LIBPREFIX        := $(if $(OS_CYGWIN),cyg,lib)
@@ -115,7 +112,7 @@ DRAKON_PATH  ?= /cygdrive/c/opt/DrakonEditor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
-SOURCES      := $(sort $(DRAKON_CFILES) common.c tag_retrival.c)
+SOURCES      := $(sort $(DRAKON_CFILES) common.c tag_retrival.c stubs.c)
 HEADERS      := $(DRAKON_HFILES)
 HEADERS      += bool.h cxx_macros.h local.h nexo.h tag_retrival.h
 HEADERS      += ut/common.h
@@ -128,7 +125,7 @@ GRAPH_TARGETS := all install uninstall shared most_frequent
 GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
 
 HEADERS_INSTALL_DIR := $(PREFIX)/include/$(NAME)
-INSTALLED_FILES     = $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME).a $(LIBNAME).so))
+INSTALLED_FILES     = $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME.a) $(LIBNAME.so)))
 INSTALLED_FILES    += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(HEADERS)))
 
 CSCOPE_REF   := cscope.out
@@ -208,6 +205,7 @@ $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -R -f $@ -b
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean: F += $(wildcard $(UT_EXECUTABLE) $(UT_GENERATED_SOURCES) $(UT_OBJECTS))
+clean: F += $(wildcard $(IMPLIB))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config *.d *.stackdump)

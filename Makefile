@@ -112,7 +112,7 @@ DRAKON_PATH  ?= /cygdrive/c/opt/DrakonEditor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
-SOURCES      := $(sort $(DRAKON_CFILES) common.c tag_retrival.c stubs.c)
+SOURCES      := $(sort $(DRAKON_CFILES) common.c tag_retrival.c $(if $(OS_CYGWIN),stubs.c))
 HEADERS      := $(DRAKON_HFILES)
 HEADERS      += bool.h cxx_macros.h local.h nexo.h tag_retrival.h
 HEADERS      += ut/common.h

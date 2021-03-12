@@ -189,8 +189,8 @@ INSERT INTO diagrams VALUES(240,'Check_Payment_Service_Configuration','-172 -428
 INSERT INTO diagrams VALUES(241,'Configuration_Error','-133 -133','',75.0);
 INSERT INTO diagrams VALUES(242,'Check_Service_Settings','-245 -308',NULL,80.0);
 INSERT INTO diagrams VALUES(244,'Check_Single_Service_Settings','3070 -95',NULL,80.0);
-INSERT INTO diagrams VALUES(245,'Check_E4','-431 -416','',80.0);
-INSERT INTO diagrams VALUES(246,'Check_Config','18 -72','TODO: Validate all config tables',80.0);
+INSERT INTO diagrams VALUES(245,'Check_E4','-430 -40','',80.0);
+INSERT INTO diagrams VALUES(246,'Check_Config','-303 125','TODO: Validate all config tables',80.0);
 INSERT INTO diagrams VALUES(247,'Check_E0','-185 -186',NULL,80.0);
 INSERT INTO diagrams VALUES(248,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',90.0);
 INSERT INTO diagrams VALUES(250,'Data_Print_Interaction','397 -265',replace('NEXO: It''s madness, nokReason is set so inconsistently.\nFIXME: Somehow fix check of global variables here','\n',char(10)),75.0);
@@ -267,7 +267,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,93,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,245,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -9473,7 +9473,7 @@ INSERT INTO items VALUES(15317,325,'commentin','TODO: Handle N_CANCELLED',0,6390
 INSERT INTO items VALUES(15318,325,'address','End',0,6390,2310,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15319,325,'shelf','PR_OK',0,6120,2060,90,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(15320,325,'shelf','PR_NOK',0,6390,2060,160,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(15322,245,'insertion','Not_Implemented()',0,580,190,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15322,245,'insertion','Not_Implemented();',0,580,190,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15323,245,'vertical','',0,580,130,0,120,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15324,245,'horizontal','',0,580,250,100,0,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info

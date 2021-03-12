@@ -288,8 +288,8 @@ $(NAME).cflow:
 
 .PHONY: cg
 cg: cg.png
-cg.png: $(CPP_ARGFILE)
-	$(CC) -c @$< -fdump-rtl-expand $(SOURCES)
+cg.png: $(CPP_ARGFILE) $(SOURCES)
+	$(CC) -c -fdump-rtl-expand @$^
 	egypt *.expand | sed '8irankdir="LR"' | dot -Tpng > callgraph.png
 
 # TODO: Move to `makes` library

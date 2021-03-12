@@ -51,6 +51,9 @@ OS_LINUX  := $(if $(findstring Linux,$(UNAME_OS)),y)
 LSOF       = $(if $(OS_LINUX),$(call assert_cmd,lsof))
 lsof_guard = $(if $(LSOF),$(if $(strip $(shell $(LSOF) $1)),$(error Prior to proceed with '$@', close file(s): $1)))
 
+# Automatically set prerequisites search path to the main Makefile location
+VPATH     := $(dir $(firstword $(MAKEFILE_LIST)))
+
 # User config #################################################################
 OL           := 0
 DL           := gdb3

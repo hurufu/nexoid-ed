@@ -156,6 +156,7 @@ DDD           = $(TIME) $(call assert_cmd,ddd)
 ifdef USE_CCACHE
 CCACHE       := $(call assert_cmd,ccache)
 endif
+# Tested with gprolog, swipl, and scryer-prolog
 PROLOG        = $(TIME) $(call assert_cmd,gprolog)
 YQ            = $(call assert_cmd,yq)
 JQ            = $(call assert_cmd,jq)
@@ -173,8 +174,8 @@ NOT_DEP      := clean asm pp wipe update
 ifdef PROFILE_BUILD
 .PHONY: profile_build profile_build_pdb profile_build_yaml
 profile_build: profile_build_$(TIME_FORMAT)
-profile_build_pdb: profiling_build.pq profiling_build.pdb all
-	$(PROLOG) <$<
+profile_build_pdb: profiling_build.pdb all
+	echo "['$(TIME_RESULT)']. ['$<']. prof(User, System, Real, CPU)." | $(PROLOG)
 profile_build_yaml: profiling_build.jq all
 	$(YQ) '$(strip $(file <$<))' $(TIME_RESULT)
 profile_build_json: profiling_build.jq all

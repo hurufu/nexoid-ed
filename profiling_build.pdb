@@ -1,8 +1,9 @@
-prof(Ux, Sx, Rx) :-
+prof(User, System, Real, CPU) :-
     findall([U,S,R], pd(user(U), system(S), real(R), _), L),
-    unzip_sum(L, Us, Ss, Rs),
-    Ux is Us, Sx is Ss, Rx is Rs.
+    unzip_sum(L, User, System, Real),
+    CPU is (User + System) / Real.
 
 unzip_sum([], 0, 0, 0).
-unzip_sum([[A,B,C]|T], A + An, B + Bn, C + Cn) :-
-    unzip_sum(T, An, Bn, Cn).
+unzip_sum([[A,B,C]|T], Asum, Bsum, Csum) :-
+    unzip_sum(T, An, Bn, Cn),
+    Asum is A + An, Bsum is B + Bn, Csum is C + Cn.

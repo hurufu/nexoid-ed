@@ -169,8 +169,6 @@ CHECKMK       = $(TIME) $(call assert_cmd,checkmk)
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update
 
-.PRECIOUS: %.drn
-
 ifdef PROFILE_BUILD
 .PHONY: profile_build profile_build_pdb profile_build_yaml
 profile_build: profile_build_$(TIME_FORMAT)
@@ -238,7 +236,7 @@ uninstall:
 	$(if $(strip $F),$(RM) -f -- $F,)
 	$(if $(strip $D),rmdir -- $D,)
 
-.PRECIOUS: %.c %.h
+.PRECIOUS: %.c %.h %.drn
 %.c %.h: %.drn
 	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h

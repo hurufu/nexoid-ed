@@ -177,7 +177,7 @@ profile_build: profile_build_$(TIME_FORMAT)
 profile_build_pdb: profiling_build.pdb all
 	echo "['$(TIME_RESULT)']. ['$<']. prof(User, System, Real, CPU)." | $(PROLOG)
 profile_build_yaml: profiling_build.jq all
-	$(YQ) '$(strip $(file <$<))' $(TIME_RESULT)
+	$(YQ) -y '$(strip $(file <$<))' $(TIME_RESULT)
 profile_build_json: profiling_build.jq all
 	$(JQ) -s '$(strip $(file <$<))' $(TIME_RESULT)
 endif

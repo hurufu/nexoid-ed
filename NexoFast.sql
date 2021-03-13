@@ -31,14 +31,14 @@ INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0)
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -350','',90.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
 INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','-198 -266','',75.0);
-INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-129 596','',75.0);
+INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-128 -470','',75.0);
 INSERT INTO diagrams VALUES(47,'Process_Card_Inserted','128 -66','',75.0);
 INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',75.0);
 INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 -329','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','66 -133','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','-200 -133','',75.0);
-INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-132 -304','',75.0);
-INSERT INTO diagrams VALUES(55,'Service_Initialisation','947 215','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
+INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-64 -236','',75.0);
+INSERT INTO diagrams VALUES(55,'Service_Initialisation','-112 214','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1410 -150',NULL,60.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','322 -14','TODO: Calls to Update_Interfaces have to be consolidated',75.0);
@@ -150,7 +150,7 @@ INSERT INTO diagrams VALUES(197,'Update_Interfaces_No_Contactless','-448 -184',N
 INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -160','',75.0);
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 -310','nexo-FAST v.3.2 note 21-50 and table 8',75.0);
 INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','433 -140','Based on nexo-FAST v.3.2 note 20-10',75.0);
-INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','883 -187','',85.0);
+INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1117 -185','',85.0);
 INSERT INTO diagrams VALUES(202,'Process_Event','-233 -58','FIXME: Refactor Process Event to make it more linear',75.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -132',NULL,75.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','-65 100','',75.0);
@@ -267,7 +267,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,245,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,54,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -684,17 +684,17 @@ INSERT INTO items VALUES(1502,52,'beginend','Process_AdditionalTrxData',0,170,60
 INSERT INTO items VALUES(1503,52,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1504,52,'vertical','',0,170,80,0,290,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1516,54,'beginend','Initialise_Transaction_Database',0,120,-80,140,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1517,54,'beginend','End',0,890,240,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1517,54,'beginend','End',0,1030,240,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1518,54,'vertical','',0,120,-60,0,1070,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1519,54,'vertical','',0,620,-40,0,1050,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1520,54,'vertical','',0,890,-40,0,270,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1521,54,'horizontal','',0,120,-40,770,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1522,54,'arrow','',0,-40,-40,160,1050,660,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(1519,54,'vertical','',0,770,-40,0,1050,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1520,54,'vertical','',0,1030,-40,0,270,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1521,54,'horizontal','',0,120,-40,910,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1522,54,'arrow','',0,-40,-40,160,1050,810,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(1523,54,'branch','Zero out TTD',0,120,10,60,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1524,54,'address',replace('EMV data\nelements','\n',char(10)),0,120,950,60,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1525,54,'branch',replace('Nexo data\nelements','\n',char(10)),0,620,20,190,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1526,54,'branch','End',0,890,10,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1527,54,'address','End',0,620,960,190,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1525,54,'branch',replace('Nexo data\nelements','\n',char(10)),0,770,20,190,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1526,54,'branch','End',0,1030,10,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1527,54,'address','End',0,770,960,190,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1547,55,'beginend','Service_Initialisation',0,50,270,100,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1548,55,'beginend','End',0,2840,710,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1549,55,'vertical','',0,340,310,0,650,0,0,NULL,NULL,NULL,NULL);
@@ -968,16 +968,16 @@ INSERT INTO items VALUES(2804,18,'vertical','',0,5600,350,0,610,0,0,NULL,'',NULL
 INSERT INTO items VALUES(2805,18,'branch','End',0,5920,400,70,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2806,18,'address','End',0,5600,910,110,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2807,18,'shelf','PR_BAIL',0,5780,650,50,40,40,0,NULL,NULL,NULL,'result');
-INSERT INTO items VALUES(2810,54,'shelf','NONE',0,620,120,190,40,40,0,NULL,NULL,NULL,'ttd.out.Start');
-INSERT INTO items VALUES(2811,54,'vertical','',0,330,-40,0,1050,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2812,54,'branch',replace('EMV data\nelements','\n',char(10)),0,330,20,50,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2813,54,'address',replace('Nexo data\nelements','\n',char(10)),0,330,950,50,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2814,54,'shelf','0xFF',0,620,220,190,40,40,0,NULL,'',NULL,'ttd.out.FieldOffRequest');
-INSERT INTO items VALUES(2815,54,'shelf','T_NONE',0,620,320,190,40,40,0,NULL,'',NULL,'ttd.transactionResult');
-INSERT INTO items VALUES(2816,54,'shelf','N_NONE',0,620,420,190,40,40,0,NULL,'',NULL,'ttd.nokReason');
-INSERT INTO items VALUES(2818,54,'shelf','TECH_NONE',0,620,640,190,40,40,0,NULL,'',NULL,'ttd.technologySelected');
-INSERT INTO items VALUES(2819,54,'shelf','O_NONE',0,620,740,190,40,40,0,NULL,'',NULL,'ttd.outcome');
-INSERT INTO items VALUES(2822,54,'commentin',replace('Spec describes that all enums that are\nnot listed in a special table shall be\nset to NONE, but this doesn''t make sense\nfor SelectedService, because it''s already\nsetup properly','\n',char(10)),0,620,530,190,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(2810,54,'shelf','NONE',0,770,120,190,40,40,0,NULL,NULL,NULL,'ttd.out.Start');
+INSERT INTO items VALUES(2811,54,'vertical','',0,370,-40,0,1050,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2812,54,'branch',replace('EMV data\nelements','\n',char(10)),0,370,20,150,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2813,54,'address',replace('Nexo data\nelements','\n',char(10)),0,370,950,150,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2814,54,'shelf','0xFF',0,770,220,190,40,40,0,NULL,'',NULL,'ttd.out.FieldOffRequest');
+INSERT INTO items VALUES(2815,54,'shelf','T_NONE',0,770,320,190,40,40,0,NULL,'',NULL,'ttd.transactionResult');
+INSERT INTO items VALUES(2816,54,'shelf','N_NONE',0,770,420,190,40,40,0,NULL,'',NULL,'ttd.nokReason');
+INSERT INTO items VALUES(2818,54,'shelf','TECH_NONE',0,770,640,190,40,40,0,NULL,'',NULL,'ttd.technologySelected');
+INSERT INTO items VALUES(2819,54,'shelf','O_NONE',0,770,740,190,40,40,0,NULL,'',NULL,'ttd.outcome');
+INSERT INTO items VALUES(2822,54,'commentin',replace('Spec describes that all enums that are\nnot listed in a special table shall be\nset to NONE, but this doesn''t make sense\nfor SelectedService, because it''s already\nsetup properly','\n',char(10)),0,770,530,190,50,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(2959,65,'beginend','Technology_Selection_Initial_Processing',0,610,140,170,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2960,65,'beginend','End',0,6110,650,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2961,65,'vertical','',0,610,160,0,1220,0,0,NULL,'',NULL,'');
@@ -6108,7 +6108,7 @@ INSERT INTO items VALUES(10807,185,'vertical','',0,460,480,0,140,0,0,NULL,NULL,N
 INSERT INTO items VALUES(10808,185,'horizontal','',0,290,620,170,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10809,185,'shelf','PR_DONE',0,290,560,150,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(10810,185,'action','enum ProcedureResult result;',0,290,-640,150,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(10811,54,'shelf','TE_NONE',0,620,840,190,40,40,0,NULL,NULL,NULL,'ttd.terminalErrorReason');
+INSERT INTO items VALUES(10811,54,'shelf','TE_NONE',0,770,840,190,40,40,0,NULL,NULL,NULL,'ttd.terminalErrorReason');
 INSERT INTO items VALUES(10833,230,'beginend','Status',0,330,50,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10834,230,'beginend','End',0,330,610,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(10835,230,'vertical',NULL,0,330,70,0,520,0,0,NULL,NULL,NULL,NULL);
@@ -9476,6 +9476,8 @@ INSERT INTO items VALUES(15320,325,'shelf','PR_NOK',0,6390,2060,160,40,40,0,NULL
 INSERT INTO items VALUES(15322,245,'insertion','Not_Implemented();',0,580,190,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15323,245,'vertical','',0,580,130,0,120,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15324,245,'horizontal','',0,580,250,100,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15325,54,'shelf','e1.currencyCodeAlpha3',0,370,280,150,40,40,0,NULL,NULL,NULL,'ttd.transactionCurrencyCodeAlpha3');
+INSERT INTO items VALUES(15326,54,'commentin',replace('TODO: Verify where to init\ncurrency code','\n',char(10)),0,370,190,150,30,60,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

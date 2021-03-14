@@ -249,7 +249,7 @@ struct Aid {
         uint8_t raw[16];
         struct {
             struct Rid rid;
-            uint8_t pix[FLEX];
+            uint8_t pix[NFLEX];
         };
     };
 };

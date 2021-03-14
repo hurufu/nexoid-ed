@@ -35,3 +35,12 @@
 #else
 #   define FLEX 0
 #endif
+
+#if defined(_GNU_SOURCE) && defined(FEATURE_FLEXIBLE_ARRAY_MEMBERS)
+#   define FEATURE_NON_FINAL_FLEXIBLE_ARRAY_MEMBERS
+#endif
+#ifdef FEATURE_NON_FINAL_FLEXIBLE_ARRAY_MEMBERS
+#   define NFLEX
+#else
+#   define NFLEX 0
+#endif

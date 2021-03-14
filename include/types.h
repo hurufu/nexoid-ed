@@ -187,6 +187,13 @@ enum Tag {
   , T_EMV_APPLICATION_INTERCHANGE_PROFILE = CAST_TAG(0x82) // a.k.a. AIP
 };
 
+enum TagExpandedClass {
+    TLV_CLASS_UNIVERSAL = 0x0,
+    TLV_CLASS_APPLICATION = 0x1,
+    TLV_CLASS_CONTEXT_SPECIFIC = 0x2,
+    TLV_CLASS_PRIVATE = 0x3
+};
+
 union PACKED TagExpanded {
     uint8_t raw[sizeof(tlv_tag_t)];
     tlv_tag_t i;
@@ -197,12 +204,7 @@ union PACKED TagExpanded {
             struct PACKED {
                 uint8_t nmbr : 5;
                 uint8_t constructed : 1;
-                enum {
-                    TLV_CLASS_UNIVERSAL = 0b00,
-                    TLV_CLASS_APPLICATION = 0b01,
-                    TLV_CLASS_CONTEXT_SPECIFIC = 0b10,
-                    TLV_CLASS_PRIVATE = 0b11
-                } type : 2;
+                enum TagExpandedClass type : 2;
             };
         };
         union PACKED {
@@ -273,6 +275,10 @@ union Kernel4ReaderCapabilities {
     uint8_t raw[1];
 };
 
+enum PACKED ApplicationPriorityIndicatorEnum {
+    NO_PRIORITY = 0
+};
+
 union ApplicationPriorityIndicator {
     struct {
         uint8_t priority : 4;
@@ -280,9 +286,7 @@ union ApplicationPriorityIndicator {
         uint8_t cardholderConfirmationRequired : 1; // EMV Book 1 table 48
     };
     struct {
-        enum PACKED {
-            NO_PRIORITY = 0
-        } e : 4;
+        enum ApplicationPriorityIndicatorEnum e : 4;
     };
     uint8_t u;
 };
@@ -359,6 +363,58 @@ enum PACKED CvmConditionCode {
     // 0x80~0xFF - Reserved for use by individual payment systems
 };
 
+enum PACKED EmvStatusEnum1 {
+    X_APPLICATION_RELATED_STATUS = 0x9
+  , X_OTHER_STATUS = 0x6
+};
+
+enum PACKED EmvStatusEnum2 {
+    E_CLASS_NOT_SUPPORTED = 0x60
+  , I_RESPONSE_BYTES_STILL_AVAILABLE = 0x61
+  , W_STATE_OF_NON_VOLATILE_MEMORY_UNCHANGED = 0x62
+  , W_STATE_OF_NON_VOLATILE_MEMORY_CHANGED = 0x63
+  , E_STATE_OF_NON_VOLATILE_MEMORY_UNCHANGED = 0x64
+  , E_STATE_OF_NON_VOLATILE_MEMORY_CHANGED = 0x65
+  , S_SECURITY = 0x66
+  , E_PARSE_ERROR = 0x67
+  , E_FUNCTIONS_IN_CLA_NOT_SUPPORTED = 0x68
+  , E_COMMAND_NOT_ALLOWED = 0x69
+  , E_WRONG_PARAMETER = 0x6A
+  , E_WRONG_PARAMETER_CONTINUED = 0x6B
+  , E_WRONG_LENGTH_LE = 0x6C
+  , E_INSTRUCTION_CODE_ERROR = 0x6D
+  , E_NOT_SUPPORTED = 0x6E
+  , E_INTERNAL_EXCEPTION = 0x6F
+  , X_INFORMATIONAL = 0x90
+};
+
+enum PACKED EmvStatusEnum3 {
+    W_NVRM_NOT_CHANGED_NO_INFORMATION_GIVEN = MULTICHAR(0x62, 0x00)
+  , W_SELECTED_FILE_INVALIDATED = MULTICHAR(0x62, 0x83)
+  , W_PART_OF_RETURNED_DATA_MAY_BE_CORRUPTED = MULTICHAR(0x62, 0x81)
+  , W_VERIFY_FAILED_NO_TRIES_LEFT = MULTICHAR(0x63, 0xC0)
+  , W_VERIFY_FAILED_1_TRY_LEFT = MULTICHAR(0x63, 0xC1)
+  , W_VERIFY_FAILED_2_TRIES_LEFT = MULTICHAR(0x63, 0xC2)
+  , W_VERIFY_FAILED_3_TRIES_LEFT = MULTICHAR(0x63, 0xC3)
+  , W_VERIFY_FAILED_4_TRIES_LEFT = MULTICHAR(0x63, 0xC4)
+  , W_VERIFY_FAILED_5_TRIES_LEFT = MULTICHAR(0x63, 0xC5)
+  , W_VERIFY_FAILED_6_TRIES_LEFT = MULTICHAR(0x63, 0xC6)
+  , W_VERIFY_FAILED_7_TRIES_LEFT = MULTICHAR(0x63, 0xC7)
+  , W_VERIFY_FAILED_8_TRIES_LEFT = MULTICHAR(0x63, 0xC8)
+  , W_VERIFY_FAILED_9_TRIES_LEFT = MULTICHAR(0x63, 0xC9)
+  , W_VERIFY_FAILED_10_TRIES_LEFT = MULTICHAR(0x63, 0xCA)
+  , W_VERIFY_FAILED_11_TRIES_LEFT = MULTICHAR(0x63, 0xCB)
+  , W_VERIFY_FAILED_12_TRIES_LEFT = MULTICHAR(0x63, 0xCC)
+  , W_VERIFY_FAILED_13_TRIES_LEFT = MULTICHAR(0x63, 0xCD)
+  , W_VERIFY_FAILED_14_TRIES_LEFT = MULTICHAR(0x63, 0xCE)
+  , W_VERIFY_FAILED_15_TRIES_LEFT = MULTICHAR(0x63, 0xCF)
+  , E_AUTHENTICATION_METHOD_BLOCKED = MULTICHAR(0x69, 0x83)
+  , E_REFERENCED_DATA_REVERSIBLY_BLOCKED = MULTICHAR(0x69, 0x84) // Invalidated
+  , E_CONDITIONS_OF_USE_NOT_SATISFIED = MULTICHAR(0x69, 0x85)
+  , E_FUNCTION_NOT_SUPPORTED = MULTICHAR(0x6A, 0x81)
+  , I_COMMAND_OK = MULTICHAR(0x90, 0x00)
+};
+
 // TODO: Clean up naming, make this header a complete documentation of EMV status codes
 //
 // Prefixes:
@@ -372,59 +428,13 @@ enum PACKED CvmConditionCode {
 union EmvStatus {
     uint8_t raw[2];
     struct {
-        enum PACKED {
-            X_APPLICATION_RELATED_STATUS = 0x9
-          , X_OTHER_STATUS = 0x6
-        } _status: 4;
+        enum EmvStatusEnum1 _status: 4;
     };
     struct {
-        enum PACKED {
-            E_CLASS_NOT_SUPPORTED = 0x60
-          , I_RESPONSE_BYTES_STILL_AVAILABLE = 0x61
-          , W_STATE_OF_NON_VOLATILE_MEMORY_UNCHANGED = 0x62
-          , W_STATE_OF_NON_VOLATILE_MEMORY_CHANGED = 0x63
-          , E_STATE_OF_NON_VOLATILE_MEMORY_UNCHANGED = 0x64
-          , E_STATE_OF_NON_VOLATILE_MEMORY_CHANGED = 0x65
-          , S_SECURITY = 0x66
-          , E_PARSE_ERROR = 0x67
-          , E_FUNCTIONS_IN_CLA_NOT_SUPPORTED = 0x68
-          , E_COMMAND_NOT_ALLOWED = 0x69
-          , E_WRONG_PARAMETER = 0x6A
-          , E_WRONG_PARAMETER_CONTINUED = 0x6B
-          , E_WRONG_LENGTH_LE = 0x6C
-          , E_INSTRUCTION_CODE_ERROR = 0x6D
-          , E_NOT_SUPPORTED = 0x6E
-          , E_INTERNAL_EXCEPTION = 0x6F
-          , X_INFORMATIONAL = 0x90
-        } status;
+        enum EmvStatusEnum2 status;
         uint8_t qualifier;
     };
-    enum PACKED {
-        W_NVRM_NOT_CHANGED_NO_INFORMATION_GIVEN = MULTICHAR(0x62, 0x00)
-      , W_SELECTED_FILE_INVALIDATED = MULTICHAR(0x62, 0x83)
-      , W_PART_OF_RETURNED_DATA_MAY_BE_CORRUPTED = MULTICHAR(0x62, 0x81)
-      , W_VERIFY_FAILED_NO_TRIES_LEFT = MULTICHAR(0x63, 0xC0)
-      , W_VERIFY_FAILED_1_TRY_LEFT = MULTICHAR(0x63, 0xC1)
-      , W_VERIFY_FAILED_2_TRIES_LEFT = MULTICHAR(0x63, 0xC2)
-      , W_VERIFY_FAILED_3_TRIES_LEFT = MULTICHAR(0x63, 0xC3)
-      , W_VERIFY_FAILED_4_TRIES_LEFT = MULTICHAR(0x63, 0xC4)
-      , W_VERIFY_FAILED_5_TRIES_LEFT = MULTICHAR(0x63, 0xC5)
-      , W_VERIFY_FAILED_6_TRIES_LEFT = MULTICHAR(0x63, 0xC6)
-      , W_VERIFY_FAILED_7_TRIES_LEFT = MULTICHAR(0x63, 0xC7)
-      , W_VERIFY_FAILED_8_TRIES_LEFT = MULTICHAR(0x63, 0xC8)
-      , W_VERIFY_FAILED_9_TRIES_LEFT = MULTICHAR(0x63, 0xC9)
-      , W_VERIFY_FAILED_10_TRIES_LEFT = MULTICHAR(0x63, 0xCA)
-      , W_VERIFY_FAILED_11_TRIES_LEFT = MULTICHAR(0x63, 0xCB)
-      , W_VERIFY_FAILED_12_TRIES_LEFT = MULTICHAR(0x63, 0xCC)
-      , W_VERIFY_FAILED_13_TRIES_LEFT = MULTICHAR(0x63, 0xCD)
-      , W_VERIFY_FAILED_14_TRIES_LEFT = MULTICHAR(0x63, 0xCE)
-      , W_VERIFY_FAILED_15_TRIES_LEFT = MULTICHAR(0x63, 0xCF)
-      , E_AUTHENTICATION_METHOD_BLOCKED = MULTICHAR(0x69, 0x83)
-      , E_REFERENCED_DATA_REVERSIBLY_BLOCKED = MULTICHAR(0x69, 0x84) // Invalidated
-      , E_CONDITIONS_OF_USE_NOT_SATISFIED = MULTICHAR(0x69, 0x85)
-      , E_FUNCTION_NOT_SUPPORTED = MULTICHAR(0x6A, 0x81)
-      , I_COMMAND_OK = MULTICHAR(0x90, 0x00)
-    } e;
+    enum EmvStatusEnum3 e;
 };
 
 enum PinType {
@@ -450,6 +460,14 @@ enum PACKED CaPublicKeyAlgorithmIndicator {
     CA_PUB_KEY_ALGORITHM_RSA = 0x01,
 };
 
+struct ApplicationFileLocatorEntry {
+    uint8_t zero : 3;
+    uint8_t sfi : 5;
+    uint8_t firstRecordNumber;
+    uint8_t lastRecordNumber;
+    uint8_t numberOfOdaAuthenticatedRecords;
+};
+
 // nexo-FAST v.3.2, section 13.1.13
 // EMV v.4.3 Book 3, section 10.2
 // [94]
@@ -457,13 +475,7 @@ struct PACKED ApplicationFileLocator {
     size_t raw_size;
     union {
         uint8_t raw[252];
-        struct ApplicationFileLocatorEntry {
-            uint8_t zero : 3;
-            uint8_t sfi : 5;
-            uint8_t firstRecordNumber;
-            uint8_t lastRecordNumber;
-            uint8_t numberOfOdaAuthenticatedRecords;
-        } a[252 / 4];
+        struct ApplicationFileLocatorEntry a[252 / 4];
     };
 };
 
@@ -553,31 +565,35 @@ struct PACKED RandomPadding {
     struct RawRandomPadding r;
 };
 
+enum PACKED PlainTextPinBlockControl {
+    PIN_BLOCK_CONTROL = 0x2
+};
+
 // EMV Book 3 v.4.3, section 6.5.12.2
 union PACKED PlainTextPinBlock {
     uint8_t raw[8];
     struct {
         struct {
             uint8_t length : 4;
-            enum PACKED {
-                PIN_BLOCK_CONTROL = 0x2
-            } control : 4;
+            enum PlainTextPinBlockControl control : 4;
         };
         struct cbcd6 pin;
         uint8_t padding[1];
     };
 };
 
+struct EncipherablePinBlockData {
+    uint8_t header;
+    union PlainTextPinBlock plainTextPinBlock;
+    struct UnpredictableNumber unpredictableNumber;
+    struct RawRandomPadding randomPadding;
+};
+
 // EMV Book 2 v.4.3, table 25
 struct EncipherablePinBlock {
     size_t size;
     union PACKED {
-       struct EncipherablePinBlockData {
-            uint8_t header;
-            union PlainTextPinBlock plainTextPinBlock;
-            struct UnpredictableNumber unpredictableNumber;
-            struct RawRandomPadding randomPadding;
-        } data;
+        struct EncipherablePinBlockData data;
         uint8_t raw[sizeof(struct EncipherablePinBlockData)];
     };
 };
@@ -1653,6 +1669,40 @@ union PACKED ExpirationDate {
     };
 };
 
+enum PACKED Track2InterchngeRules {
+    InternationalOk = '1'
+  , InternationalUseIcWhereFeasible = '2'
+  , NationalOnlyExceptUnderBilateralAgreement = '5'
+  , NationalOnlyExceptUnderBilateralAgreementUseIcWhereFeasible = '6'
+  , NoInterchangeExceptUnderBilateralAgreementClosedLoop = '7'
+  , TestCard = '9'
+};
+
+enum Track2AuthorisationProcessing {
+    NormalAuthorisation = '0'
+  , ContactIssuerViaOnlineMeans = '2'
+  , ContactIssuerViaOnlineMeansExceptUnderBilateralAgreement = '4'
+};
+
+enum Track2RangeOfServices {
+    NoRestrictionsPinRequired = '0'
+  , NoRestrictions = '1'
+  , GoodsAndServicesOnlyNoCash = '2'
+  , AtmOnlyPinRequired = '3'
+  , CashOnly = '4'
+  , GoodsAndServicesOnlyNocashPinRequired = '5'
+  , NoRestrictionsUsePinWhereFeasible = '6'
+  , GoodsAndServicesOnlyNoCashUsePinWhereFeasible = '7'
+};
+
+enum Track2DiscretionaryDataTypeEnum {
+    DD_NONE,
+    DD_PVKI,
+    DD_PVV,
+    DD_CVC,
+    DD_CVV
+};
+
 // NOTE: Strings in Track2 aren't null terminated
 // FIXME: Track2 struct isn't compliant with Nexo definition
 struct Track2 {
@@ -1661,39 +1711,13 @@ struct Track2 {
     union ServiceCodeMs {
         char raw[3]; // Same as ServiceCodeMs in the spec
         struct {
-            enum PACKED {
-                InternationalOk = '1'
-              , InternationalUseIcWhereFeasible = '2'
-              , NationalOnlyExceptUnderBilateralAgreement = '5'
-              , NationalOnlyExceptUnderBilateralAgreementUseIcWhereFeasible = '6'
-              , NoInterchangeExceptUnderBilateralAgreementClosedLoop = '7'
-              , TestCard = '9'
-            } interchangeRules;
-            enum PACKED {
-                NormalAuthorisation = '0'
-              , ContactIssuerViaOnlineMeans = '2'
-              , ContactIssuerViaOnlineMeansExceptUnderBilateralAgreement = '4'
-            } authorisationProcessing;
-            enum PACKED {
-                NoRestrictionsPinRequired = '0'
-              , NoRestrictions = '1'
-              , GoodsAndServicesOnlyNoCash = '2'
-              , AtmOnlyPinRequired = '3'
-              , CashOnly = '4'
-              , GoodsAndServicesOnlyNocashPinRequired = '5'
-              , NoRestrictionsUsePinWhereFeasible = '6'
-              , GoodsAndServicesOnlyNoCashUsePinWhereFeasible = '7'
-            } rangeOfServices;
+            enum Track2InterchngeRules interchangeRules;
+            enum Track2AuthorisationProcessing authorisationProcessing;
+            enum Track2RangeOfServices rangeOfServices;
         };
     } serviceCode;
     struct {
-        enum {
-            DD_NONE,
-            DD_PVKI,
-            DD_PVV,
-            DD_CVC,
-            DD_CVV
-        } type;
+        enum Track2DiscretionaryDataTypeEnum type;
         union {
             char pvki;
             char pvv[4];
@@ -1756,50 +1780,54 @@ union ProcessingStatus {
     };
 };
 
+struct TransactionTypeCapability {
+    unsigned char cash : 1;
+    unsigned char goods : 1;
+    unsigned char services : 1;
+    unsigned char cashback : 1;
+    unsigned char inquiry : 1;
+    unsigned char transfer : 1;
+    unsigned char payment : 1;
+    unsigned char administrative : 1;
+
+    unsigned char cashDeposit : 1;
+    unsigned char /* RFU */ : 1;
+};
+
+struct TransactionDataInputCapability {
+    unsigned char numericKeys : 1;
+    unsigned char alphabeticAndSpecialCharactersKeys : 1;
+    unsigned char commandKeys : 1;
+    unsigned char functionKeys : 1;
+    unsigned char /* RFU */ : 4;
+};
+
+struct TransactionDataOutputCapability {
+    unsigned char printAttendant : 1;
+    unsigned char printCardholder : 1;
+    unsigned char displayAttendant : 1;
+    unsigned char displayCardholder : 1;
+    unsigned char /* RFU */ : 2;
+    // ISO/IEC 8859
+    unsigned char codeTable10 : 1;
+    unsigned char codeTable9 : 1;
+
+    unsigned char codeTable8 : 1;
+    unsigned char codeTable7 : 1;
+    unsigned char codeTable6 : 1;
+    unsigned char codeTable5 : 1;
+    unsigned char codeTable4 : 1;
+    unsigned char codeTable3 : 1;
+    unsigned char codeTable2 : 1;
+    unsigned char codeTable1 : 1;
+};
+
 union AdditionalTerminalCapabilities {
     unsigned char raw[5];
     struct {
-        struct TransactionTypeCapability {
-            unsigned char cash : 1;
-            unsigned char goods : 1;
-            unsigned char services : 1;
-            unsigned char cashback : 1;
-            unsigned char inquiry : 1;
-            unsigned char transfer : 1;
-            unsigned char payment : 1;
-            unsigned char administrative : 1;
-
-            unsigned char cashDeposit : 1;
-            unsigned char /* RFU */ : 1;
-        } transactionType;
-
-        struct TransactionDataInputCapability {
-            unsigned char numericKeys : 1;
-            unsigned char alphabeticAndSpecialCharactersKeys : 1;
-            unsigned char commandKeys : 1;
-            unsigned char functionKeys : 1;
-            unsigned char /* RFU */ : 4;
-        } terminalDataInput;
-
-        struct TransactionDataOutputCapability {
-            unsigned char printAttendant : 1;
-            unsigned char printCardholder : 1;
-            unsigned char displayAttendant : 1;
-            unsigned char displayCardholder : 1;
-            unsigned char /* RFU */ : 2;
-            // ISO/IEC 8859
-            unsigned char codeTable10 : 1;
-            unsigned char codeTable9 : 1;
-
-            unsigned char codeTable8 : 1;
-            unsigned char codeTable7 : 1;
-            unsigned char codeTable6 : 1;
-            unsigned char codeTable5 : 1;
-            unsigned char codeTable4 : 1;
-            unsigned char codeTable3 : 1;
-            unsigned char codeTable2 : 1;
-            unsigned char codeTable1 : 1;
-        } terminalDataOutput;
+        struct TransactionTypeCapability transactionType;
+        struct TransactionDataInputCapability terminalDataInput;
+        struct TransactionDataOutputCapability terminalDataOutput;
     };
 };
 
@@ -2561,32 +2589,36 @@ union CvmCapability {
     };
 };
 
+enum PACKED MagStripeCvmCapabilityEnum {
+    MSR_CVM_NO_CVM = 0x0,
+    MSR_CVM_OBTAIN_SIGNATURE = 0x1,
+    MSR_CVM_ONLINE_PIN = 0x2,
+    MSR_CVM_NA = 0xF
+};
+
 union MagStripeCvmCapability {
     uint8_t raw[1];
     struct {
 /*1-4*/ uint8_t /* RFU */ : 4;
-        enum PACKED {
-            MSR_CVM_NO_CVM = 0x0
-          , MSR_CVM_OBTAIN_SIGNATURE = 0x1
-          , MSR_CVM_ONLINE_PIN = 0x2
-          , MSR_CVM_NA = 0xF
-/*5-8*/ } e : 4;
+/*5-8*/ enum MagStripeCvmCapabilityEnum e : 4;
     };
+};
+
+enum PACKED CvmCodeEnum {
+    CVM_SUCCESS = 0x0, // It's called "Fail CVM in nexo-FAST v.3.2, figure 172
+    CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC = 0x1,
+    CVM_ENCIPHERED_PIN_VERIFIED_ONLINE = 0x2,
+    CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC_AND_SIGNATURE = 0x3,
+    CVM_ENCIPHERED_PIN_VERIFIED_BY_ICC = 0x4,
+    CVM_ENCIPHERED_PIN_VERIFIED_BY_ICC_AND_SIGNATURE = 0x5,
+    CVM_SIGNATURE = 0x1E,
+    CMV_NO_CVM_REQUIRED = 0x1F // TODO: Fix typo
 };
 
 union CvmCode {
     unsigned char raw;
     struct {
-        enum PACKED {
-            CVM_SUCCESS = 0b000000, // It's called "Fail CVM in nexo-FAST v.3.2, figure 172
-            CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC = 0b000001,
-            CVM_ENCIPHERED_PIN_VERIFIED_ONLINE = 0b000010,
-            CVM_PLAINTEXT_PIN_VERIFICATION_PERFORMED_BY_ICC_AND_SIGNATURE = 0b000011,
-            CVM_ENCIPHERED_PIN_VERIFIED_BY_ICC = 0b000100,
-            CVM_ENCIPHERED_PIN_VERIFIED_BY_ICC_AND_SIGNATURE = 0b000101,
-            CVM_SIGNATURE = 0b011110,
-            CMV_NO_CVM_REQUIRED = 0b011111
-        } cvm : 6;
+        enum CvmCodeEnum cvm : 6;
         unsigned char applyRuleOnFail : 1;
         unsigned char /* RFU */ : 1;
     };

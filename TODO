@@ -1,2 +1,4 @@
 Set some CTD values (eg. CVM Results) to Not Initialized during service initialisation to avoid possible errors where
 value was not set, but used.
+
+If include/types.h is updated then 'make index' takes too long - this should be fixed

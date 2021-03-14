@@ -128,6 +128,11 @@ struct binary {
     uint8_t r[1024];
 };
 
+struct binary_16 {
+    size_t l;
+    uint8_t r[16];
+};
+
 union binary2 {
     uint8_t r[2];
     uint16_t u;
@@ -236,7 +241,7 @@ enum PACKED Kernel {
   , KERNEL_M = 0x3F
   , KERNEL_E = 0x3E
 
-  // May have size: 1 or 3~8
+  // TODO: May have size: 1 or 3~8
 };
 
 struct Rid {
@@ -2430,8 +2435,19 @@ struct ExceptionFile {
 // size: up to 4
 // configuration: Application Profile
 // presence: O
+struct LimitSetEntry {
+    struct binary_16 terminalApplicationProgramId;
+    bool* statusCheckSupportFlag;
+    bool* zeroAmountAllowedFlag;
+    union bcd6* readerContactlessTransactionLimit;
+    union bcd6* readerContactlessFloorLimit;
+    union bcd6* readerCvmRequiredLimit;
+};
 
+// [EA]
 struct LimitSetList {
+    size_t s;
+    struct LimitSetEntry a[4];
 };
 
 // source: nexo-FAST v.3.2 section 13.3.53
@@ -2440,6 +2456,12 @@ struct LimitSetList {
 // presence: C
 
 struct DefaultKernelIdAndAppLabelPerAid {
+    struct Aid terminalAid;
+    enum Kernel kernelId;
+    struct string16 applicationLabel;
+    struct string16* applicationPreferredName;
+    enum IssuerCodeTableIndex* issuerCodeTableIndex;
+    struct DefaultKernelIdAndAppLabelPerAid* next;
 };
 
 // source: nexo-FAST v.3.2 section 13.3.36
@@ -2448,10 +2470,8 @@ struct DefaultKernelIdAndAppLabelPerAid {
 // presence: C
 
 struct CombinationListAndParameters {
-    struct {
-        uint8_t size : 5;
-        unsigned char value[16];
-    } terminalAid;
+    struct Aid terminalAid; // 0xDF01
+
     unsigned char kernelId;
     union ConfiguredServices supportingServices;
     bool* cashbackPresent;
@@ -2532,6 +2552,8 @@ struct AidPreferenceTable {
 // presence: O
 // [EF]
 struct AdditionalDataElements {
+    size_t s;
+    uint8_t raw[256];
 };
 
 union TerminalVerificationResults {
@@ -2683,12 +2705,26 @@ union TransactionStatusInformation {
     };
 };
 
+enum PACKED EntryType {
+    EEA_EXCLUSION_OF_AN_EEA_PRODUCT_TYPE = 0x02,
+    EEA_EXCLUSION_OF_AN_EEA_PRODUCT_TYPE_FOR_SPECIFIC_AID = 0x03,
+    EEA_PRIORITY_SETTING_BASED_ON_AID_ONLY = 0x11,
+    EEA_PRIORITY_SETTING_BASED_ON_PRODUCT_TYPE_ONLY = 0x12,
+    EEA_PRIORITY_SETTING_BASED_ON_PRODUCT_TYPE_ONLY_FOR_A_SPECIFIC_AID = 0x13,
+};
 
 // source: nexo-FAST v.3.2 section 13.3.61
 // size: at least 50
 // configuration: Terminal
 // presence: O
+// [F0]
 struct EeaProcessTable {
+    enum EntryType entryType;
+    struct Aid* cardAid;
+    struct EeaProductIdentificationList* productTypeComparisonValue;
+    // productTypeMask
+    // terminalPriorityIndicator
+    struct EeaProcessTable* next;
 };
 
 // source: nexo-FAST v.3.2 section 13.3.59

@@ -210,12 +210,12 @@ include $(if $(filter $(NOT_DEP),$(MAKECMDGOALS)),,$(DEPENDS))
 
 $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 	$(CSCOPE) -R -f $@ -b
-clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) *.o *.s *.i *.csv trace.log *.cflow *.expand $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
+clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) $(OBJECTS) $(PIC_OBJECTS) *.s *.i *.csv trace.log *.cflow *.expand $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean: F += $(wildcard $(UT_EXECUTABLE) $(UT_GENERATED_SOURCES) $(UT_OBJECTS))
 clean: F += $(wildcard $(IMPLIB))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
-wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config *.d *.stackdump)
+wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config $(DEPENDS) *.stackdump)
 wipe: F += $(wildcard $(C_ARGFILE) $(CPP_ARGFILE) $(LD_ARGFILE) $(LIB_ARGFILE))
 wipe: F += $(wildcard $(UT_LIB_ARGFILE) $(UT_LD_ARGFILE))
 wipe: clean

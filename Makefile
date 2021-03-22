@@ -52,8 +52,7 @@ LSOF       = $(if $(OS_LINUX),$(call assert_cmd,lsof))
 lsof_guard = $(if $(LSOF),$(if $(strip $(shell $(LSOF) $1)),$(error Prior to proceed with '$@', close file(s): $1)))
 
 # Automatically set prerequisites search path to the main Makefile location
-SRCDIR    := .
-VPATH     := $(dir $(firstword $(MAKEFILE_LIST)))$(SRCDIR)
+VPATH     += $(dir $(firstword $(MAKEFILE_LIST)))
 
 # User config #################################################################
 OL           := 0
@@ -78,6 +77,7 @@ GITINSPECTOR_FILE   := gitinspector.$(GITINSPECTOR_FORMAT)
 # Project config ##############################################################
 NAME         := nexoid
 INCLUDE_DIRS := . include
+SRCDIR       := src
 # TODO: Develop proper pkg-config for dependencies
 LIBRARIES    := pthread
 
@@ -112,15 +112,15 @@ LIBNAME.a        := $(LIBNAME).a
 LIBNAME.so       := $(LIBNAME).$(SHARED_LIB_EXT)
 LIBNAME.so.debug := $(LIBNAME.so).debug
 
-DRAKON_SQL   := NexoFast.sql
+DRAKON_SQL   := $(SRCDIR)/NexoFast.sql
 DRAKON_FILES := $(DRAKON_SQL:.sql=.drn)
 DRAKON_PATH  ?= /cygdrive/c/opt/DrakonEditor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
-SOURCES      := $(sort $(DRAKON_CFILES) common.c tag_retrival.c $(if $(OS_CYGWIN),stubs.c))
+SOURCES      := $(sort $(DRAKON_CFILES) $(addprefix $(SRCDIR)/,common.c tag_retrival.c $(if $(OS_CYGWIN),stubs.c)))
 HEADERS      := $(DRAKON_HFILES)
-HEADERS      += bool.h cxx_macros.h local.h nexo.h tag_retrival.h
+HEADERS      += $(addprefix $(SRCDIR)/,bool.h cxx_macros.h local.h nexo.h tag_retrival.h)
 HEADERS      += ut/common.h
 HEADERS      += $(addprefix include/,dmapi.h eapi.h gtd.h hapi.h macro.h papi.h pklr.h scapi.h tmapi.h types.h utils.h)
 OBJECTS      := $(SOURCES:.c=.o)
@@ -132,7 +132,7 @@ GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
 
 HEADERS_INSTALL_DIR := $(INSTALL_DIR)/include/$(NAME)
 INSTALLED_FILES     := $(addprefix $(INSTALL_DIR)/lib/,$(notdir $(LIBNAME.a) $(LIBNAME.so)))
-INSTALLED_FILES     += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(filter-out ut/%,$(HEADERS))))
+INSTALLED_FILES     += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(filter-out %/common.h,$(HEADERS))))
 
 CSCOPE_REF   := cscope.out
 
@@ -234,6 +234,8 @@ $(HEADERS_INSTALL_DIR)/%.h: include/%.h
 	install -D -m444 $< $@
 $(HEADERS_INSTALL_DIR)/%.h: %.h
 	install -D -m444 $< $@
+$(HEADERS_INSTALL_DIR)/%.h: $(SRCDIR)/%.h
+	install -D -m444 $< $@
 
 .PHONY: uninstall
 uninstall: F := $(sort $(wildcard $(INSTALLED_FILES)))
@@ -247,6 +249,7 @@ uninstall:
 	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h
 %.d: %.c $(CPP_ARGFILE)
+	mkdir -p $(*D)
 	$(CC) -MM -MF $@ -MT $*.o -MT $*.pic.o @$(word 2,$^) -o $@ $<
 %.s: %.c $(C_ARGFILE)
 	$(CC) -S @$(word 2,$^) -fno-lto -fverbose-asm -o $@ $<
@@ -256,6 +259,7 @@ uninstall:
 	$(CC) @$(word 2,$^) -E -o $@ $<
 %.drn: DropTables.sql %.sql
 	$(call lsof_guard,$^)
+	mkdir -p $(*D)
 	cat $^ | $(SQLITE3) -batch $@
 	chmod a-x $@
 %.pic.o: %.c $(C_ARGFILE)

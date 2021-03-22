@@ -129,7 +129,7 @@ GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
 
 HEADERS_INSTALL_DIR := $(PREFIX)/include/$(NAME)
 INSTALLED_FILES     = $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME.a) $(LIBNAME.so)))
-INSTALLED_FILES    += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(HEADERS)))
+INSTALLED_FILES    += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(filter-out ut/%,$(HEADERS))))
 
 CSCOPE_REF   := cscope.out
 

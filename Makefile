@@ -61,7 +61,9 @@ DL           := gdb3
 STD          := gnu11
 WARNINGS     := all extra
 WARNINGS     += $(if $(USE_GCC_ANALYZER),analyzer-too-complex,)
+DESTDIR      :=
 PREFIX       := /usr/local
+INSTALL_DIR  := $(shell echo $(DESTDIR)/$(PREFIX) | sed -E 's:/+:/:' )
 GCC_FEATURES := $(if $(filter trace,$(MAKECMDGOALS)),instrument-functions,)
 GCC_FEATURES += $(if $(USE_COLOR),diagnostics-color=always,)
 GCC_FEATURES += $(if $(USE_GCC_ANALYZER),analyzer $(if $(USE_GCC_ANALYZER_TAINT),analyzer-checker=taint,))
@@ -128,9 +130,9 @@ PIC_OBJECTS  := $(SOURCES:.c=.pic.o)
 GRAPH_TARGETS := all install uninstall shared most_frequent
 GRAPH_IMAGES  := $(addsuffix .png,$(GRAPH_TARGETS))
 
-HEADERS_INSTALL_DIR := $(PREFIX)/include/$(NAME)
-INSTALLED_FILES     = $(addprefix $(PREFIX)/lib/,$(notdir $(LIBNAME.a) $(LIBNAME.so)))
-INSTALLED_FILES    += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(filter-out ut/%,$(HEADERS))))
+HEADERS_INSTALL_DIR := $(INSTALL_DIR)/include/$(NAME)
+INSTALLED_FILES     := $(addprefix $(INSTALL_DIR)/lib/,$(notdir $(LIBNAME.a) $(LIBNAME.so)))
+INSTALLED_FILES     += $(addprefix $(HEADERS_INSTALL_DIR)/,$(notdir $(filter-out ut/%,$(HEADERS))))
 
 CSCOPE_REF   := cscope.out
 
@@ -224,13 +226,13 @@ wipe: clean
 .PHONY: install
 install: $(INSTALLED_FILES)
 
-$(PREFIX)/lib/$(LIBNAME.a): $(LIBNAME.a)
+$(INSTALL_DIR)/lib/$(LIBNAME.a): $(LIBNAME.a)
 	install -D -m444 $< $@
-$(PREFIX)/lib/$(LIBNAME.so): $(LIBNAME.so)
+$(INSTALL_DIR)/lib/$(LIBNAME.so): $(LIBNAME.so)
 	install -D -m555 $< $@
-$(PREFIX)/include/$(NAME)/%.h: include/%.h
+$(HEADERS_INSTALL_DIR)/%.h: include/%.h
 	install -D -m444 $< $@
-$(PREFIX)/include/$(NAME)/%.h: %.h
+$(HEADERS_INSTALL_DIR)/%.h: %.h
 	install -D -m444 $< $@
 
 .PHONY: uninstall

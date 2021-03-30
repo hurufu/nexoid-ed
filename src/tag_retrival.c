@@ -365,17 +365,17 @@ static struct Extracted_Tag extract_tag(const size_t s, const uint8_t c[static c
     struct Extracted_Tag t = {
         .cursor = c + 1,
         .size = s - 1,
-        .tag.head = *c,
+        .tag.s.u.head = *c,
         .result = PR_OK
     };
-    if (0x1F != t.tag.nmbr) {
+    if (0x1F != t.tag.s.u.s.nmbr) {
         return t;
     }
 
     size_t i;
-    for (i = 0; i < elementsof(t.tag.tail) && t.size > 0; t.size--, i++, t.cursor++) {
-        t.tag.tail[i].c = *t.cursor;
-        if (!t.tag.tail[i].v.next) {
+    for (i = 0; i < elementsof(t.tag.s.tail) && t.size > 0; t.size--, i++, t.cursor++) {
+        t.tag.s.tail[i].c = *t.cursor;
+        if (!t.tag.s.tail[i].v.next) {
             t.size--, i++, t.cursor++;
             break;
         }
@@ -384,10 +384,10 @@ static struct Extracted_Tag extract_tag(const size_t s, const uint8_t c[static c
         // Input string ended
         t.result = PR_NOK;
     }
-    if (t.tag.tail[i-1].v.next) {
+    if (t.tag.s.tail[i-1].v.next) {
         // Tag doesn't fit into internal type
         for (size_t j = 0; t.size > 0; t.size--, j++, t.cursor++) {
-            if (!t.tag.tail[i+j].v.next) {
+            if (!t.tag.s.tail[i+j].v.next) {
                 t.size--, j++, t.cursor++;
                 break;
             }

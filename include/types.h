@@ -6,7 +6,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdalign.h>
 
 #define MAX_CARDHOLDER_MESSAGES (6)
 
@@ -210,8 +209,8 @@ union PACKED TagExpanded {
                 uint8_t nmbr : 5;
                 uint8_t constructed : 1;
                 enum TagExpandedClass type : 2;
-            };
-        };
+            } s;
+        } u;
         union PACKED {
             uint8_t c;
             struct PACKED {
@@ -219,7 +218,7 @@ union PACKED TagExpanded {
                 uint8_t next : 1;
             } v;
         } tail[sizeof(tlv_tag_t) - sizeof(uint8_t)];
-    };
+    } s;
 };
 
 
@@ -534,7 +533,7 @@ union PACKED ApplicationProcurementControl {
         uint8_t goods : 1;
         uint8_t cash : 1;
         uint8_t cashback : 1;
-    };
+    } s;
 };
 
 // Custom tag, not defined anywhere
@@ -544,7 +543,7 @@ union PACKED ApplicationLocationControl {
         uint8_t /* RFU */ : 6;
         uint8_t otherThenAtm : 1;
         uint8_t atm : 1;
-    };
+    } s;
 };
 
 // Custom tag, not defined anywhere
@@ -554,7 +553,7 @@ union PACKED ApplicationContextControl {
         union ApplicationLocationControl location;
         union ApplicationProcurementControl international;
         union ApplicationProcurementControl domestic;
-    };
+    } s;
 };
 
 struct PACKED UnpredictableNumber {
@@ -581,10 +580,10 @@ union PACKED PlainTextPinBlock {
         struct {
             uint8_t length : 4;
             enum PlainTextPinBlockControl control : 4;
-        };
+        } s;
         struct cbcd6 pin;
         uint8_t padding[1];
-    };
+    } s;
 };
 
 struct EncipherablePinBlockData {
@@ -600,7 +599,7 @@ struct EncipherablePinBlock {
     union PACKED {
         struct EncipherablePinBlockData data;
         uint8_t raw[sizeof(struct EncipherablePinBlockData)];
-    };
+    } u;
 };
 
 struct PinBlock {
@@ -1210,7 +1209,7 @@ union ServiceStartEvents {
         uint8_t accept : 1;
         uint8_t cardholderDetect : 1;
         uint8_t /* RFU */ : 1;
-    };
+    } s;
 };
 
 union ConfiguredServices {
@@ -1232,7 +1231,7 @@ union ConfiguredServices {
         uint8_t noShow : 1;
         uint8_t voiceAuthorisation : 1;
         uint8_t /* RFU */ : 3;
-    };
+    } s;
 };
 
 union TerminalTransactionQualifiers {

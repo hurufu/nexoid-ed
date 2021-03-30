@@ -36,21 +36,23 @@ struct SearchLogCriteria* alloc_SearchLogCriteria_For_FloorLimit(void);
 
 static inline union ApplicationContextControl Auc_to_Acc(const union ApplicationUsageControl auc) {
     const union ApplicationContextControl ret = {
-        .location = {
-            .atm = auc.validAtAtms,
-            .otherThenAtm = auc.validAtTerminalsOtherThanAtms
-        },
-        .international = {
-            .services = auc.validForInternationalServices,
-            .goods = auc.validForInternationalGoods,
-            .cash = auc.validForInternationalCash,
-            .cashback = auc.validForInternationalCashback,
-        },
-        .domestic = {
-            .services = auc.validForDomesticServices,
-            .goods = auc.validForDomesticGoods,
-            .cash = auc.validForDomesticCash,
-            .cashback = auc.validForDomesticCashback,
+        .s = {
+            .location.s = {
+                .atm = auc.validAtAtms,
+                .otherThenAtm = auc.validAtTerminalsOtherThanAtms
+            },
+            .international.s = {
+                .services = auc.validForInternationalServices,
+                .goods = auc.validForInternationalGoods,
+                .cash = auc.validForInternationalCash,
+                .cashback = auc.validForInternationalCashback,
+            },
+            .domestic.s = {
+                .services = auc.validForDomesticServices,
+                .goods = auc.validForDomesticGoods,
+                .cash = auc.validForDomesticCash,
+                .cashback = auc.validForDomesticCashback,
+            }
         }
     };
     return ret;

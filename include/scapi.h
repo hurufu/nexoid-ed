@@ -86,7 +86,7 @@ enum ScapiResult scapi_Data_Entry_Interaction(size_t size, const enum Cardholder
  * nexo-FAST v.3.2, figure 21
  */
 bool scapi_Authorise_Service(void) NOEXCEPT
-__attribute__((__deprecated__("Should be done using Data Entry Interaction using additional message type")));
+__attribute__((__deprecated__));
 
 /*
  * NOTE: As a general rule for security sensitive functions it's proposed that

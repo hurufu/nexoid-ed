@@ -256,7 +256,7 @@ uninstall:
 %.s: %.c $(C_ARGFILE)
 	$(CC) -S @$(word 2,$^) -fno-lto -fverbose-asm -o $@ $<
 %.pic.s: %.c $(C_ARGFILE)
-	$(CC) -S @$(word 2,$^) -fno-lto -fplt -fPIC -o $@ $<
+	$(CC) -S @$(word 2,$^) -fno-lto -fPIC -o $@ $<
 %.i: %.c $(CPP_ARGFILE)
 	$(CC) @$(word 2,$^) -E -o $@ $<
 %.drn: DropTables.sql %.sql
@@ -265,7 +265,7 @@ uninstall:
 	cat $^ | $(SQLITE3) -batch $@
 	chmod a-x $@
 %.pic.o: %.c $(C_ARGFILE)
-	$(CC) -c @$(word 2,$^) -fplt -fPIC -o $@ $(word 1,$^)
+	$(CC) -c @$(word 2,$^) -fPIC -o $@ $(word 1,$^)
 %.o: %.c $(C_ARGFILE)
 	$(CC) -c @$(word 2,$^) -o $@ $(word 1,$^)
 %.c: %.t

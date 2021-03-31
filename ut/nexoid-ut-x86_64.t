@@ -1,3 +1,5 @@
+#suite tag_retrival
+
 #include "common.h"
 
 #include "tag_retrival.h"
@@ -5,8 +7,6 @@
 
 #include <check.h>
 #include <limits.h>
-
-#suite tag_retrival
 
 #test tag_expanded_struct_is_consistent
     const union TagExpanded t = { .raw = { 0xDF, 0x81, 0x18 } };

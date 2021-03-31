@@ -85,8 +85,8 @@ LIBRARIES    := pthread
 
 # Unit tests settings #########################################################
 UT_EXECUTABLE        := ut/$(NAME)
-UT_CHECK_TEST_FILES  := ut/nexoid-ut-$(shell uname --machine).t
-UT_GENERATED_SOURCES := $(UT_CHECK_TEST_FILES:.t=.c)
+UT_CHECK_TEST_FILES  := $(sort $(wildcard ut/*.t))
+UT_GENERATED_SOURCES := ut/ut.c
 UT_SOURCES           := $(UT_GENERATED_SOURCES) ut/common.c
 UT_OBJECTS           := $(UT_SOURCES:.c=.o)
 UT_LDLIBS            := $(shell pkg-config --libs check)
@@ -268,10 +268,10 @@ uninstall:
 	$(CC) -c @$(word 2,$^) -fPIC -o $@ $(word 1,$^)
 %.o: %.c $(C_ARGFILE)
 	$(CC) -c @$(word 2,$^) -o $@ $(word 1,$^)
-%.c: %.t
+ut/ut.c: $(UT_CHECK_TEST_FILES)
 	# FIXME: Create all directories as '|' dependencies
 	mkdir -p -- $(*D)
-	$(CHECKMK) $< >$@
+	$(CHECKMK) $^ >$@
 
 .syntastic_c_config: $(C_ARGFILE)
 	$(call make_argfile,$@,@$< -fdiagnostics-color=never)

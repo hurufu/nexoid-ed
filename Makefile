@@ -43,12 +43,14 @@ make_argfile = $(file >$1,$(subst $S,$L,$2))
 # TODO: Maybe there is a way to speed-up targets that don't use $(UNAME_OS)
 # even more, by implementing some sort of memoization.
 UNAME_OS  := $(shell uname -o)
-OS_CYGWIN := $(if $(findstring Cygwin,$(UNAME_OS)),y)
-OS_LINUX  := $(if $(findstring Linux,$(UNAME_OS)),y)
+HOST_OS_CYGWIN   := $(if $(findstring Cygwin,$(UNAME_OS)),y)
+HOST_OS_LINUX    := $(if $(findstring Linux,$(UNAME_OS)),y)
+TARGET_OS_CYGWIN :=
+TARGET_OS_LINUX  := y
 
 # There is a program similar to lsof for windows - handle, but it's too slow even for a single file
 # https://docs.microsoft.com/en-us/sysinternals/downloads/handle
-LSOF       = $(if $(OS_LINUX),$(call assert_cmd,lsof))
+LSOF       = $(if $(HOST_OS_LINUX),$(call assert_cmd,lsof))
 lsof_guard = $(if $(LSOF),$(if $(strip $(shell $(LSOF) $1)),$(error Prior to proceed with '$@', close file(s): $1)))
 
 # Automatically set prerequisites search path to the main Makefile location
@@ -101,12 +103,12 @@ LDLIBS       := $(addprefix -l,$(LIBRARIES))
 LDFLAGS      ?= $(addprefix -f,$(LD_FEATURES))
 LDFLAGS      += -pthread
 # TODO: Clearify what those flags are doing
-IMPLIB        = $(if $(OS_CYGWIN),$(LIBNAME)_dll.a)
-LDFLAGS      += $(if $(OS_CYGWIN),$(addprefix -Wl$C,--out-implib$C$(IMPLIB) --export-all-symbols --enable-auto-import))
+IMPLIB        = $(if $(TARGET_OS_CYGWIN),$(LIBNAME)_dll.a)
+LDFLAGS      += $(if $(TARGET_OS_CYGWIN),$(addprefix -Wl$C,--out-implib$C$(IMPLIB) --export-all-symbols --enable-auto-import))
 VERSION       = $(shell git describe --dirty --broken)
 
-LIBPREFIX        := $(if $(OS_CYGWIN),cyg,lib)
-SHARED_LIB_EXT   := $(if $(OS_LINUX),so,$(if $(OS_CYGWIN),dll,$(error Can't determine appropriate shared library extension for you OS: "$(UNAME_OS)")))
+LIBPREFIX        := $(if $(TARGET_OS_CYGWIN),cyg,lib)
+SHARED_LIB_EXT   := $(if $(TARGET_OS_LINUX),so,$(if $(TARGET_OS_CYGWIN),dll,$(error Can't determine appropriate shared library extension for you OS: "$(UNAME_OS)")))
 LIBNAME          := $(LIBPREFIX)$(NAME)
 LIBNAME.a        := $(LIBNAME).a
 LIBNAME.so       := $(LIBNAME).$(SHARED_LIB_EXT)
@@ -118,7 +120,7 @@ DRAKON_PATH  ?= /cygdrive/c/opt/DrakonEditor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
-SOURCES      := $(sort $(DRAKON_CFILES) $(addprefix $(SRCDIR)/,common.c tag_retrival.c $(if $(OS_CYGWIN),stubs.c)))
+SOURCES      := $(sort $(DRAKON_CFILES) $(addprefix $(SRCDIR)/,common.c tag_retrival.c $(if $(TARGET_OS_CYGWIN),stubs.c)))
 HEADERS      := $(DRAKON_HFILES)
 HEADERS      += $(addprefix $(SRCDIR)/,bool.h cxx_macros.h local.h nexo.h tag_retrival.h)
 HEADERS      += ut/common.h

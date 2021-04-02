@@ -25,19 +25,19 @@ INSERT INTO diagrams VALUES(31,'Dcc_Processing','-465 -29','',75.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-408 8','',75.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','435 57','',100.0);
 INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','-521 -305','Whole Upa Specific Processing isn''t finished. I have to rework it. It''s now a little better, because I removed redundant SCAPI calls, but still it''s ugly',75.0);
-INSERT INTO diagrams VALUES(38,'Perform_Service','-324 -182',NULL,75.0);
+INSERT INTO diagrams VALUES(38,'Perform_Service','-324 -114',NULL,75.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','456 -301','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',75.0);
-INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-265 -197','',75.0);
+INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-552 -116','',75.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -350','',90.0);
-INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-345 -302','',75.0);
+INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-552 -222','',75.0);
 INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','-198 -266','',75.0);
-INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-128 -470','',75.0);
+INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-60 -404','',75.0);
 INSERT INTO diagrams VALUES(47,'Process_Card_Inserted','128 -66','',75.0);
 INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',75.0);
 INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 -329','',75.0);
 INSERT INTO diagrams VALUES(51,'Process_Accept','66 -133','',75.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','-200 -133','',75.0);
-INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-64 -236','',75.0);
+INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-352 238','',75.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-112 214','based on nexo-FAST v.3.2 ection 5.2.5',85.0);
 INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',75.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1410 -150',NULL,60.0);
@@ -48,7 +48,7 @@ INSERT INTO diagrams VALUES(71,'Is_Card_In_Magnetic_Stripe_Reader','-190 -104','
 INSERT INTO diagrams VALUES(72,'Pre_Processing','358 -120','',70.0);
 INSERT INTO diagrams VALUES(73,'Copy_Combination_Lists','172 -74','',75.0);
 INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-16 -269','',75.0);
-INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','517 1705','',70.0);
+INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','197 -41','',70.0);
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-147 -554','FIXME: This function handles only single event at a time',59.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','181 -332',NULL,75.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -264','',75.0);
@@ -58,7 +58,7 @@ INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','-41 -72
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-94 -118',NULL,75.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-198 -66',NULL,75.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','-133 -133',NULL,75.0);
-INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','48 -281',NULL,70.0);
+INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','-44 78',NULL,70.0);
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-176 -190',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),75.999999999999999999);
 INSERT INTO diagrams VALUES(90,'Kernel_Activation','753 76','',75.0);
 INSERT INTO diagrams VALUES(91,'Set_Kernel_Mode','-458 -493',NULL,45.999999999999999999);
@@ -267,7 +267,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,54,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,75,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -970,8 +970,8 @@ INSERT INTO items VALUES(2806,18,'address','End',0,5600,910,110,30,60,0,NULL,'',
 INSERT INTO items VALUES(2807,18,'shelf','PR_BAIL',0,5780,650,50,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(2810,54,'shelf','NONE',0,770,120,190,40,40,0,NULL,NULL,NULL,'ttd.out.Start');
 INSERT INTO items VALUES(2811,54,'vertical','',0,370,-40,0,1050,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2812,54,'branch',replace('EMV data\nelements','\n',char(10)),0,370,20,150,40,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(2813,54,'address',replace('Nexo data\nelements','\n',char(10)),0,370,950,150,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2812,54,'branch',replace('EMV data\nelements','\n',char(10)),0,370,20,170,40,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(2813,54,'address',replace('Nexo data\nelements','\n',char(10)),0,370,950,170,40,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(2814,54,'shelf','0xFF',0,770,220,190,40,40,0,NULL,'',NULL,'ttd.out.FieldOffRequest');
 INSERT INTO items VALUES(2815,54,'shelf','T_NONE',0,770,320,190,40,40,0,NULL,'',NULL,'ttd.transactionResult');
 INSERT INTO items VALUES(2816,54,'shelf','N_NONE',0,770,420,190,40,40,0,NULL,'',NULL,'ttd.nokReason');
@@ -6633,7 +6633,7 @@ INSERT INTO items VALUES(11507,46,'horizontal','',0,400,1250,250,0,0,0,NULL,'',N
 INSERT INTO items VALUES(11508,46,'vertical','',0,1450,1210,0,160,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11509,46,'insertion',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_SRC_NOK_REASON\n};\n\nresult =\nData_Output_Interaction(elementsof(msg), msg);','\n',char(10)),0,1230,1110,200,60,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11510,46,'commentout','This will show "Amount Error"',0,1580,1110,130,20,50,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(11511,46,'insertion',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_SRC_TRX_AMOUNT\n  , CRDHLDR_SRC_TRX_CURRENCY_ALPHA3\n};\n\nresult =\nData_Output_Interaction(elementsof(msg), msg);','\n',char(10)),0,650,1100,200,70,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11511,46,'insertion',replace('const enum CardholderMessage msg[] = {\n    CRDHLDR_SRC_TRX_AMOUNT\n  , CRDHLDR_SRC_TRX_CURRENCY_ALPHA3\n  , CRDHLDR_SRC_TRX_CURRENCY_EXPONENT\n};\n\nresult =\nData_Output_Interaction(elementsof(msg), msg);','\n',char(10)),0,650,1100,200,80,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11512,46,'commentout',replace('TODO: Add to (not replace) current screen\n\nNEXO: This requirement is strange, because\nin most cases Cardholder Initial Message\nwill be displayed. So how does it have to\nlook like!? If done according to nexo then\nterminal will display:\n" WELCOME "\n"20.00 EUR"','\n',char(10)),0,150,1130,180,90,130,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(11513,202,'select','result',0,1020,690,110,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11514,202,'horizontal','',0,1020,730,390,0,0,0,NULL,NULL,NULL,NULL);
@@ -9476,8 +9476,9 @@ INSERT INTO items VALUES(15320,325,'shelf','PR_NOK',0,6390,2060,160,40,40,0,NULL
 INSERT INTO items VALUES(15322,245,'insertion','Not_Implemented();',0,580,190,90,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15323,245,'vertical','',0,580,130,0,120,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15324,245,'horizontal','',0,580,250,100,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(15325,54,'shelf','e1.currencyCodeAlpha3',0,370,280,150,40,40,0,NULL,NULL,NULL,'ttd.transactionCurrencyCodeAlpha3');
-INSERT INTO items VALUES(15326,54,'commentin',replace('TODO: Verify where to init\ncurrency code','\n',char(10)),0,370,190,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15325,54,'shelf','e1.currencyCodeAlpha3',0,370,410,170,40,40,0,NULL,NULL,NULL,'ttd.transactionCurrencyCodeAlpha3');
+INSERT INTO items VALUES(15326,54,'commentin',replace('NEXO: So, one more unforseen things\nin the specification.\n\nThey initialize TTD with currency\ncode and exponent during Perform\nService, but the require to display\namount before that, eg. during\nAmount Entry event. It is not\npossible to display it correctly\nwithout currency code and exponent.\n\nI initialize it here, so it will\nbe available to the SCAP for the\ndisplay even if service is not\nstarted yet.','\n',char(10)),0,370,220,170,130,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15327,54,'shelf','e1.terminalTransactionCurrencyExponent',0,370,510,170,40,40,0,NULL,'',NULL,'ttd.transactionCurrencyExponent');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

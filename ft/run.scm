@@ -1,4 +1,4 @@
-(set! e1 (make PermanentTerminalSpecificData
+(set! ctl_e0 (make ctl_PermanentTerminalSpecificData
                (ifdSerialNumber "123456")
                (commandKeyBypassPinLabel "NO PIN")
                (commandKeyClearLabel "CLEAR")

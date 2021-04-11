@@ -229,9 +229,9 @@ ctl-io.h: $(CTL_SPECIFICATION)
 $(UT_EXECUTABLE): $(UT_LD_ARGFILE) $(UT_LIB_ARGFILE) $(UT_OBJECTS) $(LIBNAME.a)
 	$(CC) -o $@ @$(word 1,$^) $(wordlist 3,$(words $^),$^) @$(word 2,$^)
 
-$(CTL_EXECUTABLE): $(CTL_SOURCES) $(CTL_SPECIFICATION)
+$(CTL_EXECUTABLE): src/cxx_macros.h include $(CTL_SOURCES) $(CTL_SPECIFICATION) $(LIBNAME.a)
 	mkdir -p -- $(dir $@)
-	$(CC) $(CTL_CPPFLAGS) '-DSPEC_SCM="$(filter %.scm,$^)"' $(CTL_CFLAGS) -o $@ $(filter %.c,$^) $(CTL_LDLIBS)
+	$(CC) $(CTL_CPPFLAGS) '-DSPEC_SCM="$(filter %.scm,$^)"' -I$(dir $(word 1,$^)) -I$(word 2,$^) $(CTL_CFLAGS) -o $@ $(filter %.c,$^) $(LIBNAME.a) $(CTL_LDLIBS)
 
 $(LIBNAME.a): $(OBJECTS)
 	$(AR) rcs $@ $^

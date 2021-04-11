@@ -2,10 +2,11 @@
 (define (string6 x) (<=(string-length x) 6))
 (define (string8 x) (<=(string-length x) 8))
 
+; TODO Add support for optional properties
 (define-class ctl_PermanentTerminalSpecificData
               no-parent
-              (define-property ifdSerialNumber no-default 'string string8)
-              (define-property commandKeyBypassPinLabel no-default 'string string6)
+              (define-property ifdSerialNumber "" 'string string8)
+              (define-property commandKeyBypassPinLabel "" 'string string6)
               (define-property commandKeyClearLabel no-default 'string string5)
               (define-property commandKeyEnterLabel no-default 'string string5)
               (define-property commandKeyScrollLabel no-default 'string string5)

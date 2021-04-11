@@ -90,6 +90,23 @@ UT_OBJECTS           := $(UT_SOURCES:.c=.o)
 UT_LDLIBS            := $(shell pkg-config --libs check)
 UT_LDFLAGS           := -Wl,--unresolved-symbols=ignore-in-object-files -pthread
 
+# Functional tests settings ###################################################
+# TODO: Add pkg-config to libctl package
+CTL_DIR           := ft
+CTL_SOURCES       := example.c ctl-io.c ctl-io.h main.c
+CTL_SPECIFICATION := example.scm
+CTL_RUNFILE       := run.scm
+CTL_PREFIX        := /usr/share/libctl
+CTL_EXECUTABLE    := $(CTL_DIR)/example
+CTL_CPPFLAGS      := -I$(CTL_DIR) -I.
+CTL_CPPFLAGS      += '-DCTL_SCM="$(CTL_PREFIX)/base/ctl.scm"'\
+                     '-DINCLUDE_SCM="$(CTL_PREFIX)/base/include.scm"'\
+                     '-DVERSION_STRING="$(NAME) $(shell git describe)"'
+CTL_CFLAGS        := $(shell pkg-config --cflags guile-2.2)
+CTL_LDLIBS        := $(shell pkg-config --libs guile-2.2) -lctl -lm
+VPATH             += $(dir $(firstword $(MAKEFILE_LIST)))/ft\
+                     $(addprefix $(CTL_PREFIX)/,base utils)
+
 # Toolchain settings ##########################################################
 CPPFLAGS     += -pthread
 _CFLAGS      := -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
@@ -171,6 +188,7 @@ CFLOW         = $(TIME) $(call assert_cmd,cflow)
 DRAKON_GEN    = $(TIME) $(if $(shell which drakon-gen),drakon-gen,'$(DRAKON_PATH)/drakon_gen.tcl')
 GITINSPECTOR  = $(TIME) $(call assert_cmd,gitinspector)
 CHECKMK       = $(TIME) $(call assert_cmd,checkmk)
+GEN_CTL_IO    = $(TIME) $(call assert_cmd,gen-ctl-io)
 
 # Targets that do not need *.d dependencies for source files
 NOT_DEP      := clean asm pp wipe update
@@ -186,7 +204,7 @@ profile_build_json: profiling_build.jq all
 	$(JQ) -s '$(strip $(file <$<))' $(TIME_RESULT)
 endif
 
-.PHONY: all clean asm pp index update static shared test
+.PHONY: all clean asm pp index update static shared test ftest
 most_frequent: all install test
 all: shared static index .syntastic_c_config
 asm: $(SOURCES:.c=.s)
@@ -199,9 +217,21 @@ shared: $(LIBNAME.so)
 static: $(LIBNAME.a)
 test: $(UT_EXECUTABLE)
 	./$<
+ftest: $(CTL_EXECUTABLE) $(CTL_RUNFILE)
+	./$^
+ctl-io.c: $(CTL_SPECIFICATION)
+	$(GEN_CTL_IO) --code -o $@ $<
+	$(CLANG_FORMAT) -i $@
+ctl-io.h: $(CTL_SPECIFICATION)
+	$(GEN_CTL_IO) --header -o $@ $<
+	$(CLANG_FORMAT) -i $@
 
 $(UT_EXECUTABLE): $(UT_LD_ARGFILE) $(UT_LIB_ARGFILE) $(UT_OBJECTS) $(LIBNAME.a)
 	$(CC) -o $@ @$(word 1,$^) $(wordlist 3,$(words $^),$^) @$(word 2,$^)
+
+$(CTL_EXECUTABLE): $(CTL_SOURCES) $(CTL_SPECIFICATION)
+	mkdir -p -- $(dir $@)
+	$(CC) $(CTL_CPPFLAGS) '-DSPEC_SCM="$(filter %.scm,$^)"' $(CTL_CFLAGS) -o $@ $(filter %.c,$^) $(CTL_LDLIBS)
 
 $(LIBNAME.a): $(OBJECTS)
 	$(AR) rcs $@ $^
@@ -216,6 +246,7 @@ $(CSCOPE_REF): $(SOURCES) $(HEADERS)
 clean: F += $(wildcard $(EXECUTABLE) $(EXECUTABLE).fat $(CSCOPE_REF) $(OBJECTS) $(PIC_OBJECTS) *.s *.i *.csv trace.log *.cflow *.expand $(TIME_RESULT) $(LIBNAME.a) $(LIBNAME.so) $(LIBNAME.so.debug))
 clean: F += $(wildcard $(UT_EXECUTABLE) $(UT_GENERATED_SOURCES) $(UT_OBJECTS))
 clean: F += $(wildcard $(IMPLIB))
+clean: F += $(wildcard ctl-io.* $(CTL_EXECUTABLE))
 clean:
 	-$(if $(strip $F),$(RM) -- $F,)
 wipe: F += $(wildcard $(DRAKON_FILES) $(DRAKON_CFILES) $(DRAKON_HFILES) .syntastic_c_config $(DEPENDS) *.stackdump)

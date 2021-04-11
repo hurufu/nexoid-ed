@@ -11,7 +11,15 @@
               (define-property commandKeyScrollLabel no-default 'string string5)
               (define-property commandKeyChangeApplicationLabel no-default 'string string5))
 
-(define-input-var ctl_e0 'no-value 'ctl_PermanentTerminalSpecificData)
+(define-input-var ctl_e0
+                  (make ctl_PermanentTerminalSpecificData
+                        (ifdSerialNumber "123456")
+                        (commandKeyBypassPinLabel "NO PIN")
+                        (commandKeyClearLabel "CLEAR")
+                        (commandKeyEnterLabel "ENTER")
+                        (commandKeyScrollLabel "SCROL")
+                        (commandKeyChangeApplicationLabel "C APP"))
+                  'ctl_PermanentTerminalSpecificData)
 
 (define-external-function run-program true true no-return-value)
 

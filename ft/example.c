@@ -1,10 +1,9 @@
 #include "ctl-io.h"
 #include "gtd.h"
+#include "NexoFast.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-
-struct PermanentTerminalSpecificData e0;
 
 void set_PermanentTerminalSpecificData(
         struct PermanentTerminalSpecificData* const dst,
@@ -42,5 +41,7 @@ void run_program(void) {
     printf("Read E0: ");
     print_PermanentTerminalSpecificData(&e0);
     putchar('\n');
+    const enum ProcedureResult pRes = Main();
+    printf("NEXO Main exited with %d\n", pRes);
     free_PermanentTerminalSpecificData(&e0);
 }

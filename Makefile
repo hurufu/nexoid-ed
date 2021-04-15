@@ -93,7 +93,7 @@ UT_LDFLAGS           := -Wl,--unresolved-symbols=ignore-in-object-files -pthread
 # Functional tests settings ###################################################
 # TODO: Add pkg-config to libctl package
 CTL_DIR           := ft
-CTL_SOURCES       := example.c ctl-io.c ctl-io.h main.c
+CTL_SOURCES       := example.c ctl-io.c ctl-io.h main.c dmapi.c shapi.c
 CTL_SPECIFICATION := example.scm
 CTL_RUNFILE       := run.scm
 CTL_PREFIX        := /usr/share/libctl
@@ -103,7 +103,7 @@ CTL_CPPFLAGS      += '-DCTL_SCM="$(CTL_PREFIX)/base/ctl.scm"'\
                      '-DINCLUDE_SCM="$(CTL_PREFIX)/base/include.scm"'\
                      '-DVERSION_STRING="$(NAME) $(shell git describe)"'
 CTL_CFLAGS        := $(shell pkg-config --cflags guile-2.2)
-CTL_LDLIBS        := $(shell pkg-config --libs guile-2.2) -lctl -lm
+CTL_LDLIBS        := $(shell pkg-config --libs guile-2.2) -lctl -lm -lptmalloc3
 VPATH             += $(dir $(firstword $(MAKEFILE_LIST)))/ft\
                      $(addprefix $(CTL_PREFIX)/,base utils)
 

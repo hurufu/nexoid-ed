@@ -69,7 +69,7 @@ enum HapiResult hapi_SearchReservationsByRefData(void) {
 }
 
 enum HapiResult hapi_Status(void) {
-    return HAPI_NOK;
+    return HAPI_OK;
 }
 
 enum HapiResult hapi_Log_Entry_Data_Retrieval(void) {
@@ -146,7 +146,7 @@ enum ScapiResult scapi_Data_Print_Interaction(const enum PrintMessage m) {
 }
 
 enum PapiResult papi_Proprietary_Startup_Sequence(void) {
-    return PAPI_NOK;
+    return PAPI_OK;
 }
 
 enum ProcedureResult papi_Diagnostics_Maintenance_Recovery(void) {

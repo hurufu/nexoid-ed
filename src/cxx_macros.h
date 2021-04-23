@@ -10,6 +10,18 @@
 #   define NOEXCEPT
 #endif
 
+#ifdef __cplusplus
+#   define STDINT_H <cstdint>
+#   define STDBOOL_H <cstdbool>
+#   define STDDEF_H <cstddef>
+#   define STDALIGN_H <cstdalign>
+#else
+#   define STDINT_H <stdint.h>
+#   define STDBOOL_H <stdbool.h>
+#   define STDDEF_H <stddef.h>
+#   define STDALIGN_H <stdalign.h>
+#endif
+
 /** Macro used to specify size of array parameter
  *
  * @see https://wiki.sei.cmu.edu/confluence/display/c/API05-C.+Use+conformant+array+parameters#API05C.Useconformantarrayparameters-Exceptions

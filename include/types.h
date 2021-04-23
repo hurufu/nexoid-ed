@@ -3,10 +3,10 @@
 
 #include "cxx_macros.h"
 #include "utils.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdalign.h>
+#include STDINT_H
+#include STDBOOL_H
+#include STDDEF_H
+#include STDALIGN_H
 
 #define MAX_CARDHOLDER_MESSAGES (6)
 

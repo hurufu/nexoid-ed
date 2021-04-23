@@ -310,20 +310,19 @@ struct TypeLengthValue* gettylv_kernel2Configuration(const union Kernel2Configur
 static struct ttp ApplicationProfile_get_ttv(const struct ApplicationProfile* const p, const union TagExpanded t) {
     struct ttp r;
     switch (t.e) {
-        case T_EMV_TERMINAL_COUNTRY_CODE:                        r = (struct ttp){ .isOptional = false, .type = TAG_BCD2,                      .value = &p->terminalCountryCode                       }; break;
         case T_EMV_TERMINAL_CAPABILITIES:                        r = (struct ttp){ .isOptional = true,  .type = TAG_TC,                        .value =  p->terminalCapabilities                      }; break;
         case T_EMV_ADDITIONAL_TERMINAL_CAPABILITIES:             r = (struct ttp){ .isOptional = true,  .type = TAG_ATC,                       .value =  p->additionalTerminalCapabilities            }; break;
         case T_NNA_PROFILE_NUMBER:                               r = (struct ttp){ .isOptional = false, .type = TAG_BCD1,                      .value = &p->profileNumber                             }; break;
-        case T_NNA_ACQUIRER_NUMBER:                              r = (struct ttp){ .isOptional = false, .type = TAG_BCD1,                      .value = &p->acquirerNumber                            }; break;
+        case T_NNA_ACQUIRER_NUMBER:                              r = (struct ttp){ .isOptional = false, .type = TAG_BCD1,                      .value =  p->acquirerNumber                            }; break;
         case T_NXO_CASH_ADVANCE_MAXIMUM_AMOUNT:                  r = (struct ttp){ .isOptional = true,  .type = TAG_AMOUNT,                    .value =  p->cashAdvanceMaximumAmount                  }; break;
         case T_NXO_CASHBACK_MAXIMUM_AMOUNT:                      r = (struct ttp){ .isOptional = true,  .type = TAG_AMOUNT,                    .value =  p->cashbackMaximumAmount                     }; break;
-        case T_NXO_REFUND_PROTECTION_AMOUNT:                     r = (struct ttp){ .isOptional = false, .type = TAG_AMOUNT,                    .value = &p->refundProtectionAmount                    }; break;
-        case T_NXO_APPLICATION_LABEL_DEFAULT:                    r = (struct ttp){ .isOptional = false, .type = TAG_ANS_16,                    .value = &p->applicationLabelDefault                   }; break;
+        case T_NXO_REFUND_PROTECTION_AMOUNT:                     r = (struct ttp){ .isOptional = false, .type = TAG_AMOUNT,                    .value =  p->refundProtectionAmount                    }; break;
+        case T_NXO_APPLICATION_LABEL_DEFAULT:                    r = (struct ttp){ .isOptional = false, .type = TAG_ANS_16,                    .value =  p->applicationLabelDefault                   }; break;
       //case T_NXO_CVM_MAGNETIC_STRIPE:                          r = (struct ttp){ .isOptional = true,  .type = TAG_MSR_CVM_CAPABILITY,        .value =  p->magStripeCvmCapabilityCvmRequired         }; break;
       //case XXX:                                                r = (struct ttp){ .isOptional = true,  .type = TAG_MSR_CVM_CAPABILITY,        .value =  p->magStripeCvmCapabilityNoCvmRequired       }; break;
       //case T_EMV_CVM_CAPABILITY_CVM_REQUIRED:                  r = (struct ttp){ .isOptional = true,  .type = TAG_CVM_CAPABILITY,            .value =  p->cvmCapabilityCvmRequired                  }; break;
       //case T_EMV_CVM_CAPABILITY_NO_CVM_REQUIRED:               r = (struct ttp){ .isOptional = true,  .type = TAG_CVM_CAPABILITY,            .value =  p->cvmCapabilityNoCvmRequired                }; break;
-        case T_NXO_APPLICATION_PROFILE_SETTINGS:                 r = (struct ttp){ .isOptional = false, .type = TAG_APS,                       .value = &p->applicationProfileSettings                }; break;
+        case T_NXO_APPLICATION_PROFILE_SETTINGS:                 r = (struct ttp){ .isOptional = false, .type = TAG_APS,                       .value =  p->applicationProfileSettings                }; break;
       //case T_EMV_KERNEL_2_CONFIGURATION:                       r = (struct ttp){ .isOptional = true,  .type = TAG_KERNEL2_CONFIGURATION_PTR, .value =  p->kernel2Configuration                      }; break;
         case T_NXO_CARD_VALIDITY_CHECK_DEFAULT_AMOUNT:           r = (struct ttp){ .isOptional = true,  .type = TAG_AMOUNT,                    .value =  p->cvcDefaultAmount                          }; break;
         case T_NXO_ADDITIONAL_RESTRICTIONS_OF_FORCED_ACCEPTANCE: r = (struct ttp){ .isOptional = true,  .type = TAG_TVR,                       .value =  p->additionalRestrictionsForForcedAcceptance }; break;

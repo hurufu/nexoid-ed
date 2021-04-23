@@ -88,6 +88,11 @@ struct ans_16 {
     char v[16];
 };
 
+struct ans_25 {
+    uint8_t l;
+    char v[25];
+};
+
 struct ans_34 {
     uint8_t l;
     char v[34];
@@ -279,6 +284,18 @@ union Kernel2Configuration {
 union Kernel4ReaderCapabilities {
     uint8_t raw[1];
 };
+
+union Kernel4Settings {
+    uint8_t raw[1];
+    struct {
+        uint8_t /* RFU */ : 4;
+        bool onlinePartialContactlessSupported : 1;
+        bool onlineFullContactlessSupported : 1;
+        bool offlineCapability : 1;
+        bool delayedAuthorisationSupported : 1;
+    };
+};
+_Static_assert(sizeof(union Kernel4Settings) == 1, "Unexpected Kernel4Settings size");
 
 enum PACKED ApplicationPriorityIndicatorEnum {
     NO_PRIORITY = 0
@@ -501,6 +518,49 @@ union PACKED ApplicationInterchangeProfile {
 
         uint8_t /* RFU */ : 7;
         uint8_t /* Reserved for use by the EMV Contactless Specifications */ : 1;
+    };
+};
+
+struct TerminalRiskManagementDataCvm {
+    uint8_t /* RFU */ : 2;
+    bool onDeviceCvm : 1;
+    bool noCvmRequired : 1;
+    bool encipheredPinVerificationPerformedByIcc : 1;
+    bool signaturePaper : 1;
+    bool encipheredPinVerifiedOnline : 1;
+    bool plaintextPinVerificationPerformedByIcc : 1;
+};
+_Static_assert(sizeof(struct TerminalRiskManagementDataCvm) == 1, "Unexpected TerminalRiskManagementDataCvm size");
+
+// PayPass-M/Chip Requirements 10 April 2014, section 5-6
+union TerminalRiskManagementData {
+    uint8_t raw[8];
+    struct {
+        struct TerminalRiskManagementDataCvm contactless;
+        struct TerminalRiskManagementDataCvm contact;
+        uint8_t /* RFU */ : 6;
+        bool onlyMsrModeContactlessTransactionsSupported : 1;
+        bool onlyEmvModeContactlessTransactionsSupported : 1;
+    };
+};
+_Static_assert(sizeof(union TerminalRiskManagementData) == 8, "Unexpected TerminalRiskManagementData size");
+
+union PACKED TerminalInterchangeProfile {
+    uint8_t a[3];
+    struct {
+        uint8_t contactChipOfflinePinSupported : 1;
+        uint8_t emvContactChipSupported : 1;
+        uint8_t readerIsATransitReader : 1;
+        uint8_t /* RFU */ : 1;
+        uint8_t onDeviceCvmSupported : 1;
+        uint8_t onlinePinSupported : 1;
+        uint8_t signatureSupported : 1;
+        uint8_t /* Reserved for kernel use */ : 1;
+
+        uint8_t /* RFU */ : 7;
+        uint8_t issuerUpdateSupported : 1;
+
+        uint8_t /* RFU */ : 8;
     };
 };
 
@@ -922,6 +982,11 @@ enum PACKED TransactionType {
   , TRX_PAYMENT_FROM_ACCOUNT = 0x50
   , TRX_PAYMENT_TO_ACCOUNT = 0x53
   , TRX_MOBILE_TOPUP = 0x57
+};
+
+enum PACKED VlpTerminalSupportIndicator {
+    VLP_ONLINE_ONLY_SOLUTION_SUPPORTED
+  , VLP_OFFLINE_AND_ONLINE_SOLUTION_SUPPORTED
 };
 
 // Array is indexed by enum IdleEvent
@@ -1386,7 +1451,7 @@ struct SearchTransactionResult {
     // * authorisationCode;
 
     // [DF0A]
-    // * preauthorisationValidityNumberOfDays;
+    struct bcd2* preauthorisationValidityNumberOfDays;
 
     // [DF0B]
     bool* cancellationHasToBeOnline;
@@ -1985,7 +2050,7 @@ struct TerminalSpecificData {
     // 9F33
     union TerminalCapabilities terminalCapabilities;
     // 9F1A
-    // TODO: Add terminalCountryCode
+    union CountryCode terminalCountryCode;
     // 9F1B
     // FIXME: Check if terminalFloorLimit can be present in E1
     union bcd6* terminalFloorLimit;
@@ -2164,7 +2229,8 @@ struct ServiceSettingsTable {
 };
 
 enum PACKED FallbackParameterChip {
-    FALLBACK_TRANSACTION_ALLOWED_FOR_CHIP = 0x01
+    FALLBACK_TRANSACTION_PROHIBITED_FOR_CHIP = 0x00
+  , FALLBACK_TRANSACTION_ALLOWED_FOR_CHIP = 0x01
 };
 
 enum PACKED FallbackParameterMagneticStripe {
@@ -2286,7 +2352,7 @@ union ApplicationProfileSettings {
 };
 
 union PACKED MerchantCategoryCode {
-    struct bcd2 bcd;
+    union bcd bcd[2];
     uint8_t raw[2];
     enum PACKED MerchantCategoryCodeEnum {
         // Based on some random document from the internet claiming to be Visa'a classification
@@ -2296,77 +2362,95 @@ union PACKED MerchantCategoryCode {
     } e;
 };
 
+union PanMask {
+    uint8_t raw[7];
+    struct {
+        uint8_t leading[3];
+        uint8_t trailing[3];
+        uint8_t /* RFU */ : 6;
+        bool applyPanMaskToMerchantReceipt: 1;
+        bool applyPanMaskToCardholderReceipt: 1;
+    };
+};
+_Static_assert(sizeof(union PanMask) == 7, "Unexpected PanMask size");
+
 // source nexo-IS 4.0
 // configuration: Application Profile
 // presence: M
 // [E6]
+// Concatenation of profileNumber and acquirerNumber gives a unique Application Profile ID
 struct ApplicationProfile {
-    // Unique Application Profile ID:
-    bcd_t profileNumber;
-    bcd_t acquirerNumber;
+    // Technical variable used in Process_Application_Profile_Parameters
+    bool marked;
 
-    // Application Profile Parameters:
-    union bcd6 acquirerIdentifier;
-    void* additionalDataElements; // TODO: Define EF template
-    union TerminalVerificationResults* additionalRestrictionsForForcedAcceptance;
+    bcd_t profileNumber; // DF19
+    bcd_t* holdTimeValue; // DF8130
+    char* merchantNameAndLocation;
+    enum CvmMagneticStripe* cvmMagneticStripe;
+    enum CvmManualEntry* cvmManualEntry;
+    enum FallbackParameterChip* fallbackParameterChip;
+    enum FallbackParameterMagneticStripe* fallbackParameterMagneticStripe;
+    enum TransactionType* transactionTypeForKernelProcessing; // NEXO: Not specified in nexo IS // DF54
+    enum VlpTerminalSupportIndicator* vlpTerminalSupportIndicator;
+    struct ans_16* applicationLabelDefault;
+    struct ans_25* schemeIdentifier;
+    struct ans15* merchantIdentifier;
+    struct bcd2* preauthorisationValidityNumberOfDays; // DF2F
+    struct Dol* ddol; // DF1A
+    struct Dol* rdol; // DF30
+    struct Dol* tdol; // DF3B
+    struct string8* tid; // 9F1C
+    uint8_t (* merchantCustomData)[20];
+    uint8_t* removalTimeout; // DF48
     union AdditionalTerminalCapabilities* additionalTerminalCapabilities; // FIXME: Not mentioned in nexo-FAST 13.1.2
-    union TerminalCapabilities* terminalCapabilities;
-    union CountryCode terminalCountryCode;
-    struct ans_16 applicationLabelDefault;
-    union ApplicationProfileSettings applicationProfileSettings;
+    union ApplicationProfileSettings* applicationProfileSettings;
     union ApplicationProfileSettingsForCancellation* applicationProfileSettingsForCancellation;
+    union bcd* acquirerNumber; // DF1B
+    union bcd* defaultHoldTime; // DF4B
+    union bcd* maxTargetPercentageForBiasedRandomSelection; // DF1C
+    union bcd* messageHoldTime; // DF812D
+    union bcd* overspendPercentage; // DF2B
+    union bcd* targetPercentageForBiasedRandomSelection; //
+    union bcd6* acquirerIdentifier; // 9F01
     union bcd6* cashAdvanceMaximumAmount;
+    union bcd6* cashAdvanceMinimumAmount; // NEXO: Not defined in nexo-IS 4.0
     union bcd6* cashbackMaximumAmount;
-    union CvmCapability* cvmCapabilityCvmRequired;
-    union CvmCapability* cvmCapabilityNoCvmRequired;
-    union MagStripeCvmCapability* magStripeCvmCapabilityCvmRequired;
-    union MagStripeCvmCapability* magStripeCvmCapabilityNoCvmRequired;
-
-    // DF2D
-    union bcd6* paymentMaximumAmount;
-
-    // DF2E
-    union bcd6* paymentMinimumAmount;
-
-    // DF39
-    union bcd6* cashbackMinimumPaymentAmount;
-
+    union bcd6* cashbackMinimumPaymentAmount; // DF39
     union bcd6* cvcDefaultAmount;
     union bcd6* dccMinimumAllowedAmount;
-    union bcd6 refundProtectionAmount; // FIXME: Make refundProtectionAmount optional
-    union bcd6* terminalFloorLimit;
+    union bcd6* deferredPaymentDefaultAmount; // DF22
+    union bcd6* deferredPaymentMaximumAmount; // DF23
+    union bcd6* paymentMaximumAmount; // DF2D
+    union bcd6* paymentMinimumAmount; // DF2E
+    union bcd6* readerContactlessTransactionLimitNoOnDeviceCvm; // DF8124
+    union bcd6* readerContactlessTransactionLimitOnDeviceCvm; // DF8125
+    union bcd6* readerCvmRequiredLimitKernel; // DF8126
+    union bcd6* refundMaximumAmount; // DF31
+    union bcd6* refundProtectionAmount; // DF3C
+    union bcd6* terminalFloorLimit; // 9F1B
+    union bcd6* thresholdValueForBiasedRandomSelection; // DF1D
+    union CvmCapability* cvmCapabilityCvmRequired; // DF8118
+    union CvmCapability* cvmCapabilityNoCvmRequired; // DF8119
+    union Kernel2Configuration* kernel2Configuration; // DF811B
+    union Kernel4ReaderCapabilities* kernel4ReaderCapabilities; // 9F6D
+    union Kernel4Settings* kernel4Settings; // DF4A
+    union MagStripeCvmCapability* magStripeCvmCapabilityCvmRequired; // DF811E
+    union MagStripeCvmCapability* magStripeCvmCapabilityNoCvmRequired; // DF812C
+    union MerchantCategoryCode* merchantCategoryCode; // 9F15
+    union PanMask* panMask; // DF2C
+    union TerminalCapabilities* terminalCapabilities; // 9F33
+    // DF4F
+    // NEXO: This tag isn't mentioned in the nexo-IS, but is implicitly required,
+    // because removalTimeout depends on it.
+    union TerminalInterchangeProfile* terminalInterchangeProfile;
+    union TerminalRiskManagementData* terminalRiskManagementData; // 9F1D
+    union TerminalVerificationResults* additionalRestrictionsForForcedAcceptance;
+    union TerminalVerificationResults* tacDefault; // DF1E
+    union TerminalVerificationResults* tacDenial; // DF1F
+    union TerminalVerificationResults* tacOnline; // DF20
+    void* additionalDataElements; // TODO: Define EF template // EF
 
-    // missing Default DDA DOL (DF1A)
-    bcd_t holdTimeValue;
-    union Kernel2Configuration* kernel2Configuration;
-    union Kernel4ReaderCapabilities* kernel4ReaderCapabilities;
-    union Kernel4Settings* kernel4Settings;
-    union MsrCvmCapability* msrCvmCapabilityCvmRequired;
-    union MsrCvmCapability* msrCvmCapabilityNoCvmRequired;
-    struct bcd2* maxTargetPercentageForBiasedRandomSelection;
-    union bcd* targetPercentageForBiasedRandomSelection;
-
-    // DF1D
-    union bcd6* thresholdValueForBiasedRandomSelection;
-
-    // DF1E
-    union TerminalVerificationResults* tacDefault;
-
-    // DF1F
-    union TerminalVerificationResults* tacDenial;
-
-    // DF20
-    union TerminalVerificationResults* tacOnline;
-
-    union MerchantCategoryCode merchantCategoryCode;
-    uint8_t (* merchantCustomData)[20];
-    struct ans15 merchantIdentifier;
-    char* merchantNameAndLocation;
-
-    enum FallbackParameterChip fallbackParameterChip;
-    enum FallbackParameterMagneticStripe fallbackParameterMagneticStripe;
-    enum CvmMagneticStripe cvmMagneticStripe;
-    enum CvmManualEntry* cvmManualEntry;
+    bcd_t* referenceProfileNumber;
 };
 
 struct ApplicationProfileList {
@@ -2898,7 +2982,7 @@ struct E1KernelConfigurationData {
     struct string8* ifdSerialNumber;
 
     // [DF1C]
-    struct bcd2* maxTargetPercentageForBiasedRandomSelection;
+    union bcd* maxTargetPercentageForBiasedRandomSelection;
 
     // [9F15]
     union MerchantCategoryCode merchantCategoryCode;
@@ -3176,6 +3260,7 @@ struct TerminalTransactionData {
     union Iso639_1 selectedLanguage;
     enum TerminalErrorReason terminalErrorReason;
     bool terminalErrorIndicator;
+    const char* terminalErrorDescription; // Non-nexo
     bool transactionConfirmedByCardholder; // EMV also
     struct Track2 track2Data; // FIXME: Use proper structure for Track 2
     const struct Bid* selectedBid;

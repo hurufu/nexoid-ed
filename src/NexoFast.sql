@@ -5171,7 +5171,7 @@ INSERT INTO items VALUES(9583,205,'vertical','',0,1860,60,0,600,0,0,NULL,'',NULL
 INSERT INTO items VALUES(9584,205,'address','Nok',0,1860,610,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9608,205,'action','e1kd->cd.dolData.s += t.length;',0,1530,480,260,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9644,138,'action','(void)aid;',0,170,200,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(9652,205,'shelf',replace('Append_Dol_Entry(\n  sizeof(e1kd->cd.dolData.c) - e1kd->cd.dolData.s,\n  e1kd->cd.dolData.c + e1kd->cd.dolData.s,\n  t.tag, t.length\n);','\n',char(10)),0,1530,230,260,70,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(9652,205,'shelf',replace('Append_Dol_Entry(\n  sizeof(e1kd->cd.dolData.c) - e1kd->cd.dolData.s,\n  e1kd->cd.dolData.c + e1kd->cd.dolData.s,\n  t.tag, t.length\n)','\n',char(10)),0,1530,230,260,70,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(9653,205,'if','PR_OK == result',0,1530,360,260,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9656,205,'if','e1kd->cd.dolData.s + t.length > sizeof(e1kd->cd.dolData.c)',0,1530,420,260,20,70,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9659,205,'horizontal','',0,1530,320,280,0,0,0,NULL,NULL,NULL,NULL);

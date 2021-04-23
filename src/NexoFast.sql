@@ -76,7 +76,7 @@ INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','180 -84',NULL,100.0
 INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','325 -292',NULL,100.0);
 INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','1196 39',NULL,100.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','1020 130',replace('NEXO: I did not find any mention about default values for optional tags that have terminal as their source. So I assumed the same rules as for building DOL data.\n\nTODO: Find those rules, and change the diagram if needed\n\nNEXO: Limit Set List is specified to be configurable "per E6 profile", because it is referenced in nexo FAST v.3.2 table 14, but in the nexo IS v.4.0 line 1033 it is specified that only single such template could exist\n\nNEXO: Default value for TACs is defined in EMV Book 3, section 10.7, but they are set to default values during Terminal Action Analysis','\n',char(10)),100.0);
-INSERT INTO diagrams VALUES(106,'Perform_General_Checks','1790 430',NULL,100.0);
+INSERT INTO diagrams VALUES(106,'Perform_General_Checks','1790 1880',NULL,100.0);
 INSERT INTO diagrams VALUES(107,'Perform_Specific_Checks','50 30',NULL,100.0);
 INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','10 30',NULL,100.0);
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-30 30',NULL,100.0);
@@ -104,7 +104,7 @@ INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','1069 -329',replace('T
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','-518 -178',NULL,100.0);
 INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','307 5',NULL,100.0);
-INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','1885 -65',NULL,100.0);
+INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','1785 -65',NULL,100.0);
 INSERT INTO diagrams VALUES(141,'Local_Build_Candidate_List','1362 -164','TODO: Move to separate module',100.0);
 INSERT INTO diagrams VALUES(142,'Ctlss_Application_Kernel_Profile_Selection','136 -65',NULL,100.0);
 INSERT INTO diagrams VALUES(143,'Is_Fallback_To_Msr_Allowed','186 -182','nexo-FAST note 122-95',100.0);
@@ -138,7 +138,7 @@ INSERT INTO diagrams VALUES(183,'Authorisation_Request','-229 -406','nexo-FAST v
 INSERT INTO diagrams VALUES(185,'Transaction_Completion','56 -450',replace('Nexo specifies to execute each step of Transaction Completion regardles of any error conditions, but this implementation has an addtional error: Interface Contract Violation, it''s the hardest possible error, and default hadling is to immediately go to Main and execute Diagnostics and Maintenance and terminate nexo application. Here this handling is relaxed and bailing out will occur after\nall steps of Transaction Completion.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',100.0);
 INSERT INTO diagrams VALUES(187,'Tc_Additional_Confirmation','14 -31',NULL,100.0);
-INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-50 50',NULL,100.0);
+INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-50 -100',NULL,100.0);
 INSERT INTO diagrams VALUES(189,'Tc_Remove_Card','-267 -302',NULL,100.0);
 INSERT INTO diagrams VALUES(191,'Tc_Save_Transaction','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','474 -340',replace('TODO: Consider redesign of cardholder messages format, so it can be possible to signal that some informations should be displayed on one line, like:\nPAYMENT: <Transaction Amount> <Currency>','\n',char(10)),100.0);
@@ -273,7 +273,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,188,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,106,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -9542,7 +9542,7 @@ INSERT INTO items VALUES(15595,106,'commentin','TODO: Inform user about incorrec
 INSERT INTO items VALUES(15599,106,'action',replace('M(cvmCapabilityCvmRequired);\nM(cvmCapabilityNoCvmRequired);\nM(holdTimeValue);\nM(kernel2Configuration);\nM(magStripeCvmCapabilityCvmRequired);\nM(magStripeCvmCapabilityNoCvmRequired);\nM(messageHoldTime);\nM(readerContactlessTransactionLimitNoOnDeviceCvm);\nM(readerContactlessTransactionLimitOnDeviceCvm);\nM(readerCvmRequiredLimitKernel);','\n',char(10)),0,2030,1530,210,90,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15600,106,'action','#undef M',0,2030,2420,210,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15601,106,'action',replace('#define M(Memb)\\n    e |= (!a->Memb && ((*missing++) = #Memb))','\n',char(10)),0,2030,810,210,30,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(15602,106,'if','Is_Tac_Needed()',0,2030,2260,210,20,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15602,106,'if','Is_Tac_Needed()',0,2030,2260,210,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(15603,106,'vertical','',0,2260,2260,0,120,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(15604,106,'horizontal','',0,2030,2380,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(15605,106,'action',replace('M(tacDefault);\nM(tacOnline);','\n',char(10)),0,2030,2330,210,30,0,0,NULL,NULL,NULL,NULL);

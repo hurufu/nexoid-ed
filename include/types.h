@@ -7,6 +7,7 @@
 #include STDBOOL_H
 #include STDDEF_H
 #include STDALIGN_H
+#include ASSERT_H
 
 #define MAX_CARDHOLDER_MESSAGES (6)
 
@@ -295,7 +296,7 @@ union Kernel4Settings {
         bool delayedAuthorisationSupported : 1;
     };
 };
-_Static_assert(sizeof(union Kernel4Settings) == 1, "Unexpected Kernel4Settings size");
+static_assert(sizeof(union Kernel4Settings) == 1, "Unexpected Kernel4Settings size");
 
 enum PACKED ApplicationPriorityIndicatorEnum {
     NO_PRIORITY = 0
@@ -530,7 +531,7 @@ struct TerminalRiskManagementDataCvm {
     bool encipheredPinVerifiedOnline : 1;
     bool plaintextPinVerificationPerformedByIcc : 1;
 };
-_Static_assert(sizeof(struct TerminalRiskManagementDataCvm) == 1, "Unexpected TerminalRiskManagementDataCvm size");
+static_assert(sizeof(struct TerminalRiskManagementDataCvm) == 1, "Unexpected TerminalRiskManagementDataCvm size");
 
 // PayPass-M/Chip Requirements 10 April 2014, section 5-6
 union TerminalRiskManagementData {
@@ -543,7 +544,7 @@ union TerminalRiskManagementData {
         bool onlyEmvModeContactlessTransactionsSupported : 1;
     };
 };
-_Static_assert(sizeof(union TerminalRiskManagementData) == 8, "Unexpected TerminalRiskManagementData size");
+static_assert(sizeof(union TerminalRiskManagementData) == 8, "Unexpected TerminalRiskManagementData size");
 
 union PACKED TerminalInterchangeProfile {
     uint8_t a[3];
@@ -2372,7 +2373,7 @@ union PanMask {
         bool applyPanMaskToCardholderReceipt: 1;
     };
 };
-_Static_assert(sizeof(union PanMask) == 7, "Unexpected PanMask size");
+static_assert(sizeof(union PanMask) == 7, "Unexpected PanMask size");
 
 // source nexo-IS 4.0
 // configuration: Application Profile

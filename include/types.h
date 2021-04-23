@@ -1146,6 +1146,7 @@ enum PACKED CardholderMessage {
   , CRDHLDR_MSG_RECEIPT_PRINTING_FAILED = 0x33
   , CRDHLDR_MSG_TERMINAL_MANAGMENT_IN_PROGRESS = 0x34
   , CRDHLDR_MSG_FORCE_TRANSACTION_APPROVAL = 0x35
+  , CRDHLDR_DBG_MISSING_PARAMETERS = 0x36
 
   /* Extended messages */
   , CRDHLDR_SRC_UI_PARAMETERS_FOR_OUTCOME = 0x80
@@ -3319,6 +3320,9 @@ struct TerminalTransactionData {
     // FIXME: Consider different place for Out and Outcome
     enum Outcome outcome;
     struct OutcomeParameters out;
+
+    // Non-nexo
+    const char* missingParameters[sizeof(struct ApplicationProfile)];
 };
 
 enum TerminalTransactionDataTag {

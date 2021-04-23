@@ -1237,6 +1237,7 @@ union TerminalSettings {
 // nexo FAST v.3.2, section 13.1.136
 // EMV v.4.3 Book 4, annex A2
 union TerminalCapabilities {
+    uint32_t u;
     uint8_t raw[3];
     struct {
         struct {

@@ -76,8 +76,7 @@ INSERT INTO diagrams VALUES(102,'Merchant_Receipt_Printing','180 -84',NULL,100.0
 INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','325 -292',NULL,100.0);
 INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','1196 39',NULL,100.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','1020 130',replace('NEXO: I did not find any mention about default values for optional tags that have terminal as their source. So I assumed the same rules as for building DOL data.\n\nTODO: Find those rules, and change the diagram if needed\n\nNEXO: Limit Set List is specified to be configurable "per E6 profile", because it is referenced in nexo FAST v.3.2 table 14, but in the nexo IS v.4.0 line 1033 it is specified that only single such template could exist\n\nNEXO: Default value for TACs is defined in EMV Book 3, section 10.7, but they are set to default values during Terminal Action Analysis','\n',char(10)),100.0);
-INSERT INTO diagrams VALUES(106,'Perform_General_Checks','1790 1880',NULL,100.0);
-INSERT INTO diagrams VALUES(107,'Perform_Specific_Checks','50 30',NULL,100.0);
+INSERT INTO diagrams VALUES(106,'Perform_General_Checks','1790 1930',NULL,100.0);
 INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','10 30',NULL,100.0);
 INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-30 30',NULL,100.0);
 INSERT INTO diagrams VALUES(110,'Kernel_Processing','1281 -112','',100.0);
@@ -267,13 +266,14 @@ INSERT INTO diagrams VALUES(328,'Is_Tac_Needed','1380 230',NULL,100.0);
 INSERT INTO diagrams VALUES(329,'Is_Receipt_Printing_Possible','30 30',NULL,100.0);
 INSERT INTO diagrams VALUES(330,'Is_Emv_Mode','300 350','TODO: Implement EMV mode fetching',100.0);
 INSERT INTO diagrams VALUES(331,'Is_Issuer_Update_Supported','830 470',replace('TODO: Use TTQ to check if issuer update is supported.\n\nLow priority, because this function is used only for kernel C5.','\n',char(10)),100.0);
+INSERT INTO diagrams VALUES(333,'Perform_Specific_Checks','2495 350','TODO: Move TAC checks to Perform_General_Check',100.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,106,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,333,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2002,7 +2002,7 @@ INSERT INTO items VALUES(4661,83,'address','End',0,8940,620,50,30,60,0,NULL,'',N
 INSERT INTO items VALUES(4662,83,'vertical','',0,8550,-130,0,800,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4663,83,'branch','Perform checks',0,8550,-80,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4664,83,'address','Ok',0,8550,620,200,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4665,83,'insertion',replace('result =\nPerform_General_Checks(&ap);','\n',char(10)),1,8550,0,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4665,83,'insertion',replace('result =\nPerform_General_Checks(&ap);','\n',char(10)),0,8550,0,200,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4666,83,'insertion',replace('result =\nPerform_Specific_Checks();','\n',char(10)),0,8550,140,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4668,83,'if','PR_OK == result',0,8550,70,200,20,70,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4669,83,'vertical','',0,8820,70,0,600,0,0,NULL,NULL,NULL,NULL);
@@ -2013,12 +2013,6 @@ INSERT INTO items VALUES(4673,106,'beginend','End',0,2030,2600,50,20,60,0,NULL,N
 INSERT INTO items VALUES(4674,106,'vertical',NULL,0,2030,530,0,2050,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4675,106,'horizontal',NULL,0,2030,530,170,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4676,106,'action',replace('const struct ApplicationProfile* const a\nreturns enum ProcedureResult','\n',char(10)),0,2320,530,170,30,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4677,107,'beginend','Perform_Specific_Checks',0,170,60,110,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4678,107,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4679,107,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4680,107,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4681,107,'action','returns enum ProcedureResult',0,450,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4682,107,'action','return PR_OK;',0,170,310,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4683,106,'action','return e ? PR_NOK : PR_OK;',0,2030,2540,210,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4684,83,'insertion',replace('result =\nSet_Application_Label_Displayed();','\n',char(10)),0,8550,420,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4685,83,'if','PR_OK == result',0,8550,490,200,20,70,1,NULL,'',NULL,'');
@@ -9637,6 +9631,66 @@ INSERT INTO items VALUES(15712,83,'shelf','*l->entry.referenceProfileNumber',0,7
 INSERT INTO items VALUES(15713,106,'shelf','ttd.missingParameters',0,2030,620,210,40,40,0,NULL,NULL,NULL,'const char** missing');
 INSERT INTO items VALUES(15714,188,'shelf','CRDHLDR_DBG_MISSING_PARAMETERS',0,1680,800,140,40,40,0,NULL,NULL,NULL,'msg[number++]');
 INSERT INTO items VALUES(15715,188,'commentout',replace('NEXO: Non-nexo extension! This is\nuseful for debuging missing\nconfiguration parameters during\nProcess_Application_Profile_Parameters','\n',char(10)),0,2020,800,170,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15731,333,'beginend','Perform_Specific_Checks',0,1280,320,110,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15732,333,'beginend','End',0,3770,540,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15733,333,'vertical','',0,1280,340,0,620,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15735,333,'vertical','',0,3770,360,0,170,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15736,333,'horizontal','',0,1280,360,2490,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15737,333,'arrow','',0,1110,360,170,600,2280,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15738,333,'branch',replace('Check\nTerminal Capabilities','\n',char(10)),0,1280,420,150,40,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15739,333,'address','Check for TAC',0,1280,910,150,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15741,333,'branch','End',0,3770,410,130,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15743,333,'horizontal',NULL,0,1280,320,200,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15744,333,'action','returns enum ProcedureResult',0,1540,320,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15745,333,'if',replace('(ap.terminalCapabilities->u\n&\ne1.terminalCapabilities.u)\n==\nap.terminalCapabilities->u','\n',char(10)),0,1280,650,150,50,20,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15746,333,'vertical','',0,1450,650,0,130,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15747,333,'horizontal','',0,1280,780,170,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15748,333,'action','return fail ? PR_NOK : PR_OK;',0,3770,480,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15750,333,'vertical','',0,1590,360,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15751,333,'branch','Check for TAC',0,1590,410,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15752,333,'address','Check for TAC Denial',0,1590,910,120,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15753,333,'shelf','false',0,1280,540,150,40,40,0,NULL,NULL,NULL,'bool fail');
+INSERT INTO items VALUES(15754,333,'action','fail |= true;',0,1280,740,150,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15755,333,'select','ttd.selectedService',0,1590,500,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15756,333,'horizontal','',0,1590,540,650,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15757,333,'case','S_PAYMENT',0,1590,580,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15758,333,'case','S_PRE_AUTH',0,1780,580,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15759,333,'case','',0,2240,580,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15760,333,'vertical','',0,1780,540,0,80,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15761,333,'vertical','',0,2240,540,0,420,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15762,333,'case','S_UPDATE_PRE_AUTH',0,1930,580,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15763,333,'case','S_CASH_ADVANCE',0,2100,580,70,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15764,333,'vertical','',0,2100,540,0,80,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15765,333,'vertical','',0,1930,540,0,80,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15766,333,'horizontal','',0,1590,620,510,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15768,333,'if',replace('TECH_EMV_CHIP\n==\nttd.technologySelected','\n',char(10)),0,1590,680,120,40,530,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15769,333,'vertical','',0,2530,600,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15771,333,'if','ap.tacDenial',0,2410,600,100,20,20,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15772,333,'action','fail |= true;',0,2410,660,100,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15773,333,'vertical','',0,2730,360,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15774,333,'branch','Check for TAC Default',0,2730,410,200,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15775,333,'address','Check for TAC Online',0,2730,910,200,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15776,333,'vertical','',0,3390,360,0,600,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15777,333,'branch','Check for TAC Online',0,3390,410,200,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15778,333,'address','End',0,3390,910,200,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15784,333,'vertical','',0,2410,360,0,600,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15785,333,'branch','Check for TAC Denial',0,2410,410,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15786,333,'address','Check for TAC Default',0,2410,910,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15787,333,'horizontal','',0,2410,700,120,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15788,333,'address','End',0,2240,910,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15789,333,'if',replace('e1.terminalType.operationalEnvironment\n==\nATTENDED_OFFLINE_AND_ONLINE\n/* X2 */','\n',char(10)),0,2730,530,200,50,20,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15790,333,'vertical','',0,2950,530,0,190,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15791,333,'horizontal','',0,2730,720,220,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15792,333,'if',replace('e1.terminalType.operationalEnvironment\n==\nATTENDED_OFFLINE_ONLY\n/* X3 */','\n',char(10)),0,2950,650,200,50,20,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(15793,333,'if','ap.tacDefault',0,2730,760,200,20,240,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(15794,333,'action','fail |= true;',0,2730,820,200,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15796,333,'horizontal','',0,2730,860,440,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15797,333,'vertical','',0,3170,650,0,210,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15798,333,'if',replace('e1.terminalType.operationalEnvironment\n==\nATTENDED_OFFLINE_AND_ONLINE\n/* X2 */','\n',char(10)),0,3390,530,200,50,40,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(15799,333,'if','ap.tacOnline',0,3390,620,200,20,40,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15800,333,'vertical','',0,3630,530,0,190,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15801,333,'action','fail |= true;',0,3390,680,200,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15802,333,'horizontal','',0,3390,720,240,0,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -9733,7 +9787,6 @@ INSERT INTO tree_nodes VALUES(150,27,'item',NULL,103);
 INSERT INTO tree_nodes VALUES(151,27,'item',NULL,104);
 INSERT INTO tree_nodes VALUES(152,128,'item',NULL,105);
 INSERT INTO tree_nodes VALUES(153,128,'item',NULL,106);
-INSERT INTO tree_nodes VALUES(154,128,'item',NULL,107);
 INSERT INTO tree_nodes VALUES(155,128,'item',NULL,108);
 INSERT INTO tree_nodes VALUES(156,128,'item',NULL,109);
 INSERT INTO tree_nodes VALUES(157,34,'folder','7.6 Kernel Processing',NULL);
@@ -9963,6 +10016,7 @@ INSERT INTO tree_nodes VALUES(424,128,'item',NULL,328);
 INSERT INTO tree_nodes VALUES(425,128,'item',NULL,329);
 INSERT INTO tree_nodes VALUES(426,128,'item',NULL,330);
 INSERT INTO tree_nodes VALUES(427,128,'item',NULL,331);
+INSERT INTO tree_nodes VALUES(429,128,'item',NULL,333);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

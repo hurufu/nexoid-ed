@@ -2073,7 +2073,7 @@ struct TerminalSpecificData {
     // DF36
     union bcd terminalTransactionCurrencyExponent;
     // DF46
-    union bcd* unpredictableNumberRange;
+    uint8_t* unpredictableNumberRange;
     // DF52
     union EeaProcessSettings* eeaProcessSettings; // FIXME: shouldn't be a pointer
 };

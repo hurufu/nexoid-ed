@@ -24,7 +24,7 @@ INSERT INTO diagrams VALUES(22,'Check_Online_Performed','245 -240','',100.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-465 -29','',100.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-824 -431','',100.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','435 57','',100.0);
-INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','-521 -305','Whole Upa Specific Processing isn''t finished. I have to rework it. It''s now a little better, because I removed redundant SCAPI calls, but still it''s ugly',100.0);
+INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','1665 236','Whole Upa Specific Processing isn''t finished. I have to rework it. It''s now a little better, because I removed redundant SCAPI calls, but still it''s ugly',100.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-324 -114',NULL,100.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','456 -301','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',100.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-552 -116','',100.0);
@@ -54,7 +54,7 @@ INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','181 -332',NULL,100.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -264','',100.0);
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-112 -34','',100.0);
 INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-52 -104','First best match is selected',100.0);
-INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','8110 -130',replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.','\n',char(10)),100.0);
+INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','6860 -200',replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-94 -118',NULL,100.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-198 -66',NULL,100.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','-133 -133',NULL,100.0);
@@ -86,7 +86,6 @@ INSERT INTO diagrams VALUES(113,'Initialise_Outcome_Parameters','0 0',NULL,100.0
 INSERT INTO diagrams VALUES(114,'Full_Magnetic_Stripe_Processing','85 -241',NULL,100.0);
 INSERT INTO diagrams VALUES(116,'Check_Magnetic_Stripe_Fallback','-534 -511',NULL,100.0);
 INSERT INTO diagrams VALUES(117,'Perform_Cvm_For_Magstripe','-404 -351','TODO: This function isn''t fully implemented',100.0);
-INSERT INTO diagrams VALUES(118,'Process_Profile_Parameters','10 30','',100.0);
 INSERT INTO diagrams VALUES(119,'Outcome_Processing','4622 -148','',100.0);
 INSERT INTO diagrams VALUES(120,'Ui_Parameters_For_Outcome_Processing','682 412',NULL,100.0);
 INSERT INTO diagrams VALUES(121,'Store_Kernel_Data','0 0',NULL,100.0);
@@ -265,7 +264,7 @@ INSERT INTO diagrams VALUES(327,'Retrieve_Application_Profile','870 440',NULL,10
 INSERT INTO diagrams VALUES(329,'Is_Receipt_Printing_Possible','30 30',NULL,100.0);
 INSERT INTO diagrams VALUES(330,'Is_Emv_Mode','300 350','TODO: Implement EMV mode fetching',100.0);
 INSERT INTO diagrams VALUES(331,'Is_Issuer_Update_Supported','830 470',replace('TODO: Use TTQ to check if issuer update is supported.\n\nLow priority, because this function is used only for kernel C5.','\n',char(10)),100.0);
-INSERT INTO diagrams VALUES(334,'Is_Tac_Needed','3930 940','FIXME: Not 100% compliant with the spec',100.0);
+INSERT INTO diagrams VALUES(334,'Is_Tac_Needed','4000 980','FIXME: Not 100% compliant with the spec',100.0);
 INSERT INTO diagrams VALUES(335,'Perform_Specific_Checks','160 30','All other checks are moved to Perform_General_Checks',100.0);
 CREATE TABLE state
 (
@@ -273,7 +272,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,334,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,83,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -593,8 +592,8 @@ INSERT INTO items VALUES(1071,34,'if','PR_OK == result',0,1950,640,180,20,430,1,
 INSERT INTO items VALUES(1074,34,'shelf',replace('N_MISSING_DATA\n/**/','\n',char(10)),0,2430,640,70,50,40,0,NULL,NULL,NULL,'ttd.nokReason');
 INSERT INTO items VALUES(1079,34,'if',replace('ttd.serviceStartEvents\n.referenceEntry','\n',char(10)),0,1950,730,180,30,150,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1080,34,'vertical','',0,2280,730,0,180,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1081,34,'insertion',replace('result =\nProcess_Profile_Parameters();','\n',char(10)),0,2280,790,130,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1082,34,'if','PR_OK == result',0,2280,870,130,20,150,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1081,34,'insertion',replace('result =\nProcess_Application_Profile_Parameters();','\n',char(10)),0,2280,800,180,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1082,34,'if','PR_OK == result',0,2280,870,180,20,100,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1083,34,'horizontal','',0,1950,910,330,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1085,34,'shelf','PR_NOK',0,4770,310,50,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(1087,34,'shelf','PR_OK',0,4200,870,120,40,40,0,NULL,NULL,NULL,'result');
@@ -2249,21 +2248,6 @@ INSERT INTO items VALUES(4948,72,'branch','Check amount',0,2520,60,140,30,60,0,N
 INSERT INTO items VALUES(4949,72,'vertical','',0,2730,620,0,180,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4950,72,'address','No Amount',0,2730,750,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4951,72,'address',replace('Amount\nentered','\n',char(10)),0,2520,740,140,40,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4955,118,'beginend','Process_Profile_Parameters',0,170,60,120,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4956,118,'beginend','End',0,660,510,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4957,118,'vertical','',0,170,80,0,520,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4958,118,'vertical','',0,420,120,0,480,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4959,118,'vertical','',0,660,120,0,380,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4960,118,'horizontal','',0,170,120,490,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4961,118,'arrow','',0,20,120,150,480,400,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(4962,118,'branch','branch 1',0,170,170,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4963,118,'address','branch 2',0,170,550,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4964,118,'branch','branch 2',0,420,170,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4965,118,'branch','branch 3',0,660,170,70,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4966,118,'address','branch 3',0,420,550,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4967,118,'action','returns enum ProcedureResult',0,450,60,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4968,118,'horizontal','',0,160,60,250,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4969,118,'action','return PR_OK;',0,660,370,70,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4970,119,'beginend','Outcome_Processing',0,850,310,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4971,119,'beginend','End',0,10220,730,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4972,119,'vertical','',0,850,300,0,770,0,0,NULL,'',NULL,'');
@@ -9826,7 +9810,6 @@ INSERT INTO tree_nodes VALUES(162,46,'item',NULL,114);
 INSERT INTO tree_nodes VALUES(164,46,'item',NULL,116);
 INSERT INTO tree_nodes VALUES(165,46,'item',NULL,117);
 INSERT INTO tree_nodes VALUES(166,34,'folder','7.7 Outcome Processing',NULL);
-INSERT INTO tree_nodes VALUES(167,128,'item','',118);
 INSERT INTO tree_nodes VALUES(168,166,'item','',119);
 INSERT INTO tree_nodes VALUES(169,166,'item',NULL,120);
 INSERT INTO tree_nodes VALUES(170,166,'item',NULL,121);

@@ -78,7 +78,6 @@ INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','1196 39',NULL,100.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','1020 130',replace('NEXO: I did not find any mention about default values for optional tags that have terminal as their source. So I assumed the same rules as for building DOL data.\n\nTODO: Find those rules, and change the diagram if needed\n\nNEXO: Limit Set List is specified to be configurable "per E6 profile", because it is referenced in nexo FAST v.3.2 table 14, but in the nexo IS v.4.0 line 1033 it is specified that only single such template could exist\n\nNEXO: Default value for TACs is defined in EMV Book 3, section 10.7, but they are set to default values during Terminal Action Analysis','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(106,'Perform_General_Checks','1790 440',NULL,100.0);
 INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','10 30',NULL,100.0);
-INSERT INTO diagrams VALUES(109,'Retrieve_Application_Version_Number_Terminal','-30 30',NULL,100.0);
 INSERT INTO diagrams VALUES(110,'Kernel_Processing','1281 -112','',100.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','528 65',NULL,100.0);
@@ -95,7 +94,7 @@ INSERT INTO diagrams VALUES(125,'Check_Minimal_Response_Tags','138 132',NULL,100
 INSERT INTO diagrams VALUES(126,'Card_Removal_Process_Separate_Readers','0 30','',100.0);
 INSERT INTO diagrams VALUES(128,'Update_Ui_Separate_Readers','0 0','',100.0);
 INSERT INTO diagrams VALUES(129,'Technology_Selection_Separate_Readers','78 -1229','TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.',100.0);
-INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','510 -248','TODO: Build Candidate List using PSE isn''t fully implemented',100.0);
+INSERT INTO diagrams VALUES(132,'Build_Candidate_List_Using_Pse','703 103','TODO: Build Candidate List using PSE isn''t fully implemented',100.0);
 INSERT INTO diagrams VALUES(133,'Build_Candidate_List_Using_List_Of_Aid','858 -512',NULL,100.0);
 INSERT INTO diagrams VALUES(134,'Final_Selection_For_Emv_Chip','1213 -304',NULL,100.0);
 INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','1069 -329',replace('There is no parsing per-se in the current implementation,\nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.','\n',char(10)),100.0);
@@ -114,7 +113,7 @@ INSERT INTO diagrams VALUES(149,'Process_On_Candidate_List','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(151,'Compare_Candidate_Application','-68 1',NULL,100.0);
 INSERT INTO diagrams VALUES(152,'Sort_Candidate_List_By_Priority','66 -66',NULL,100.0);
 INSERT INTO diagrams VALUES(155,'Cardholder_Application_Confirmation','0 0',NULL,100.0);
-INSERT INTO diagrams VALUES(156,'Check_Cardholder_Language','21 68',NULL,100.0);
+INSERT INTO diagrams VALUES(156,'Check_Cardholder_Language','-237 443',NULL,100.0);
 INSERT INTO diagrams VALUES(160,'Save_Fallback_Data','0 0','',100.0);
 INSERT INTO diagrams VALUES(166,'Authentication_Processing_And_Risk_Management','-129 -120','',100.0);
 INSERT INTO diagrams VALUES(167,'Initial_Oda_Processing','3809 -89','',100.0);
@@ -123,7 +122,7 @@ INSERT INTO diagrams VALUES(169,'Action_Analysis','914 204','nexo-FAST v.3.2, se
 INSERT INTO diagrams VALUES(171,'Cardholder_Verification','1662 -40','nexo-FAST v.3.2, figure 168',100.0);
 INSERT INTO diagrams VALUES(172,'Application_And_Transaction_Amount_Confirmation','100 -136',replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(173,'Processing_Restrictions','0 0',replace('Those functions can be carried out in any order and as soon as relevant card data is available, ie during the Application_Initialisation procedure. All those  procedures must be completed before the end of the Terminal_Action_Analysis procedure.\n\n(nexo-FAST v.3.2 section 8.2.6.1)\n\nTODO: Because of this description it may be required to reaorder thoses procedures or even call them in different place','\n',char(10)),100.0);
-INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','164 -198',NULL,100.0);
+INSERT INTO diagrams VALUES(174,'Application_Version_Number_Restriction','-97 23',NULL,100.0);
 INSERT INTO diagrams VALUES(175,'Dates_Restriction','-132 -116',NULL,100.0);
 INSERT INTO diagrams VALUES(176,'Application_Usage_Control','1047 82',NULL,100.0);
 INSERT INTO diagrams VALUES(177,'Terminal_Risk_Management','-144 -341','',100.0);
@@ -235,7 +234,7 @@ INSERT INTO diagrams VALUES(296,'Copy_Fci_Data_After_Select_Pse','0 0',NULL,100.
 INSERT INTO diagrams VALUES(297,'Validate_Df_Name','-249 -348',NULL,100.0);
 INSERT INTO diagrams VALUES(298,'Read_Records','-133 -133','nexo-FAST v.3.2, figure 124',100.0);
 INSERT INTO diagrams VALUES(299,'Reset_Chip','250 -186',replace('nexo-FAST v.3.2, note 126-05\n\nTODO: Check if this procedure agrees with EMV Book 1, sections 6~9','\n',char(10)),100.0);
-INSERT INTO diagrams VALUES(300,'E1_Initialise_Configuration_Data','202 -1940','TODO: Check if all mandatory tags are copied',100.0);
+INSERT INTO diagrams VALUES(300,'E1_Initialise_Configuration_Data','1003 -2727','TODO: Check if all mandatory tags are copied',100.0);
 INSERT INTO diagrams VALUES(301,'E1_Initialise_Activation_Data','27 -364',NULL,100.0);
 INSERT INTO diagrams VALUES(302,'E1_Initialise_Transaction_Data','172 -37',NULL,100.0);
 INSERT INTO diagrams VALUES(303,'Get_Processing_Options','435 -125',NULL,100.0);
@@ -266,13 +265,14 @@ INSERT INTO diagrams VALUES(330,'Is_Emv_Mode','300 350','TODO: Implement EMV mod
 INSERT INTO diagrams VALUES(331,'Is_Issuer_Update_Supported','830 470',replace('TODO: Use TTQ to check if issuer update is supported.\n\nLow priority, because this function is used only for kernel C5.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(334,'Is_Tac_Needed','4000 980','FIXME: Not 100% compliant with the spec',100.0);
 INSERT INTO diagrams VALUES(335,'Perform_Specific_Checks','160 30','All other checks are moved to Perform_General_Checks',100.0);
+INSERT INTO diagrams VALUES(336,'Retrieve_Application_Version_Number_Terminal','1270 260',NULL,100.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,83,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,336,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2030,17 +2030,10 @@ INSERT INTO items VALUES(4697,108,'address','branch 3',0,420,550,50,30,60,0,NULL
 INSERT INTO items VALUES(4698,108,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4699,108,'action','returns enum ProcedureResult',0,470,60,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4700,108,'action','return PR_OK;',0,660,430,70,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4701,83,'insertion',replace('result =\nRetrieve_Application_Version_Number_Terminal();','\n',char(10)),0,8550,280,200,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(4702,83,'if','PR_OK == result',0,8550,350,200,20,70,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(4701,83,'insertion','Retrieve_Application_Version_Number_Terminal();',0,8550,300,200,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4704,83,'shelf','PR_NOK',0,9080,340,70,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(4705,83,'shelf','PR_OK',0,8940,340,50,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(4708,83,'shelf','N_DATA_ERROR',0,9080,240,70,40,40,0,NULL,NULL,NULL,'ttd.nokReason');
-INSERT INTO items VALUES(4710,109,'beginend','Retrieve_Application_Version_Number_Terminal',0,170,60,190,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4711,109,'beginend','End',0,170,390,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4712,109,'vertical',NULL,0,170,80,0,290,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4713,109,'horizontal',NULL,0,170,60,310,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4714,109,'action','returns enum ProcedureResult',0,510,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4715,109,'action','return PR_OK;',0,170,290,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4716,110,'beginend','Kernel_Processing',0,900,70,80,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4717,110,'beginend','End',0,4200,530,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4718,110,'vertical','',0,900,70,0,620,0,0,NULL,'',NULL,'');
@@ -9703,6 +9696,38 @@ INSERT INTO items VALUES(15970,334,'vertical','',0,5530,1410,0,200,0,0,NULL,'',N
 INSERT INTO items VALUES(15971,334,'address','End',0,5400,1560,60,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(15972,334,'horizontal','',0,5080,1510,180,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15973,334,'address','End',0,5530,1560,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15983,336,'beginend','Retrieve_Application_Version_Number_Terminal',0,750,290,190,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15984,336,'beginend','End',0,2110,450,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15985,336,'vertical','',0,750,310,0,590,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15987,336,'vertical','',0,2110,330,0,110,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15988,336,'horizontal','',0,750,330,1360,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15989,336,'arrow','',0,530,330,220,570,1210,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15990,336,'branch','Select appropriate version list',0,750,380,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15991,336,'address','Search for matching app version',0,750,850,200,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15993,336,'branch','End',0,2110,380,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15998,336,'select','ttd.technologySelected',0,750,520,200,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(15999,336,'horizontal','',0,750,560,630,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16000,336,'case','TECH_EMV_CHIP',0,750,600,200,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16001,336,'case','TECH_CONTACTLESS',0,1140,600,180,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16002,336,'case','',0,1380,600,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16003,336,'vertical','',0,1140,560,0,240,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16004,336,'vertical','',0,1380,560,0,340,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16005,336,'horizontal','',0,750,800,390,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16007,336,'vertical','',0,1740,330,0,570,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16008,336,'branch','Search for matching app version',0,1740,380,280,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16009,336,'address','End',0,1740,850,280,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16011,336,'address','End',0,1380,850,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16013,336,'shelf','&e1.terminalApplicationVersionListContact',0,750,740,200,40,40,0,NULL,NULL,NULL,'l');
+INSERT INTO items VALUES(16014,336,'shelf','e1.terminalApplicationVersionListCtlss',0,1140,740,180,40,40,0,NULL,'',NULL,'l');
+INSERT INTO items VALUES(16015,336,'action','const struct TerminalApplicationVersionList* l;',0,750,460,200,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16016,336,'if','memcmp(&l->entry[i].rid, &ep.cd.dfName.rid, sizeof(struct Rid))',0,1740,630,280,20,180,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16017,336,'vertical','',0,2200,630,0,120,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16019,336,'shelf','l->entry[i].applicationVersionNumber',0,2200,690,160,40,40,0,NULL,NULL,NULL,'ep.applicationVersionNumber_Terminal');
+INSERT INTO items VALUES(16020,336,'loopstart','size_t i = 0; i < l->s; i++',0,1740,570,280,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16021,336,'loopend','',0,1740,700,280,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16022,336,'horizontal','',0,1740,750,460,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16023,336,'if','e1.terminalApplicationVersionListCtlss',0,1140,660,180,20,60,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16024,336,'action','; /* Workaround for broken code-generator */',0,1740,480,280,20,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -9800,7 +9825,6 @@ INSERT INTO tree_nodes VALUES(151,27,'item',NULL,104);
 INSERT INTO tree_nodes VALUES(152,128,'item',NULL,105);
 INSERT INTO tree_nodes VALUES(153,128,'item',NULL,106);
 INSERT INTO tree_nodes VALUES(155,128,'item',NULL,108);
-INSERT INTO tree_nodes VALUES(156,128,'item',NULL,109);
 INSERT INTO tree_nodes VALUES(157,34,'folder','7.6 Kernel Processing',NULL);
 INSERT INTO tree_nodes VALUES(158,157,'item','',110);
 INSERT INTO tree_nodes VALUES(159,157,'item',NULL,111);
@@ -10028,6 +10052,7 @@ INSERT INTO tree_nodes VALUES(426,128,'item',NULL,330);
 INSERT INTO tree_nodes VALUES(427,128,'item',NULL,331);
 INSERT INTO tree_nodes VALUES(430,128,'item','',334);
 INSERT INTO tree_nodes VALUES(431,128,'item',NULL,335);
+INSERT INTO tree_nodes VALUES(432,128,'item',NULL,336);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

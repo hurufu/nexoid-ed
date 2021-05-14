@@ -824,6 +824,9 @@ struct CardData {
  */
 struct EntryPointData {
     struct CardData cd;
+
+    // [9F09]
+    union binary2 applicationVersionNumber_Terminal;
 };
 
 enum TmsContactLevel {

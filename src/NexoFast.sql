@@ -24,7 +24,7 @@ INSERT INTO diagrams VALUES(22,'Check_Online_Performed','245 -240','',100.0);
 INSERT INTO diagrams VALUES(31,'Dcc_Processing','-465 -29','',100.0);
 INSERT INTO diagrams VALUES(32,'Transaction_Dcc_Eligibility','-824 -431','',100.0);
 INSERT INTO diagrams VALUES(33,'Update_Pre_Authorisation','435 57','',100.0);
-INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','1665 236','Whole Upa Specific Processing isn''t finished. I have to rework it. It''s now a little better, because I removed redundant SCAPI calls, but still it''s ugly',100.0);
+INSERT INTO diagrams VALUES(34,'Upa_Specific_Processing','1765 596','Whole Upa Specific Processing isn''t finished. I have to rework it. It''s now a little better, because I removed redundant SCAPI calls, but still it''s ugly',100.0);
 INSERT INTO diagrams VALUES(38,'Perform_Service','-324 -114',NULL,100.0);
 INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','456 -301','NEXO: If Service Start Events exactly matches one of the Minimal Start Conditions, then exit with SATISFIED. This is against additional note in nexo-FAST v.3.2, note 15-50, but what they have defined seems a little bit strange, because now we must to check if each combination is allowed, and I think in practice everybody would expect to match minimum start events exactly.',100.0);
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-552 -116','',100.0);
@@ -51,10 +51,10 @@ INSERT INTO diagrams VALUES(74,'Pre_Processing_Ctls','-16 -269','',100.0);
 INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','197 -41','',100.0);
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-147 -554','FIXME: This function handles only single event at a time',100.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','181 -332',NULL,100.0);
-INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-96 -264','',100.0);
+INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','-146 236','',100.0);
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-112 -34','',100.0);
-INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','-52 -104','First best match is selected',100.0);
-INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','6860 -200',replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.','\n',char(10)),100.0);
+INSERT INTO diagrams VALUES(82,'Application_Profile_Selection_For_Non_Chip','598 96','First best match is selected',100.0);
+INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','6565 -374',replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','-94 -118',NULL,100.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-198 -66',NULL,100.0);
 INSERT INTO diagrams VALUES(87,'Match_Application_Profile_Entry','-133 -133',NULL,100.0);
@@ -101,7 +101,7 @@ INSERT INTO diagrams VALUES(136,'Parse_Emv_Response_Data','1069 -329',replace('T
 INSERT INTO diagrams VALUES(137,'Create_New_Entry_In_Candidate_List','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(138,'Match_With_Df_Name','-518 -178',NULL,100.0);
 INSERT INTO diagrams VALUES(139,'Chip_Application_Kernel_Profile_Selection','307 5',NULL,100.0);
-INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','1785 -65',NULL,100.0);
+INSERT INTO diagrams VALUES(140,'Application_Kernel_And_Profile_Selection','735 -54',NULL,100.0);
 INSERT INTO diagrams VALUES(141,'Local_Build_Candidate_List','1362 -164','TODO: Move to separate module',100.0);
 INSERT INTO diagrams VALUES(142,'Ctlss_Application_Kernel_Profile_Selection','136 -65',NULL,100.0);
 INSERT INTO diagrams VALUES(143,'Is_Fallback_To_Msr_Allowed','186 -182','nexo-FAST note 122-95',100.0);
@@ -135,7 +135,7 @@ INSERT INTO diagrams VALUES(183,'Authorisation_Request','-229 -406','nexo-FAST v
 INSERT INTO diagrams VALUES(185,'Transaction_Completion','56 -450',replace('Nexo specifies to execute each step of Transaction Completion regardles of any error conditions, but this implementation has an addtional error: Interface Contract Violation, it''s the hardest possible error, and default hadling is to immediately go to Main and execute Diagnostics and Maintenance and terminate nexo application. Here this handling is relaxed and bailing out will occur after\nall steps of Transaction Completion.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(186,'Tc_Force_Transaction_Acceptance','-70 -141','',100.0);
 INSERT INTO diagrams VALUES(187,'Tc_Additional_Confirmation','14 -31',NULL,100.0);
-INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','-50 -100',NULL,100.0);
+INSERT INTO diagrams VALUES(188,'Tc_Cardholder_Notification','1505 596',NULL,100.0);
 INSERT INTO diagrams VALUES(189,'Tc_Remove_Card','-267 -302',NULL,100.0);
 INSERT INTO diagrams VALUES(191,'Tc_Save_Transaction','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(192,'Transaction_Confirmation','474 -340',replace('TODO: Consider redesign of cardholder messages format, so it can be possible to signal that some informations should be displayed on one line, like:\nPAYMENT: <Transaction Amount> <Currency>','\n',char(10)),100.0);
@@ -272,7 +272,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,108,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,82,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1453,9 +1453,9 @@ INSERT INTO items VALUES(3797,82,'horizontal','',0,260,120,1480,0,0,0,NULL,NULL,
 INSERT INTO items VALUES(3798,82,'arrow','',0,30,120,230,580,1570,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3799,82,'branch','branch 1',0,260,170,210,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3800,82,'address','Select Profile',0,260,650,210,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3801,82,'branch','Match',0,1110,170,180,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3801,82,'branch','Match',0,1110,170,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3802,82,'branch','End',0,1740,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3803,82,'address','Nok',0,1110,650,180,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3803,82,'address','Ok',0,1110,650,160,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3804,82,'horizontal',NULL,0,260,80,330,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3805,82,'action','returns enum ProcedureResult',0,590,80,130,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3806,82,'action','return result;',0,1740,340,70,20,0,0,NULL,NULL,NULL,NULL);
@@ -1561,7 +1561,7 @@ INSERT INTO items VALUES(3940,82,'if','result == PR_MATCH',0,640,420,150,20,70,0
 INSERT INTO items VALUES(3941,82,'vertical','',0,860,420,0,280,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3943,82,'address','Match',0,860,650,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3944,82,'shelf','N_NO_PROFILE',0,640,560,150,40,40,0,NULL,NULL,NULL,'ttd.nokReason');
-INSERT INTO items VALUES(3945,82,'shelf','p->ApplicationProfileNumber',0,1110,260,180,40,40,0,NULL,NULL,NULL,'ttd.selectedApplicationProfileNumber');
+INSERT INTO items VALUES(3945,82,'shelf','p->ApplicationProfileNumber',0,1110,260,160,40,40,0,NULL,NULL,NULL,'ttd.selectedApplicationProfileNumber');
 INSERT INTO items VALUES(3949,88,'beginend','Update_Cardholder_Initial_Message',0,300,-60,150,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3950,88,'beginend','End',0,2300,350,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3951,88,'vertical','',0,300,-40,0,1220,0,0,NULL,NULL,NULL,NULL);
@@ -5248,18 +5248,12 @@ INSERT INTO items VALUES(9756,145,'action','struct ApplicationProfileList* l;',0
 INSERT INTO items VALUES(9757,205,'action','struct Extracted_Tl t;',0,1130,140,120,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9758,204,'shelf','rmt->afl',0,290,560,50,40,40,0,NULL,NULL,NULL,'out->afl');
 INSERT INTO items VALUES(9759,204,'shelf','rmt->aip',0,290,660,50,40,40,0,NULL,'',NULL,'out->aip');
-INSERT INTO items VALUES(9760,82,'loopstart','l = e6; l; l = l->next',0,1110,340,180,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9761,82,'loopend','',0,1110,510,180,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9762,82,'if',replace('l->entry.profileNumber\n==\nttd.selectedApplicationProfileNumber','\n',char(10)),0,1110,420,180,40,70,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9763,82,'vertical','',0,1360,420,0,280,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9764,82,'shelf','l->entry',0,1360,480,50,40,40,0,NULL,'',NULL,'ap');
 INSERT INTO items VALUES(9765,82,'vertical','',0,1600,120,0,580,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9766,82,'branch','Nok',0,1600,170,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9767,82,'address','End',0,1600,650,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9768,82,'vertical','',0,1480,120,0,580,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9769,82,'branch','Ok',0,1480,170,50,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9770,82,'address','End',0,1480,650,50,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9771,82,'address','Ok',0,1360,650,50,30,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9772,82,'action','struct ApplicationProfileList* l;',0,260,430,210,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9773,82,'vertical','',0,640,120,0,580,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(9774,82,'address','Nok',0,640,650,150,30,60,0,NULL,NULL,NULL,NULL);

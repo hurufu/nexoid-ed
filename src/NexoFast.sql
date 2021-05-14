@@ -77,7 +77,7 @@ INSERT INTO diagrams VALUES(103,'Cardholder_Receipt_Printing','325 -292',NULL,10
 INSERT INTO diagrams VALUES(104,'Check_Receipt_Printing','1196 39',NULL,100.0);
 INSERT INTO diagrams VALUES(105,'Restore_Application_Profile_Defaults','1020 130',replace('NEXO: I did not find any mention about default values for optional tags that have terminal as their source. So I assumed the same rules as for building DOL data.\n\nTODO: Find those rules, and change the diagram if needed\n\nNEXO: Limit Set List is specified to be configurable "per E6 profile", because it is referenced in nexo FAST v.3.2 table 14, but in the nexo IS v.4.0 line 1033 it is specified that only single such template could exist\n\nNEXO: Default value for TACs is defined in EMV Book 3, section 10.7, but they are set to default values during Terminal Action Analysis','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(106,'Perform_General_Checks','1790 440',NULL,100.0);
-INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','10 30',NULL,100.0);
+INSERT INTO diagrams VALUES(108,'Set_Application_Label_Displayed','760 10','nexo-FAST v.3.2, note 144-30',100.0);
 INSERT INTO diagrams VALUES(110,'Kernel_Processing','1281 -112','',100.0);
 INSERT INTO diagrams VALUES(111,'Check_Kernel_Outcome','0 0',NULL,100.0);
 INSERT INTO diagrams VALUES(112,'Kernel_M_Processing','528 65',NULL,100.0);
@@ -265,14 +265,14 @@ INSERT INTO diagrams VALUES(330,'Is_Emv_Mode','300 350','TODO: Implement EMV mod
 INSERT INTO diagrams VALUES(331,'Is_Issuer_Update_Supported','830 470',replace('TODO: Use TTQ to check if issuer update is supported.\n\nLow priority, because this function is used only for kernel C5.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(334,'Is_Tac_Needed','4000 980','FIXME: Not 100% compliant with the spec',100.0);
 INSERT INTO diagrams VALUES(335,'Perform_Specific_Checks','160 30','All other checks are moved to Perform_General_Checks',100.0);
-INSERT INTO diagrams VALUES(336,'Retrieve_Application_Version_Number_Terminal','1270 260',NULL,100.0);
+INSERT INTO diagrams VALUES(336,'Retrieve_Application_Version_Number_Terminal','520 260',NULL,100.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,336,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,108,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2015,21 +2015,21 @@ INSERT INTO items VALUES(4676,106,'action',replace('const struct ApplicationProf
 INSERT INTO items VALUES(4683,106,'action','return e ? PR_NOK : PR_OK;',0,2010,2750,210,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4684,83,'insertion',replace('result =\nSet_Application_Label_Displayed();','\n',char(10)),0,8550,420,200,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4685,83,'if','PR_OK == result',0,8550,490,200,20,70,1,NULL,'',NULL,'');
-INSERT INTO items VALUES(4686,108,'beginend','Set_Application_Label_Displayed',0,170,60,140,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4687,108,'beginend','End',0,660,510,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4688,108,'vertical','',0,170,80,0,520,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4689,108,'vertical','',0,420,120,0,480,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4690,108,'vertical','',0,660,120,0,380,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4691,108,'horizontal','',0,170,120,490,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4692,108,'arrow','',0,20,120,150,480,400,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4693,108,'branch','branch 1',0,170,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4694,108,'address','branch 2',0,170,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4695,108,'branch','branch 2',0,420,170,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4696,108,'branch','branch 3',0,660,170,70,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4697,108,'address','branch 3',0,420,550,50,30,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4698,108,'horizontal',NULL,0,170,60,200,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4699,108,'action','returns enum ProcedureResult',0,470,60,130,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(4700,108,'action','return PR_OK;',0,660,430,70,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4686,108,'beginend','Set_Application_Label_Displayed',0,930,40,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4687,108,'beginend','End',0,3560,260,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4688,108,'vertical','',0,930,40,0,620,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4689,108,'vertical','',0,3420,80,0,580,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4690,108,'vertical','',0,3560,80,0,170,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4691,108,'horizontal','',0,930,80,2630,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4692,108,'arrow','',0,770,80,160,580,2650,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4693,108,'branch','Select appropriate version list',0,930,130,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4694,108,'address','Handle non-chip (default)',0,930,610,140,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4695,108,'branch','Nok',0,3420,130,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4696,108,'branch','End',0,3560,130,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4697,108,'address','End',0,3420,610,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4698,108,'horizontal',NULL,0,940,40,180,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4699,108,'action','returns enum ProcedureResult',0,1220,40,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(4700,108,'action','return result;',0,3560,200,70,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(4701,83,'insertion','Retrieve_Application_Version_Number_Terminal();',0,8550,300,200,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(4704,83,'shelf','PR_NOK',0,9080,340,70,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(4705,83,'shelf','PR_OK',0,8940,340,50,40,40,0,NULL,'',NULL,'result');
@@ -9728,6 +9728,50 @@ INSERT INTO items VALUES(16021,336,'loopend','',0,1740,700,280,20,60,0,NULL,NULL
 INSERT INTO items VALUES(16022,336,'horizontal','',0,1740,750,460,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16023,336,'if','e1.terminalApplicationVersionListCtlss',0,1140,660,180,20,60,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16024,336,'action','; /* Workaround for broken code-generator */',0,1740,480,280,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16025,108,'vertical','',0,3300,80,0,580,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16026,108,'branch','Ok',0,3300,130,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16027,108,'address','End',0,3300,610,50,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16028,108,'vertical','',0,2040,80,0,580,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16029,108,'branch','Handle EMV',0,2040,130,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16030,108,'address','Ok',0,2040,610,210,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16034,108,'select','ttd.technologySelected',0,930,320,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16035,108,'horizontal','',0,930,360,780,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16036,108,'case','TECH_MAGNETIC_STRIPE',0,930,400,140,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16037,108,'case','TECH_MANUAL_ENTRY',0,1170,400,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16038,108,'case','',0,1710,400,100,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16039,108,'vertical','',0,1170,360,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16040,108,'vertical','',0,1710,360,0,300,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16041,108,'case','TECH_EMV_CHIP',0,1340,400,70,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16042,108,'case','TECH_CONTACTLESS',0,1510,400,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16043,108,'vertical','',0,1340,360,0,300,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16044,108,'vertical','',0,1510,360,0,100,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16045,108,'horizontal','',0,930,460,240,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16046,108,'horizontal','',0,1340,460,170,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16047,108,'address','Handle EMV',0,1340,610,70,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16048,108,'address','Nok',0,1710,610,100,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16049,108,'commentin',replace('NEXO: Spec does not\ntell what to do if\nanother technology\nis selected.','\n',char(10)),0,1710,490,100,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16058,108,'shelf','PR_OK',0,3300,320,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(16059,108,'shelf','PR_NOK',0,3420,320,50,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(16060,108,'if','ep.cd.issuerCodeTableIndex',0,2040,200,210,20,200,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16061,108,'vertical','',0,2450,200,0,360,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16062,108,'horizontal','',0,2040,560,410,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16063,108,'if',replace('is_code_table_supported(\n	*ap.additionalTerminalCapabilities,\n	*ep.cd.issuerCodeTableIndex)','\n',char(10)),0,2040,280,210,40,200,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16064,108,'shelf','acpptr(ep.cd.applicationPreferredName)',0,2040,500,210,40,40,0,NULL,'',NULL,'ttd.applicationLabelDisplayed');
+INSERT INTO items VALUES(16065,108,'if','ep.cd.applicationLabel',0,2450,320,180,20,30,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16066,108,'vertical','',0,2660,320,0,340,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16068,108,'shelf','acpptr(ep.cd.applicationLabel)',0,2450,500,180,40,40,0,NULL,'',NULL,'ttd.applicationLabelDisplayed');
+INSERT INTO items VALUES(16070,108,'if',replace('ap.additionalTerminalCapabilities->\nterminalDataOutput.displayCardholder','\n',char(10)),0,2450,390,180,30,30,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16071,108,'commentout',replace('NEXO: This is my interpretation\nof the following passage: [...]\ncan be displayed by the terminal\n[...].','\n',char(10)),0,2110,390,140,50,40,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16072,108,'vertical','',0,2950,80,0,580,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16073,108,'branch','Handle non-chip (default)',0,2950,130,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16074,108,'address','Ok',0,2950,610,160,30,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16075,108,'shelf','acpptr(ap.applicationLabelDefault)',0,2950,500,160,40,40,0,NULL,'',NULL,'ttd.applicationLabelDisplayed');
+INSERT INTO items VALUES(16076,108,'commentin',replace('NEXO: "Application Label Default"\ndoes not need to be checked,\nbecause it is a mandatory field\nand it wil be always present.','\n',char(10)),0,2950,250,160,50,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16077,108,'address','Handle non-chip (default)',0,2660,610,110,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16078,108,'if','ap.applicationLabelDefault',0,2950,360,160,20,70,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16079,108,'vertical','',0,3180,360,0,300,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16080,108,'address','Nok',0,3180,610,50,30,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16081,108,'shelf','PR_UNINITIALISED',0,930,220,140,40,40,0,NULL,NULL,NULL,'enum ProcedureResult result');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

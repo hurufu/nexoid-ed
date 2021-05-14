@@ -228,9 +228,18 @@ union PACKED TagExpanded {
     };
 };
 
-
+// ISO 8589-1
 enum PACKED IssuerCodeTableIndex {
-    ISO_CODE_TABLE_1 = 0x01 // ISO 8589-1
+    ISO_CODE_TABLE_1 = 1,
+    ISO_CODE_TABLE_2 = 2,
+    ISO_CODE_TABLE_3 = 3,
+    ISO_CODE_TABLE_4 = 4,
+    ISO_CODE_TABLE_5 = 5,
+    ISO_CODE_TABLE_6 = 6,
+    ISO_CODE_TABLE_7 = 7,
+    ISO_CODE_TABLE_8 = 8,
+    ISO_CODE_TABLE_9 = 9,
+    ISO_CODE_TABLE_10 = 10
 };
 
 // Kernel ID
@@ -718,7 +727,7 @@ struct CardRequest {
  *  @todo Split CardData into 2 structure for it's different usecases
  */
 struct CardData {
-    struct string16 applicationLabel;
+    struct string16* applicationLabel; ///< @see FciProprietaryTemplate
     union ApplicationPriorityIndicator* applicationPriorityIndicator;
     struct Dol* pdol;
     struct TerminalSupportedLanguageList* languagePreference;
@@ -2409,7 +2418,7 @@ struct ApplicationProfile {
     enum FallbackParameterMagneticStripe* fallbackParameterMagneticStripe;
     enum TransactionType* transactionTypeForKernelProcessing; // NEXO: Not specified in nexo IS // DF54
     enum VlpTerminalSupportIndicator* vlpTerminalSupportIndicator;
-    struct ans_16* applicationLabelDefault;
+    struct string16* applicationLabelDefault;
     struct ans_25* schemeIdentifier;
     struct ans15* merchantIdentifier;
     struct bcd2* preauthorisationValidityNumberOfDays; // DF2F
@@ -2864,9 +2873,16 @@ struct FciIssuerDiscretionaryData {
 
 // [A5]
 struct FciProprietaryTemplate {
+    // NEXO: It looks like there is an inconsistency between nexo and EMV.
+    // In EMV Book 1 v.4.3 `applicationLabel` is a mandatory tag for a relevant
+    // FCI template, but in nexo-FAST v.3.2, note 144-30 it is written that
+    // it may be absent. That means that if my understanding is correct then
+    // nexo expects to use a default label and proceed with tranaction as usual
+    // even if it was absent in FCI, but EMV expects to abort such transaction.
+    //
     // nexo-FAST v.3.2 section 13.1.17
     // [50]
-    struct string16 applicationLabel;
+    struct string16* applicationLabel;
 
     // [87]
     union ApplicationPriorityIndicator* applicationPriorityIndicator;
@@ -3290,6 +3306,7 @@ struct TerminalTransactionData {
     bool pinEntryBypassed;
     bool chipPinEntered;
     union yymmdd transactionDate;
+    struct string16* applicationLabelDisplayed;
 
     // FIXME: Consider moving to a different location
     struct EventTable {

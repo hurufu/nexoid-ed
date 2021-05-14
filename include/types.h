@@ -1858,45 +1858,45 @@ union ProcessingStatus {
 };
 
 struct TransactionTypeCapability {
-    unsigned char cash : 1;
-    unsigned char goods : 1;
-    unsigned char services : 1;
-    unsigned char cashback : 1;
-    unsigned char inquiry : 1;
-    unsigned char transfer : 1;
-    unsigned char payment : 1;
-    unsigned char administrative : 1;
+    bool administrative : 1;
+    bool payment : 1;
+    bool transfer : 1;
+    bool inquiry : 1;
+    bool cashback : 1;
+    bool services : 1;
+    bool goods : 1;
+    bool cash : 1;
 
-    unsigned char cashDeposit : 1;
-    unsigned char /* RFU */ : 1;
+    char /* RFU */ : 7;
+    bool cashDeposit : 1;
 };
 
 struct TransactionDataInputCapability {
-    unsigned char numericKeys : 1;
-    unsigned char alphabeticAndSpecialCharactersKeys : 1;
-    unsigned char commandKeys : 1;
-    unsigned char functionKeys : 1;
-    unsigned char /* RFU */ : 4;
+    char /* RFU */ : 4;
+    bool functionKeys : 1;
+    bool commandKeys : 1;
+    bool alphabeticAndSpecialCharactersKeys : 1;
+    bool numericKeys : 1;
 };
 
 struct TransactionDataOutputCapability {
-    unsigned char printAttendant : 1;
-    unsigned char printCardholder : 1;
-    unsigned char displayAttendant : 1;
-    unsigned char displayCardholder : 1;
-    unsigned char /* RFU */ : 2;
-    // ISO/IEC 8859
-    unsigned char codeTable10 : 1;
-    unsigned char codeTable9 : 1;
+    bool codeTable9 : 1;
+    bool codeTable10 : 1;
+    char /* RFU */ : 2;
+    bool displayCardholder : 1;
+    bool displayAttendant : 1;
+    bool printCardholder : 1;
+    bool printAttendant : 1;
 
-    unsigned char codeTable8 : 1;
-    unsigned char codeTable7 : 1;
-    unsigned char codeTable6 : 1;
-    unsigned char codeTable5 : 1;
-    unsigned char codeTable4 : 1;
-    unsigned char codeTable3 : 1;
-    unsigned char codeTable2 : 1;
-    unsigned char codeTable1 : 1;
+    // ISO/IEC 8859
+    bool codeTable1 : 1;
+    bool codeTable2 : 1;
+    bool codeTable3 : 1;
+    bool codeTable4 : 1;
+    bool codeTable5 : 1;
+    bool codeTable6 : 1;
+    bool codeTable7 : 1;
+    bool codeTable8 : 1;
 };
 
 union AdditionalTerminalCapabilities {
@@ -1907,6 +1907,17 @@ union AdditionalTerminalCapabilities {
         struct TransactionDataOutputCapability terminalDataOutput;
     };
 };
+
+static inline uint16_t code_tables_get(const union AdditionalTerminalCapabilities atc) {
+    return (uint16_t)(atc.raw[4] | (atc.raw[3] << 8));
+}
+
+static inline bool is_code_table_supported(const union AdditionalTerminalCapabilities atc, const uint8_t number) {
+    if (number < 1 || number > 10) {
+        return false;
+    }
+    return (code_tables_get(atc) & (1 << (number-1))) != 0;
+}
 
 union EeaProcessSettings {
     unsigned char raw[2];

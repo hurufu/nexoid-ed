@@ -116,3 +116,28 @@
     const union yymmdd b = { .y = 0x19, .m = 0x04, .d = 0x04 };
     ck_assert_int_eq(yymmdd_cmp(a, b), 1);
     ck_assert_int_eq(yymmdd_cmp(b, a), -1);
+
+#test atc_has_correct_memory_layout
+    const union AdditionalTerminalCapabilities c = {
+        .transactionType = {
+            .cashDeposit = 1,
+            .administrative = 1,
+        },
+        .terminalDataInput = {
+            .functionKeys = 1,
+            .numericKeys = 1,
+        },
+        .terminalDataOutput = {
+            .codeTable3 = 1,
+            .codeTable9 = 1,
+            .codeTable1 = 1,
+        },
+    };
+    const unsigned char expected[sizeof(c.raw)] = { 0x01,0x80,0x90,0x01,0x05 };
+    ck_assert_uint_eq(sizeof(c), sizeof(c.raw));
+    ck_assert_mem_eq(c.raw, expected, sizeof(c.raw));
+    ck_assert_uint_eq(code_tables_get(c), 0x0105);
+    for (int i = 1; i <= 10; i++) {
+        const bool test = is_code_table_supported(c, i);
+        ck_assert_msg((ONEOF3(i,1,3,9)? test : !test), "Bit #%d is reversed (expected: !%d)", i, test);
+    }

@@ -117,6 +117,15 @@
     ck_assert_int_eq(yymmdd_cmp(a, b), 1);
     ck_assert_int_eq(yymmdd_cmp(b, a), -1);
 
+#test yymmdd_special_test
+    // This test fails with naïve implementation: `lhs.u <=> rhs.u`
+    const union yymmdd a = { .y = 0x00, .m = 0x01, .d = 0x02 };
+    const union yymmdd b = { .y = 0x00, .m = 0x02, .d = 0x01 };
+    ck_assert_int_eq(yymmdd_cmp(a, b), -1);
+    ck_assert_int_eq(yymmdd_cmp(b, a), 1);
+    ck_assert_int_eq(yymmdd_cmp(b, b), 0);
+    ck_assert_int_eq(yymmdd_cmp(a, a), 0);
+
 #test atc_has_correct_memory_layout
     const union AdditionalTerminalCapabilities c = {
         .transactionType = {

@@ -4,6 +4,7 @@
 #include "dmapi.h"
 
 #include <stdio.h>
+#include <time.h>
 
 bool isIssuerCountryExcludedForDcc(void) {
     return false;
@@ -174,8 +175,18 @@ struct cbcd6 String_To_Cbcd6(const char* const str) {
     return ret;
 }
 
+static struct tm yymmdd_totm(const union yymmdd a) {
+    return (struct tm){
+        .tm_year = 2000 + a.y,
+        .tm_mon = a.m - 1,
+        .tm_mday = a.d
+    };
+}
+
 int yymmdd_cmp(const union yymmdd lhs, const union yymmdd rhs) {
-    return lhs.u > rhs.u;
+    struct tm l = yymmdd_totm(lhs), r = yymmdd_totm(rhs);
+    const time_t lt = mktime(&l), rt = mktime(&r);
+    return lt == rt ? 0 : lt > rt ? 1 : -1;
 }
 
 int bcd6_add(const union bcd6 a, const union bcd6 b, union bcd6* const c) {

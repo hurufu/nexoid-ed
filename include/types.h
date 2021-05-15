@@ -2167,7 +2167,7 @@ struct ApplicationProfileSelectionTable {
     bcd_t profileNumber;
     union ConfiguredServices supportedServices;
 
-    bcd_t* applicationProfileAcquirerNumber;
+    union bcd* applicationProfileAcquirerNumber;
     bool* aidMatchCriteria;
     struct BankIdentifierCodeList* bic;
     struct IssuerCountryCodeAlpha2List* issuerCountryCodeAlpha2;
@@ -2509,18 +2509,21 @@ struct TerminalListOfBid {
 
 // source: nexo-FAST v.3.2 section 13.3.15
 // size: at least 60
-struct ApplicationProfileSelectionTableNonChip {
-    struct Bid Bid;
-    unsigned char ApplicationProfileNumber;
-    union ConfiguredServices SupportedServices;
-    unsigned char* ApplicationProfileAcquirerNumber;
-    struct {
+struct ApplicationProfileSelectionTableNonChipEntry {
+    struct Bid bid;
+    unsigned char applicationProfileNumber;
+    union ConfiguredServices supportedServices;
+    union bcd* applicationProfileAcquirerNumber;
+    struct PrefixList {
         struct Prefix value;
         struct Prefix* next;
     }* prefix;
     struct Prefix* prefixMask;
-    enum Technology* TechnologyOfProfile; // WUT?
+    enum Technology* technologyOfProfile;
+};
 
+struct ApplicationProfileSelectionTableNonChip {
+    struct ApplicationProfileSelectionTableNonChipEntry entry;
     struct ApplicationProfileSelectionTableNonChip* next;
 };
 
@@ -2613,7 +2616,7 @@ struct CombinationListAndParameters {
 struct AcquirerParameterTable {
     // A reference number uniquely identifying the acquirer for the nexo FAST application
     // [DF01]
-    struct bcd2 acquirerNumber;
+    union bcd acquirerNumber;
 
     // Mnemonic identifying the acquirer as known by the attendant
     // [DF02]
@@ -3235,7 +3238,7 @@ enum OdaMethod {
 
 struct TerminalTransactionData {
     bool acquirerPreSelected;
-    bcd_t preSelectedAcquirerNumber;
+    union bcd* preSelectedAcquirerNumber;
     bool cardholderLanguageIsSelected;
     bool applicationInitialised;
     union bcd transactionCurrencyExponent;

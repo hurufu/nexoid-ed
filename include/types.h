@@ -1409,13 +1409,18 @@ union ServiceSettings {
     };
 };
 
+struct Prefix {
+    uint8_t size;
+    unsigned char value[19];
+};
+
 struct SearchLogCriteria {
     bool* onlyLastTransaction;
     bool* mostRecent;
     bool* closed;
     bool* cancellable;
 
-    char (* pan)[19]; // FIXME: Use proper type for PAN
+    struct Prefix pan;
     struct ans_35* referenceData;
 
     struct SlcServiceId {
@@ -1792,7 +1797,7 @@ enum Track2DiscretionaryDataTypeEnum {
 // NOTE: Strings in Track2 aren't null terminated
 // FIXME: Track2 struct isn't compliant with Nexo definition
 struct Track2 {
-    char pan[19];
+    struct Prefix pan;
     union ExpirationDate expiryDate;
     union ServiceCodeMs {
         char raw[3]; // Same as ServiceCodeMs in the spec
@@ -1816,11 +1821,6 @@ struct Track2 {
 struct Bid {
     uint8_t size;
     unsigned char value[16 + 1];
-};
-
-struct Prefix {
-    uint8_t size;
-    unsigned char value[19];
 };
 
 struct PrefixRange {
@@ -3287,7 +3287,7 @@ struct TerminalTransactionData {
 
     enum CvdPresence* cvdPresence;
     struct cn2* cvd;
-    char (* pan)[19]; // FIXME: Use proper structure for PAN
+    struct Prefix* pan;
     bool isDccEligible;
     bool dccPerformedOnce;
     bool pinBypassAllowed;

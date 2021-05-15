@@ -145,7 +145,7 @@ struct SearchLogCriteria* alloc_SearchLogCriteria_For_FloorLimit(void) {
     ret->trxResult->s = 1;
     ret->trxResult->v[0] = T_APPROVED;
 
-    ret->pan = *acpptr(&ttd.pan);
+    ret->pan = *acpptr(ttd.pan);
 
     return ret;
 }

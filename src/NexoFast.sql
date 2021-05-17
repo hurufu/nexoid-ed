@@ -55,7 +55,7 @@ INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','60 -20','',100.0)
 INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-20 -170','',100.0);
 INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','6565 -374',replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','180 -60',NULL,100.0);
-INSERT INTO diagrams VALUES(86,'Match_PrefixRange','-198 -66',NULL,100.0);
+INSERT INTO diagrams VALUES(86,'Match_PrefixRange','60 10',NULL,100.0);
 INSERT INTO diagrams VALUES(88,'Update_Cardholder_Initial_Message','-42 -265',NULL,100.0);
 INSERT INTO diagrams VALUES(89,'Ui_Request_Processing','-176 -190',replace('Single output request is used instead of 2, as specified in nexo, because\nall empty values shall be ignored','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(90,'Kernel_Activation','753 76','',100.0);
@@ -265,17 +265,17 @@ INSERT INTO diagrams VALUES(334,'Is_Tac_Needed','4000 980','FIXME: Not 100% comp
 INSERT INTO diagrams VALUES(335,'Perform_Specific_Checks','160 30','All other checks are moved to Perform_General_Checks',100.0);
 INSERT INTO diagrams VALUES(336,'Retrieve_Application_Version_Number_Terminal','520 260',NULL,100.0);
 INSERT INTO diagrams VALUES(337,'Application_Profile_Selection_For_Non_Chip','210 -120',NULL,100.0);
-INSERT INTO diagrams VALUES(339,'Match_Pan_Prefixes','300 -250','TODO: Consider unification of masking here, during card profile selection and PAN for printing.',100.0);
+INSERT INTO diagrams VALUES(339,'Match_Pan_Prefixes','350 -230','TODO: Consider unification of masking here, during card profile selection and PAN for printing.',100.0);
 INSERT INTO diagrams VALUES(340,'Match_Application_Profile_Entry','1420 -400',NULL,100.0);
 INSERT INTO diagrams VALUES(341,'Prefix_equal','250 -150',NULL,100.0);
-INSERT INTO diagrams VALUES(342,'Apply_Prefix_Mask','0 -150',NULL,100.0);
+INSERT INTO diagrams VALUES(342,'Apply_Prefix_Mask','100 -110',NULL,100.0);
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,339,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,340,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -9754,7 +9754,7 @@ INSERT INTO items VALUES(16172,340,'vertical',NULL,0,1600,-330,0,1860,0,0,NULL,N
 INSERT INTO items VALUES(16173,340,'horizontal',NULL,0,1600,-350,220,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16175,340,'action',replace('const struct ApplicationProfileSelectionTableNonChipEntry e\n\nreturns enum ProcedureResult','\n',char(10)),0,2010,-350,250,40,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16176,340,'if','ttd.acquirerPreSelected',0,1600,90,170,20,70,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(16177,340,'shelf','false',0,1600,-250,170,40,40,0,NULL,'',NULL,'bool match');
+INSERT INTO items VALUES(16177,340,'shelf','PR_NO_MATCH',0,1600,-250,170,40,40,0,NULL,'',NULL,'enum ProcedureResult result');
 INSERT INTO items VALUES(16178,340,'vertical','',0,1840,90,0,200,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16179,340,'if','e.applicationProfileAcquirerNumber',0,1840,150,220,20,20,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16180,340,'if',replace('e.applicationProfileAcquirerNumber->raw\n==\nttd.preSelectedAcquirerNumber->raw','\n',char(10)),0,2080,230,190,40,30,1,NULL,'',NULL,'');
@@ -9778,8 +9778,8 @@ INSERT INTO items VALUES(16197,340,'if','e.prefixMask',0,1840,1210,220,20,20,0,N
 INSERT INTO items VALUES(16198,340,'vertical','',0,2080,1210,0,120,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16199,340,'if',replace('Match_Pan_Prefixes(\n*e.prefixMask, e.prefixes)','\n',char(10)),0,2080,1280,190,30,30,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(16200,340,'commentin','Match against PAN prefixes',0,1600,1090,170,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16201,340,'shelf','true',0,1600,1390,170,40,40,0,NULL,NULL,NULL,'match');
-INSERT INTO items VALUES(16203,340,'action','return match;',0,1600,1490,170,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16201,340,'shelf','PR_MATCH',0,1600,1390,170,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(16203,340,'action','return result;',0,1600,1490,170,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16204,339,'action','return match;',0,620,340,260,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16205,340,'shelf',replace('memcmp(\n	ttd.selectedBid->value,\n	e.bid.value,\n	MIN(\n		ttd.selectedBid->size,\n		e.bid.size\n	)\n) == 0','\n',char(10)),0,1600,470,170,100,40,0,NULL,NULL,NULL,'bidMatches');
 INSERT INTO items VALUES(16206,340,'shelf','false',0,1600,-150,170,40,40,0,NULL,NULL,NULL,'bool bidMatches');

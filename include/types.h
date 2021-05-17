@@ -1411,7 +1411,7 @@ union ServiceSettings {
 
 struct Prefix {
     uint8_t size;
-    unsigned char value[19];
+    char value[19];
 };
 
 struct SearchLogCriteria {

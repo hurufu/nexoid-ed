@@ -265,8 +265,10 @@ INSERT INTO diagrams VALUES(334,'Is_Tac_Needed','4000 980','FIXME: Not 100% comp
 INSERT INTO diagrams VALUES(335,'Perform_Specific_Checks','160 30','All other checks are moved to Perform_General_Checks',100.0);
 INSERT INTO diagrams VALUES(336,'Retrieve_Application_Version_Number_Terminal','520 260',NULL,100.0);
 INSERT INTO diagrams VALUES(337,'Application_Profile_Selection_For_Non_Chip','210 -120',NULL,100.0);
-INSERT INTO diagrams VALUES(339,'Match_Pan_Prefixes','0 -50',NULL,100.0);
-INSERT INTO diagrams VALUES(340,'Match_Application_Profile_Entry','1350 900',NULL,100.0);
+INSERT INTO diagrams VALUES(339,'Match_Pan_Prefixes','300 -250','TODO: Consider unification of masking here, during card profile selection and PAN for printing.',100.0);
+INSERT INTO diagrams VALUES(340,'Match_Application_Profile_Entry','1420 -400',NULL,100.0);
+INSERT INTO diagrams VALUES(341,'Prefix_equal','250 -150',NULL,100.0);
+INSERT INTO diagrams VALUES(342,'Apply_Prefix_Mask','0 -150',NULL,100.0);
 CREATE TABLE state
 (
 	row integer primary key,
@@ -9741,11 +9743,11 @@ INSERT INTO items VALUES(16098,337,'shelf','N_NO_PROFILE',0,480,450,260,40,40,0,
 INSERT INTO items VALUES(16099,337,'shelf','PR_NOK',0,480,550,260,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(16100,337,'shelf','PR_OK',0,920,550,160,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(16101,337,'action','return result;',0,480,650,260,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(16163,339,'beginend','Match_Pan_Prefixes',0,220,0,90,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16164,339,'beginend','End',0,220,670,50,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16165,339,'vertical',NULL,0,220,20,0,630,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16166,339,'horizontal',NULL,0,220,0,170,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16167,339,'action',replace('const struct Prefix mask\nconst struct PrefixList prefix\n\nreturns bool','\n',char(10)),0,460,0,130,50,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16163,339,'beginend','Match_Pan_Prefixes',0,620,-170,90,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16164,339,'beginend','End',0,620,400,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16165,339,'vertical',NULL,0,620,-150,0,530,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16166,339,'horizontal',NULL,0,620,-170,170,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16167,339,'action',replace('const struct Prefix mask\nconst struct PrefixList* const prefixes\n\nreturns bool','\n',char(10)),0,900,-170,170,50,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16170,340,'beginend','Match_Application_Profile_Entry',0,1600,-350,140,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16171,340,'beginend','End',0,1600,1550,50,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16172,340,'vertical',NULL,0,1600,-330,0,1860,0,0,NULL,NULL,NULL,NULL);
@@ -9769,25 +9771,48 @@ INSERT INTO items VALUES(16190,340,'vertical','',0,1840,950,0,100,0,0,NULL,'',NU
 INSERT INTO items VALUES(16191,340,'horizontal','',0,1600,1050,240,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16192,340,'if','ttd.technologySelected == *e.technologyOfProfile',0,1840,1010,220,20,240,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(16193,340,'commentin','Match agains selected technology',0,1600,890,170,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16194,340,'if','e.prefix',0,1600,1150,170,20,70,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(16194,340,'if','e.prefixes',0,1600,1150,170,20,70,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16195,340,'vertical','',0,1840,1150,0,180,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16196,340,'horizontal','',0,1600,1330,480,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16197,340,'if','e.prefixMask',0,1840,1210,220,20,20,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(16198,340,'vertical','',0,2080,1210,0,120,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(16199,340,'if',replace('Match_Pan_Prefixes(\n*e.prefixMask, *e.prefix)','\n',char(10)),0,2080,1280,190,30,30,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(16199,340,'if',replace('Match_Pan_Prefixes(\n*e.prefixMask, e.prefixes)','\n',char(10)),0,2080,1280,190,30,30,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(16200,340,'commentin','Match against PAN prefixes',0,1600,1090,170,20,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16201,340,'shelf','true',0,1600,1390,170,40,40,0,NULL,NULL,NULL,'match');
 INSERT INTO items VALUES(16203,340,'action','return match;',0,1600,1490,170,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16204,339,'action','return false;',0,220,610,130,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16204,339,'action','return match;',0,620,340,260,20,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16205,340,'shelf',replace('memcmp(\n	ttd.selectedBid->value,\n	e.bid.value,\n	MIN(\n		ttd.selectedBid->size,\n		e.bid.size\n	)\n) == 0','\n',char(10)),0,1600,470,170,100,40,0,NULL,NULL,NULL,'bidMatches');
 INSERT INTO items VALUES(16206,340,'shelf','false',0,1600,-150,170,40,40,0,NULL,NULL,NULL,'bool bidMatches');
 INSERT INTO items VALUES(16207,340,'shelf','false',0,1600,-50,170,40,40,0,NULL,NULL,NULL,'bool serviceMatches');
 INSERT INTO items VALUES(16208,340,'shelf',replace('e.supportedServices.u &\nServiceId_to_ConfiguredServices(\n	ttd.selectedService\n).u','\n',char(10)),0,1600,720,170,70,40,0,NULL,NULL,NULL,'serviceMatches');
 INSERT INTO items VALUES(16209,188,'if','ttd.missingParameters[0]',0,1810,1050,140,20,20,1,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16210,188,'vertical','',0,1970,1050,0,140,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(16211,339,'shelf','{}',0,220,110,130,40,40,0,NULL,NULL,NULL,'struct Prefix maskedPrefix');
-INSERT INTO items VALUES(16212,339,'shelf','{}',0,220,210,130,40,40,0,NULL,'',NULL,'struct Prefix maskedPan');
-INSERT INTO items VALUES(16213,339,'commentin',replace('TODO: Consider unification\nof masking here, during\ncard profile selection\nand PAN for printing','\n',char(10)),0,220,390,130,50,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16212,339,'shelf','Apply_Prefix_Mask(*ttd.pan, mask)',0,620,40,260,40,40,0,NULL,'',NULL,'const struct Prefix maskedPan');
+INSERT INTO items VALUES(16214,341,'beginend','Prefix_equal',0,450,50,60,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16215,341,'beginend','End',0,450,420,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16216,341,'vertical',NULL,0,450,70,0,330,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16217,341,'horizontal',NULL,0,450,50,180,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16218,341,'action',replace('const struct Prefix a\nconst struct Prefix b\n\nreturns bool','\n',char(10)),0,630,50,100,50,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16219,341,'shelf',replace('memcmp(\n	a.value,\n	b.value,\n	MIN(\n		a.size,\n		b.size\n	)\n) == 0','\n',char(10)),0,450,220,110,100,40,0,NULL,NULL,NULL,'const bool isEqual');
+INSERT INTO items VALUES(16220,341,'action','return isEqual;',0,450,360,110,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16221,342,'beginend','Apply_Prefix_Mask',0,230,-50,80,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16222,342,'beginend','End',0,230,500,50,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16223,342,'vertical',NULL,0,230,-30,0,510,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16224,342,'horizontal',NULL,0,230,-50,250,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16225,342,'action',replace('const struct Prefix p\nconst struct Prefix mask\n\nreturns struct Prefix','\n',char(10)),0,480,-50,110,50,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16226,342,'shelf','{}',0,230,40,120,40,40,0,NULL,NULL,NULL,'struct Prefix ret');
+INSERT INTO items VALUES(16227,342,'loopstart','size_t i = 0; i < s; i++',0,230,220,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16228,342,'loopend','',0,230,380,120,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16229,342,'action','return ret;',0,230,440,120,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16230,342,'shelf','MIN(p.size, mask.size)',0,230,140,120,40,40,0,NULL,NULL,NULL,'const size_t s');
+INSERT INTO items VALUES(16231,342,'shelf','p.value[i] & ~mask.value[i]',0,230,300,120,40,40,0,NULL,NULL,NULL,'ret.value[i]');
+INSERT INTO items VALUES(16232,339,'loopstart','const struct PrefixList* l = prefixes; l; l = l->next',0,620,120,260,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16233,339,'loopend','',0,620,260,260,20,60,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16234,339,'if','Prefix_equal(maskedPan, Apply_Prefix_Mask(l->prefix, mask))',0,620,180,260,20,70,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16235,339,'vertical','',0,950,180,0,120,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16236,339,'horizontal','',0,620,300,330,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16237,339,'shelf','true',0,950,240,50,40,40,0,NULL,NULL,NULL,'match');
+INSERT INTO items VALUES(16238,339,'shelf','false',0,620,-60,260,40,40,0,NULL,NULL,NULL,'bool match');
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -10114,6 +10139,8 @@ INSERT INTO tree_nodes VALUES(432,128,'item',NULL,336);
 INSERT INTO tree_nodes VALUES(433,121,'item',NULL,337);
 INSERT INTO tree_nodes VALUES(435,121,'item',NULL,339);
 INSERT INTO tree_nodes VALUES(436,121,'item',NULL,340);
+INSERT INTO tree_nodes VALUES(437,175,'item',NULL,341);
+INSERT INTO tree_nodes VALUES(438,121,'item',NULL,342);
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

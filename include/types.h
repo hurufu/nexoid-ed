@@ -2515,9 +2515,9 @@ struct ApplicationProfileSelectionTableNonChipEntry {
     union ConfiguredServices supportedServices;
     union bcd* applicationProfileAcquirerNumber;
     struct PrefixList {
-        struct Prefix value;
-        struct Prefix* next;
-    }* prefix;
+        struct Prefix prefix;
+        struct PrefixList* next;
+    }* prefixes;
     struct Prefix* prefixMask;
     enum Technology* technologyOfProfile;
 };

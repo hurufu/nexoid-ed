@@ -52,7 +52,7 @@ INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','197 -41','
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-147 -554','FIXME: This function handles only single event at a time',100.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','181 -332',NULL,100.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','60 -20','',100.0);
-INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-20 -170','',100.0);
+INSERT INTO diagrams VALUES(81,'Card_Product_Selection','430 180','',100.0);
 INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','6565 -374',replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','180 -60',NULL,100.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','60 10',NULL,100.0);
@@ -275,7 +275,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,340,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,81,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1489,11 +1489,9 @@ INSERT INTO items VALUES(3848,81,'insertion',replace('result =\nMatch_Prefix(p->
 INSERT INTO items VALUES(3849,81,'insertion',replace('result =\nMatch_PrefixRange(p->prefixRange);','\n',char(10)),0,1180,450,150,30,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3850,81,'horizontal','',0,820,500,360,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(3851,81,'if','result == PR_MATCH',0,820,540,180,20,50,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3852,81,'vertical','',0,1050,540,0,270,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3853,81,'horizontal','',0,820,810,230,0,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3854,81,'if','p->prefix.size > s_akps.panMatchLength',0,820,600,180,20,30,1,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3855,81,'vertical','',0,1030,600,0,140,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(3856,81,'horizontal','',0,820,740,210,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3852,81,'vertical','',0,1050,540,0,200,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3854,81,'if','p->prefix.size > s_akps.panMatchLength',0,820,600,180,20,50,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(3856,81,'horizontal','',0,820,740,230,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(3857,81,'shelf','&b->Bid',0,820,680,180,40,40,0,NULL,NULL,NULL,'ttd.selectedBid');
 INSERT INTO items VALUES(3858,81,'shelf','NULL',0,200,140,150,40,40,0,NULL,NULL,NULL,'const struct TerminalListOfBid* b');
 INSERT INTO items VALUES(3859,81,'shelf','NULL',0,200,240,150,40,40,0,NULL,NULL,NULL,'const struct MatchingPattern* p');

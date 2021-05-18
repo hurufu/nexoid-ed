@@ -30,16 +30,16 @@ INSERT INTO diagrams VALUES(40,'Check_Service_Start_Conditions','456 -301','NEXO
 INSERT INTO diagrams VALUES(42,'Process_Language_Selection','-552 -116','',100.0);
 INSERT INTO diagrams VALUES(43,'Process_Service_Selection','0 -350','',100.0);
 INSERT INTO diagrams VALUES(44,'Process_Choice_of_Application','-552 -222','',100.0);
-INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','-198 -266','',100.0);
+INSERT INTO diagrams VALUES(45,'Process_Acquirer_Preselection','290 -10','WARNING: ttd.preSelectedAcquirerNumber is assumed to be set properly by the Trusted Layer.',100.0);
 INSERT INTO diagrams VALUES(46,'Process_Amount_Entry','-60 -404','',100.0);
 INSERT INTO diagrams VALUES(47,'Process_Card_Inserted','128 -66','',100.0);
 INSERT INTO diagrams VALUES(48,'Process_Card_Swiped','-200 0','',100.0);
 INSERT INTO diagrams VALUES(49,'Process_Manual_Entry','0 -329','',100.0);
-INSERT INTO diagrams VALUES(51,'Process_Accept','66 -133','',100.0);
+INSERT INTO diagrams VALUES(51,'Process_Accept','220 -30','',100.0);
 INSERT INTO diagrams VALUES(52,'Process_AdditionalTrxData','-200 -133','',100.0);
-INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-352 238','',100.0);
+INSERT INTO diagrams VALUES(54,'Initialise_Transaction_Database','-50 -110','',100.0);
 INSERT INTO diagrams VALUES(55,'Service_Initialisation','-112 214','based on nexo-FAST v.3.2 ection 5.2.5',100.0);
-INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-517 -170','Based on nexo-FAST v.3.2 section 4.3.1.2',100.0);
+INSERT INTO diagrams VALUES(56,'Initialise_Basic_Data','-50 -70','Based on nexo-FAST v.3.2 section 4.3.1.2',100.0);
 INSERT INTO diagrams VALUES(57,'Process_Reference_Entry','-1410 -150',NULL,100.0);
 INSERT INTO diagrams VALUES(65,'Technology_Selection_Initial_Processing','322 -14','TODO: Calls to Update_Interfaces have to be consolidated',100.0);
 INSERT INTO diagrams VALUES(66,'Technology_Selection','-150 -240','',100.0);
@@ -52,7 +52,7 @@ INSERT INTO diagrams VALUES(75,'Pre_Process_Combination_Lists_Entry','197 -41','
 INSERT INTO diagrams VALUES(76,'Discriminate_Card_Event','-147 -554','FIXME: This function handles only single event at a time',100.0);
 INSERT INTO diagrams VALUES(77,'Manual_Entry_Process','181 -332',NULL,100.0);
 INSERT INTO diagrams VALUES(79,'Msr_Kernel_Profile_Selection','60 -20','',100.0);
-INSERT INTO diagrams VALUES(81,'Card_Product_Selection','430 180','',100.0);
+INSERT INTO diagrams VALUES(81,'Card_Product_Selection','-20 -270','',100.0);
 INSERT INTO diagrams VALUES(83,'Process_Application_Profile_Parameters','6565 -374',replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(85,'Match_Prefix','180 -60',NULL,100.0);
 INSERT INTO diagrams VALUES(86,'Match_PrefixRange','60 10',NULL,100.0);
@@ -146,7 +146,7 @@ INSERT INTO diagrams VALUES(198,'Update_Interfaces_Activate_Contactless','-378 -
 INSERT INTO diagrams VALUES(199,'Update_Interfaces_Enable_Allowed','-232 -310','nexo-FAST v.3.2 note 21-50 and table 8',100.0);
 INSERT INTO diagrams VALUES(200,'Check_Default_Card_Service','433 -140','Based on nexo-FAST v.3.2 note 20-10',100.0);
 INSERT INTO diagrams VALUES(201,'Default_Service_Initialisation','1117 -185','',100.0);
-INSERT INTO diagrams VALUES(202,'Process_Event','-233 -58','FIXME: Refactor Process Event to make it more linear',100.0);
+INSERT INTO diagrams VALUES(202,'Process_Event','-183 142','FIXME: Refactor Process Event to make it more linear',100.0);
 INSERT INTO diagrams VALUES(203,'Copy_Fci_Data_After_Final_Select','0 -132',NULL,100.0);
 INSERT INTO diagrams VALUES(204,'Copy_Response_Data_After_Gpo','-65 100','',100.0);
 INSERT INTO diagrams VALUES(205,'Build_Dol_Data','1042 -246','TODO: Build_Dol_Data function looks too complex for what is does',100.0);
@@ -173,20 +173,20 @@ INSERT INTO diagrams VALUES(226,'Interface_Contract_Violation','-266 -200',NULL,
 INSERT INTO diagrams VALUES(227,'Transaction_Data_Storage','610 -114','',100.0);
 INSERT INTO diagrams VALUES(228,'Transaction_Finalisation','-87 -258','',100.0);
 INSERT INTO diagrams VALUES(230,'Status','-89 -21',NULL,100.0);
-INSERT INTO diagrams VALUES(232,'Main','-190 0','',100.0);
-INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','754 -362','The Idle State',100.0);
+INSERT INTO diagrams VALUES(232,'Main','-200 -50','',100.0);
+INSERT INTO diagrams VALUES(233,'Idle_Event_Processing','850 -370','The Idle State',100.0);
 INSERT INTO diagrams VALUES(234,'Scap_Event_Handling','-4 -54',NULL,100.0);
 INSERT INTO diagrams VALUES(235,'Not_Implemented','-133 -133',NULL,100.0);
 INSERT INTO diagrams VALUES(236,'Proprietary_Startup_Sequence','316 127','',100.0);
-INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','160 -940',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),100.0);
-INSERT INTO diagrams VALUES(239,'Check_Configured_Services','-55 -122',NULL,100.0);
-INSERT INTO diagrams VALUES(240,'Check_Payment_Service_Configuration','-172 -428',NULL,100.0);
+INSERT INTO diagrams VALUES(238,'Financial_Application_Startup','230 -810',replace('TODO: Proper Financial Application\nchecks shall be perfromed here\n+ external activation','\n',char(10)),100.0);
+INSERT INTO diagrams VALUES(239,'Check_Configured_Services','50 -80',NULL,100.0);
+INSERT INTO diagrams VALUES(240,'Check_Payment_Service_Configuration','-140 -240',NULL,100.0);
 INSERT INTO diagrams VALUES(241,'Configuration_Error','-133 -133','',100.0);
-INSERT INTO diagrams VALUES(242,'Check_Service_Settings','-245 -308',NULL,100.0);
+INSERT INTO diagrams VALUES(242,'Check_Service_Settings','30 -70',NULL,100.0);
 INSERT INTO diagrams VALUES(244,'Check_Single_Service_Settings','80 -70',NULL,100.0);
-INSERT INTO diagrams VALUES(245,'Check_E4','-430 -40','',100.0);
-INSERT INTO diagrams VALUES(246,'Check_Config','-303 125','TODO: Validate all config tables',100.0);
-INSERT INTO diagrams VALUES(247,'Check_E0','-388 -448',NULL,100.0);
+INSERT INTO diagrams VALUES(245,'Check_E4','63 -23','',100.0);
+INSERT INTO diagrams VALUES(246,'Check_Config','200 70','TODO: Validate all config tables',100.0);
+INSERT INTO diagrams VALUES(247,'Check_E0','-50 -150',NULL,100.0);
 INSERT INTO diagrams VALUES(248,'Perform_Terminal_Managment_Session','56 -113','nexo-IS v.4.0, section 4.2',100.0);
 INSERT INTO diagrams VALUES(250,'Data_Print_Interaction','397 -265',replace('NEXO: It''s madness, nokReason is set so inconsistently.\nFIXME: Somehow fix check of global variables here','\n',char(10)),100.0);
 INSERT INTO diagrams VALUES(251,'Specific_Processing_Based_On_Pan','0 -165',NULL,100.0);
@@ -275,7 +275,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES(1,81,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
+INSERT INTO state VALUES(1,45,replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"','\n',char(10)));
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -670,9 +670,9 @@ INSERT INTO items VALUES(1475,43,'vertical','',0,330,-280,0,760,0,0,NULL,'',NULL
 INSERT INTO items VALUES(1476,44,'beginend','Process_Choice_of_Application',0,170,-180,130,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1477,44,'beginend','End',0,170,560,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1478,44,'vertical','',0,170,-160,0,700,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1481,45,'beginend','Process_Acquirer_Preselection',0,170,50,130,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1482,45,'beginend','End',0,170,390,50,20,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1483,45,'vertical','',0,170,70,0,300,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1481,45,'beginend','Process_Acquirer_Preselection',0,440,20,130,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1482,45,'beginend','End',0,440,480,50,20,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1483,45,'vertical','',0,440,40,0,420,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1484,46,'beginend','Process_Amount_Entry',0,400,-330,90,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1485,46,'beginend','End',0,400,1470,50,20,60,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1486,46,'vertical','',0,400,-330,0,1780,0,0,NULL,'',NULL,'');
@@ -849,10 +849,9 @@ INSERT INTO items VALUES(1790,44,'action','return result;',0,170,500,300,20,0,0,
 INSERT INTO items VALUES(1791,43,'horizontal','',0,330,-280,130,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1792,43,'action','returns enum ProcedureResult',0,590,-280,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1796,43,'action','return result;',0,330,420,190,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1797,45,'horizontal','',0,170,50,130,0,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1798,45,'action','returns enum ProcedureResult',0,460,50,130,20,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(1799,45,'action','return PR_OK;',0,170,330,180,20,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(1800,45,'horizontal','',0,170,50,250,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1798,45,'action','returns enum ProcedureResult',0,720,20,130,20,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(1799,45,'action','return result;',0,440,420,140,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(1800,45,'horizontal','',0,440,20,240,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(1801,46,'action','returns enum ProcedureResult',0,640,-330,130,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1802,46,'horizontal','',0,400,-330,200,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(1803,46,'action','return result;',0,400,1410,230,20,0,0,NULL,NULL,NULL,NULL);
@@ -4942,7 +4941,7 @@ INSERT INTO items VALUES(9372,202,'if','ttd.event.Table[E_ACQUIRER_PRESELECTION]
 INSERT INTO items VALUES(9373,202,'vertical','',0,430,510,0,160,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9374,202,'horizontal','',0,200,670,230,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9375,202,'insertion',replace('result =\nProcess_Acquirer_Preselection();','\n',char(10)),0,430,570,140,30,60,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(9376,202,'if','PR_OK == result',0,430,630,140,20,50,1,NULL,'',NULL,'');
+INSERT INTO items VALUES(9376,202,'if','PR_DONE == result',0,430,630,140,20,50,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(9377,202,'if','ttd.event.Table[E_AMOUNT_ENTRY]',0,840,550,150,20,30,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9378,202,'vertical','',0,1020,550,0,290,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(9379,202,'action',replace('result =\nProcess_Amount_Entry();','\n',char(10)),0,1020,620,110,30,0,0,NULL,'',NULL,'');
@@ -6417,7 +6416,7 @@ INSERT INTO items VALUES(11362,245,'action','unsigned int error;',0,230,-620,250
 INSERT INTO items VALUES(11363,245,'action','return error;',0,230,430,250,20,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11364,245,'if','e4.s > elementsof(e4.a)',0,230,-180,250,20,200,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11365,245,'vertical','',0,680,-180,0,570,0,0,NULL,'',NULL,'');
-INSERT INTO items VALUES(11366,245,'horizontal','',0,230,390,450,0,0,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11366,245,'horizontal','',0,580,240,100,0,0,0,NULL,'',NULL,'');
 INSERT INTO items VALUES(11367,245,'shelf','1 << 4',0,680,330,50,40,40,0,NULL,'',NULL,'error');
 INSERT INTO items VALUES(11368,245,'shelf','0',0,230,330,250,40,40,0,NULL,'',NULL,'error');
 INSERT INTO items VALUES(11369,245,'loopend','',0,230,250,250,20,60,0,NULL,'',NULL,'');
@@ -6540,8 +6539,7 @@ INSERT INTO items VALUES(11493,202,'if','PR_NOK == result',0,3990,-90,90,20,70,1
 INSERT INTO items VALUES(11494,202,'vertical','',0,4150,-90,0,140,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11495,202,'horizontal','',0,3990,50,160,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(11496,202,'shelf','PR_BAIL',0,4150,-10,50,40,40,0,NULL,'',NULL,'result');
-INSERT INTO items VALUES(11497,45,'shelf','true',0,170,250,180,40,40,0,NULL,NULL,NULL,'ttd.acquirerPreSelected');
-INSERT INTO items VALUES(11498,45,'commentin',replace('WARNING: ttd.preSelectedAcquirerNumber\nis assumed to be set properly by the\nTrusted Layer.\nFIXME: Consider changing this.','\n',char(10)),0,170,140,180,50,60,0,NULL,'',NULL,'');
+INSERT INTO items VALUES(11497,45,'shelf','true',0,440,220,140,40,40,0,NULL,NULL,NULL,'ttd.acquirerPreSelected');
 INSERT INTO items VALUES(11499,202,'shelf','Not_Implemented();',0,430,860,140,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(11502,46,'if','PR_OK == result',0,1230,1210,200,20,20,1,NULL,'',NULL,'');
 INSERT INTO items VALUES(11503,46,'if','ttd.transactionAmount.i == 0',0,400,990,230,20,20,1,NULL,'',NULL,'');
@@ -9393,8 +9391,7 @@ INSERT INTO items VALUES(15318,325,'address','End',0,6390,2310,160,30,60,0,NULL,
 INSERT INTO items VALUES(15319,325,'shelf','PR_OK',0,6120,2060,90,40,40,0,NULL,NULL,NULL,'result');
 INSERT INTO items VALUES(15320,325,'shelf','PR_NOK',0,6390,2060,160,40,40,0,NULL,'',NULL,'result');
 INSERT INTO items VALUES(15322,245,'insertion','Not_Implemented();',0,580,190,90,20,60,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(15323,245,'vertical','',0,580,130,0,120,0,0,NULL,NULL,NULL,NULL);
-INSERT INTO items VALUES(15324,245,'horizontal','',0,580,250,100,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(15323,245,'vertical','',0,580,130,0,110,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15325,54,'shelf','e1.currencyCodeAlpha3',0,370,410,170,40,40,0,NULL,NULL,NULL,'ttd.transactionCurrencyCodeAlpha3');
 INSERT INTO items VALUES(15326,54,'commentin',replace('NEXO: So, one more unforseen things\nin the specification.\n\nThey initialize TTD with currency\ncode and exponent during Perform\nService, but the require to display\namount before that, eg. during\nAmount Entry event. It is not\npossible to display it correctly\nwithout currency code and exponent.\n\nI initialize it here, so it will\nbe available to the SCAP for the\ndisplay even if service is not\nstarted yet.','\n',char(10)),0,370,220,170,130,60,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(15327,54,'shelf','e1.terminalTransactionCurrencyExponent',0,370,510,170,40,40,0,NULL,'',NULL,'ttd.transactionCurrencyExponent');
@@ -9811,6 +9808,13 @@ INSERT INTO items VALUES(16235,339,'vertical','',0,950,180,0,120,0,0,NULL,NULL,N
 INSERT INTO items VALUES(16236,339,'horizontal','',0,620,300,330,0,0,0,NULL,NULL,NULL,NULL);
 INSERT INTO items VALUES(16237,339,'shelf','true',0,950,240,50,40,40,0,NULL,NULL,NULL,'match');
 INSERT INTO items VALUES(16238,339,'shelf','false',0,620,-60,260,40,40,0,NULL,NULL,NULL,'bool match');
+INSERT INTO items VALUES(16239,45,'if','ttd.preSelectedAcquirerNumber',0,440,140,140,20,150,1,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16240,45,'vertical','',0,730,140,0,240,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16241,45,'horizontal','',0,440,380,290,0,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16244,45,'shelf','PR_DONE',0,440,320,140,40,40,0,NULL,'',NULL,'result');
+INSERT INTO items VALUES(16245,45,'action','enum ProcedureResult result;',0,440,80,140,20,0,0,NULL,NULL,NULL,NULL);
+INSERT INTO items VALUES(16246,45,'shelf','Interface_Contract_Violation()',0,730,320,130,40,40,0,NULL,NULL,NULL,'result');
+INSERT INTO items VALUES(16247,245,'horizontal','',0,230,390,450,0,0,0,NULL,NULL,NULL,NULL);
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

@@ -118,6 +118,8 @@ DRAKON_PATH  ?= /cygdrive/c/opt/DrakonEditor/1.31
 DRAKON_CFILES:= $(DRAKON_FILES:.drn=.c)
 DRAKON_HFILES:= $(DRAKON_FILES:.drn=.h)
 
+FORMAT_SQL_CMD := -r 's/, */, /g; s/VALUES\((.*)\);$$/VALUES( \1 );/; s/ +$$//'
+
 SOURCES      := $(sort $(DRAKON_CFILES) $(addprefix $(SRCDIR)/,common.c tag_retrival.c $(if $(OS_CYGWIN),stubs.c)))
 HEADERS      := $(DRAKON_HFILES)
 HEADERS      += $(addprefix $(SRCDIR)/,bool.h cxx_macros.h local.h nexo.h tag_retrival.h)
@@ -195,6 +197,7 @@ index: $(CSCOPE_REF)
 update: $(DRAKON_FILES)
 	$(call lsof_guard,$^)
 	$(SQLITE3) -batch $< '.dump' >$(DRAKON_SQL)
+	sed -i $(FORMAT_SQL_CMD) $(DRAKON_SQL)
 shared: $(LIBNAME.so)
 static: $(LIBNAME.a)
 test: $(UT_EXECUTABLE)

@@ -41,7 +41,7 @@ INSERT INTO diagrams VALUES( 54, 'Initialise_Transaction_Database', '-50 -110', 
 INSERT INTO diagrams VALUES( 55, 'Service_Initialisation', '-100 240', 'based on nexo-FAST v.3.2 ection 5.2.5', 100.0 );
 INSERT INTO diagrams VALUES( 56, 'Initialise_Basic_Data', '-50 -70', 'Based on nexo-FAST v.3.2 section 4.3.1.2', 100.0 );
 INSERT INTO diagrams VALUES( 57, 'Process_Reference_Entry', '-1410 -150', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 65, 'Technology_Selection_Initial_Processing', '322 -14', 'TODO: Calls to Update_Interfaces have to be consolidated', 100.0 );
+INSERT INTO diagrams VALUES( 65, 'Technology_Selection_Initial_Processing', '385 192', 'TODO: Calls to Update_Interfaces have to be consolidated', 100.0 );
 INSERT INTO diagrams VALUES( 66, 'Technology_Selection', '-150 -240', '', 100.0 );
 INSERT INTO diagrams VALUES( 70, 'Is_Card_In_Chip_Reader', '-138 -168', '', 100.0 );
 INSERT INTO diagrams VALUES( 71, 'Is_Card_In_Magnetic_Stripe_Reader', '-190 -104', '', 100.0 );
@@ -50,7 +50,7 @@ INSERT INTO diagrams VALUES( 73, 'Copy_Combination_Lists', '172 -74', '', 100.0 
 INSERT INTO diagrams VALUES( 74, 'Pre_Processing_Ctls', '-16 -269', '', 100.0 );
 INSERT INTO diagrams VALUES( 75, 'Pre_Process_Combination_Lists_Entry', '197 -41', '', 100.0 );
 INSERT INTO diagrams VALUES( 76, 'Discriminate_Card_Event', '-147 -554', 'FIXME: This function handles only single event at a time', 100.0 );
-INSERT INTO diagrams VALUES( 77, 'Manual_Entry_Process', '130 -160', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 77, 'Manual_Entry_Process', '180 -160', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 79, 'Msr_Kernel_Profile_Selection', '60 -20', '', 100.0 );
 INSERT INTO diagrams VALUES( 81, 'Card_Product_Selection', '-20 -270', '', 100.0 );
 INSERT INTO diagrams VALUES( 83, 'Process_Application_Profile_Parameters', '6565 -374', replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.', '\n', char(10)), 100.0 );
@@ -278,7 +278,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 77, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 65, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1005,8 +1005,8 @@ INSERT INTO items VALUES( 2972, 65, 'action', replace('/*\nlocal enum ProcedureR
 INSERT INTO items VALUES( 2973, 65, 'if', replace('sc.serviceSettings\n.contactProcessingModeSupported', '\n', char(10)), 0, 610, 640, 160, 30, 170, 1, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 2974, 65, 'vertical', '', 0, 940, 450, 0, 370, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 2975, 65, 'horizontal', '', 0, 610, 820, 330, 0, 0, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 2976, 65, 'shelf', '0', 0, 940, 740, 150, 40, 40, 0, NULL, '', NULL, 's_ts.numberOfRemainingChipTries' );
-INSERT INTO items VALUES( 2977, 65, 'commentin', replace('It seems that it''s not defined\nin nexo-FAST how to check if\nchip reader is not supported\nby the terminal, so just assume\nit''s always not supported.\nWhich is a case with current\nproof-of-concept implementation.', '\n', char(10)), 0, 940, 540, 150, 70, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 2976, 65, 'shelf', '0', 0, 940, 740, 140, 40, 40, 0, NULL, '', NULL, 's_ts.numberOfRemainingChipTries' );
+INSERT INTO items VALUES( 2977, 65, 'commentin', replace('NEXO: It seems that it is not\ndefined in nexo-FAST how to\ncheck if chip reader is not\nsupported by the terminal, so\nI just used TC from E1.', '\n', char(10)), 0, 940, 540, 140, 50, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 2978, 65, 'shelf', replace('10 * e1.maxNumberOfChipTries.high + \n 1 * e1.maxNumberOfChipTries.low', '\n', char(10)), 0, 610, 750, 160, 50, 40, 0, NULL, '', NULL, 's_ts.numberOfRemainingChipTries' );
 INSERT INTO items VALUES( 2979, 65, 'select', 'ttd.out.Start', 0, 610, 860, 160, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 2980, 65, 'horizontal', '', 0, 610, 900, 1070, 0, 0, 0, NULL, '', NULL, '' );
@@ -1043,7 +1043,7 @@ INSERT INTO items VALUES( 3010, 65, 'branch', 'First selection', 0, 1910, 260, 1
 INSERT INTO items VALUES( 3011, 65, 'address', replace('Contact or\nContactless', '\n', char(10)), 0, 1910, 1320, 160, 40, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 3012, 65, 'shelf', 'PR_DONE', 0, 5210, 430, 50, 40, 40, 0, NULL, '', NULL, 'result' );
 INSERT INTO items VALUES( 3013, 65, 'address', replace('Reselect after\ncontactless', '\n', char(10)), 0, 920, 1320, 120, 40, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 3014, 65, 'if', replace('false\n/* Terminal supports\nchip reader */', '\n', char(10)), 0, 610, 450, 160, 40, 170, 1, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 3014, 65, 'if', replace('e1.terminalCapabilities\n.cardDataInputCapability\n.icWithContacts', '\n', char(10)), 0, 610, 450, 160, 40, 170, 1, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 3015, 65, 'shelf', '1', 0, 1910, 360, 160, 50, 60, 0, NULL, '', NULL, replace('ttd.processingStatus\n.technologySelectionNonFallbackMode', '\n', char(10)) );
 INSERT INTO items VALUES( 3016, 65, 'shelf', 'TECH_NONE', 0, 1910, 470, 160, 40, 40, 0, NULL, '', NULL, 'ttd.technologySelected' );
 INSERT INTO items VALUES( 3017, 65, 'shelf', 'false', 0, 1910, 570, 160, 40, 40, 0, NULL, '', NULL, 's_ts.contactlessAllowed' );

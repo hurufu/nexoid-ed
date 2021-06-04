@@ -1106,7 +1106,7 @@ enum PACKED CardholderMessage {
   , CRDHLDR_MSG_PROCESSING = 0x16
   , CRDHLDR_MSG_CARD_READ_OK_REMOVE_CARD = 0x17
   , CRDHLDR_MSG_PLEASE_INSERT_OR_SWIPE_CARD = 0x18
-  , CRDHLDR_MSG_PLEASE_INSERT_ONE_CARD_ONLY = 0x19
+  , CRDHLDR_MSG_PLEASE_PRESENT_ONE_CARD_ONLY = 0x19
   , CRDHLDR_MSG_APPROVED_PLEASE_SIGN = 0x1A
   , CRDHLDR_MSG_AUTHORISING_PLEASE_WAIT = 0x1B
   , CRDHLDR_MSG_INSERT_SWIPE_OR_TRY_ANOTHER_CARD = 0x1C
@@ -1182,6 +1182,7 @@ enum PACKED CardholderMessage {
   , CRDHLDR_SRC_UPDATE_PRE_AUTH_TOTAL_AMOUNT = 0x92
   , CRDHLDR_SRC_MINUS = 0x93
   , CRDHLDR_SRC_TRX_CURRENCY_EXPONENT = 0x94
+  , CRDHLDR_SRC_STATUS = 0x95
 
   /* Sale system notification */
   , CRDHLDR_SSN_CARD_REMOVAL_REQUESTED = 0xA0
@@ -1729,20 +1730,13 @@ enum PACKED AuthorisationResponseCode {
   , ARC_NONE = 0xFF
 };
 
-// 5F2D
-union LanguagePreference {
-    char raw[8];
-    // TODO: Use proper country code enum in LanguagePreference union
-#   if 0
-    union Country lang[4];
-#   endif
-};
-
 struct UiParameters {
     enum CardholderMessage Id;
     enum CtlssIndicatorStatus Status;
     union bcd6 HoldTime;
-    union LanguagePreference* LanguagePreference; // Not used in nexo
+    // NEXO: It's claimed to not to be used by nexo in ..., but it's set in 107-25.
+    // 5F2D
+    union Iso639_1* LanguagePreference;
     enum ValueQualifier {
         UI_VALUE_QUALIFIER_NONE
       , UI_VALUE_QUALIFIER_AMOUNT
@@ -2432,7 +2426,7 @@ struct ApplicationProfile {
     union ApplicationProfileSettings* applicationProfileSettings;
     union ApplicationProfileSettingsForCancellation* applicationProfileSettingsForCancellation;
     union bcd* acquirerNumber; // DF1B
-    union bcd* defaultHoldTime; // DF4B
+    struct bcd3* defaultHoldTime; // DF4B
     union bcd* maxTargetPercentageForBiasedRandomSelection; // DF1C
     union bcd* messageHoldTime; // DF812D
     union bcd* overspendPercentage; // DF2B
@@ -3274,6 +3268,10 @@ struct TerminalTransactionData {
     struct UiParameters uiParametersForOutcome;
     struct UiParameters uiParametersForRestart;
     struct UiParameters uiParametersForTrxCompletion;
+    // -- Display hold time
+    // TODO: Should be replaced with a local variable
+    struct bcd3* holdTime;
+    enum CtlssIndicatorStatus* contactlessLedStatus;
     bool cdaFailed; // FIXME: Delete this parameter
     bool onlineRequired; // FIXME: Delete this parameter
     bool aacReceived; // FIXME: Delete this parameter

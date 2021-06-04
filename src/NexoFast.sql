@@ -50,7 +50,7 @@ INSERT INTO diagrams VALUES( 73, 'Copy_Combination_Lists', '172 -74', '', 100.0 
 INSERT INTO diagrams VALUES( 74, 'Pre_Processing_Ctls', '-16 -269', '', 100.0 );
 INSERT INTO diagrams VALUES( 75, 'Pre_Process_Combination_Lists_Entry', '197 -41', '', 100.0 );
 INSERT INTO diagrams VALUES( 76, 'Discriminate_Card_Event', '-147 -554', 'FIXME: This function handles only single event at a time', 100.0 );
-INSERT INTO diagrams VALUES( 77, 'Manual_Entry_Process', '181 -332', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 77, 'Manual_Entry_Process', '130 -160', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 79, 'Msr_Kernel_Profile_Selection', '60 -20', '', 100.0 );
 INSERT INTO diagrams VALUES( 81, 'Card_Product_Selection', '-20 -270', '', 100.0 );
 INSERT INTO diagrams VALUES( 83, 'Process_Application_Profile_Parameters', '6565 -374', replace('NEXO: Diagram in the spec falls to an infinite loop if an application profile references itself\n\nNEXO: Spec calls it a recursive process, but it is just iterative, not recusive.', '\n', char(10)), 100.0 );
@@ -278,7 +278,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 346, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 77, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -1395,20 +1395,20 @@ INSERT INTO items VALUES( 3495, 76, 'shelf', '(struct EventTable){ }', 0, 340, 6
 INSERT INTO items VALUES( 3496, 76, 'commentout', 'Clearing of event table is not descibed in the spec', 0, 800, 620, 220, 20, 50, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3549, 76, 'commentout', replace('Reject event if it''s not configured\nin ServiceSettings', '\n', char(10)), 0, 720, -360, 150, 30, 50, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3674, 76, 'action', 'return event;', 0, 340, 700, 190, 20, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3675, 77, 'beginend', 'Manual_Entry_Process', 0, 490, -130, 90, 20, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3675, 77, 'beginend', 'Manual_Entry_Process', 0, 350, -130, 90, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3676, 77, 'beginend', 'End', 0, 2480, 130, 50, 20, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3677, 77, 'vertical', '', 0, 490, -110, 0, 580, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3677, 77, 'vertical', '', 0, 350, -110, 0, 580, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3678, 77, 'vertical', '', 0, 2340, -90, 0, 560, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3679, 77, 'vertical', '', 0, 2480, -90, 0, 210, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3680, 77, 'horizontal', '', 0, 490, -90, 1990, 0, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3681, 77, 'arrow', '', 0, 350, -90, 140, 560, 1990, 1, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3682, 77, 'branch', 'branch 1', 0, 490, -40, 120, 30, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3683, 77, 'address', 'branch 2', 0, 490, 420, 120, 30, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3680, 77, 'horizontal', '', 0, 350, -90, 2130, 0, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3681, 77, 'arrow', '', 0, 190, -90, 160, 560, 2150, 1, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3682, 77, 'branch', 'branch 1', 0, 350, -40, 140, 30, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3683, 77, 'address', 'branch 2', 0, 560, 420, 50, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3684, 77, 'branch', 'branch 2', 0, 820, -40, 190, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3685, 77, 'branch', 'End', 0, 2480, -40, 70, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3686, 77, 'address', 'End', 0, 2340, 420, 50, 30, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3687, 77, 'horizontal', NULL, 0, 490, -130, 240, 0, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 3688, 77, 'action', 'returns enum ProcedureResult', 0, 730, -130, 130, 20, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3687, 77, 'horizontal', NULL, 0, 350, -130, 240, 0, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 3688, 77, 'action', 'returns enum ProcedureResult', 0, 590, -130, 130, 20, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3689, 77, 'action', 'return result;', 0, 2480, 70, 70, 20, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 3718, 79, 'beginend', 'Msr_Kernel_Profile_Selection', 0, 260, 10, 130, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 3719, 79, 'beginend', 'End', 0, 260, 850, 50, 20, 60, 0, NULL, '', NULL, '' );
@@ -8938,7 +8938,7 @@ INSERT INTO items VALUES( 14794, 320, 'shelf', 'PCA_FOUND', 0, 1180, 460, 140, 4
 INSERT INTO items VALUES( 14795, 320, 'commentin', 'TODO: Set ICC Pub key', 0, 1180, 370, 140, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 14796, 320, 'shelf', 'PR_CVM_SUCCESSFUL', 0, 1420, 330, 80, 40, 40, 0, NULL, '', NULL, 'result' );
 INSERT INTO items VALUES( 14797, 320, 'shelf', 'PR_CVM_UNSUCCESSFUL', 0, 1610, 330, 90, 40, 40, 0, NULL, '', NULL, 'result' );
-INSERT INTO items VALUES( 14798, 77, 'shelf', 'PR_UNINITIALISED', 0, 490, 80, 120, 40, 40, 0, NULL, NULL, NULL, 'enum ProcedureResult result' );
+INSERT INTO items VALUES( 14798, 77, 'shelf', 'PR_UNINITIALISED', 0, 350, 80, 140, 40, 40, 0, NULL, NULL, NULL, 'enum ProcedureResult result' );
 INSERT INTO items VALUES( 14799, 77, 'insertion', replace('result =\nData_Entry_Interaction(elementsof(msg), msg);', '\n', char(10)), 0, 820, 200, 190, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 14800, 77, 'shelf', replace('{\n	CRDHLDR_ENT_ENTER_PAN, \n	CRDHLDR_ENT_ENTER_EXPIRY_DATE\n}', '\n', char(10)), 0, 820, 80, 190, 70, 40, 0, NULL, NULL, NULL, 'const enum CardholderMessage msg[]' );
 INSERT INTO items VALUES( 14803, 77, 'vertical', '', 0, 820, -90, 0, 560, 0, 0, NULL, NULL, NULL, NULL );
@@ -9979,6 +9979,11 @@ INSERT INTO items VALUES( 16547, 344, 'shelf', replace('acpval(\n	(enum CtlssInd
 INSERT INTO items VALUES( 16548, 344, 'action', 'enum ProcedureResult result;', 0, 200, 70, 150, 20, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 16549, 344, 'action', replace('result =\nData_Output_Interaction(1, &msg);', '\n', char(10)), 0, 200, 400, 150, 30, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 16550, 344, 'shelf', 'CRDHLDR_ACT_NONE', 0, 200, 310, 150, 40, 40, 0, NULL, '', NULL, 'const enum CardholderMessage msg' );
+INSERT INTO items VALUES( 16551, 77, 'if', 'ttd.pan', 0, 350, 250, 140, 20, 70, 1, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16552, 77, 'vertical', '', 0, 560, 250, 0, 220, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16554, 77, 'commentin', 'FIXME: Humongous workaround!', 0, 350, 190, 140, 20, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16555, 77, 'if', 'ttd.expirationDate', 0, 350, 320, 140, 20, 70, 1, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16556, 77, 'address', 'Entry successful', 0, 350, 420, 140, 30, 60, 0, NULL, NULL, NULL, NULL );
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

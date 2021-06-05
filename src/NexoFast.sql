@@ -91,10 +91,10 @@ INSERT INTO diagrams VALUES( 123, 'Prepare_Cardholder_Confirmation_Check', '-120
 INSERT INTO diagrams VALUES( 125, 'Check_Minimal_Response_Tags', '138 132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 126, 'Card_Removal_Process_Separate_Readers', '0 30', '', 100.0 );
 INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '300 120', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
-INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '703 103', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
-INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '858 -512', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '250 -160', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
+INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '940 -430', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 134, 'Final_Selection_For_Emv_Chip', '1213 -304', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 136, 'Parse_Emv_Response_Data', '1069 -329', replace('There is no parsing per-se in the current implementation, \nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.', '\n', char(10)), 100.0 );
+INSERT INTO diagrams VALUES( 136, 'Parse_Emv_Response_Data', '1069 -229', replace('There is no parsing per-se in the current implementation, \nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.', '\n', char(10)), 100.0 );
 INSERT INTO diagrams VALUES( 137, 'Create_New_Entry_In_Candidate_List', '0 0', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 138, 'Match_With_Df_Name', '-518 -178', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 139, 'Chip_Application_Kernel_Profile_Selection', '307 5', NULL, 100.0 );
@@ -226,9 +226,9 @@ INSERT INTO diagrams VALUES( 291, 'First_Generate_Ac_Processing', '160 -160', NU
 INSERT INTO diagrams VALUES( 292, 'Initialise_Dynamic_Memory', '-52 -166', '', 100.0 );
 INSERT INTO diagrams VALUES( 293, 'Release_Dynamic_Memory', '0 0', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 294, 'Build_Candidate_List', '688 360', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 295, 'Select_Pse', '0 0', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 295, 'Select_Pse', '90 20', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 296, 'Copy_Fci_Data_After_Select_Pse', '0 0', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 297, 'Validate_Df_Name', '-249 -348', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 297, 'Validate_Df_Name', '0 0', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 298, 'Read_Records', '-133 -133', 'nexo-FAST v.3.2, figure 124', 100.0 );
 INSERT INTO diagrams VALUES( 299, 'Reset_Chip', '250 -186', replace('nexo-FAST v.3.2, note 126-05\n\nTODO: Check if this procedure agrees with EMV Book 1, sections 6~9', '\n', char(10)), 100.0 );
 INSERT INTO diagrams VALUES( 300, 'E1_Initialise_Configuration_Data', '1003 -2727', 'TODO: Check if all mandatory tags are copied', 100.0 );
@@ -279,7 +279,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 347, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 132, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -8226,7 +8226,7 @@ INSERT INTO items VALUES( 13973, 294, 'address', 'Nok', 0, 1650, 1090, 140, 30, 
 INSERT INTO items VALUES( 13974, 294, 'shelf', 'PR_UNINITIALISED', 0, 900, 760, 130, 40, 40, 0, NULL, NULL, NULL, 'enum ProcedureResult result' );
 INSERT INTO items VALUES( 13975, 294, 'action', 'enum PklrResult pklr_result;', 0, 900, 840, 130, 20, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 13976, 132, 'shelf', 'NULL', 0, 670, 150, 130, 40, 40, 0, NULL, NULL, NULL, 'g_CandidateList' );
-INSERT INTO items VALUES( 13977, 132, 'commentout', replace('FIXME: Use better variable\nlocation for Candidate List', '\n', char(10)), 0, 380, 150, 120, 30, 50, 1, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 13977, 132, 'commentout', replace('FIXME: Use better variable\nlocation for Candidate List', '\n', char(10)), 0, 940, 150, 120, 30, 50, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 13978, 132, 'shelf', '1', 0, 670, 270, 130, 50, 60, 0, NULL, NULL, NULL, replace('ttd.processingStatus\n.buildingCandidateListUsingPse', '\n', char(10)) );
 INSERT INTO items VALUES( 13979, 295, 'beginend', 'Select_Pse', 0, 260, 50, 50, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 13980, 295, 'beginend', 'End', 0, 260, 650, 50, 20, 60, 0, NULL, NULL, NULL, NULL );

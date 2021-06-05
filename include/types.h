@@ -392,7 +392,10 @@ enum PACKED CvmConditionCode {
     CVM_IF_TRX_IS_IN_APP_CURRENCY_AND_UNDER_Y = 0x08,
     CVM_IF_TRX_IS_IN_APP_CURRENCY_AND_OVER_Y = 0x09,
     // 0x0A~0x7F - RFU
+
     // 0x80~0xFF - Reserved for use by individual payment systems
+    CVM_RESERVED_00 = 0x80,
+    CVM_RESERVED_01 = 0x81,
 };
 
 enum PACKED EmvStatusEnum1 {

@@ -91,8 +91,8 @@ INSERT INTO diagrams VALUES( 123, 'Prepare_Cardholder_Confirmation_Check', '-120
 INSERT INTO diagrams VALUES( 125, 'Check_Minimal_Response_Tags', '138 132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 126, 'Card_Removal_Process_Separate_Readers', '0 30', '', 100.0 );
 INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '300 120', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
-INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '250 -160', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
-INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '940 -430', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '510 -160', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
+INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '4577 -344', 'TODO: This function isn''t fully implemented, avoid using it. It doesn''t report some errors and application may crash afterwards.', 100.0 );
 INSERT INTO diagrams VALUES( 134, 'Final_Selection_For_Emv_Chip', '1213 -304', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 136, 'Parse_Emv_Response_Data', '1069 -229', replace('There is no parsing per-se in the current implementation, \nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.', '\n', char(10)), 100.0 );
 INSERT INTO diagrams VALUES( 137, 'Create_New_Entry_In_Candidate_List', '0 0', NULL, 100.0 );
@@ -279,7 +279,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 132, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 133, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,

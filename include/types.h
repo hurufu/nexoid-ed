@@ -2901,6 +2901,10 @@ struct FciProprietaryTemplate {
 
     // [BF0C]
     struct FciIssuerDiscretionaryData* issuerDiscretionaryData;
+
+    // [88]
+    // FIXME: Fix SFI
+    unsigned char* sfi;
 };
 
 // FIXME: Use proper type for DF Name

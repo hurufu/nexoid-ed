@@ -91,10 +91,10 @@ INSERT INTO diagrams VALUES( 123, 'Prepare_Cardholder_Confirmation_Check', '-120
 INSERT INTO diagrams VALUES( 125, 'Check_Minimal_Response_Tags', '138 132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 126, 'Card_Removal_Process_Separate_Readers', '0 30', '', 100.0 );
 INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '300 120', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
-INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '510 -160', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
+INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '860 -160', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
 INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '4577 -344', 'TODO: This function isn''t fully implemented, avoid using it. It doesn''t report some errors and application may crash afterwards.', 100.0 );
 INSERT INTO diagrams VALUES( 134, 'Final_Selection_For_Emv_Chip', '1213 -304', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 136, 'Parse_Emv_Response_Data', '1069 -229', replace('There is no parsing per-se in the current implementation, \nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.', '\n', char(10)), 100.0 );
+INSERT INTO diagrams VALUES( 136, 'Parse_Emv_Response_Data', '919 -129', replace('There is no parsing per-se in the current implementation, \nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.', '\n', char(10)), 100.0 );
 INSERT INTO diagrams VALUES( 137, 'Create_New_Entry_In_Candidate_List', '0 0', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 138, 'Match_With_Df_Name', '-518 -178', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 139, 'Chip_Application_Kernel_Profile_Selection', '307 5', NULL, 100.0 );
@@ -146,7 +146,7 @@ INSERT INTO diagrams VALUES( 199, 'Update_Interfaces_Enable_Allowed', '-232 -310
 INSERT INTO diagrams VALUES( 200, 'Check_Default_Card_Service', '433 -140', 'Based on nexo-FAST v.3.2 note 20-10', 100.0 );
 INSERT INTO diagrams VALUES( 201, 'Default_Service_Initialisation', '1117 -185', '', 100.0 );
 INSERT INTO diagrams VALUES( 202, 'Process_Event', '-183 142', 'FIXME: Refactor Process Event to make it more linear', 100.0 );
-INSERT INTO diagrams VALUES( 203, 'Copy_Fci_Data_After_Final_Select', '0 -132', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 203, 'Copy_Fci_Data_After_Final_Select', '130 -60', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 204, 'Copy_Response_Data_After_Gpo', '-65 100', '', 100.0 );
 INSERT INTO diagrams VALUES( 205, 'Build_Dol_Data', '1042 -246', 'TODO: Build_Dol_Data function looks too complex for what is does', 100.0 );
 INSERT INTO diagrams VALUES( 206, 'Is_Tag_Ok', '-398 -132', NULL, 100.0 );
@@ -227,7 +227,7 @@ INSERT INTO diagrams VALUES( 292, 'Initialise_Dynamic_Memory', '-52 -166', '', 1
 INSERT INTO diagrams VALUES( 293, 'Release_Dynamic_Memory', '0 0', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 294, 'Build_Candidate_List', '688 360', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 295, 'Select_Pse', '90 20', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 296, 'Copy_Fci_Data_After_Select_Pse', '0 0', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 296, 'Copy_Fci_Data_After_Select_Pse', '30 20', 'TODO: SFI isn''t copied', 100.0 );
 INSERT INTO diagrams VALUES( 297, 'Validate_Df_Name', '0 0', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 298, 'Read_Records', '-133 -133', 'nexo-FAST v.3.2, figure 124', 100.0 );
 INSERT INTO diagrams VALUES( 299, 'Reset_Chip', '250 -186', replace('nexo-FAST v.3.2, note 126-05\n\nTODO: Check if this procedure agrees with EMV Book 1, sections 6~9', '\n', char(10)), 100.0 );
@@ -279,7 +279,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 133, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 136, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -5040,12 +5040,12 @@ INSERT INTO items VALUES( 9508, 136, 'branch', 'Not implemented', 0, 2790, 40, 8
 INSERT INTO items VALUES( 9509, 136, 'address', 'Nok', 0, 2790, 420, 80, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9510, 136, 'shelf', 'N_NOT_IMPLEMENTED', 0, 2790, 330, 80, 40, 40, 0, NULL, NULL, NULL, 'ttd.nokReason' );
 INSERT INTO items VALUES( 9511, 136, 'vertical', '', 0, 1300, -10, 0, 480, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 9512, 136, 'branch', replace('Export values from FCI\nto Card Data', '\n', char(10)), 0, 1300, 50, 150, 40, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 9513, 136, 'address', 'Ok', 0, 1300, 420, 150, 30, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 9512, 136, 'branch', replace('Export values from FCI\nto Card Data', '\n', char(10)), 0, 1300, 50, 140, 40, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 9513, 136, 'address', 'Ok', 0, 1300, 420, 140, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9514, 203, 'beginend', 'Copy_Fci_Data_After_Final_Select', 0, 300, -20, 140, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9515, 203, 'beginend', 'End', 0, 300, 720, 50, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9516, 203, 'vertical', NULL, 0, 300, 0, 0, 700, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 9517, 136, 'select', 'commandName', 0, 1300, 130, 150, 20, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 9517, 136, 'select', 'commandName', 0, 1300, 130, 140, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9518, 136, 'horizontal', '', 0, 1300, 170, 1320, 0, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9519, 136, 'case', 'COMMAND_SELECT_ADF', 0, 1620, 210, 150, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9520, 136, 'case', 'COMMAND_GPO', 0, 1980, 210, 190, 20, 60, 0, NULL, NULL, NULL, NULL );
@@ -8287,8 +8287,8 @@ INSERT INTO items VALUES( 14039, 132, 'vertical', '', 0, 1440, 210, 0, 430, 0, 0
 INSERT INTO items VALUES( 14040, 132, 'address', 'Unsuccessful', 0, 1440, 590, 60, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 14041, 132, 'insertion', replace('result =\nParse_Emv_Response_Data(\n  COMMAND_SELECT_PSE, &ep.cd\n);', '\n', char(10)), 0, 1220, 320, 140, 50, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 14042, 136, 'vertical', '', 0, 1620, 170, 0, 200, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 14043, 136, 'case', 'COMMAND_SELECT_PSE', 0, 1300, 210, 150, 20, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 14044, 136, 'insertion', 'Copy_Fci_Data_After_Select_Pse();', 0, 1300, 330, 150, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 14043, 136, 'case', 'COMMAND_SELECT_PSE', 0, 1300, 210, 140, 20, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 14044, 136, 'insertion', replace('Copy_Fci_Data_After_Select_Pse(\n	out, \n	cr->parsed->fci\n);', '\n', char(10)), 0, 1300, 300, 140, 50, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 14045, 296, 'beginend', 'Copy_Fci_Data_After_Select_Pse', 0, 170, 60, 130, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 14046, 296, 'beginend', 'End', 0, 170, 390, 50, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 14047, 296, 'vertical', NULL, 0, 170, 80, 0, 290, 0, 0, NULL, NULL, NULL, NULL );
@@ -10002,6 +10002,9 @@ INSERT INTO items VALUES( 16574, 347, 'shelf', 'PR_OK', 0, 400, 390, 180, 40, 40
 INSERT INTO items VALUES( 16575, 347, 'shelf', 'PR_NOK', 0, 650, 390, 50, 40, 40, 0, NULL, '', NULL, 'result' );
 INSERT INTO items VALUES( 16576, 347, 'shelf', 'Interface_Contract_Violation();', 0, 860, 390, 140, 40, 40, 0, NULL, '', NULL, 'result' );
 INSERT INTO items VALUES( 16577, 347, 'action', 'enum ProcedureResult result;', 0, 400, 50, 180, 20, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16578, 296, 'action', replace('struct CardData* const out\nconst struct FileControlInformation* const fci', '\n', char(10)), 0, 550, 60, 200, 30, 0, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16579, 296, 'horizontal', '', 0, 170, 60, 370, 0, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16580, 296, 'shelf', 'fci->DfName', 0, 170, 170, 60, 40, 40, 0, NULL, '', NULL, 'out->dfName' );
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

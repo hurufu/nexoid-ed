@@ -41,7 +41,7 @@ INSERT INTO diagrams VALUES( 54, 'Initialise_Transaction_Database', '-50 -110', 
 INSERT INTO diagrams VALUES( 55, 'Service_Initialisation', '-100 240', 'based on nexo-FAST v.3.2 ection 5.2.5', 100.0 );
 INSERT INTO diagrams VALUES( 56, 'Initialise_Basic_Data', '-50 -70', 'Based on nexo-FAST v.3.2 section 4.3.1.2', 100.0 );
 INSERT INTO diagrams VALUES( 57, 'Process_Reference_Entry', '-1410 -150', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 65, 'Technology_Selection_Initial_Processing', '385 192', 'TODO: Calls to Update_Interfaces have to be consolidated', 100.0 );
+INSERT INTO diagrams VALUES( 65, 'Technology_Selection_Initial_Processing', '420 80', 'TODO: Calls to Update_Interfaces have to be consolidated', 100.0 );
 INSERT INTO diagrams VALUES( 66, 'Technology_Selection', '-150 -240', '', 100.0 );
 INSERT INTO diagrams VALUES( 70, 'Is_Card_In_Chip_Reader', '-138 -168', '', 100.0 );
 INSERT INTO diagrams VALUES( 71, 'Is_Card_In_Magnetic_Stripe_Reader', '-190 -104', '', 100.0 );
@@ -90,7 +90,7 @@ INSERT INTO diagrams VALUES( 122, 'Exception_File_Checking', '-184 176', NULL, 1
 INSERT INTO diagrams VALUES( 123, 'Prepare_Cardholder_Confirmation_Check', '-120 -8', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 125, 'Check_Minimal_Response_Tags', '138 132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 126, 'Card_Removal_Process_Separate_Readers', '0 30', '', 100.0 );
-INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '11105 132', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
+INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '300 120', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
 INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '703 103', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
 INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '858 -512', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 134, 'Final_Selection_For_Emv_Chip', '1213 -304', NULL, 100.0 );
@@ -239,7 +239,7 @@ INSERT INTO diagrams VALUES( 304, 'Final_Application_Selection', '0 0', '', 100.
 INSERT INTO diagrams VALUES( 305, 'Select_Application', '0 0', '', 100.0 );
 INSERT INTO diagrams VALUES( 306, 'Select_Next_Application', '-383 165', '', 100.0 );
 INSERT INTO diagrams VALUES( 307, 'Read_Record', '0 -62', '', 100.0 );
-INSERT INTO diagrams VALUES( 308, 'External_Authenticate', '0 -62', '', 100.0 );
+INSERT INTO diagrams VALUES( 308, 'External_Authenticate', '0 38', '', 100.0 );
 INSERT INTO diagrams VALUES( 309, 'Pin_Encipherment', '-97 -114', 'nexo-FAST v.3.2, section 8.2.5.2.6.1', 100.0 );
 INSERT INTO diagrams VALUES( 311, 'Encrypt_Pin_Block', '496 -613', '', 100.0 );
 INSERT INTO diagrams VALUES( 312, 'Presence_Check_Of_Icc_Data_For_Pin_Encipherment', '489 -473', NULL, 100.0 );
@@ -272,13 +272,14 @@ INSERT INTO diagrams VALUES( 343, 'Ui_Sr_One_Card_Only', '50 0', '', 100.0 );
 INSERT INTO diagrams VALUES( 344, 'Ui_Sr_Update_Status', '40 -20', '', 100.0 );
 INSERT INTO diagrams VALUES( 345, 'Ui_Sr_Retry_After_Contactless', '550 -160', '', 100.0 );
 INSERT INTO diagrams VALUES( 346, 'Ui_Sr_Present_Card', '7720 -100', replace('NEXO: This procedure is not 100% consistent with the specification, but it is good enoug.\n\nWhat is different:\n1) Order of messages - it ok, because it''s a responsibility of SCAP application to present messages in a correct order\n2) Place where upfront button is checked\n3) Place where Confirmation Text is set\n4) Place where amountDisplayed is set\n\nData_Output_Interaction will be refactored so it will send Card Request instead of generic array of messages, so it should not be a problem.', '\n', char(10)), 100.0 );
+INSERT INTO diagrams VALUES( 347, 'Activate_Contacts_And_Reset_Chip', '210 -40', 'NEXO: This action is not defined by nexo. It shall be performed as defined in EMV Book 1 sections 5-9', 100.0 );
 CREATE TABLE state
 (
 	row integer primary key,
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 65, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 347, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2834,8 +2835,8 @@ INSERT INTO items VALUES( 6124, 129, 'vertical', '', 0, 11990, -960, 0, 1690, 0,
 INSERT INTO items VALUES( 6125, 129, 'branch', 'Nok', 0, 11990, -910, 140, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6126, 129, 'address', 'End', 0, 11990, 680, 140, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6127, 129, 'vertical', '', 0, 6580, -960, 0, 1690, 0, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6128, 129, 'branch', replace('Card in chip\nreader', '\n', char(10)), 0, 6580, -900, 180, 40, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6129, 129, 'address', 'Ok', 0, 6580, 680, 180, 30, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6128, 129, 'branch', replace('Card in chip\nreader', '\n', char(10)), 0, 6580, -900, 150, 40, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6129, 129, 'address', 'Ok', 0, 6580, 680, 150, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6130, 129, 'vertical', '', 0, 3270, -960, 0, 1690, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6131, 129, 'branch', 'Wait for Event', 0, 3270, -910, 120, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6132, 129, 'address', replace('Card in chip\nreader', '\n', char(10)), 0, 3270, 670, 120, 40, 60, 0, NULL, '', NULL, '' );
@@ -2978,14 +2979,14 @@ INSERT INTO items VALUES( 6269, 129, 'vertical', '', 0, 7910, 570, 0, 160, 0, 0,
 INSERT INTO items VALUES( 6270, 129, 'vertical', '', 0, 8030, 570, 0, 160, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6271, 129, 'address', 'Bailout', 0, 8030, 680, 50, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6272, 129, 'address', 'Nok', 0, 7910, 680, 50, 30, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6273, 129, 'if', 'ttd.amountDisplayed', 0, 6580, 250, 180, 20, 70, 1, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6273, 129, 'if', 'ttd.amountDisplayed', 0, 6580, 250, 150, 20, 100, 1, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6274, 129, 'vertical', '', 0, 6830, 250, 0, 140, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6275, 129, 'horizontal', '', 0, 6580, 390, 250, 0, 0, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6276, 129, 'shelf', 'true', 0, 6580, 330, 180, 40, 40, 0, NULL, '', NULL, 'ttd.confirmationByCard' );
-INSERT INTO items VALUES( 6277, 129, 'insertion', replace('result =\nUpdate_Interfaces_Disable_Other();', '\n', char(10)), 0, 6580, 450, 180, 30, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6278, 129, 'select', 'result', 0, 6580, 530, 180, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6276, 129, 'shelf', 'true', 0, 6580, 330, 150, 40, 40, 0, NULL, '', NULL, 'ttd.confirmationByCard' );
+INSERT INTO items VALUES( 6277, 129, 'insertion', replace('result =\nUpdate_Interfaces_Disable_Other();', '\n', char(10)), 0, 6580, 450, 150, 30, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6278, 129, 'select', 'result', 0, 6580, 530, 150, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6279, 129, 'horizontal', '', 0, 6580, 570, 370, 0, 0, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6280, 129, 'case', 'PR_OK', 0, 6580, 610, 180, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6280, 129, 'case', 'PR_OK', 0, 6580, 610, 150, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6281, 129, 'case', 'PR_NOK', 0, 6830, 610, 50, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6282, 129, 'case', '', 0, 6950, 610, 50, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6283, 129, 'vertical', '', 0, 6830, 570, 0, 160, 0, 0, NULL, '', NULL, '' );
@@ -3073,12 +3074,10 @@ INSERT INTO items VALUES( 6364, 129, 'vertical', '', 0, 10750, 570, 0, 160, 0, 0
 INSERT INTO items VALUES( 6365, 129, 'address', 'Bailout', 0, 10750, 680, 50, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6366, 129, 'address', 'Nok', 0, 10630, 680, 50, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6368, 129, 'vertical', '', 0, 7340, 0, 0, 730, 0, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6369, 129, 'output', replace('eapi_result =\neapi_Activate_Contacts_And_Reset_Chip();', '\n', char(10)), 0, 6580, -390, 180, 50, 40, 0, NULL, '', NULL, 'KERNEL E' );
-INSERT INTO items VALUES( 6370, 129, 'commentout', replace('This action is not defined by nexo.\nIt shall be performed as defined in\nEMV Book 1 sections 5-9', '\n', char(10)), 0, 6960, -390, 150, 40, 130, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6371, 129, 'select', 'ttd.technologySelected', 0, 6580, -40, 180, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6371, 129, 'select', 'ttd.technologySelected', 0, 6580, -40, 150, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6372, 129, 'horizontal', '', 0, 6580, 0, 760, 0, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6373, 129, 'case', 'TECH_NON_EMV_CHIP', 0, 7100, 40, 80, 20, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6374, 129, 'case', 'TECH_EMV_CHIP', 0, 6580, 40, 180, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6374, 129, 'case', 'TECH_EMV_CHIP', 0, 6580, 40, 150, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6375, 129, 'case', '', 0, 7340, 40, 140, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6376, 129, 'vertical', '', 0, 7100, 0, 0, 730, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6377, 129, 'select', 'ttd.nokReason', 0, 7670, -50, 170, 20, 60, 0, NULL, '', NULL, '' );
@@ -3097,15 +3096,15 @@ INSERT INTO items VALUES( 6389, 129, 'address', 'End', 0, 11730, 680, 50, 30, 60
 INSERT INTO items VALUES( 6390, 129, 'branch', 'Non EMV', 0, 11730, -910, 50, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6391, 129, 'commentout', replace('There is no exit point\n''Non EMV'' in nexo spec, \nfor Technology Selection, \nbut it''s referenced in\nService Control', '\n', char(10)), 0, 11860, -730, 110, 50, 20, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6392, 129, 'shelf', 'PR_NON_EMV', 0, 11730, 390, 50, 40, 40, 0, NULL, '', NULL, 'result' );
-INSERT INTO items VALUES( 6393, 129, 'select', 'eapi_result', 0, 6580, -300, 180, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6393, 129, 'select', 'result', 0, 6580, -300, 150, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6394, 129, 'horizontal', '', 0, 6580, -260, 1980, 0, 0, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6395, 129, 'case', 'EAPI_OK', 0, 6580, -220, 180, 20, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6396, 129, 'case', 'EAPI_NOK', 0, 7670, -220, 170, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6395, 129, 'case', 'PR_OK', 0, 6580, -220, 150, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6396, 129, 'case', 'PR_NOK', 0, 7670, -220, 170, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6397, 129, 'case', '', 0, 8560, -220, 50, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6398, 129, 'vertical', '', 0, 8560, -260, 0, 520, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6399, 129, 'horizontal', '', 0, 8400, 260, 160, 0, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6401, 129, 'commentin', replace('TODO: Consider disabling\nall interfaces at this\npoint', '\n', char(10)), 0, 12500, 180, 120, 40, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6402, 129, 'commentout', 'Technology Selected', 0, 6730, -130, 90, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6402, 129, 'commentout', 'Technology Selected', 0, 6730, -160, 90, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6403, 129, 'commentin', replace('FIXME: This error reason will\nbe overwritten later to\nTER_NEXO_FAST_FAILURE', '\n', char(10)), 0, 8400, 320, 140, 40, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6532, 132, 'beginend', 'Build_Candidate_List_Using_Pse', 0, 670, -130, 130, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6533, 132, 'beginend', 'End', 0, 2690, 150, 50, 20, 60, 0, NULL, '', NULL, '' );
@@ -5826,7 +5825,6 @@ INSERT INTO items VALUES( 10564, 18, 'if', 'PR_NOK == result', 0, 5040, 650, 90,
 INSERT INTO items VALUES( 10565, 18, 'vertical', '', 0, 5200, 650, 0, 310, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 10566, 18, 'address', 'Bailout', 0, 5200, 910, 50, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 10567, 18, 'commentin', replace('TODO: Consider\nbailing-out', '\n', char(10)), 0, 4550, 800, 80, 30, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 10568, 129, 'action', 'enum EapiResult eapi_result;', 0, 470, 260, 130, 20, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 10571, 75, 'shelf', '{ .u = 4 * (1 << exponent) };', 0, 970, 360, 280, 40, 40, 0, NULL, NULL, NULL, 'const union bcd6 one' );
 INSERT INTO items VALUES( 10572, 75, 'shelf', replace('10 * ttd.transactionCurrencyExponent.high\n   + ttd.transactionCurrencyExponent.low', '\n', char(10)), 0, 970, 250, 280, 50, 40, 0, NULL, NULL, NULL, 'const uint8_t exponent' );
 INSERT INTO items VALUES( 10576, 219, 'action', 'enum PklrResult pklr_result;', 0, 980, 310, 130, 20, 0, 0, NULL, NULL, NULL, NULL );
@@ -9984,6 +9982,26 @@ INSERT INTO items VALUES( 16552, 77, 'vertical', '', 0, 560, 250, 0, 220, 0, 0, 
 INSERT INTO items VALUES( 16554, 77, 'commentin', 'FIXME: Humongous workaround!', 0, 350, 190, 140, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 16555, 77, 'if', 'ttd.expirationDate', 0, 350, 320, 140, 20, 70, 1, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 16556, 77, 'address', 'Entry successful', 0, 350, 420, 140, 30, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16557, 347, 'beginend', 'Activate_Contacts_And_Reset_Chip', 0, 400, -10, 140, 20, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16558, 347, 'beginend', 'End', 0, 400, 550, 50, 20, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16559, 347, 'vertical', NULL, 0, 400, 10, 0, 520, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16560, 347, 'horizontal', NULL, 0, 400, -10, 190, 0, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16561, 347, 'action', 'returns enum ProcedureResult', 0, 690, -10, 130, 20, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16563, 129, 'action', replace('result =\nActivate_Contacts_And_Reset_Chip();', '\n', char(10)), 0, 6580, -380, 150, 30, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16564, 347, 'output', replace('const enum EapiResult eapi_result =\neapi_Activate_Contacts_And_Reset_Chip();', '\n', char(10)), 0, 400, 140, 180, 50, 40, 0, NULL, '', NULL, 'KERNEL E' );
+INSERT INTO items VALUES( 16565, 347, 'action', 'return result;', 0, 400, 490, 180, 20, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16566, 347, 'select', 'eapi_result', 0, 400, 230, 180, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16567, 347, 'horizontal', '', 0, 400, 270, 460, 0, 0, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16568, 347, 'case', 'EAPI_OK', 0, 400, 310, 180, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16569, 347, 'case', '', 0, 860, 310, 140, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16570, 347, 'vertical', '', 0, 860, 270, 0, 180, 0, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16571, 347, 'case', 'EAPI_NOK', 0, 650, 310, 50, 20, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16572, 347, 'vertical', '', 0, 650, 270, 0, 180, 0, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16573, 347, 'horizontal', '', 0, 400, 450, 460, 0, 0, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 16574, 347, 'shelf', 'PR_OK', 0, 400, 390, 180, 40, 40, 0, NULL, '', NULL, 'result' );
+INSERT INTO items VALUES( 16575, 347, 'shelf', 'PR_NOK', 0, 650, 390, 50, 40, 40, 0, NULL, '', NULL, 'result' );
+INSERT INTO items VALUES( 16576, 347, 'shelf', 'Interface_Contract_Violation();', 0, 860, 390, 140, 40, 40, 0, NULL, '', NULL, 'result' );
+INSERT INTO items VALUES( 16577, 347, 'action', 'enum ProcedureResult result;', 0, 400, 50, 180, 20, 0, 0, NULL, NULL, NULL, NULL );
 CREATE TABLE diagram_info
 (
 	diagram_id integer,
@@ -10316,6 +10334,7 @@ INSERT INTO tree_nodes VALUES( 440, 439, 'item', '', 343 );
 INSERT INTO tree_nodes VALUES( 441, 439, 'item', '', 344 );
 INSERT INTO tree_nodes VALUES( 442, 439, 'item', '', 345 );
 INSERT INTO tree_nodes VALUES( 443, 439, 'item', NULL, 346 );
+INSERT INTO tree_nodes VALUES( 444, 176, 'item', NULL, 347 );
 CREATE INDEX items_per_diagram on items (diagram_id);
 CREATE UNIQUE INDEX node_for_diagram on tree_nodes (diagram_id);
 COMMIT;

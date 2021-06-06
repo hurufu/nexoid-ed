@@ -91,10 +91,10 @@ INSERT INTO diagrams VALUES( 123, 'Prepare_Cardholder_Confirmation_Check', '-120
 INSERT INTO diagrams VALUES( 125, 'Check_Minimal_Response_Tags', '138 132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 126, 'Card_Removal_Process_Separate_Readers', '0 30', '', 100.0 );
 INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '300 120', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
-INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '860 -160', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
+INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '1565 -114', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
 INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '4577 -344', 'TODO: This function isn''t fully implemented, avoid using it. It doesn''t report some errors and application may crash afterwards.', 100.0 );
-INSERT INTO diagrams VALUES( 134, 'Final_Selection_For_Emv_Chip', '1213 -304', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 136, 'Parse_Emv_Response_Data', '919 -129', replace('There is no parsing per-se in the current implementation, \nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.', '\n', char(10)), 100.0 );
+INSERT INTO diagrams VALUES( 134, 'Final_Selection_For_Emv_Chip', '5605 -234', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 136, 'Parse_Emv_Response_Data', '1845 126', replace('There is no parsing per-se in the current implementation, \nbecause for now it''s assumed that trusted layer will populate appropriate global member of Card Data, so here only basic consistency checks (if any) are performed and values are copied to internal location.', '\n', char(10)), 100.0 );
 INSERT INTO diagrams VALUES( 137, 'Create_New_Entry_In_Candidate_List', '0 0', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 138, 'Match_With_Df_Name', '-518 -178', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 139, 'Chip_Application_Kernel_Profile_Selection', '307 5', NULL, 100.0 );
@@ -110,11 +110,11 @@ INSERT INTO diagrams VALUES( 149, 'Process_On_Candidate_List', '0 0', NULL, 100.
 INSERT INTO diagrams VALUES( 151, 'Compare_Candidate_Application', '-68 1', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 152, 'Sort_Candidate_List_By_Priority', '66 -66', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 155, 'Cardholder_Application_Confirmation', '0 0', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 156, 'Check_Cardholder_Language', '-237 443', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 156, 'Check_Cardholder_Language', '100 50', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 160, 'Save_Fallback_Data', '0 0', '', 100.0 );
 INSERT INTO diagrams VALUES( 166, 'Authentication_Processing_And_Risk_Management', '-129 -120', '', 100.0 );
 INSERT INTO diagrams VALUES( 167, 'Initial_Oda_Processing', '3809 -89', '', 100.0 );
-INSERT INTO diagrams VALUES( 168, 'Kernel_E_Application_Initialisation', '4176 -1491', replace('nexo-Fast fig. 158~160\n\nTODO: Decoding and processing of AFL is implemented only for first AFL entry (see nexo-FAST fig. 159)', '\n', char(10)), 100.0 );
+INSERT INTO diagrams VALUES( 168, 'Kernel_E_Application_Initialisation', '4005 -764', replace('nexo-Fast fig. 158~160\n\nTODO: Decoding and processing of AFL is implemented only for first AFL entry (see nexo-FAST fig. 159)', '\n', char(10)), 100.0 );
 INSERT INTO diagrams VALUES( 169, 'Action_Analysis', '914 204', 'nexo-FAST v.3.2, section 8.2.2.2', 100.0 );
 INSERT INTO diagrams VALUES( 171, 'Cardholder_Verification', '1662 -40', 'nexo-FAST v.3.2, figure 168', 100.0 );
 INSERT INTO diagrams VALUES( 172, 'Application_And_Transaction_Amount_Confirmation', '100 -136', replace('nexo-FAST v.3.2, secion 6.6.7.2\n\nTODO: IFR isn''t implemented', '\n', char(10)), 100.0 );
@@ -153,8 +153,8 @@ INSERT INTO diagrams VALUES( 206, 'Is_Tag_Ok', '-398 -132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 207, 'Match_Aid', '0 -125', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 208, 'Determination_Of_Oda_Method', '173 -248', 'nexo-FAST v.3.2 section 8.2.3.2.2', 100.0 );
 INSERT INTO diagrams VALUES( 209, 'Decode_Afl_Entry', '178 -228', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 210, 'Process_Read_Record', '241 -121', replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented', '\n', char(10)), 100.0 );
-INSERT INTO diagrams VALUES( 211, 'Copy_Response_Data_After_Read_Record', '-200 -133', NULL, 100.0 );
+INSERT INTO diagrams VALUES( 210, 'Process_Read_Record', '205 16', replace('nexo-FAST v.3.2 section 8.2.3.2.4\n\nTODO: Process Read Record isn''t fully implemented', '\n', char(10)), 100.0 );
+INSERT INTO diagrams VALUES( 211, 'Copy_Response_Data_After_Read_Record', '-345 -144', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 212, 'Cvm_List_Processing', '361 -132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 213, 'Try_Performing_Cvm', '2422 -140', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 214, 'Process_Cvm_Condition_Code', '5050 62', replace('nexo-FAST v.3.2, section 8.2.5.2.3\n\nTODO: Not implemented', '\n', char(10)), 100.0 );
@@ -229,7 +229,7 @@ INSERT INTO diagrams VALUES( 294, 'Build_Candidate_List', '688 360', NULL, 100.0
 INSERT INTO diagrams VALUES( 295, 'Select_Pse', '90 20', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 296, 'Copy_Fci_Data_After_Select_Pse', '30 20', 'TODO: SFI isn''t copied', 100.0 );
 INSERT INTO diagrams VALUES( 297, 'Validate_Df_Name', '0 0', NULL, 100.0 );
-INSERT INTO diagrams VALUES( 298, 'Read_Records', '-133 -133', 'nexo-FAST v.3.2, figure 124', 100.0 );
+INSERT INTO diagrams VALUES( 298, 'Read_Records', '-125 6', 'nexo-FAST v.3.2, figure 124', 100.0 );
 INSERT INTO diagrams VALUES( 299, 'Reset_Chip', '250 -186', replace('nexo-FAST v.3.2, note 126-05\n\nTODO: Check if this procedure agrees with EMV Book 1, sections 6~9', '\n', char(10)), 100.0 );
 INSERT INTO diagrams VALUES( 300, 'E1_Initialise_Configuration_Data', '1003 -2727', 'TODO: Check if all mandatory tags are copied', 100.0 );
 INSERT INTO diagrams VALUES( 301, 'E1_Initialise_Activation_Data', '27 -364', NULL, 100.0 );
@@ -238,7 +238,7 @@ INSERT INTO diagrams VALUES( 303, 'Get_Processing_Options', '435 -125', NULL, 10
 INSERT INTO diagrams VALUES( 304, 'Final_Application_Selection', '0 0', '', 100.0 );
 INSERT INTO diagrams VALUES( 305, 'Select_Application', '0 0', '', 100.0 );
 INSERT INTO diagrams VALUES( 306, 'Select_Next_Application', '-383 165', '', 100.0 );
-INSERT INTO diagrams VALUES( 307, 'Read_Record', '0 -62', '', 100.0 );
+INSERT INTO diagrams VALUES( 307, 'Read_Record', '-255 36', '', 100.0 );
 INSERT INTO diagrams VALUES( 308, 'External_Authenticate', '0 38', '', 100.0 );
 INSERT INTO diagrams VALUES( 309, 'Pin_Encipherment', '-97 -114', 'nexo-FAST v.3.2, section 8.2.5.2.6.1', 100.0 );
 INSERT INTO diagrams VALUES( 311, 'Encrypt_Pin_Block', '496 -613', '', 100.0 );
@@ -279,7 +279,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 136, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 134, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -5061,7 +5061,7 @@ INSERT INTO items VALUES( 9530, 203, 'shelf', 'fci->a5.languagePreference', 0, 3
 INSERT INTO items VALUES( 9531, 203, 'shelf', 'fci->a5.issuerCodeTableIndex', 0, 300, 460, 160, 40, 40, 0, NULL, '', NULL, 'out->issuerCodeTableIndex' );
 INSERT INTO items VALUES( 9532, 203, 'shelf', 'fci->a5.applicationPreferredName', 0, 300, 560, 160, 40, 40, 0, NULL, '', NULL, 'out->applicationPreferredName' );
 INSERT INTO items VALUES( 9534, 203, 'commentin', replace('TODO: Populate proprietary tags\nfrom issuer discretionary data', '\n', char(10)), 0, 300, 650, 160, 30, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 9535, 134, 'shelf', 'NULL', 0, 6120, 120, 220, 40, 40, 0, NULL, '', NULL, 'cr->parsed->fci' );
+INSERT INTO items VALUES( 9535, 134, 'shelf', 'NULL', 0, 6120, 120, 220, 40, 40, 0, NULL, '', NULL, 'cr' );
 INSERT INTO items VALUES( 9536, 136, 'if', 'cr->responseData', 0, 920, 350, 90, 20, 70, 1, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9537, 136, 'vertical', '', 0, 1080, 350, 0, 120, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 9538, 136, 'address', 'Nok', 0, 1080, 420, 50, 30, 60, 0, NULL, NULL, NULL, NULL );

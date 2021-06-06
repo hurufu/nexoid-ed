@@ -311,6 +311,7 @@ static struct ttp ApplicationProfile_get_ttv(const struct ApplicationProfile* co
     struct ttp r;
     switch (t.e) {
         case T_EMV_TERMINAL_CAPABILITIES:                        r = (struct ttp){ .isOptional = true,  .type = TAG_TC,                        .value =  p->terminalCapabilities                      }; break;
+        case T_EMV_TERMINAL_COUNTRY_CODE:                        r = (struct ttp){ .isOptional = false, .type = TAG_BCD2,                      .value = &e1.terminalCountryCode.bcd                   }; break;
         case T_EMV_ADDITIONAL_TERMINAL_CAPABILITIES:             r = (struct ttp){ .isOptional = true,  .type = TAG_ATC,                       .value =  p->additionalTerminalCapabilities            }; break;
         case T_NNA_PROFILE_NUMBER:                               r = (struct ttp){ .isOptional = false, .type = TAG_BCD1,                      .value = &p->profileNumber                             }; break;
         case T_NNA_ACQUIRER_NUMBER:                              r = (struct ttp){ .isOptional = false, .type = TAG_BCD1,                      .value =  p->acquirerNumber                            }; break;

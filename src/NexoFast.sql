@@ -201,7 +201,7 @@ INSERT INTO diagrams VALUES( 260, 'Is_Cvm_Offline_Pin', '-265 -396', NULL, 100.0
 INSERT INTO diagrams VALUES( 263, 'Perform_Cvm', '1309 -319', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 264, 'Perform_Cvm_Offline_Pin', '1415 450', '', 100.0 );
 INSERT INTO diagrams VALUES( 265, 'Prepare_Offline_Pin_Block', '849 -329', '', 100.0 );
-INSERT INTO diagrams VALUES( 266, 'Offline_Pin_Entry', '2846 85', '', 100.0 );
+INSERT INTO diagrams VALUES( 266, 'Offline_Pin_Entry', '1665 266', '', 100.0 );
 INSERT INTO diagrams VALUES( 267, 'Perform_Cvm_Online_Pin', '-84 -168', '', 100.0 );
 INSERT INTO diagrams VALUES( 268, 'Request_Pin_Entry_For_Emv_Chip', '0 -266', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 269, 'Verify_Pin_Block', '-382 -132', '', 100.0 );
@@ -279,7 +279,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 273, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
+INSERT INTO state VALUES( 1, 266, replace('=== h_header ===\n#include "types.h"\n\n=== c_header ===\n#include "nexo.h"', '\n', char(10)) );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -7127,9 +7127,9 @@ INSERT INTO items VALUES( 12443, 267, 'action', 'return result;', 0, 690, 430, 7
 INSERT INTO items VALUES( 12444, 267, 'shelf', 'PR_CVM_UNSUCCESSFUL', 0, 510, 360, 90, 40, 40, 0, NULL, '', NULL, 'result' );
 INSERT INTO items VALUES( 12445, 266, 'vertical', '', 0, 1740, 280, 0, 630, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 12446, 266, 'branch', 'PIN Entry', 0, 1740, 330, 190, 30, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 12447, 266, 'address', 'Successful', 0, 2030, 860, 50, 30, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 12448, 266, 'if', 'ttd.cardholderRequestedChangeOfApplication', 0, 1740, 610, 190, 20, 100, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 12449, 266, 'vertical', '', 0, 2030, 610, 0, 300, 0, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 12447, 266, 'address', 'Successful', 0, 2020, 860, 50, 30, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 12448, 266, 'if', 'ttd.cardholderRequestedChangeOfApplication', 0, 1740, 610, 190, 20, 90, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 12449, 266, 'vertical', '', 0, 2020, 610, 0, 300, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 12450, 266, 'address', '(2)', 0, 1740, 860, 190, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 12452, 266, 'vertical', '', 0, 2510, 280, 0, 630, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 12453, 266, 'branch', '(2)', 0, 2510, 330, 100, 30, 60, 0, NULL, '', NULL, '' );
@@ -7213,9 +7213,9 @@ INSERT INTO items VALUES( 12585, 268, 'horizontal', NULL, 0, 240, 120, 220, 0, 0
 INSERT INTO items VALUES( 12587, 268, 'action', replace('const enum PinType pinType\n\nreturns enum ProcedureResult', '\n', char(10)), 0, 540, 120, 130, 40, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 12589, 268, 'insertion', 'return Pin_Entry(pinType);', 0, 240, 180, 120, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 12590, 266, 'insertion', replace('result =\nRequest_Pin_Entry_For_Emv_Chip(PIN_OFFLINE);', '\n', char(10)), 0, 1740, 430, 190, 30, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 12591, 266, 'if', 'PR_OK == result', 0, 1740, 530, 190, 20, 220, 1, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 12592, 266, 'vertical', '', 0, 2150, 530, 0, 380, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 12593, 266, 'address', replace('Nok\n(B)', '\n', char(10)), 0, 2150, 850, 50, 40, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 12591, 266, 'if', 'PR_OK == result', 0, 1740, 530, 190, 20, 250, 1, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 12592, 266, 'vertical', '', 0, 2180, 530, 0, 380, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 12593, 266, 'address', replace('Nok\n(B)', '\n', char(10)), 0, 2180, 850, 90, 40, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 12594, 266, 'insertion', replace('result =\nVerify_Pin_Block(p2);', '\n', char(10)), 0, 4150, 450, 100, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 12595, 269, 'beginend', 'Verify_Pin_Block', 0, 250, 50, 80, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 12596, 269, 'beginend', 'End', 0, 250, 710, 50, 20, 60, 0, NULL, '', NULL, '' );
@@ -10007,6 +10007,9 @@ INSERT INTO items VALUES( 16579, 296, 'horizontal', '', 0, 170, 60, 370, 0, 0, 0
 INSERT INTO items VALUES( 16580, 296, 'shelf', 'fci->DfName', 0, 170, 170, 60, 40, 40, 0, NULL, '', NULL, 'out->dfName' );
 INSERT INTO items VALUES( 16581, 273, 'shelf', 'CRDHLDR_SRC_TRX_CURRENCY_EXPONENT', 0, 2080, -1320, 170, 40, 40, 0, NULL, '', NULL, 'msg[number++]' );
 INSERT INTO items VALUES( 16582, 273, 'shelf', 'CRDHLDR_SRC_TRX_CURRENCY_EXPONENT', 0, 2080, 160, 170, 40, 40, 0, NULL, '', NULL, 'msg[number++]' );
+INSERT INTO items VALUES( 16583, 266, 'if', 'PR_NOK == result', 0, 2180, 590, 90, 20, 70, 1, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16584, 266, 'vertical', '', 0, 2340, 590, 0, 320, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 16585, 266, 'address', 'Bail', 0, 2340, 860, 50, 30, 60, 0, NULL, NULL, NULL, NULL );
 CREATE TABLE diagram_info
 (
 	diagram_id integer,

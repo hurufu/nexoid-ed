@@ -21,6 +21,6 @@ struct Extracted_Tl {
  *  correct. Members `size` and `cursor` are always set to some meaningfull
  *  values even in case of an error.
  */
-struct Extracted_Tl Extract_Tag_And_Length_Pair(size_t size, const uint8_t cursor[size]);
+struct Extracted_Tl Extract_Tag_And_Length_Pair(size_t size, const uint8_t cursor[]);
 
 enum ProcedureResult Append_Dol_Entry(size_t Length, uint8_t Dol[Length], union TagExpanded tag, size_t length);

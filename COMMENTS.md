@@ -301,6 +301,15 @@ In spec procedure `Process_Cvm_Condition_Code` can not return Nok, but it has
 Nok branch. Compare: nexo-FAST v.3.2, figure 169 and nexo-FAST v.3.2, figure
 170~171.
 
+# Comments ot Nexo IS TC v4.0.19
+
+## POI.USE.PAY.MAN.P.01100 - Part 01a Rev. 1
+
+Test mentions that amount for manual entry transaction should be less then
+**_Terminal Floor Limit_** (`9F1B`), but nexo-FAST never checks this parameter
+for Kernel M. Wording is misleading and may lead to a false assumumption that
+this parameter is somehow relevant for Manual Entry.
+
 # Comments to myself (todo)
 
   * item 11668 - remove

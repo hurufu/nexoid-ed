@@ -175,7 +175,7 @@ GITINSPECTOR  = $(TIME) $(call assert_cmd,gitinspector)
 CHECKMK       = $(TIME) $(call assert_cmd,checkmk)
 
 # Targets that do not need *.d dependencies for source files
-NOT_DEP      := clean asm pp wipe update build-release build-debug all_combinations
+NOT_DEP      := clean asm pp wipe update build-release build-debug all_combinations all_compilers compiler-clang compiler-gcc
 
 ifdef PROFILE_BUILD
 .PHONY: profile_build profile_build_pdb profile_build_yaml
@@ -188,13 +188,16 @@ profile_build_json: profiling_build.jq all
 	$(JQ) -s '$(strip $(file <$<))' $(TIME_RESULT)
 endif
 
-.PHONY: all clean asm pp index update static shared test build-% all_combinations most_frequent
+.PHONY: all clean asm pp index update static shared test build-% all_combinations most_frequent all_compilers compiler-%
 most_frequent: all install test
 all: shared static index .syntastic_c_config
 all_combinations: build-release build-debug
+all_compilers: compiler-gcc compiler-clang
 build-%: FEATURES := $(addsuffix =y,$(if $(findstring gcc,$(CC)),USE_GCC_ANALYZER USE_LTO,) USE_CLANG_FORMAT USE_CCACHE USE_COLOR)
 build-%: | build/$(lastword $(CC))/%/
-	+env $(FEATURES) $(MAKE) -O -C $| -f ../../../$(MAKEFILE) $(if $(findstring debug,$*),OL=g DL=gdb3,OL=3 DL=0) shared test
+	+env $(FEATURES) $(MAKE) -C $| -f ../../../$(MAKEFILE) $(if $(findstring debug,$*),OL=g DL=gdb3,OL=3 DL=0) shared test
+compiler-%:
+	+$(MAKE) CC=$* all_combinations
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 index: $(CSCOPE_REF)

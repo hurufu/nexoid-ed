@@ -192,14 +192,9 @@ endif
 most_frequent: all install test
 all: shared static index .syntastic_c_config
 all_combinations: build-release build-debug
-build-%: | build/%/
-	+env\
-		USE_LTO=y\
-		USE_GCC_ANALYZER=y\
-		USE_CLANG_FORMAT=y\
-		USE_CCACHE=y\
-		USE_COLOR=y\
-		$(MAKE) -O -C $| -f ../../$(MAKEFILE) $(if $(findstring debug,$*),OL=g DL=gdb3,OL=3 DL=0) shared test
+build-%: FEATURES := $(addsuffix =y,$(if $(findstring gcc,$(CC)),USE_GCC_ANALYZER USE_LTO,) USE_CLANG_FORMAT USE_CCACHE USE_COLOR)
+build-%: | build/$(lastword $(CC))/%/
+	+env $(FEATURES) $(MAKE) -O -C $| -f ../../../$(MAKEFILE) $(if $(findstring debug,$*),OL=g DL=gdb3,OL=3 DL=0) shared test
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 index: $(CSCOPE_REF)

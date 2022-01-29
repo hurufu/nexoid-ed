@@ -175,7 +175,7 @@ GITINSPECTOR  = $(TIME) $(call assert_cmd,gitinspector)
 CHECKMK       = $(TIME) $(call assert_cmd,checkmk)
 
 # Targets that do not need *.d dependencies for source files
-NOT_DEP      := clean asm pp wipe update
+NOT_DEP      := clean asm pp wipe update build-release build-debug all_combinations
 
 ifdef PROFILE_BUILD
 .PHONY: profile_build profile_build_pdb profile_build_yaml
@@ -188,9 +188,18 @@ profile_build_json: profiling_build.jq all
 	$(JQ) -s '$(strip $(file <$<))' $(TIME_RESULT)
 endif
 
-.PHONY: all clean asm pp index update static shared test
+.PHONY: all clean asm pp index update static shared test build-% all_combinations most_frequent
 most_frequent: all install test
 all: shared static index .syntastic_c_config
+all_combinations: build-release build-debug
+build-%: | build/%/
+	+env\
+		USE_LTO=y\
+		USE_GCC_ANALYZER=y\
+		USE_CLANG_FORMAT=y\
+		USE_CCACHE=y\
+		USE_COLOR=y\
+		$(MAKE) -O -C $| -f ../../$(MAKEFILE) $(if $(findstring debug,$*),OL=g DL=gdb3,OL=3 DL=0) shared test
 asm: $(SOURCES:.c=.s)
 pp: $(SOURCES:.c=.i)
 index: $(CSCOPE_REF)
@@ -247,7 +256,7 @@ uninstall:
 	$(if $(strip $F),$(RM) -f -- $F,)
 	$(if $(strip $D),rmdir -- $D,)
 
-.PRECIOUS: %.c %.h %.drn
+.PRECIOUS: %.c %.h %.drn %/
 %.c %.h: %.drn
 	$(DRAKON_GEN) -in $<
 	$(CLANG_FORMAT) -i $*.c $*.h
@@ -324,3 +333,6 @@ inspect: $(GITINSPECTOR_FILE)
 clean: F += $(wildcard $(GITINSPECTOR_FILE))
 $(GITINSPECTOR_FILE):
 	$(GITINSPECTOR) -HmTr -F $(GITINSPECTOR_FORMAT) >$@
+
+%/:
+	mkdir -p -- $@

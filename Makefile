@@ -97,6 +97,7 @@ _CFLAGS      += $(addprefix -f,$(GCC_FEATURES))
 _CFLAGS      += -march=native -mtune=native
 CFLAGS       ?= $(_CFLAGS)
 CFLAGS       += -std=$(STD)
+CFLAGS       += -fanalyzer
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 LDFLAGS      ?= $(addprefix -f,$(LD_FEATURES))
 LDFLAGS      += -pthread

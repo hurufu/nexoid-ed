@@ -59,13 +59,11 @@ OL           := 0
 DL           := gdb3
 STD          := gnu11
 WARNINGS     := all extra
-WARNINGS     += $(if $(USE_GCC_ANALYZER),analyzer-too-complex,)
 DESTDIR      :=
 PREFIX       := /usr/local
 INSTALL_DIR  := $(shell echo $(DESTDIR)/$(PREFIX) | sed -E 's:/+:/:' )
-GCC_FEATURES := $(if $(filter trace,$(MAKECMDGOALS)),instrument-functions,)
+GCC_FEATURES := instrument-functions
 GCC_FEATURES += $(if $(USE_COLOR),diagnostics-color=always,)
-GCC_FEATURES += $(if $(USE_GCC_ANALYZER),analyzer $(if $(USE_GCC_ANALYZER_TAINT),analyzer-checker=taint,))
 GCC_FEATURES += no-plt
 GCC_FEATURES += $(if $(USE_LTO),lto,)
 LD_FEATURES  := $(if $(USE_LTO),lto use-linker-plugin)
@@ -94,10 +92,8 @@ UT_LDFLAGS           := -Wl,--unresolved-symbols=ignore-in-object-files -pthread
 CPPFLAGS     += -pthread
 _CFLAGS      := -O$(OL) $(addprefix -W,$(WARNINGS)) -g$(DL)
 _CFLAGS      += $(addprefix -f,$(GCC_FEATURES))
-_CFLAGS      += -march=native -mtune=native
 CFLAGS       ?= $(_CFLAGS)
 CFLAGS       += -std=$(STD)
-CFLAGS       += -fanalyzer
 LDLIBS       := $(addprefix -l,$(LIBRARIES))
 LDFLAGS      ?= $(addprefix -f,$(LD_FEATURES))
 LDFLAGS      += -pthread
@@ -194,7 +190,7 @@ most_frequent: all install test
 all: shared static index .syntastic_c_config
 all_combinations: build-release build-debug
 all_compilers: compiler-gcc compiler-clang
-build-%: FEATURES := $(addsuffix =y,$(if $(findstring gcc,$(CC)),USE_GCC_ANALYZER USE_LTO,) USE_CLANG_FORMAT USE_CCACHE USE_COLOR)
+build-%: FEATURES := $(addsuffix =y,$(if $(findstring gcc,$(CC)), USE_LTO,) USE_CLANG_FORMAT USE_CCACHE USE_COLOR)
 build-%: | build/$(lastword $(CC))/%/
 	+env $(FEATURES) $(MAKE) -C $| -f ../../../$(MAKEFILE) $(if $(findstring debug,$*),OL=g DL=gdb3,OL=3 DL=0) shared test
 compiler-%:

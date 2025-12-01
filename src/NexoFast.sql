@@ -90,7 +90,7 @@ INSERT INTO diagrams VALUES( 122, 'Exception_File_Checking', '-184 176', NULL, 1
 INSERT INTO diagrams VALUES( 123, 'Prepare_Cardholder_Confirmation_Check', '-120 -8', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 125, 'Check_Minimal_Response_Tags', '138 132', NULL, 100.0 );
 INSERT INTO diagrams VALUES( 126, 'Card_Removal_Process_Separate_Readers', '0 30', '', 100.0 );
-INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '300 120', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
+INSERT INTO diagrams VALUES( 129, 'Technology_Selection_Separate_Readers', '2900 -380', 'TODO: Consider refactoring Technology Selection into smaller self-contained procedures. Try to avoid messed-up diagrams as in nexo-FAST.', 100.0 );
 INSERT INTO diagrams VALUES( 132, 'Build_Candidate_List_Using_Pse', '1565 -114', 'TODO: Build Candidate List using PSE isn''t fully implemented', 100.0 );
 INSERT INTO diagrams VALUES( 133, 'Build_Candidate_List_Using_List_Of_Aid', '4577 -344', 'TODO: This function isn''t fully implemented, avoid using it. It doesn''t report some errors and application may crash afterwards.', 100.0 );
 INSERT INTO diagrams VALUES( 134, 'Final_Selection_For_Emv_Chip', '5605 -234', NULL, 100.0 );
@@ -279,7 +279,7 @@ CREATE TABLE state
 	current_dia integer,
 	description text
 );
-INSERT INTO state VALUES( 1, 266, unistr('=== h_header ===\u000a#include "types.h"\u000a\u000a=== c_header ===\u000a#include "nexo.h"') );
+INSERT INTO state VALUES( 1, 129, unistr('=== h_header ===\u000a#include "types.h"\u000a\u000a=== c_header ===\u000a#include "nexo.h"') );
 CREATE TABLE items
 (
 	item_id integer primary key,
@@ -2806,8 +2806,8 @@ INSERT INTO items VALUES( 6095, 129, 'vertical', '', 0, 800, -960, 0, 1690, 0, 0
 INSERT INTO items VALUES( 6096, 129, 'vertical', '', 0, 12700, -960, 0, 1490, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6097, 129, 'horizontal', '', 0, 470, -960, 12230, 0, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6098, 129, 'arrow', '', 0, 320, -960, 150, 1690, 12180, 1, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6099, 129, 'branch', 'Local variables', 0, 470, -910, 130, 30, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6100, 129, 'address', 'Initial Processing', 0, 470, 680, 130, 30, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6099, 129, 'branch', 'Local variables', 0, 470, -910, 120, 30, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 6100, 129, 'address', 'Initial Processing', 0, 470, 680, 120, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6101, 129, 'branch', 'Initial Processing', 0, 800, -910, 180, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6102, 129, 'branch', 'End', 0, 12700, -910, 70, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6103, 129, 'address', 'Wait for Event', 0, 800, 680, 180, 30, 60, 0, NULL, '', NULL, '' );
@@ -2815,7 +2815,7 @@ INSERT INTO items VALUES( 6104, 129, 'horizontal', '', 0, 460, -1000, 200, 0, 0,
 INSERT INTO items VALUES( 6105, 129, 'action', 'returns enum ProcedureResult', 0, 790, -1000, 130, 20, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6106, 129, 'action', 'return result;', 0, 12700, 480, 70, 20, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6107, 129, 'insertion', unistr('result =\u000aTechnology_Selection_Initial_Processing();'), 0, 800, -50, 180, 30, 60, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6108, 129, 'shelf', 'PR_UNINITIALISED', 0, 470, 360, 130, 40, 40, 0, NULL, '', NULL, 'enum ProcedureResult result' );
+INSERT INTO items VALUES( 6108, 129, 'shelf', 'PR_UNINITIALISED', 0, 470, 360, 120, 40, 40, 0, NULL, '', NULL, 'enum ProcedureResult result' );
 INSERT INTO items VALUES( 6109, 129, 'select', 'result', 0, 800, 20, 180, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6110, 129, 'horizontal', '', 0, 800, 60, 1880, 0, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6111, 129, 'case', 'PR_RETRY_AFTER_CONTACTLESS', 0, 800, 100, 180, 20, 60, 0, NULL, '', NULL, '' );
@@ -2897,7 +2897,7 @@ INSERT INTO items VALUES( 6186, 129, 'if', unistr('result\u000a==\u000aPR_NEW_EV
 INSERT INTO items VALUES( 6187, 129, 'vertical', '', 0, 6250, 90, 0, 540, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6188, 129, 'address', 'Bailout', 0, 6180, 680, 50, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6189, 129, 'horizontal', '', 0, 6180, 630, 70, 0, 0, 0, NULL, '', NULL, '' );
-INSERT INTO items VALUES( 6191, 129, 'shelf', 'E_NONE', 0, 470, 460, 130, 40, 40, 0, NULL, '', NULL, 'enum IdleEvent event' );
+INSERT INTO items VALUES( 6191, 129, 'shelf', 'E_NONE', 0, 470, 460, 120, 40, 40, 0, NULL, '', NULL, 'enum IdleEvent event' );
 INSERT INTO items VALUES( 6192, 129, 'case', 'E_MANUAL_ENTRY', 0, 4520, 330, 110, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6193, 129, 'vertical', '', 0, 4520, 290, 0, 440, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 6194, 129, 'address', 'Ok', 0, 4520, 680, 110, 30, 60, 0, NULL, '', NULL, '' );
@@ -6143,8 +6143,8 @@ INSERT INTO items VALUES( 10994, 234, 'beginend', 'Scap_Event_Handling', 0, 350,
 INSERT INTO items VALUES( 10995, 234, 'beginend', 'End', 0, 350, 610, 50, 20, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 10996, 234, 'vertical', NULL, 0, 350, 50, 0, 540, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 10997, 234, 'horizontal', NULL, 0, 350, 30, 240, 0, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 10998, 234, 'action', 'returns enum ProcedureResult', 0, 590, 30, 130, 20, 0, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 10999, 234, 'input', unistr('const enum ScapiResult scapi_result =\u000ascapi_Wait_For_Event();'), 0, 350, 180, 170, 50, 40, 0, NULL, '', NULL, 'SCAP' );
+INSERT INTO items VALUES( 10998, 234, 'action', unistr('bool isIdle\u000areturns enum ProcedureResult'), 0, 590, 30, 130, 30, 0, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 10999, 234, 'input', unistr('const enum ScapiResult scapi_result =\u000ascapi_Wait_For_Event(isIdle);'), 0, 350, 180, 170, 50, 40, 0, NULL, '', NULL, 'SCAP' );
 INSERT INTO items VALUES( 11000, 234, 'select', 'scapi_result', 0, 350, 270, 170, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 11001, 234, 'horizontal', '', 0, 350, 310, 450, 0, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 11002, 234, 'case', 'SCAPI_NEW_EVENT', 0, 350, 350, 170, 20, 60, 0, NULL, '', NULL, '' );
@@ -6158,7 +6158,7 @@ INSERT INTO items VALUES( 11009, 234, 'action', 'enum ProcedureResult result;', 
 INSERT INTO items VALUES( 11010, 234, 'shelf', 'PR_NOK', 0, 590, 440, 50, 40, 40, 0, NULL, '', NULL, 'result' );
 INSERT INTO items VALUES( 11011, 234, 'shelf', 'PR_NEW_EVENT', 0, 350, 440, 170, 40, 40, 0, NULL, '', NULL, 'result' );
 INSERT INTO items VALUES( 11012, 234, 'shelf', 'Interface_Contract_Violation();', 0, 800, 440, 140, 40, 40, 0, NULL, '', NULL, 'result' );
-INSERT INTO items VALUES( 11013, 233, 'insertion', unistr('result =\u000aScap_Event_Handling();'), 0, 990, -40, 130, 30, 60, 0, NULL, NULL, NULL, NULL );
+INSERT INTO items VALUES( 11013, 233, 'insertion', unistr('result =\u000aScap_Event_Handling(true);'), 0, 990, -40, 130, 30, 60, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 11014, 233, 'if', 'PR_NEW_EVENT == result', 0, 990, 30, 130, 20, 20, 1, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 11015, 233, 'vertical', '', 0, 1140, 30, 0, 120, 0, 0, NULL, NULL, NULL, NULL );
 INSERT INTO items VALUES( 11018, 232, 'insertion', unistr('result =\u000aIdle_Event_Processing();'), 0, 1810, 190, 150, 30, 60, 0, NULL, NULL, NULL, NULL );
@@ -6219,7 +6219,7 @@ INSERT INTO items VALUES( 11095, 232, 'insertion', unistr('result =\u000aPerform
 INSERT INTO items VALUES( 11096, 232, 'if', 'PR_OK == result', 0, 4180, 430, 200, 20, 80, 1, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 11097, 232, 'vertical', '', 0, 4460, 430, 0, 280, 0, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 11098, 232, 'address', unistr('Diagnostics\u000aMaintenance\u000aRecovery'), 0, 4460, 640, 60, 50, 60, 0, NULL, NULL, NULL, NULL );
-INSERT INTO items VALUES( 11099, 129, 'insertion', unistr('result =\u000aScap_Event_Handling();'), 0, 3270, -10, 120, 30, 60, 0, NULL, '', NULL, '' );
+INSERT INTO items VALUES( 11099, 129, 'insertion', unistr('result =\u000aScap_Event_Handling(false);'), 0, 3270, -10, 120, 30, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 11100, 238, 'beginend', 'Financial_Application_Startup', 0, 410, -780, 130, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 11101, 238, 'beginend', 'End', 0, 410, 720, 50, 20, 60, 0, NULL, '', NULL, '' );
 INSERT INTO items VALUES( 11102, 238, 'vertical', '', 0, 410, -760, 0, 1460, 0, 0, NULL, '', NULL, '' );

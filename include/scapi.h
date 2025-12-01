@@ -19,7 +19,7 @@ enum ScapiResult {
   , SCAPI_NEW_EVENT
 };
 
-/* Blocks until an event from SCAP is received
+/** Blocks until an event from SCAP is received.
  *
  * This is the most complex function to implement, consider some simplifications.
  *
@@ -64,9 +64,14 @@ enum ScapiResult {
  * E_TERMINATION_REQUESTED:
  *   ~ nothing
  *
+ * @param isIdle This function can be called either in idle or in tech-selection this flags indicated that.
  * @returns SCAPI_NEW_EVENT if new event was received, or SCAPI_NOK if an error occured.
+ *
+ * @todo It isn't a good idea to introduce isIdle parameter, find a way to work
+ *       without it. Currently the only use is to set different timeout – very
+ *       long in idle, and quite short in tech. selection.
  */
-enum ScapiResult scapi_Wait_For_Event(void) NOEXCEPT;
+enum ScapiResult scapi_Wait_For_Event(bool isIdle) NOEXCEPT;
 
 enum ScapiResult scapi_Update_Interfaces(enum InterfaceStatus) NOEXCEPT;
 

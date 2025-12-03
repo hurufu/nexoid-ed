@@ -32,6 +32,9 @@ enum PklrResult {
 };
 
 struct PklrConfiguration {
+    /** Enable for proprietary L2 Build Candidate List procedure for both
+     *  contact and contactless EMV.
+     */
     bool buildCandidateList;
 };
 
@@ -43,7 +46,7 @@ extern struct PklrConfiguration pklr;
 
 /** Redirect to API that will perform Building of Candidate List as specified
  *  in EMV Book 1 section 12, after which Final Application will be performed
- *  be nexoid.
+ *  by nexoid.
  *
  *  @return PKLR_OK on success or PKLR_NOK on any error
  *
@@ -51,13 +54,9 @@ extern struct PklrConfiguration pklr;
  *  and will cause immediate shift of nexo application into maintenance mode
  *  or its termination
  *
- *  If it is desirable to use nexoid L2 kernel, implementation may look as
- *  simple as this:
+ *  Must set nokReason correctly in case of error.
  *
- *      enum PklrResult pklr_Build_Candidate_List(void) {
- *          return Build_Candidate_List();
- *      }
- *
+ *  If it is desirable to use nexoid L2 kernel just unset pklr.buildCandidateList.
  *  Or in case of a proprietary EMV L2 API, the implementation may consist of
  *  the following steps:
  *
@@ -70,6 +69,15 @@ extern struct PklrConfiguration pklr;
  *      }
  */
 enum PklrResult pklr_Build_Candidate_List(void);
+
+/** Redirect to API that will perform building of candidate list using PPSE.
+ *
+ *  It is described in EMV Book B section 3.3.2, after which Final Application
+ *  will be selected by nexoid.
+ *
+ *  @return PKLR_OK on success or PKLR_NOK on any error
+ */
+enum PklrResult pklr_Build_Candidate_List_Ctless(void);
 
 /**  Redirect to API that will complete EMV transaction
  *

@@ -78,6 +78,7 @@ DLLSTUB enum PapiCvmResult papi_Proprietary_Cvm_Condition_Code_Processing(struct
 DLLSTUB enum PapiCvmResult papi_Proprietary_Cvm_Support_Check(struct CvRule cvRule UNUSED) NOEXCEPT { stub_impl(); }
 
 DLLSTUB enum PklrResult pklr_Build_Candidate_List(void) { stub_impl(); }
+DLLSTUB enum PklrResult pklr_Build_Candidate_List_Ctless(void) { stub_impl(); }
 DLLSTUB enum PklrResult pklr_Emv_Completion(void) { stub_impl(); }
 DLLSTUB enum PklrResult pklr_Kernel_E_Processing(void) { stub_impl(); }
 DLLSTUB enum PklrResult pklr_Process_Read_Record(uint8_t p1 UNUSED, uint8_t p2 UNUSED) { stub_impl(); }
@@ -90,7 +91,7 @@ DLLSTUB enum PklrResult pklr_Second_Generate_Ac_Processing(uint8_t p1 UNUSED) { 
 DLLSTUB enum ScapiResult randapi_Generate_Random_Number(uint8_t upperLimit UNUSED, uint8_t* randomNumber UNUSED) NOEXCEPT { stub_impl(); }
 DLLSTUB enum ScapiResult randapi_Generate_Random_Bytes(size_t size UNUSED, uint8_t randomBytes[N(size)] UNUSED) NOEXCEPT { stub_impl(); }
 
-DLLSTUB enum ScapiResult scapi_Wait_For_Event(void) NOEXCEPT { stub_impl(); }
+DLLSTUB enum ScapiResult scapi_Wait_For_Event(bool x) NOEXCEPT { stub_impl(); }
 DLLSTUB enum ScapiResult scapi_Update_Interfaces(enum InterfaceStatus x UNUSED) NOEXCEPT { stub_impl(); }
 DLLSTUB enum ScapiResult scapi_Data_Output_Interaction(size_t size UNUSED, const enum CardholderMessage msg[N(size)] UNUSED) NOEXCEPT { stub_impl(); }
 DLLSTUB enum ScapiResult scapi_Data_Print_Interaction(enum PrintMessage x UNUSED) NOEXCEPT { stub_impl(); }

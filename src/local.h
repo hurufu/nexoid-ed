@@ -3,6 +3,7 @@
 #include "types.h"
 #include <string.h>
 
+// TODO: Consider removal
 struct ServiceInitialisation {
     bool SecurityPermission;
 };

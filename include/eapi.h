@@ -28,6 +28,8 @@ enum EapiResult eapi_Reset_Chip(void);
 
 enum EapiResult eapi_Select_Pse(void);
 
+enum EapiResult eapi_Select_Ppse(void) WEAK;
+
 /**
  *  Should set `cr` to card response if received.
  */

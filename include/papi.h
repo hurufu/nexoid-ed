@@ -84,6 +84,15 @@ void papi_Force_Termination(void) NOEXCEPT;
  */
 enum PapiResult papi_Specific_Processing_Based_On_Pan(void) NOEXCEPT;
 
+/* Performs an unspecified process during Final Application Selection for Contactless.
+ *
+ * @return PAPI_DONE or PAPI_NOK, any other value is an ICV. ttd.nokReason must
+ * be different from N_NONE if function returns PAPI_NOK.
+ *
+ * nexo-FAST v.3.3, figure 165
+ */
+enum PapiResult papi_Specific_Processing_Based_On_Fci(void) NOEXCEPT;
+
 /* Classifies CVM Condition Codes in range 0x80~0xFF
  *
  * @return PAPI_CVM_APPLICABLE if CV rule applies, or PAPI_CVM_NOT_APPLICABLE

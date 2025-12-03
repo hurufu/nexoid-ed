@@ -1929,6 +1929,8 @@ union EeaProcessSettings {
         unsigned char upfrontButtonOnScreenSupported: 1;
         uint8_t offerOverride: 1; // [1,6]
         uint8_t doNotOfferOverrideWhenOnlyOneEntry: 1; // [1,5]
+        uint8_t offerWhenUpfrontButtonIsntSupported: 1; // [1,4]
+        uint8_t offerWhenCandidateListContainsOneEntry: 1; // [1,3]
     };
 };
 

@@ -3,6 +3,7 @@
 #include "macro.h"
 
 #define PACKED __attribute__(( __packed__ ))
+#define WEAK __attribute__(( __weak__ ))
 
 #define elementsof(Array) (sizeof(Array)/sizeof((Array)[0]))
 

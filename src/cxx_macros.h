@@ -12,15 +12,13 @@
 
 #ifdef __cplusplus
 #   define STDINT_H <cstdint>
-#   define STDBOOL_H <cstdbool>
 #   define STDDEF_H <cstddef>
-#   define STDALIGN_H <cstdalign>
 #   define ASSERT_H <cassert>
 #else
 #   define STDINT_H <stdint.h>
-#   define STDBOOL_H <stdbool.h>
+#   include <stdbool.h>
 #   define STDDEF_H <stddef.h>
-#   define STDALIGN_H <stdalign.h>
+#   include <stdalign.h>
 #   define ASSERT_H <assert.h>
 #endif
 

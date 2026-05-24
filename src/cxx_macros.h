@@ -11,6 +11,10 @@
 #endif
 
 #ifdef __cplusplus
+#   if __cplusplus < 201703L
+#       define STDBOOL_H <cstdbool>
+#       define STDALIGN_H <cstdalign>
+#   endif
 #   define STDINT_H <cstdint>
 #   define STDDEF_H <cstddef>
 #   define ASSERT_H <cassert>

@@ -4,7 +4,13 @@
 #include "cxx_macros.h"
 #include "utils.h"
 #include STDINT_H
-#include <stddef.h>
+#ifdef STDBOOL_H
+#    include STDBOOL_H
+#endif
+#include STDDEF_H
+#ifdef STDALIGN_H
+#    include STDALIGN_H
+#endif
 #include ASSERT_H
 
 #define MAX_CARDHOLDER_MESSAGES (6)

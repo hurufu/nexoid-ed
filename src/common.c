@@ -193,3 +193,8 @@ int bcd6_add(const union bcd6 a, const union bcd6 b, union bcd6* const c) {
     // TODO: Implement bcd_add function
     return 0;
 }
+
+int bcd6_subtract(const union bcd6 a, const union bcd6 b, union bcd6* const c) {
+    // TODO: Implement bcd6_subtract
+    return 0;
+}

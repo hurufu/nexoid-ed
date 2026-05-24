@@ -3254,6 +3254,7 @@ struct TerminalTransactionData {
     uint32_t amountAuthorisedBinary;
     union bcd6 cashbackAmount;
     union bcd6 supplementaryAmount;
+    union bcd6 amountLeftToBePaid;
     bool supplementaryAmountConfirmed;
     bool transactionAmountEntered;
     bool cardholderRequestedChoiceOfApplication;
